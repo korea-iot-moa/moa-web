@@ -32,7 +32,7 @@ export default function SignUp() {
           <label htmlFor="userId" css={s.label}>아이디</label>
           <div css={s.validBox} >
           <input css={s.validInput} type="text" value={userId} id="userId"/>
-          <button css={s.validBtn}>중복</button>
+          <button css={s.validBtn}>중복 확인</button>
           </div>
         </div>
         <div css={s.inputBox}>
@@ -53,7 +53,10 @@ export default function SignUp() {
         </div>
         <div css={s.inputBox}>
           <label htmlFor="nickName" css={s.label}>닉네임</label>
-          <input css={s.input} type="text" value={nickName} id="nickName" />
+          <div css={s.validBox} >
+          <input css={s.validInput} type="text" value={nickName} id="userId"/>
+          <button css={s.validBtn}>중복 확인</button>
+          </div>
         </div>
         
         

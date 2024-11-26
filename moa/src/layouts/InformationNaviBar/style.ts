@@ -1,86 +1,75 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const infoNaviBar = css`
-  height: 100vh;
-  width: 30%;
+  box-sizing: border-box;
+  padding: 10px;
+  height: 70px;
+  width: 100%;
   overflow: hidden;
-  background-color: #CFCFCF;
-  border-top-right-radius: 15px;
+  background-color: #cfcfcf;
+  border-radius: 0px 10px 0px 0px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  min-width: 250px;
 `;
 
 export const userInfoBox = css`
-  width: 70%;
-  height: 30%;
-  border-radius: 15px;
-  background-color: white;
+  box-sizing: border-box;
+  padding: 10px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  min-height: 200px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 `;
 
 export const userImgBox = css`
-  margin: 20px 0;
-  width: 65%;
-  height: 60%;
-  background-color: #CFCFCF;
-  border-radius: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-right: 10px;
+  border: 2px solid #dbdbdb;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const userImg = css`
   width: 100%;
-  height: 100%;
 `;
 
 export const userNameBox = css`
-  width: 65%;
-  height: 15%;
-  border-radius: 5px;
-  background-color: #4A4848;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  color: #fff;
+  color: #222222;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 600;
 `;
 
 export const naviBox = css`
-  margin: 30px 0;
-  width: 70%;
-  height: 30%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   align-items: center;
 `;
 
 export const naviDiv = css`
+  box-sizing: border-box;
+  flex-grow: 1;
   padding: 10px;
-  width: 70%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  min-width: 150px;
   border-radius: 10px;
   cursor: pointer;
   &:hover {
-    background-color: #C6C6C6;
+    background-color: #c6c6c6;
   }
-`
+`;
 
 export const fontSt = css`
   margin: 0;
   margin-left: 15px;
   font-weight: 700;
-  color: #0A3140;
+  color: #0a3140;
   font-size: 16px;
 `;

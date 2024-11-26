@@ -1,24 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
-import * as s from './style';
-import * as logo from '../../../styles/LogoStyle';
-import logoImg from '../../../images/moaLogo.png';
-import { useNavigate } from 'react-router-dom';
-import naver from '../../../images/naver.png';
-import kakao from '../../../images/kakao.png';
-import axios from 'axios';
-import { SignInResponseDto } from '../../../types';
-import { useCookies } from 'react-cookie';
-import userAuthStore from '../../../stores/auth.store';
+import React, { useState } from "react";
+import * as s from "./style";
+import * as logo from "../../../styles/LogoStyle";
+import logoImg from "../../../images/moaLogo.png";
+import { useNavigate } from "react-router-dom";
+import naver from "../../../images/naver.png";
+import kakao from "../../../images/kakao.png";
+import axios from "axios";
+import { SignInResponseDto } from "../../../types";
+import { useCookies } from "react-cookie";
+import userAuthStore from "../../../stores/auth.store";
 
 export default function SignIn() {
-  const [userId, setUserId] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [userId, setUserId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [idError, setIdError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
-  const [, setCookies] = useCookies(['token']);
-  const { login } = userAuthStore(); 
+  const [, setCookies] = useCookies(["token"]);
+  const { login } = userAuthStore();
 
   const navigate = useNavigate();
 
@@ -40,42 +40,44 @@ export default function SignIn() {
     }
   };
 
-  const handleSignIn = async(e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const idRegex = /^[a-zA-Z0-9]{8,14}$/;
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,16}$/;
-
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,16}$/;
 
     // 유효성 검증
     if (!userId.trim()) {
       setIdError(true);
-    }else if (!idRegex.test(userId)) {
+    } else if (!idRegex.test(userId)) {
       setIdError(true);
     }
 
     if (!password.trim()) {
       setPasswordError(true);
-    }else if(!passwordRegex.test(password)) {
+    } else if (!passwordRegex.test(password)) {
       setPasswordError(true);
     }
 
-    if(userId && password && !idError && !passwordError) {
-      try{
+    if (userId && password && !idError && !passwordError) {
+      try {
         const signinData = {
           userId,
-          password
+          password,
         };
 
-        const response = await axios.post(`http://localhost:8080/api/v1/auth/login`, signinData)
+        const response = await axios.post(
+          `http://localhost:8080/api/v1/auth/login`,
+          signinData
+        );
 
-        if(response.data) {
+        if (response.data) {
           signInSuccessResponse(response.data.data);
         }
 
-        navigate('/');
-
-      }catch(error) {
+        navigate("/");
+      } catch (error) {
         console.error(error);
       }
     }
@@ -83,29 +85,28 @@ export default function SignIn() {
 
   const setToken = (token: string, exprTime: number) => {
     const expires = new Date(Date.now() + exprTime);
-    setCookies('token', token, {
-      path: '/',
-      expires
+    setCookies("token", token, {
+      path: "/",
+      expires,
     });
-  }
+  };
 
   const signInSuccessResponse = (data: SignInResponseDto) => {
-    if(data) {
-      const {token, exprTime, user} = data;
+    if (data) {
+      const { token, exprTime, user } = data;
       setToken(token, exprTime);
       login({
-        user: user
+        user: user,
       });
-
     }
-  }
+  };
 
   const navigator = useNavigate();
 
   return (
     <div css={s.fullBox}>
       <div css={s.innerBox}>
-        <div css={logo.logoBox} onClick={() => navigate('/')}>
+        <div css={logo.logoBox} onClick={() => navigate("/")}>
           <img src={logoImg} alt="로고" css={logo.logo} />
         </div>
       </div>
@@ -127,8 +128,16 @@ export default function SignIn() {
         />
 
         {/* 에러 메시지 */}
-        {idError && <p css={s.errorMessage}>영문, 숫자 8 ~ 14자 아이디를 입력 해 주세요</p>}
-        {passwordError && <p css={s.errorMessage}>영문, 숫자, 특수기호 8~16자 비밀번호를 입력 해 주세요</p>}
+        {idError && (
+          <p css={s.errorMessage}>
+            영문, 숫자 8 ~ 14자 아이디를 입력 해 주세요
+          </p>
+        )}
+        {passwordError && (
+          <p css={s.errorMessage}>
+            영문, 숫자, 특수기호 8~16자 비밀번호를 입력 해 주세요
+          </p>
+        )}
 
         <button css={s.signInBtn} onClick={handleSignIn}>
           로그인
@@ -149,7 +158,7 @@ export default function SignIn() {
         </div>
       </div>
 
-      <div css={s.innerBox}>
+      {/* <div css={s.innerBox}>
         <div css={s.anotherSignIn}>
           <img src={kakao} alt="" css={s.img} />
         </div>
@@ -158,7 +167,7 @@ export default function SignIn() {
         <div css={s.anotherSignIn}>
           <img src={naver} alt="" css={s.img} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
