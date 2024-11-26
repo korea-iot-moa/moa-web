@@ -4,8 +4,6 @@ import * as s from "./style";
 import * as logo from "../../../styles/LogoStyle";
 import logoImg from "../../../images/moaLogo.png";
 import { useNavigate } from "react-router-dom";
-import naver from "../../../images/naver.png";
-import kakao from "../../../images/kakao.png";
 import axios from "axios";
 import { SignInResponseDto } from "../../../types";
 import { useCookies } from "react-cookie";
