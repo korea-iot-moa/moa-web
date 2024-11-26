@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const mainContainer = css`
   width: 100%;
@@ -6,5 +6,4 @@ export const mainContainer = css`
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  margin: 5px;
 `;

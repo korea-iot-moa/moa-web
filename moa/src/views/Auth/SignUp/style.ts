@@ -24,7 +24,6 @@ export const signUpBox = css`
   padding-bottom: 50px;
   margin: 5% 0; 
   background-color: #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const input = css`
@@ -80,11 +79,17 @@ export const validBtn = css`
   border-bottom-right-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 11px;
   color: #ff8833;
 
   &:hover{
-    /* background-color: #ddd; */
-    border: 2px solid #ff8833;
+    border: 1px solid #ff8833;
+    background-color: #ff8833;
+    color: #fff;
+    outline: none;
+  }
+  
+  &:focus, :active {
+    outline: none;
   }
 `;

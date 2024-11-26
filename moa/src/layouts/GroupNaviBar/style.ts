@@ -1,10 +1,13 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const naviBar = css`
-  height: 100vh;
+  box-sizing: border-box;
+  border-radius: 10px 0px 0px 10px;
+  height: 100%;
   width: 8%;
+  padding: 10px;
   overflow: hidden;
-  background-color: #FF8833;
+  background-color: #4b4b4b;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,11 +21,13 @@ export const logoImage = css`
 `;
 
 export const imageBox = css`
-  border-radius: 20%;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 10%;
   overflow: hidden;
   background-color: #fff;
-  padding: 10px; 
-  margin: 25px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,15 +35,24 @@ export const imageBox = css`
   cursor: pointer;
   transition: transform 0.3s ease;
 
+  & > img {
+    width: 100%;
+  }
+
+  & > h1 {
+    margin: 0;
+    font-size: 10px;
+  }
+
   &:hover {
     transform: scale(1.1);
   }
 `;
 
 export const line = css`
-  border: none;          
-  height: 1px;           
-  background-color: #CFCFCF; 
-  margin: 0; 
-  width: 80%;
+  border: none;
+  height: 1px;
+  background-color: #cfcfcf;
+  margin: 10px 0px;
+  width: 100%;
 `;
