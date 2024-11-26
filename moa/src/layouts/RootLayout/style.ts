@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const fullDiv = css`
   box-sizing: border-box;
   margin: 0;
-  padding: 50px 300px;
+  padding: 50px 250px;
   width: 100%;
   height: 100vh;
   display: flex;

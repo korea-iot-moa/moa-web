@@ -62,11 +62,11 @@ export const signInBtn = css`
   padding: 10px 5px 10px 5px;
   border-radius: 5px;
   border: none;
-  background-color: #ff8833;
+  background-color: #4b4b4b;
   color: #fff;
   cursor: pointer;
   &:hover {
-    background-color: #FF6433;
+    background-color: #1a1a1a;
   }
 `;
 
