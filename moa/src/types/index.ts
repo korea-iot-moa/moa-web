@@ -4,7 +4,15 @@ export interface BlackList {
   groupId: number;
 }
 
-export type GroupCategory = "취미" | "문화_예술" | "스포츠_운동" | "푸드_맛집" | "자기계발" | "여행" | "연애" | "힐링";
+export type GroupCategory =
+  | "취미"
+  | "문화_예술"
+  | "스포츠_운동"
+  | "푸드_맛집"
+  | "자기계발"
+  | "여행"
+  | "연애"
+  | "힐링";
 
 export type GroupTypeCategory = "단기모임" | "정기모임";
 
@@ -32,21 +40,21 @@ export interface Notice {
   noticeDate: Date;
 }
 
-// 추천 테이블 복합 키 id 
+// 추천 테이블 복합 키 id
 export interface RecommendationsId {
-  groupId: number; 
-  userId: string; 
+  groupId: number;
+  userId: string;
 }
 
 export interface Recommendation {
-  id: RecommendationsId; 
-  user: User;            
-  meetingGroup: MeetingGroup; 
+  id: RecommendationsId;
+  user: User;
+  meetingGroup: MeetingGroup;
 }
 
-export type ReportType = "욕설" | "사기" | "성추행" | "폭행" | "기타"
+export type ReportType = "욕설" | "사기" | "성추행" | "폭행" | "기타";
 
-export type ReportResult = "처리중" | "추방" | "유지"
+export type ReportResult = "처리중" | "추방" | "유지";
 
 export interface Report {
   reportId: number;
@@ -69,8 +77,28 @@ export interface Review {
 }
 
 export type Gender = "MALE" | "FEMALE";
-export type Hobby = "취미" | "문화_예술" | "스포츠_운동" | "푸드_맛집" | "자기계발" | "여행" | "연애" | "힐링";
-export type Region = "부산" | "대구" | "인천" | "광주" | "대전" | "울산" | "서울" | "제주" | "세종" | "경기" | "강원" | "충북" | "충남" | "전북" | "전남" | "경북" | "경남"
+export type Hobby = {
+  id: number;
+  hobbyName: string;
+};
+export type Region =
+  | "부산"
+  | "대구"
+  | "인천"
+  | "광주"
+  | "대전"
+  | "울산"
+  | "서울"
+  | "제주"
+  | "세종"
+  | "경기"
+  | "강원"
+  | "충북"
+  | "충남"
+  | "전북"
+  | "전남"
+  | "경북"
+  | "경남";
 
 export interface User {
   userId: string;
@@ -79,9 +107,9 @@ export interface User {
   userGender: Gender;
   userName: string;
   nickName: string;
-  hobbies: Hobby[];
-  profileImage: string;
-  region: Region
+  hobbies: Array<number>;
+  profileImage: any;
+  region: Region | null;
 }
 
 export interface UserAnswer {
@@ -94,11 +122,11 @@ export interface UserAnswer {
 }
 
 export interface UserListId {
-  groupId: number; 
-  userId: string; 
+  groupId: number;
+  userId: string;
 }
 
-type UserLevel = "관리자" | "우수회원" | "일반회원"
+type UserLevel = "관리자" | "우수회원" | "일반회원";
 
 export interface UserList {
   id: UserListId;
@@ -108,7 +136,7 @@ export interface UserList {
   joinDate: Date;
 }
 
-type VoteAnswer = "O" | "X"
+type VoteAnswer = "O" | "X";
 
 export interface VoteResult {
   voteResultId: number;
@@ -129,6 +157,6 @@ export interface Vote {
 
 export interface SignInResponseDto {
   token: string;
-  user: string;
+  user: User;
   exprTime: number;
 }

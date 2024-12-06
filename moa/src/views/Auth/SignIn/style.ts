@@ -27,7 +27,7 @@ export const topInput = (hasError: boolean) => css`
   border: 1px solid ${hasError ? "#E50914" : "#ccc"};
 
   &:focus {
-    outline: 1px solid #FF8833;
+    outline: none;
     border: 1px solid ${hasError ? "#E50914" : "#ccc"};
     z-index: 1;
     transition: border 0.5s ease;
@@ -46,7 +46,7 @@ export const bottomInput = (hasError: boolean) => css`
   margin-bottom: 10px;
 
   &:focus {
-    outline: 1px solid #FF8833;
+    outline: none;
     border-top: 1px solid ${hasError ? "#E50914" : "#fff"};;
     border: 1px solid ${hasError ? "#E50914" : "#ccc"};
     z-index: 1;
@@ -65,8 +65,10 @@ export const signInBtn = css`
   background-color: #4b4b4b;
   color: #fff;
   cursor: pointer;
-  &:hover {
+  &:hover, :active{
     background-color: #1a1a1a;
+    border: none;
+    outline: none;
   }
 `;
 
