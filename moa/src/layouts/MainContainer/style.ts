@@ -11,6 +11,7 @@ export const mainContainer = css`
   border-radius: 0px 0px 10px 0px;
   overflow-y: auto;
   overflow-x: hidden;
+  min-width: 765px;
 
   ::-webkit-scrollbar {
     display: none;

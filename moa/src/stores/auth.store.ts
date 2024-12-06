@@ -1,20 +1,35 @@
 import { create } from "zustand";
 
-interface AuthStoreType {
+interface UserState {
+  userId: string;
+  nickName: string;
+  profileImage: string | null;
   isAuthenticated: boolean;
-  user: { user: string } | null;
-
-  login: (user: { user: string }) => void;
+  login: (user: { userId: string; nickName: string; profileImage: string }) => void;
   logout: () => void;
 }
 
-const userAuthStore = create<AuthStoreType>((set) => ({
+const userAuthStore = create<UserState>((set) => ({
+  userId: "",
+  nickName: "",
+  profileImage: null,
   isAuthenticated: false,
-  user: null,
-  
-  login: (user) => set({ isAuthenticated: true, user }),
-  logout: () => set({ isAuthenticated: false, user: null })
-}));
 
+  login: (user) =>
+    set({
+      userId: user.userId,
+      nickName: user.nickName,
+      profileImage: user.profileImage,
+      isAuthenticated: true,
+    }),
+
+  logout: () =>
+    set({
+      userId: "",
+      nickName: "",
+      profileImage: "",
+      isAuthenticated: false,
+    }),
+}));
 
 export default userAuthStore;

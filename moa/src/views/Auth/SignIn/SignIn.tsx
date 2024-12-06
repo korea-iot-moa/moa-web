@@ -16,7 +16,6 @@ export default function SignIn() {
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
   const [, setCookies] = useCookies(["token"]);
-  const { login } = userAuthStore();
 
   const navigate = useNavigate();
 
@@ -38,7 +37,8 @@ export default function SignIn() {
     }
   };
 
-  const handleSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSignIn = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e instanceof KeyboardEvent && e.key !== "Enter") return;
     e.preventDefault();
 
     const idRegex = /^[a-zA-Z0-9]{8,14}$/;
@@ -93,9 +93,6 @@ export default function SignIn() {
     if (data) {
       const { token, exprTime, user } = data;
       setToken(token, exprTime);
-      login({
-        user: user,
-      });
     }
   };
 
@@ -109,7 +106,7 @@ export default function SignIn() {
         </div>
       </div>
 
-      <div css={s.innerBox}>
+      <form css={s.innerBox}>
         <input
           css={s.topInput(idError)}
           type="text"
@@ -140,7 +137,7 @@ export default function SignIn() {
         <button css={s.signInBtn} onClick={handleSignIn}>
           로그인
         </button>
-      </div>
+      </form>
 
       <div css={s.innerBox}>
         <div css={s.linkBox}>
