@@ -12,23 +12,20 @@ import userAuthStore from "../../stores/auth.store";
 import { useCookies } from "react-cookie";
 
 export default function InformationNaviBar() {
-
-  const {nickName, profileImage, isAuthenticated, logout} = userAuthStore();
-  const [cookies, setCookies] = useCookies(['token'])
+  const { nickName, profileImage, isAuthenticated, logout } = userAuthStore();
+  const [cookies, setCookies] = useCookies(["token"]);
 
   useEffect(() => {
-    if(!cookies.token) {
+    if (!cookies.token) {
       logout();
-    } 
-  },[cookies.token, logout])
+    }
+  }, [cookies.token, logout]);
 
   // 이벤트 핸들러
   const handleLogoutClick = () => {
-    setCookies('token', '', {expires: new Date()});
+    setCookies("token", "", { expires: new Date() });
     logout();
-  }
-
-  
+  };
 
 
   const navigator = useNavigate();
@@ -43,8 +40,7 @@ export default function InformationNaviBar() {
           <BsPuzzleFill color="#FCD572" fontSize="25px" />{" "}
           <p css={s.fontSt}>정기 모임</p>
         </div>
-        <div css={s.naviDiv}
-        onClick={() => navigator('/review')}>
+        <div css={s.naviDiv} onClick={() => navigator("/review")}>
           <MdStickyNote2 color="#2C3E50" fontSize="25px" />
           <p css={s.fontSt}>후기 게시판</p>
         </div>
@@ -53,17 +49,25 @@ export default function InformationNaviBar() {
         {isAuthenticated ? (
           <>
             <div css={s.userImgBox}>
-            {!profileImage ? (
-              <img src={userImg} alt="userImage" css={s.userImg} />
-            ) : (
-              <img src={profileImage} alt="profileImage" css={s.userImg} />
-            )}
+              {!profileImage ? (
+                <img src={userImg} alt="userImage" css={s.userImg} />
+              ) : (
+                <img
+                  src={"http://localhost:8080/image/" + profileImage}
+                  alt="profileImage"
+                  css={s.userImg}
+                />
+              )}
             </div>
             <div css={s.userNameBox}>{nickName}</div>
-            <div css={s.userNameBox} onClick={handleLogoutClick}>로그아웃</div>
+            <div css={s.userNameBox} onClick={handleLogoutClick}>
+              로그아웃
+            </div>
           </>
         ) : (
-          <div onClick={() => navigator('/signIn')} css={s.signBtn}>로그인 & 회원가입</div>
+          <div onClick={() => navigator("/signIn")} css={s.signBtn}>
+            로그인 & 회원가입
+          </div>
         )}
       </div>
     </div>

@@ -103,6 +103,7 @@ export type Region =
 export interface User {
   userId: string;
   password: string;
+  confirmPassword: string;
   userBirthDate: Date;
   userGender: Gender;
   userName: string;
