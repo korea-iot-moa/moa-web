@@ -89,11 +89,19 @@ export const validInput = css`
   }
 `;
 
+export const labelBox = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+
+`;
+
 export const label = css`
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 10px;
   color: #4d4d4d;
+  margin: 0;
 `;
 
 export const fieldBox = css`
@@ -317,3 +325,10 @@ export const userImgGroup = css`
   }
 `;
 
+export const errorMessage = css`
+  color: #f44336;
+  font-size: 14px;
+  font-weight: bold;
+  padding-left: 10px;
+  margin: 0;
+`;
