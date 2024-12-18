@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SignInResponseDto } from "../../../types";
 import { useCookies } from "react-cookie";
-import userAuthStore from "../../../stores/auth.store";
 
 export default function SignIn() {
   const [userId, setUserId] = useState<string>("");

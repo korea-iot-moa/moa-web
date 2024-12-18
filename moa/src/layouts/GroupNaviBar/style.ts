@@ -12,17 +12,21 @@ export const naviBar = css`
   flex-direction: column;
   align-items: center;
   min-width: 80px;
+  
 `;
 
 export const logoImage = css`
-  width: 50px;
-  height: 40px;
+  width: 100%;
+  height: 70%;
   transition: transform 0.3s ease;
+  object-fit: cover;
+  border-radius: 5px;
+
 `;
 
 export const imageBox = css`
   box-sizing: border-box;
-  padding: 10px;
+  padding: 5px;
   width: 60px;
   height: 60px;
   border-radius: 10%;
@@ -34,6 +38,7 @@ export const imageBox = css`
   align-items: center;
   cursor: pointer;
   transition: transform 0.3s ease;
+  
 
   & > img {
     width: 100%;
@@ -56,3 +61,4 @@ export const line = css`
   margin: 10px 0px;
   width: 100%;
 `;
+
