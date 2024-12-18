@@ -66,7 +66,7 @@ export default function SignUp() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/profile/hobbies").then((response) => {
+    axios.get("http://localhost:8081/api/profile/hobbies").then((response) => {
       setHobbies(response.data.data);
     });
   }, []);
@@ -105,7 +105,7 @@ export default function SignUp() {
     //   return;
     // }
     // const updatedHobbies = hobbies.includes(selectedHobby)
-    //   ? hobbies.filter((hobby) => hobby !== selectedHobby)
+      // ? hobbies.filter((hobby) => hobby !== selectedHobby)
     //   : [...hobbies, selectedHobby];
     // setHobbies(updatedHobbies);
     // setSignUpData({ ...signUpData, hobbies: updatedHobbies });
@@ -157,7 +157,7 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/profile",
+        "http://localhost:8081/api/profile",
         signUpForm,
         {
           headers: {
@@ -260,7 +260,7 @@ export default function SignUp() {
                   css={s.validInput}
                   type="text"
                   name="nickName"
-                  id="userId"
+                  id="nickName"
                   onChange={handleInputChange}
                   placeholder="1~10자의 한글, 영문, 숫자 입력 (특수문자 불가)"
                 />
