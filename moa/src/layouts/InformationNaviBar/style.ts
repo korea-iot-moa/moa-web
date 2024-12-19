@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const infoNaviBar = css`
   box-sizing: border-box;
   padding: 10px;
-  height: 70px;
+  height: 90px;
   width: 100%;
   overflow: hidden;
   background-color: #cfcfcf;
@@ -23,7 +23,7 @@ export const userInfoBox = css`
 `;
 
 export const userImgBox = css`
-  margin-right: 10px;
+  margin-right: 0;
   border: 2px solid #dbdbdb;
   box-sizing: border-box;
   width: 40px;
@@ -48,23 +48,38 @@ export const userImg = css`
 
 export const userNameBox = css`
   color: #222222;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-weight: 600;
   padding: 10px;
-  margin: 10px;
+`;
 
+export const innerInfoBox = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+`;
+
+export const logoutBtn = css`
+    color: #0a3140 ;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #cfcfcf;
+  border: 1px solid #0a3140;
+  cursor: pointer;
   &:hover{
-    background-color: #c6c6c6;
-    border-radius: 10px;
+    background-color: #afafaf;
+    color: #fff;
+    border: 1px solid #fff
   }
 `;
 
 export const signBtn = css`
   color: #0a3140 ;
-  display: flex;
-  justify-content: center;
   align-items: center;
   font-weight: 600;
   font-size: 14px;

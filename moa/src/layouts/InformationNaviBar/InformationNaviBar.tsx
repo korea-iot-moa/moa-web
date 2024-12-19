@@ -13,7 +13,7 @@ import { useCookies } from "react-cookie";
 
 export default function InformationNaviBar() {
   const { nickName, profileImage, isAuthenticated, logout } = userAuthStore();
-  const [cookies, setCookies] = useCookies(["token"]);
+  const [cookies, setCookies, removeCookie] = useCookies(["token"]);
 
   useEffect(() => {
     if (!cookies.token) {
@@ -24,7 +24,9 @@ export default function InformationNaviBar() {
   // 이벤트 핸들러
   const handleLogoutClick = () => {
     setCookies("token", "", { expires: new Date() });
+    removeCookie("token", { path: "/" });
     logout();
+    
   };
 
 
@@ -48,21 +50,24 @@ export default function InformationNaviBar() {
       <div css={s.userInfoBox}>
         {isAuthenticated ? (
           <>
+          <div css={s.innerInfoBox}>
+
             <div css={s.userImgBox}>
               {!profileImage ? (
                 <img src={userImg} alt="userImage" css={s.userImg} />
               ) : (
                 <img
-                  src={"http://localhost:8080/image/" + profileImage}
-                  alt="profileImage"
-                  css={s.userImg}
+                src={"http://localhost:8080/image/" + profileImage}
+                alt="profileImage"
+                css={s.userImg}
                 />
               )}
             </div>
             <div css={s.userNameBox}>{nickName}</div>
-            <div css={s.userNameBox} onClick={handleLogoutClick}>
+              </div>
+            <button css={s.logoutBtn} onClick={handleLogoutClick}>
               로그아웃
-            </div>
+            </button>
           </>
         ) : (
           <div onClick={() => navigator("/signIn")} css={s.signBtn}>

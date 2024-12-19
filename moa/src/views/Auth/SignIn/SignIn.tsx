@@ -7,12 +7,25 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SignInResponseDto } from "../../../types";
 import { useCookies } from "react-cookie";
+import kakoLogo from '../../../images/kakaoLogo.png';
+import naverLogo from '../../../images/naverLogo.png';
+
+const ERROR_MESSAGES = {
+  INVALID_ID: "영문, 숫자 8 ~ 14자 아이디를 입력 해 주세요.",
+  INVALID_PASSWORD: "영문, 숫자, 특수기호 8~16자 비밀번호를 입력 해 주세요.",
+  USER_NOT_FOUND: "아이디 또는 비밀번호를 확인해주세요.",
+};
+
+const idRegex = /^[a-zA-Z0-9]{8,14}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,16}$/;
 
 export default function SignIn() {
   const [userId, setUserId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [idError, setIdError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [, setCookies] = useCookies(["token"]);
 
@@ -40,22 +53,20 @@ export default function SignIn() {
     if (e instanceof KeyboardEvent && e.key !== "Enter") return;
     e.preventDefault();
 
-    const idRegex = /^[a-zA-Z0-9]{8,14}$/;
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,16}$/;
+    //! 유효성 검증
 
-    // 유효성 검증
-    if (!userId.trim()) {
-      setIdError(true);
-    } else if (!idRegex.test(userId)) {
-      setIdError(true);
+    // 아이디
+    if (!userId.trim() || !idRegex.test(userId)) {
+      setErrorMessage(ERROR_MESSAGES.INVALID_ID);
+      return;
     }
 
-    if (!password.trim()) {
-      setPasswordError(true);
-    } else if (!passwordRegex.test(password)) {
-      setPasswordError(true);
+    // 비밀번호
+    if (!password.trim() || !passwordRegex.test(password)) {
+      setErrorMessage(ERROR_MESSAGES.INVALID_PASSWORD);
+      return;
     }
+
 
     if (userId && password && !idError && !passwordError) {
       try {
@@ -76,6 +87,7 @@ export default function SignIn() {
         navigate("/");
       } catch (error) {
         console.error(error);
+        setErrorMessage(ERROR_MESSAGES.USER_NOT_FOUND);
       }
     }
   };
@@ -95,7 +107,6 @@ export default function SignIn() {
     }
   };
 
-  const navigator = useNavigate();
 
   return (
     <div css={s.fullBox}>
@@ -122,16 +133,9 @@ export default function SignIn() {
         />
 
         {/* 에러 메시지 */}
-        {idError && (
-          <p css={s.errorMessage}>
-            영문, 숫자 8 ~ 14자 아이디를 입력 해 주세요
-          </p>
-        )}
-        {passwordError && (
-          <p css={s.errorMessage}>
-            영문, 숫자, 특수기호 8~16자 비밀번호를 입력 해 주세요
-          </p>
-        )}
+        {errorMessage && <p css={s.errorMessage}>{errorMessage}</p>}
+
+        
 
         <button css={s.signInBtn} onClick={handleSignIn}>
           로그인
@@ -152,16 +156,25 @@ export default function SignIn() {
         </div>
       </div>
 
-      {/* <div css={s.innerBox}>
-        <div css={s.anotherSignIn}>
-          <img src={kakao} alt="" css={s.img} />
+      <div css={s.innerBox}>
+        <div css={s.anotherSignInBox} className="naver">
+          <div css={s.anotherLogoBox}>
+            <img src={naverLogo} alt="네이버로고" className="naver"/>
+          </div>
+          <div>
+            <p>Naver 계정으로 로그인</p>
+          </div>
+        </div>
+        <div css={s.anotherSignInBox} className="kakao">
+          <div css={s.anotherLogoBox}>
+            <img src={kakoLogo} alt="카카오로고" className="kakao"/>
+          </div>
+          <div>
+          <p>Kakao 계정으로 로그인</p>
+          </div>
         </div>
       </div>
-      <div css={s.innerBox}>
-        <div css={s.anotherSignIn}>
-          <img src={naver} alt="" css={s.img} />
-        </div>
-      </div> */}
+      
     </div>
   );
 }
