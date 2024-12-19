@@ -7,13 +7,14 @@ import { MeetingGroup } from "../../types";
 import userAuthStore from "../../stores/auth.store";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import defaultImg from "../../images/moaLo.png";
 
 export default function GroupNaviBar() {
   const { userId } = userAuthStore();
   const [cookies] = useCookies(["token"]);
   const [groupList, setGroupList] = useState<MeetingGroup[]>([]);
+  const [hoveredGroupId, setHoveredGroupId] = useState<number | null>(null);
 
   const navigator = useNavigate();
 
@@ -31,10 +32,18 @@ export default function GroupNaviBar() {
         } catch (error) {
           console.error(error);
         }
+      }else {
+        setGroupList([]);
       }
     };
     fetchGroup();
   }, [cookies.token]);
+
+  const renderGroupPage = (groupId: number) => {
+    navigator(`/join-group/${groupId}`);
+  }
+
+
 
   return (
     <div css={s.naviBar}>
@@ -47,18 +56,21 @@ export default function GroupNaviBar() {
       {groupList.map((group) => (
         <div
           css={s.imageBox}
-          onClick={() => navigator("/")}
+          onClick={() => renderGroupPage(group.groupId)}
           key={group.groupId}
           style={{ marginBottom: "15px" }}
+          onMouseEnter={() => setHoveredGroupId(group.groupId)}
+          onMouseLeave={() => setHoveredGroupId(null)}
         >
-          <img
-            src={`http://localhost:8080/image/${group.groupImage}`}
-            alt="그룹 이미지"
-            css={s.logoImage}
-            data-tooltip-id={`tooltip-${group.groupId}`} 
-            data-tooltip-content={group.groupTitle}
-          />
-          <Tooltip id={`tooltip-${group.groupId}`} place="right" />
+          {hoveredGroupId === group.groupId ? (
+            <p>{group.groupTitle}</p> 
+          ) : (
+            <img
+              src={group.groupImage ? `http://localhost:8080/image/${group.groupImage}` : `${defaultImg}`}
+              alt="그룹 이미지"
+              css={s.logoImage}
+            />
+          )}
         </div>
       ))}
     </div>
