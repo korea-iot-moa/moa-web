@@ -14,6 +14,7 @@ import { useCookies } from "react-cookie";
 import { User } from "./types";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
+import Manager from "./views/Manager";
 
 function App() {
   interface TokenUser {
@@ -58,6 +59,7 @@ function App() {
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/review" element={<Review />} />
+            <Route path="/manager/:groupId" element={<Manager/>}/>
           </Routes>
         </MainContainer>
       </RootContainer>
