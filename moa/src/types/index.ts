@@ -14,9 +14,9 @@ export type GroupCategory =
   | "연애"
   | "힐링";
 
-export type GroupTypeCategory = "단기모임" | "정기모임";
+export type GroupType = "단기모임" | "정기모임";
 
-export type MeetingTypeCategory = "온라인" | "오프라인";
+export type MeetingType = "온라인" | "오프라인";
 
 export interface MeetingGroup {
   groupId: number;
@@ -29,8 +29,8 @@ export interface MeetingGroup {
   groupDate: string;
   groupQuestion: string;
   groupCategory: GroupCategory;
-  groupTypeCategory: GroupTypeCategory;
-  meetingTypeCategory: MeetingTypeCategory;
+  groupType: GroupType;
+  meetingType: MeetingType;
 }
 
 export interface Notice {

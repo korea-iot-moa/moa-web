@@ -12,12 +12,11 @@ export const naviBar = css`
   flex-direction: column;
   align-items: center;
   min-width: 80px;
-  
 `;
 
 export const logoImage = css`
   width: 100%;
-  height: 70%;
+  height: 100%;
   transition: transform 0.3s ease;
   object-fit: cover;
   border-radius: 5px;
@@ -49,6 +48,18 @@ export const imageBox = css`
     font-size: 10px;
   }
 
+  & > p {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  }
+
   &:hover {
     transform: scale(1.1);
   }
@@ -61,4 +72,5 @@ export const line = css`
   margin: 10px 0px;
   width: 100%;
 `;
+
 

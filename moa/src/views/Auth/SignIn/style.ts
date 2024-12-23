@@ -15,6 +15,20 @@ export const innerBox = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  > .naver {
+    &:hover{
+      background-color: #01C73C;
+      border: 1px solid #01C73C;
+    }
+  }
+
+  > .kakao {
+    &:hover{
+      background-color: #FDDC3F;
+      border: 1px solid #FDDC3F;
+    }
+  }
 `;
 
 export const topInput = (hasError: boolean) => css`
@@ -56,12 +70,12 @@ export const bottomInput = (hasError: boolean) => css`
 
 
 export const signInBtn = css`
-  width: 62%;
+  width: 63%;
   margin-top: 50px;
   font-size: 17px;
-  padding: 10px 5px 10px 5px;
   border-radius: 5px;
   border: none;
+  padding: 10px 10px;
   background-color: #4b4b4b;
   color: #fff;
   cursor: pointer;
@@ -96,21 +110,63 @@ export const img = css`
   width: 100%;
 `;
 
-export const anotherSignIn = css`
-  width: 62%;
-  height: 70%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-top: 20px;
-  cursor: pointer;
-`;
+
 
 export const errorMessage = css`
   color: #f44336;
   font-size: 16px;
   margin: 0;
+`;
+
+export const anotherSignInBox = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #aaa;
+  width: 63%;
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  > div:nth-child(2) p {
+    font-size: 14px; 
+    color: #2C3E50;      
+    padding-left: 10px;
+    font-weight: bold;
+  }
+
+  &:hover {
+    > div:nth-child(2) p {
+      color: #fff;
+    }
+
+    > div:nth-child(1) {
+      border: none;
+    }
+  }
+`;
+
+export const anotherLogoBox = css`
+  border-right: 1px solid #aaa;
+  height: 100%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .naver{
+    width: 35px;
+    height: 30px;
+  }
+
+  .kakao{
+    width: 30px;
+    height: 30px;
+  }
+`;
+
+export const logoImg = css`
+  width: 30px;
+  height: 30px;
 `;
