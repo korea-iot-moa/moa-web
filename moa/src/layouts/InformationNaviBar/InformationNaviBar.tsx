@@ -30,7 +30,7 @@ export default function InformationNaviBar() {
     setCookies("token", "", { expires: new Date() });
     removeCookie("token", { path: "/" });
     logout();
-    
+    navigator('/')
   };
 
   //카테고리바 핸들러
@@ -75,7 +75,7 @@ export default function InformationNaviBar() {
             {!profileImage ? (
               <img src={userImg} alt="userImage" css={s.userImg} />
             ) : (
-              <img src={profileImage} alt="profileImage" css={s.userImg} />
+              <img src={"http://localhost:8080/image/" + profileImage} alt="profileImage" css={s.userImg} />
             )}
             </div>
             <div css={s.userNameBox}>{nickName}</div>

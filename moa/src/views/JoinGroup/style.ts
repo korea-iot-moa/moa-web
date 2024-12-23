@@ -22,7 +22,6 @@ export const fullBox = (showVote: boolean) => css`
 export const optionBtn = css`
   font-size: 30px;
   color: #4e4e4e;
-  margin-left: 20px;
   cursor: pointer;
   &:hover{
     color: #2a2a2a;
@@ -33,7 +32,6 @@ export const topBox = css`
   box-sizing: border-box;
   width: 80%;
   height: 10%;
-  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -44,19 +42,27 @@ export const topBox = css`
 
   > h1 {
     padding: 0 10px;
-    font-size: 24px;
+    font-size: 24px;    
   }
 
   > div:nth-child(1) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
   }
 
   > div:nth-child(2) {
+    margin: 0 5px;
+  }
+
+  > div:nth-child(3) {
+    min-width: 270px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
     gap: 20px;
   }
 `;
@@ -70,10 +76,14 @@ export const btnSt = css`
   background-color: #fff;
   border: 1px solid #c4c4c4;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   gap: 10px;
   cursor: pointer;
+
+  @media (max-width: 1431px) {
+    font-size: 12px;
+  }
 `;
 
 export const copyBtn = css`
@@ -104,7 +114,8 @@ export const leaveBtn = css`
 export const middleBox = css`
   box-sizing: border-box;
   width: 80%;
-  height: 10%;
+  height: 20%;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -114,6 +125,8 @@ export const middleBox = css`
     display: flex;
     flex-direction: row;
     gap: 10px;
+
+    
   }
 `;
 
