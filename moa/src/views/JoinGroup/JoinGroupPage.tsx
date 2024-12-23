@@ -12,6 +12,7 @@ import { PiUserList } from "react-icons/pi";
 import img from "../../images/moaLogo.png"
 import NaverMapComponent from '../../components/NaverMap';
 import VoteComponent from '../../components/VoteComponent/VoteComponent';
+import GroupMainPage from './GroupMainPage';
 
 // 기본 주소
 const baseUrl = "http://localhost:3000/meeting-group/";
@@ -20,6 +21,8 @@ export default function JoinGroupPage() {
   const [groupInfo, setGroupInfo] = useState<MeetingGroup>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showVote, setShowVote] = useState<boolean>(false);
+  const [voteState, setVoteState] = useState<boolean>(false);
+  const [isCreator, setIsCreator] = useState<boolean>(false);
 
   // url 에서 그룹 id 추출
   const { groupId } = useParams();
@@ -46,7 +49,6 @@ export default function JoinGroupPage() {
       }).then((response) => {
         setGroupInfo(response.data.data);
         setIsLoading(false); 
-        console.log(groupInfo); 
       });
     } catch (error) {
       console.error(error);
@@ -54,8 +56,57 @@ export default function JoinGroupPage() {
     }
   }, [location.pathname]);
 
-  //* 링크 복사
+  //& 투표 존재 여부 확인
+  useEffect(() => {
+    try{
+      axios.get(`http://localhost:8080/api/v1/votes/existsVote/${groupId}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        withCredentials: true,
+      }).then((response) => {
+        setVoteState(response.data.data)
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  },[groupId])
+
+  //& 모임 생성자 여부 확인 
+  useEffect(() => {
+    try{
+      axios.get(`http://localhost:8080/api/v1/meeting-group/exists/${groupId}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        withCredentials: true,
+      }).then((response) => {
+        setIsCreator(response.data.data);
+      })
+    } catch (error) {
+      console.error(error);
+    }
+    
+  },[cookies.token, groupId])
+
+  //& 모임 나가기
+  const handleLeaveGroup = (e: React.MouseEvent<HTMLButtonElement>) => {
+    try{
+      axios.delete(`http://localhost:8080/api/v1/user-list/leave/${groupId}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        withCredentials: true,
+      }).then(() => {
+        navigate('/')
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  } 
   
+  
+
    //* 링크 복사
   const handleLinkCopy = async(url: string) => {
     try {
@@ -74,14 +125,20 @@ export default function JoinGroupPage() {
         <div css={s.topBox}>
           <div>
             <h1>{groupInfo?.groupTitle}</h1>
-            <IoSettingsOutline css={s.optionBtn} onClick={() => handleManagerPageRender(parseToNumGroupId)}/>
           </div>
           <div>
+            {isCreator && (
+              <IoSettingsOutline css={s.optionBtn} onClick={() => handleManagerPageRender(parseToNumGroupId)}/>
+            )}
+            </div>
+          <div>
+            {voteState && (
             <button css={s.btnSt} onClick={() => setShowVote(true)}>
               <LuVote css={s.iconSt}/>
               투표
             </button>
-            <button css={s.leaveBtn}>
+            )}
+            <button css={s.leaveBtn} onClick={handleLeaveGroup}>
               <LuDoorOpen css={s.iconSt} />
               모임 탈퇴
             </button>
@@ -115,63 +172,8 @@ export default function JoinGroupPage() {
             </div>
           </div>
         </div>
-        <div css={s.mainBox}>
-          <div css={s.groupImgBox}>
-            {groupInfo?.groupImage ? (
-              <img 
-              src={`http://localhost:8080/image/${groupInfo.groupImage}`} alt="GROUP IMAGE" 
-              />
-            ) : (
-              <img src={img} alt="DEFAULT IMAGE" className='default'/>
-            )}
-          </div>
-
-          <div css={s.groupInfoBox}>
-            <div css={s.groupDetailBox}>
-              <div>
-                <div css={s.infoPart}>
-                  <p>카테고리 :</p>
-                  <p>{groupInfo?.groupCategory}</p>
-                </div>
-                <div css={s.infoPart}>
-                  <p>모임 유형 :</p>
-                  <p>{groupInfo?.groupType}</p>
-                </div>
-                <div css={s.infoPart}>
-                  <p>참여 유형 :</p>
-                  <p>{groupInfo?.meetingType}</p>
-                </div>
-                <div css={s.infoPart}>
-                  <p>모임 장소 :</p>
-                  <p>{groupInfo?.groupAddress}</p>
-                </div>
-                <div css={s.infoPart}>
-                  <p>준비물 :</p>
-                  {groupInfo?.groupSupplies ? (  
-                    <p>{groupInfo?.groupSupplies}</p>
-                  ) : (
-                    <p>x</p>
-                  )}
-                </div>
-              </div>
-
-            </div>
-            <div css={s.mapBox}>
-        <div>
-          {/* 지도 */}
-          {isLoading ? (
-            <p>로딩 중...</p>
-          ) : groupInfo?.groupAddress ? (
-            <NaverMapComponent address={groupInfo?.groupAddress || ""} />
-          ) : (
-            <p>모임에서 장소를 제공하지 않습니다.</p>
-          )}
-        </div>
-      </div>
-
-          </div>
-
-        </div>
+        
+        <GroupMainPage groupInfo={groupInfo} isLoading={isLoading} />
 
       </div>
     </>
