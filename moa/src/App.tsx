@@ -15,6 +15,10 @@ import userAuthStore from "./stores/auth.store";
 import { JOIN_GROUP_PAGE } from "./contants";
 import JoinGroupPage from "./views/JoinGroup/JoinGroupPage";
 import NaverMapComponent from "./components/NaverMap"
+import SearchResult from "./layouts/SearchBar";
+import CategorySearchList from "./layouts/SearchBar/CategorySearchList";
+import ShortGroup from "./views/short_regularGroup/ShortGroup";
+import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import Manager from "./views/Manager";
 
 
@@ -65,6 +69,14 @@ function App() {
             <Route path="/review" element={<Review />} />
 
             <Route path={JOIN_GROUP_PAGE} element={<JoinGroupPage />} />
+            <Route path='/search/*' element={
+          <Routes>
+            <Route path='/' element={<SearchResult />}/>
+            <Route path='/categoryresult' element={<CategorySearchList />} />
+            <Route path='/grouptype/shorttype' element={<ShortGroup />}/>
+            <Route path='/grouptype/regulartype' element={<RegularGroup />}/>
+          </Routes>
+        }/>
             <Route path="/manager/user-list/:groupId" element={<Manager/>}/>
 
           </Routes>
