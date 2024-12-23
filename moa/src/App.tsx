@@ -14,6 +14,9 @@ import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
 import { JOIN_GROUP_PAGE } from "./contants";
 import JoinGroupPage from "./views/JoinGroup/JoinGroupPage";
+import NaverMapComponent from "./components/NaverMap"
+import Manager from "./views/Manager";
+
 
 function App() {
   interface TokenUser {
@@ -60,7 +63,10 @@ function App() {
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/review" element={<Review />} />
+
             <Route path={JOIN_GROUP_PAGE} element={<JoinGroupPage />} />
+            <Route path="/manager/user-list/:groupId" element={<Manager/>}/>
+
           </Routes>
         </MainContainer>
       </RootContainer>
