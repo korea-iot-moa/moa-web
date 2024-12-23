@@ -1,12 +1,22 @@
 import { css } from '@emotion/react';
 
-export const fullBox = css`
+export const fullBox = (showVote: boolean) => css`
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: ${showVote ? 'hidden' : 'auto'};
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 `;
 
 export const optionBtn = css`
@@ -23,6 +33,7 @@ export const topBox = css`
   box-sizing: border-box;
   width: 80%;
   height: 10%;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -50,7 +61,7 @@ export const topBox = css`
   }
 `;
 
-export const BtnSt = css`
+export const btnSt = css`
   padding: 5px 20px;
   display: flex;
   flex-direction: row;
@@ -62,6 +73,10 @@ export const BtnSt = css`
   font-size: 18px;
   font-weight: 500;
   gap: 10px;
+  cursor: pointer;
+`;
+
+export const copyBtn = css`
   cursor: pointer;
 `;
 
@@ -92,14 +107,45 @@ export const middleBox = css`
   height: 10%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 0 20px;
 
   > div:nth-child(1) {
     display: flex;
     flex-direction: row;
     gap: 10px;
+  }
+`;
+
+export const copyBox = css`
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 10px;
+
+  > h2 {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  > div {
+    background-color: #eee;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 5px;
+
+    > input {
+      border: none;
+      outline: none;
+      cursor: default;
+      padding: 5px;
+      background-color: #eee;
+    }
   }
 `;
 
@@ -128,6 +174,10 @@ export const groupImgBox = css`
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+  }
+
+  > .default {
+    object-fit: none;
   }
 `;  
 
@@ -202,4 +252,18 @@ export const mapBox = css`
 
 export const iconSt = css`
   font-size: 20px;
+`;
+
+export const voteOverlay = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.7)
+
 `;

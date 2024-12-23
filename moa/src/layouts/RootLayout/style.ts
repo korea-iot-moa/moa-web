@@ -11,4 +11,10 @@ export const fullDiv = css`
   align-items: center;
   background-color: #e7e7e7;
   overflow: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 `;

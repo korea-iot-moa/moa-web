@@ -6,20 +6,20 @@ import { MeetingGroup } from '../../types';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { IoSettingsOutline, IoChatbubbleEllipsesOutline  } from "react-icons/io5";
-import { LuVote, LuDoorOpen  } from "react-icons/lu";
+import { LuVote, LuDoorOpen, LuCopy   } from "react-icons/lu";
 import { AiOutlineHome } from "react-icons/ai";
 import { PiUserList } from "react-icons/pi";
-import img from "../../images/group.jpg"
+import img from "../../images/moaLogo.png"
 import NaverMapComponent from '../../components/NaverMap';
+import VoteComponent from '../../components/VoteComponent/VoteComponent';
 
-
-const baseUrl = "http://localhost:3000";
-
-
+// 기본 주소
+const baseUrl = "http://localhost:3000/meeting-group/";
 
 export default function JoinGroupPage() {
   const [groupInfo, setGroupInfo] = useState<MeetingGroup>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showVote, setShowVote] = useState<boolean>(false);
 
   // url 에서 그룹 id 추출
   const { groupId } = useParams();
@@ -27,10 +27,12 @@ export default function JoinGroupPage() {
 
   const location = useLocation();
   const [cookies] = useCookies(["token"]);
-  const navigator = useNavigate();
+
+  // clipboard api 사용 위해 변수명 변경
+  const navigate = useNavigate();
 
   const handleManagerPageRender = (groupId: number) => {
-    navigator(`/manager/${groupId}`)
+    navigate(`/manager/${groupId}`)
   }
 
   //& 그룹정보 호출
@@ -53,26 +55,29 @@ export default function JoinGroupPage() {
   }, [location.pathname]);
 
   //* 링크 복사
-  // const handle = (url: string) => {
-  //   navigator.clipboard.writeText(url)
-
-  //   <button onClick={() => handle(`${baseUrl}${location.pathname}`)}>복사</button>
-  // }
+  
    //* 링크 복사
-
+  const handleLinkCopy = async(url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      alert('코드 복사 완료');
+    } catch (e) {
+      alert('코드 복사 실패');
+    }
+  }
   
   
 
   return (
     <>
-      <div css={s.fullBox}> 
+      <div css={s.fullBox(showVote)}> 
         <div css={s.topBox}>
           <div>
             <h1>{groupInfo?.groupTitle}</h1>
             <IoSettingsOutline css={s.optionBtn} onClick={() => handleManagerPageRender(parseToNumGroupId)}/>
           </div>
           <div>
-            <button css={s.BtnSt}>
+            <button css={s.btnSt} onClick={() => setShowVote(true)}>
               <LuVote css={s.iconSt}/>
               투표
             </button>
@@ -82,20 +87,32 @@ export default function JoinGroupPage() {
             </button>
           </div>
         </div>
+        {showVote && (
+          <div css={s.voteOverlay}>
+            <VoteComponent groupId={Number(groupId)} groupTitle={groupInfo!.groupTitle} closeVote={() => setShowVote(false)} />
+          </div>
+        )}
         <div css={s.middleBox}>{/* 채팅, 회원목록, 복사링크 */}
           <div>
-            <button css={s.BtnSt}>
+            <button css={s.btnSt}>
               <AiOutlineHome/>
               모임 홈
             </button>
-            <button css={s.BtnSt}>
+            <button css={s.btnSt}>
               <IoChatbubbleEllipsesOutline/>
               채팅
             </button>
-            <button css={s.BtnSt}>
+            <button css={s.btnSt}>
               <PiUserList/>
               회원 목록
             </button>
+          </div>
+          <div css={s.copyBox}>
+            <h2>초대 링크</h2>
+            <div>
+              <input type="text"  value={baseUrl + groupInfo?.groupId} readOnly/>
+              <LuCopy css={s.copyBtn} onClick={() => handleLinkCopy(baseUrl + groupId)}/>
+            </div>
           </div>
         </div>
         <div css={s.mainBox}>
@@ -105,7 +122,7 @@ export default function JoinGroupPage() {
               src={`http://localhost:8080/image/${groupInfo.groupImage}`} alt="GROUP IMAGE" 
               />
             ) : (
-              <img src={img} alt="DEFAULT IMAGE"/>
+              <img src={img} alt="DEFAULT IMAGE" className='default'/>
             )}
           </div>
 
