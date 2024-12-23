@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./views/Home/index";
 import GroupNaviBar from "./layouts/GroupNaviBar/GroupNaviBar";
 import InformationNaviBar from "./layouts/InformationNaviBar/InformationNaviBar";
-import SearchBar from "./layouts/SearchBar/SearchBar";
 import Review from "./views/Review/Review";
 import MainContainer from "./layouts/MainContainer/MainContainer";
 import SignUp from "./views/Auth/SignUp/SignUp";
@@ -15,7 +14,6 @@ import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
 import { JOIN_GROUP_PAGE } from "./contants";
 import JoinGroupPage from "./views/JoinGroup/JoinGroupPage";
-import NaverMapComponent from "./components/NaverMap"
 
 function App() {
   interface TokenUser {
@@ -45,7 +43,7 @@ function App() {
     }
   }, [cookies.token, login, logout]);
 
- 
+
 
 
   return (

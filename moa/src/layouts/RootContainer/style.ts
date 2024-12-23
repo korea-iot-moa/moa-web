@@ -6,4 +6,10 @@ export const mainContainer = css`
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 `;
