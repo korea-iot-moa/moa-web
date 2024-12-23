@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./views/Home/index";
 import GroupNaviBar from "./layouts/GroupNaviBar/GroupNaviBar";
 import InformationNaviBar from "./layouts/InformationNaviBar/InformationNaviBar";
-import SearchBar from "./layouts/SearchBar/SearchBar";
 import Review from "./views/Review/Review";
 import MainContainer from "./layouts/MainContainer/MainContainer";
 import SignUp from "./views/Auth/SignUp/SignUp";
@@ -47,7 +46,7 @@ function App() {
     }
   }, [cookies.token, login, logout]);
 
- 
+
 
 
   return (
@@ -66,7 +65,7 @@ function App() {
             <Route path="/review" element={<Review />} />
 
             <Route path={JOIN_GROUP_PAGE} element={<JoinGroupPage />} />
-            <Route path="/manager/:groupId" element={<Manager/>}/>
+            <Route path="/manager/user-list/:groupId" element={<Manager/>}/>
 
           </Routes>
         </MainContainer>

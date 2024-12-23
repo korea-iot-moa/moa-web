@@ -137,10 +137,10 @@ export interface UserList {
   joinDate: Date;
 }
 
-type VoteAnswer = "O" | "X";
+export type VoteAnswer = "O" | "X" | null;
 
 export interface VoteResult {
-  voteResultId: number;
+  voteResultId: number | null;
   voteId: number;
   userId: string;
   voteAnswer: VoteAnswer;
