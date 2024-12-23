@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./views/Home/index";
 import GroupNaviBar from "./layouts/GroupNaviBar/GroupNaviBar";
 import InformationNaviBar from "./layouts/InformationNaviBar/InformationNaviBar";
-import SearchBar from "./layouts/SearchBar/SearchBar";
 import Review from "./views/Review/Review";
 import MainContainer from "./layouts/MainContainer/MainContainer";
 import SignUp from "./views/Auth/SignUp/SignUp";
@@ -20,6 +19,8 @@ import SearchResult from "./layouts/SearchBar";
 import CategorySearchList from "./layouts/SearchBar/CategorySearchList";
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
+import Manager from "./views/Manager";
+
 
 function App() {
   interface TokenUser {
@@ -66,6 +67,7 @@ function App() {
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/review" element={<Review />} />
+
             <Route path={JOIN_GROUP_PAGE} element={<JoinGroupPage />} />
             <Route path='/search/*' element={
           <Routes>
@@ -75,6 +77,8 @@ function App() {
             <Route path='/grouptype/regulartype' element={<RegularGroup />}/>
           </Routes>
         }/>
+            <Route path="/manager/user-list/:groupId" element={<Manager/>}/>
+
           </Routes>
         </MainContainer>
       </RootContainer>
