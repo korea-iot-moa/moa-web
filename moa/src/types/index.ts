@@ -161,3 +161,17 @@ export interface SignInResponseDto {
   user: User;
   exprTime: number;
 }
+
+export type UserListDto = {
+  userId: string;
+  nickName: string;
+  profileImage: any;
+}
+
+export type PostReportDto = {
+  groupId: number;
+  reportDetail: string;
+  reportType: ReportType;
+  reportUser: string;
+  reportImage: any
+}

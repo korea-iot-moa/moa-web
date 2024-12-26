@@ -9,20 +9,35 @@ import { IoSettingsOutline, IoChatbubbleEllipsesOutline  } from "react-icons/io5
 import { LuVote, LuDoorOpen, LuCopy   } from "react-icons/lu";
 import { AiOutlineHome } from "react-icons/ai";
 import { PiUserList } from "react-icons/pi";
-import img from "../../images/moaLogo.png"
-import NaverMapComponent from '../../components/NaverMap';
 import VoteComponent from '../../components/VoteComponent/VoteComponent';
-import GroupMainPage from './GroupMainPage';
+import GroupMainPage from './Home/GroupMainPage';
+import UserListPage from './UserList/UserListPage';
 
 // 기본 주소
 const baseUrl = "http://localhost:3000/meeting-group/";
 
-export default function JoinGroupPage() {
+export default function GroupHeader() {
   const [groupInfo, setGroupInfo] = useState<MeetingGroup>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showVote, setShowVote] = useState<boolean>(false);
   const [voteState, setVoteState] = useState<boolean>(false);
   const [isCreator, setIsCreator] = useState<boolean>(false);
+
+  // 메인영역 페이지 상태 관리
+  const [activePage, setActivePage] = useState<string>('home');
+
+  const renderActivePage = () => {
+    switch (activePage) {
+      case 'home':
+        return <GroupMainPage groupInfo={groupInfo} isLoading={isLoading} />;
+      case 'userList':
+        return <UserListPage groupInfo={groupInfo} />;
+      case 'chat':
+        return <div>채팅 기능은 현재 준비 중입니다.</div>;
+      default:
+        return <GroupMainPage groupInfo={groupInfo} isLoading={isLoading} />;
+    }
+  };
 
   // url 에서 그룹 id 추출
   const { groupId } = useParams();
@@ -133,7 +148,7 @@ export default function JoinGroupPage() {
             </div>
           <div>
             {voteState && (
-            <button css={s.btnSt} onClick={() => setShowVote(true)}>
+            <button css={s.voteBtn} onClick={() => setShowVote(true)}>
               <LuVote css={s.iconSt}/>
               투표
             </button>
@@ -151,15 +166,15 @@ export default function JoinGroupPage() {
         )}
         <div css={s.middleBox}>{/* 채팅, 회원목록, 복사링크 */}
           <div>
-            <button css={s.btnSt}>
+            <button css={s.btnSt} onClick={() => setActivePage('home')}>
               <AiOutlineHome/>
               모임 홈
             </button>
-            <button css={s.btnSt}>
+            <button css={s.btnSt} onClick={() => setActivePage('chat')}>
               <IoChatbubbleEllipsesOutline/>
               채팅
             </button>
-            <button css={s.btnSt}>
+            <button css={s.btnSt} onClick={() => setActivePage('userList')}>
               <PiUserList/>
               회원 목록
             </button>
@@ -172,8 +187,8 @@ export default function JoinGroupPage() {
             </div>
           </div>
         </div>
-        
-        <GroupMainPage groupInfo={groupInfo} isLoading={isLoading} />
+
+        {renderActivePage()}
 
       </div>
     </>
