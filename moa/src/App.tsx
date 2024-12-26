@@ -12,14 +12,14 @@ import SignIn from "./views/Auth/SignIn/SignIn";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
-import { JOIN_GROUP_PAGE } from "./contants";
-import JoinGroupPage from "./views/JoinGroup/JoinGroupPage";
-import NaverMapComponent from "./components/NaverMap"
+import { JOIN_GROUP_PAGE, REPORT_POST_PAGE } from "./contants";
+import GroupHeader from "./views/JoinGroup/GroupHeader";
 import SearchResult from "./layouts/SearchBar";
 import CategorySearchList from "./layouts/SearchBar/CategorySearchList";
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import Manager from "./views/Manager";
+import ReportPage from "./views/Report/ReportPage";
 
 
 function App() {
@@ -68,7 +68,8 @@ function App() {
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/review" element={<Review />} />
 
-            <Route path={JOIN_GROUP_PAGE} element={<JoinGroupPage />} />
+            <Route path={JOIN_GROUP_PAGE} element={<GroupHeader />} />
+            <Route path={REPORT_POST_PAGE} element={<ReportPage/>}/>
             <Route path='/search/*' element={
           <Routes>
             <Route path='/' element={<SearchResult />}/>
