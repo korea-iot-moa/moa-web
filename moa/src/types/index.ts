@@ -68,12 +68,13 @@ export interface Report {
 }
 
 export interface Review {
-  reviewId: number;
+  reviewId: number | null;
   userId: string;
   groupId: number;
+  groupName: string;
   reviewContent: string;
-  reviewDate: string;
-  reviewImage: string;
+  reviewDate: Date;
+  reviewImage: any;
 }
 
 export type Gender = "MALE" | "FEMALE";

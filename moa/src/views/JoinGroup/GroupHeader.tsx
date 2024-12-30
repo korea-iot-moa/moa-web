@@ -69,7 +69,7 @@ export default function GroupHeader() {
       console.error(error);
       setIsLoading(false); 
     }
-  }, [location.pathname]);
+  }, [location.pathname, groupId]);
 
   //& 투표 존재 여부 확인
   useEffect(() => {
@@ -114,6 +114,7 @@ export default function GroupHeader() {
         withCredentials: true,
       }).then(() => {
         navigate('/')
+        window.location.reload();
       })
     } catch (error) {
       console.error(error);

@@ -31,7 +31,7 @@ const UserListPage: React.FC<UserListProps> = ({ groupInfo }) => {
     } catch (error) {
       console.error(error);
     }
-  },[])
+  },[groupInfo])
 
   const handleReport = (userId: string) => {
     navigate(`/report/${groupInfo.groupId}/${userId}`);

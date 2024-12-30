@@ -8,6 +8,7 @@ import userAuthStore from "../../stores/auth.store";
 import img from "../../images/moaLogo.png";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import useGroupListStore from "../../stores/group.list.store";
 
 export default function ReportPage() {
   const { groupId, reportUserId } = useParams();
