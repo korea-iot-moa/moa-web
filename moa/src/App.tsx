@@ -20,9 +20,15 @@ import CategorySearchList from "./layouts/SearchBar/CategorySearchList";
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import Manager from "./views/Manager";
-
+import ReactModal from "react-modal";
+import {ThemeProvider,createTheme,Theme } from "@mui/material/styles";
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      mode: 'light', // 또는 'dark'
+    },
+  });
   interface TokenUser {
     userId: string;
     nickName: string;
@@ -50,13 +56,14 @@ function App() {
     }
   }, [cookies.token, login, logout]);
 
+  
 
-
-
+  
+  
   return (
+  <ThemeProvider theme={theme}>
     <RootLayout>
       <GroupNaviBar />
-
       <RootContainer>
         <InformationNaviBar />
         <MainContainer>
@@ -77,12 +84,12 @@ function App() {
             <Route path='/grouptype/regulartype' element={<RegularGroup />}/>
           </Routes>
         }/>
-            <Route path="/manager/user-list/:groupId" element={<Manager/>}/>
-
+              < Route path="/manager/:groupId" element ={ <Manager />} />          
           </Routes>
         </MainContainer>
       </RootContainer>
     </RootLayout>
+  </ThemeProvider>
   );
 }
 

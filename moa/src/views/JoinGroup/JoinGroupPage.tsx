@@ -23,6 +23,7 @@ export default function JoinGroupPage() {
 
   // url 에서 그룹 id 추출
   const { groupId } = useParams();
+  console.log(groupId);
   const parseToNumGroupId = Number(groupId);
 
   const location = useLocation();
