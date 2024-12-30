@@ -18,6 +18,8 @@ export default function InformationNaviBar() {
   const [button, setButton] = useState<boolean>(true);
   const [category, setCategory] = useState<boolean>(false);
   
+  const navigator = useNavigate();
+  
 
   useEffect(() => {
     if (!cookies.token) {
@@ -40,7 +42,7 @@ export default function InformationNaviBar() {
   }
 
 
-  const navigator = useNavigate();
+  
   return (
     <div css={s.mainContainer}>
     <div css={s.infoNaviBar}>
@@ -54,7 +56,7 @@ export default function InformationNaviBar() {
           <p css={s.fontSt}>정기 모임</p>
         </div>
         <div css={s.naviDiv}
-        onClick={() => navigator('/review')}>
+        onClick={() => navigator('/review/main')}>
           <MdStickyNote2 color="#2C3E50" fontSize="25px" />
           <p css={s.fontSt}>후기 게시판</p>
         </div>
