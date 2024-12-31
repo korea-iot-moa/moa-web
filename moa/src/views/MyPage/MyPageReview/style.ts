@@ -8,59 +8,36 @@ export const fullBox = css`
   align-items: center;
 `;
 
-export const header = css`
+export const headerBox = css`
   width: 80%;
-  height: 15%;
+  height: 10%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   border-bottom: 1px solid #0a3140;
 
-  > div {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    > h1 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  > h1 {
     margin: 5px 0;
     color: #0a3140;
   }
-
-    > button {
-    width: 100px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #fff;
-    border: 1px solid #0a3140;
-    color:  #0a3140;
-    cursor: pointer;
-
-    &:hover {
-      color: #fff;
-      background-color:  #0a3140;
-    }
-
-  }
-  }
-  
 `;
 
 export const mainBox = css`
+  box-sizing: border-box;
   width: 80%;
   height: 90%;
   padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const reviewBox = css`
   box-sizing: border-box;
   width: 100%;
   height: 300px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
 `;
 
 export const reviewHeader = css`

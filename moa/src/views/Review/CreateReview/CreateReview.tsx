@@ -87,7 +87,7 @@ function CreateReview() {
   }, [reviewData.reviewImage]);
 
   const handleReset = () => {
-    setReviewImg({
+    setReviewData({
       reviewId: null,
       userId: userId,
       groupId: 0,
@@ -99,24 +99,30 @@ function CreateReview() {
     setReviewImg(undefined);
   };
 
-  const handlePostReportData = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handlePostReviewData = async (e: React.MouseEvent<HTMLButtonElement>) => {
   e.preventDefault();
 
   const reviewDataForm = new FormData();
   
   Object.entries(reviewData).forEach(([key, value]) => {
-    if (key === "reviewImage" && value instanceof File) {
-      reviewDataForm.append(key, value); 
-    } else {
-      reviewDataForm.append(key, String(value));
+    if (value !== null && value !== undefined) {
+      if (key === "reviewImage" && value instanceof File) {
+        reviewDataForm.append(key, value);
+      } else {
+        reviewDataForm.append(key, String(value));
+      }
     }
   });
+  
 
+  console.log(reviewDataForm);
 
   try {
+    console.log(reviewDataForm);
     const response = await axios.post(
       `http://localhost:8080/api/v1/reviews`,
       reviewDataForm,
+
       {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
@@ -142,6 +148,7 @@ function CreateReview() {
         <h1>
           <IoArrowBackOutline css={s.backPage} onClick={backPage}/>후기 작성
         </h1>
+        <p>※ 작성한 후기는 수정이 불가하니 신중하게 작성해 주세요.</p>
       </div>
       <div css={s.mainBox}>
         <div css={s.mainHeader}>
@@ -190,7 +197,7 @@ function CreateReview() {
       </div>
       <div css={s.btnBox}>
         <button onClick={handleReset}>초기화</button>
-        <button onClick={handlePostReportData}>등록</button>
+        <button onClick={handlePostReviewData}>등록</button>
       </div>
     </div>
   )

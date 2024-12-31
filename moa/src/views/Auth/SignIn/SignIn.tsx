@@ -147,7 +147,7 @@ export default function SignIn() {
           <a href="" css={s.linkText}>
             아이디찾기
           </a>
-          <a href="" css={s.linkText}>
+          <a href="/findPassword" css={s.linkText}>
             비밀번호찾기
           </a>
           <a href="/signUp" css={s.linkText}>

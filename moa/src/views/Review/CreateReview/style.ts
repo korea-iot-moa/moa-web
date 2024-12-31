@@ -22,6 +22,11 @@ export const header = css`
     font-weight: bold;
     margin: 0;
   }
+
+  > p {
+    margin-left: 42px;
+    color: #E50914;
+  }
 `;
 
 export const mainBox = css`
@@ -163,8 +168,8 @@ export const btnBox = css`
 
   > button:nth-child(2) {
     &:hover {
-      border: 1px solid #E50914;
-      color: #E50914;
+      border: 1px solid #FCD572;
+      color: #FCD572;
     }
   }
 `;
