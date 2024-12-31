@@ -90,7 +90,7 @@ export default function SignUp() {
 
   //& DB 취미 요청
   useEffect(() => {
-    axios.get("http://localhost:8080/api/profile/hobbies").then((response) => {
+    axios.get("http://localhost:8081/api/profile/hobbies").then((response) => {
       setHobbies(response.data.data);
     });
   }, []);
@@ -232,7 +232,7 @@ export default function SignUp() {
     try{
       if(signUpData.userId && idRegex.test(signUpData.userId)) {
         setValidId("")
-        const result = await axios.get(`http://localhost:8080/api/v1/auth/duplicateId/${signUpData.userId}`)
+        const result = await axios.get(`http://localhost:8081/api/v1/auth/duplicateId/${signUpData.userId}`)
   
         if(result.data.data === true) {
           setDuplicateIdMs("※ 아이디가 중복되었습니다.")
@@ -257,7 +257,7 @@ export default function SignUp() {
     try{
       if(signUpData.nickName && nicknameRegex.test(signUpData.nickName)) {
         setValidNickName("")
-        const result = await axios.get(`http://localhost:8080/api/v1/auth/duplicateNickName/${signUpData.nickName}`)
+        const result = await axios.get(`http://localhost:8081/api/v1/auth/duplicateNickName/${signUpData.nickName}`)
   
         if(result.data.data === true) {
           setDuplicateNickNameMs("※ 닉네임이 중복되었습니다.")
@@ -306,7 +306,7 @@ export default function SignUp() {
       try {
       
         const response = await axios.post(
-          "http://localhost:8080/api/v1/auth/signUp",
+          "http://localhost:8081/api/v1/auth/signUp",
           signUpForm,
           {
             headers: {

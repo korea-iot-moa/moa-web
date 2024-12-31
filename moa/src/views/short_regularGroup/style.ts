@@ -18,7 +18,7 @@ export const groupList =css`
 export const groupLi =css`
   display: block;
   float: left;
-  flex: 1 1 150px;
+  flex: 200px;
   box-sizing: border-box;
   padding: 10px;
   margin-top: 20px;

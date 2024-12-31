@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 
-export const container = css`
+export const container =css`
   width: 80%;
-  margin: 0 auto;
+  margin: 50px auto;
   max-width: 700px;
   min-width: 400px;
-  `
+`
 
 export const mainBox = css`
   margin: 0px;
@@ -13,8 +13,8 @@ export const mainBox = css`
   flex-direction: column;
   align-items: flex-start;
   `
-
-export const selectCategry =css`
+  
+  export const selectCategry =css`
   display: flex;
   flex-direction: row;
   list-style: none;
@@ -22,30 +22,27 @@ export const selectCategry =css`
   justify-content: space-around;
   `
 
-export const categoryList =css`
-  padding: 0px; 
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  list-style: none;
-  gap: 50px;
-  font-size: 11px;
-  margin-top: 30px;
-  padding: 0;
-`
-
-export const groupLi = css`
-  width: 200px;
-  box-sizing: border-box;
-  padding: 10px;
-  margin-top: 20px;
-`
 export const line = css`
   border: 1px solid #ddd;
   margin: 10px 0px;
 `
-export const content = css`
+
+export const groupList =css`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 30px;
+  list-style: none;
+  padding: 0px;
+  margin: 20px;
+`
+
+export const groupLi =css`
+  display: block;
+  float: left;
+  width: 200px;
+  box-sizing: border-box;
+  padding: 10px;
   margin: 0px;
 `
 
@@ -53,12 +50,14 @@ export const listDetail =css`
   display: flex;  
   flex-direction: row;
   justify-content: space-between;
+  font-size: 10px;
 `
 
-export const category =css`
-  border-radius: 5px;
-  background-color: orange;
-  padding: 5px;
-  box-sizing: border-box;
-  color: white;
+export const content =css`
+  margin: 0px;
+`
+
+export const marginPaddingDel =css`
+  margin: 0px;
+  padding: 0px;
 `
