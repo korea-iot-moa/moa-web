@@ -12,7 +12,7 @@ export const mainContainer = css`
   min-width: 765px;
   overflow-y: visible;
   overflow-x: hidden;
-
+  
   ::-webkit-scrollbar {
     display: none;
   }

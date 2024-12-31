@@ -21,6 +21,8 @@ import Manager from "./views/Manager";
 import ReportPage from "./views/Report/ReportPage";
 import CreateReview from "./views/Review/CreateReview/CreateReview";
 import ReviewMain from "./views/Review/ReviewMain/ReviewMain";
+import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
+import FindPassword from "./views/Auth/FindPassword/FindPassword";
 
 function App() {
   interface TokenUser {
@@ -63,6 +65,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
+            <Route path="/findPassword" element={<FindPassword/>}/>
 
             <Route path={JOIN_GROUP_PAGE} element={<GroupHeader />} />
             <Route path={REPORT_POST_PAGE} element={<ReportPage />} />
@@ -85,19 +88,15 @@ function App() {
             />
             <Route path="/manager/user-list/:groupId" element={<Manager />} />
 
-            <Route
-              path="/review/*"
-              element={
-                <Routes>
-                  <Route path="main" element={<ReviewMain />} />
-                  {cookies.token ? (
-                    <Route path="create" element={<CreateReview />} />
-                  ) : (
-                    <Navigate to="main" replace />
-                  )}
-                </Routes>
-              }
-            />
+              <Route path="/review/main" element={<ReviewMain />} />
+              <Route
+                path="/review/create"
+                element={
+                  cookies.token ? <CreateReview /> : <Navigate to="/review/main" replace />
+                }
+              />
+
+              <Route path="/myPage/review" element={<MyPageReview/>}/>
           </Routes>
         </MainContainer>
       </RootContainer>

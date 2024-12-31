@@ -27,6 +27,10 @@ export default function ReportPage() {
     reportImage: null,
   });
 
+  const backPage = () => {
+    navigate(-1)
+  }
+
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const element = e.target;
 
@@ -84,12 +88,15 @@ export default function ReportPage() {
   const reportDataForm = new FormData();
   
   Object.entries(reportData).forEach(([key, value]) => {
-    if (key === "reportImage" && value instanceof File) {
-      reportDataForm.append(key, value); 
-    } else {
-      reportDataForm.append(key, String(value));
+    if (value !== null && value !== undefined) {
+      if (key === "reviewImage" && value instanceof File) {
+        reportDataForm.append(key, value);
+      } else {
+        reportDataForm.append(key, String(value));
+      }
     }
   });
+  
 
   try {
     const response = await axios.post(
@@ -117,11 +124,11 @@ export default function ReportPage() {
     <div css={s.fullBox}>
       <div css={s.header}>
         <h1>
-          <IoArrowBackOutline /> 신고 게시판
+          <IoArrowBackOutline css={s.backPage} onClick={backPage}/> 신고 게시판
         </h1>
         <p>
           ※ 신고 사항은 해당 모임의 관리자만 확인이 가능하고 수정이 불가하니
-          신중하게 작성해주세요.
+          신중하게 작성해 주세요.
         </p>
       </div>
       <div css={s.mainBox}>
