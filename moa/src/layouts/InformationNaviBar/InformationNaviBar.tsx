@@ -18,6 +18,8 @@ export default function InformationNaviBar() {
   const [button, setButton] = useState<boolean>(true);
   const [category, setCategory] = useState<boolean>(false);
   
+  const navigator = useNavigate();
+  
 
   useEffect(() => {
     if (!cookies.token) {
@@ -30,7 +32,7 @@ export default function InformationNaviBar() {
     setCookies("token", "", { expires: new Date() });
     removeCookie("token", { path: "/" });
     logout();
-    
+    navigator('/')
   };
 
   //카테고리바 핸들러
@@ -40,7 +42,7 @@ export default function InformationNaviBar() {
   }
 
 
-  const navigator = useNavigate();
+  
   return (
     <div css={s.mainContainer}>
     <div css={s.infoNaviBar}>
@@ -54,7 +56,7 @@ export default function InformationNaviBar() {
           <p css={s.fontSt}>정기 모임</p>
         </div>
         <div css={s.naviDiv}
-        onClick={() => navigator('/review')}>
+        onClick={() => navigator('/review/main')}>
           <MdStickyNote2 color="#2C3E50" fontSize="25px" />
           <p css={s.fontSt}>후기 게시판</p>
         </div>
@@ -75,7 +77,7 @@ export default function InformationNaviBar() {
             {!profileImage ? (
               <img src={userImg} alt="userImage" css={s.userImg} />
             ) : (
-              <img src={profileImage} alt="profileImage" css={s.userImg} />
+              <img src={"http://localhost:8080/image/" + profileImage} alt="profileImage" css={s.userImg} />
             )}
             </div>
             <div css={s.userNameBox}>{nickName}</div>

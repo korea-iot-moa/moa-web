@@ -51,6 +51,12 @@ export const userNameBox = css`
   color: #222222;
   font-weight: 600;
   padding: 10px;
+  cursor: pointer;
+  &:hover{
+    background-color: #afafaf;
+    color: #fff;
+    border: 1px solid #fff
+  }
 `;
 
 export const innerInfoBox = css`

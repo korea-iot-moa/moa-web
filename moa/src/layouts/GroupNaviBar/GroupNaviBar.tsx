@@ -9,6 +9,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import "react-tooltip/dist/react-tooltip.css";
 import defaultImg from "../../images/moaLo.png";
+import useGroupListStore from "../../stores/group.list.store";
 
 export default function GroupNaviBar() {
   const { userId } = userAuthStore();
@@ -16,6 +17,7 @@ export default function GroupNaviBar() {
   const [groupList, setGroupList] = useState<MeetingGroup[]>([]);
   const [hoveredGroupId, setHoveredGroupId] = useState<number | null>(null);
 
+  const { setGroupListStore } = useGroupListStore();
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function GroupNaviBar() {
             withCredentials: true,
           });
           setGroupList(response.data.data);
+          setGroupListStore(response.data.data);
         } catch (error) {
           console.error(error);
         }
