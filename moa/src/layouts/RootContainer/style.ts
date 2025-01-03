@@ -6,6 +6,7 @@ export const mainContainer = css`
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  position: relative;
 
   ::-webkit-scrollbar {
     display: none;

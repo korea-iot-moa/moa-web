@@ -113,7 +113,7 @@ export default function GroupHeader() {
         },
         withCredentials: true,
       }).then(() => {
-        navigate('/')
+        navigate('/main')
         window.location.reload();
       })
     } catch (error) {

@@ -12,7 +12,6 @@ export const infoNaviBar = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   min-width: 765px;
 `;
 
@@ -48,15 +47,23 @@ export const userImg = css`
 `;
 
 export const userNameBox = css`
-  color: #222222;
+  color: #0a3140;
   font-weight: 600;
   padding: 10px;
+`;
+
+export const userBox = css`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background-color: #cfcfcf;
+  margin: 0 10px;
+  border-radius: 5px;
   cursor: pointer;
-  &:hover{
-    background-color: #afafaf;
-    color: #fff;
-    border: 1px solid #fff
-  }
 `;
 
 export const innerInfoBox = css`
@@ -141,10 +148,30 @@ export const categoryBox = css`
   position: absolute;
   z-index: 2;
   margin: 90px;
-`
+`;
 
 export const mainContainer = css`
   display: flex;
   flex-direction: column;
-  border: 1px 
-`
+  border: 1px ;
+  position: relative;
+`;
+
+export const iconSt = css`
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export const naviModal = css`
+  width: 250px;
+  max-Width: 360;
+  position: absolute;  
+  top: 100%;
+  right: 5%;
+  transform: translateX(0); 
+  z-Index: 1;
+  border-Radius: 10px;
+  box-Shadow: 3;
+  padding: 2;
+`;
