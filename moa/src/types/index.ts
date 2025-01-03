@@ -68,12 +68,13 @@ export interface Report {
 }
 
 export interface Review {
-  reviewId: number;
+  reviewId: number | null;
   userId: string;
   groupId: number;
+  groupName: string;
   reviewContent: string;
-  reviewDate: string;
-  reviewImage: string;
+  reviewDate: Date;
+  reviewImage: any;
 }
 
 export type Gender = "MALE" | "FEMALE";
@@ -160,4 +161,18 @@ export interface SignInResponseDto {
   token: string;
   user: User;
   exprTime: number;
+}
+
+export type UserListDto = {
+  userId: string;
+  nickName: string;
+  profileImage: any;
+}
+
+export type PostReportDto = {
+  groupId: number;
+  reportDetail: string;
+  reportType: ReportType;
+  reportUser: string;
+  reportImage: any
 }

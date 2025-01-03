@@ -17,6 +17,7 @@ import BlackList from "./BlackList/BlackList";
 import Chart from "./Chart/Chart";
 import Vote from "./Vote/Vote";
 import Report from "./Report/Report";
+import Approved from "./Approved";
 
 const creatoId = "ckck7290";
 
@@ -31,11 +32,6 @@ export default function Index() {
     return null;
   }
 
-  // const handleManagerPageRender = (
-  //   pathFn: (arg0: number) => To
-  // ) => {
-  //   navigator(pathFn(parseToNumGroupId));
-  // };
 
   return (
     <div>
@@ -64,7 +60,9 @@ export default function Index() {
         <TabPanel value={4}>
           <Report  parseToNumGroupId={parseToNumGroupId}/>
         </TabPanel>
-        <TabPanel value={5}></TabPanel>
+        <TabPanel value={5}>
+          <Approved parseToNumGroupId={parseToNumGroupId}/>
+        </TabPanel>
       </Tabs>
     </div>
   );

@@ -10,13 +10,10 @@ interface BlackListProps {
 }
 
 const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
-  const [blackUserList, setBlackUserList] = useState<
-    BlackListPageResponseDto[]
-  >([]);
+  const [blackUserList, setBlackUserList] = useState<BlackListPageResponseDto[]>([]);
   const { groupId} = useParams();
   const [cookies] = useCookies(["token"]);
-  const [blackListId, setBlackListId] = useState<number>(0);
-
+  
   useEffect(() => {
     fetchBlackList();
   }, [parseToNumGroupId, cookies.token]);
@@ -33,9 +30,13 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
             withCredentials: true,
           }
         );
-        const responseData = response.data.data;
+        //
+        const responseData = response.data.data.map((item: any, index: number) => ({
+          ...item,
+          blackListId: index+1
+        }));
         setBlackUserList(responseData);
-        console.log(responseData);
+        console.log("transformed Data : "+ responseData);
       } catch (error) {
         console.error(error);
       }
@@ -43,12 +44,11 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
   };
 
   const handleDeleteBlackList = async(blackListId : number) => {
-    console.log(blackListId);
+    const url  =  `http://localhost:8080/api/v1/black-list/${blackListId}`;
+
     if (cookies.token) {
       try {
-        const response = await axios.delete(
-          `http://localhost:8080/api/v1/black-list/${blackListId}`,
-          {
+        const response = await axios.delete(url,{
             headers: {
               Authorization: `Bearer ${cookies.token}`,
             },
@@ -57,6 +57,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         console.log(responseData);
+        await fetchBlackList(); 
       } catch (error) {
         console.error(error);
       }
@@ -65,7 +66,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
 
   return (
     <div>
-      <div>총 인원수 : {}</div>
+      <div>총 인원수 : {blackUserList.length}</div>
       <ul>
         {blackUserList.map((data) => (
           <li key={data.blackListId}>
@@ -74,7 +75,8 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
             )}
             <strong>{ data.nickName}  --- </strong>
             <strong>{ data.userLevel}</strong>
-            <button onClick={() => handleDeleteBlackList(data.blackListId)}>
+            <button onClick={() => {
+              handleDeleteBlackList(data.blackListId)}}>
               해제
             </button>
           </li>

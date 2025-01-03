@@ -15,9 +15,8 @@ const Report: React.FC<ReportProps> = ({parseToNumGroupId}) => {
   const [reportList, setReportList] = useState<GetReportListResponseDto[]>([]);
   const [cookies] = useCookies(["token"]);
   const [openState, setOpenState] = useState<Record<number,boolean>>({});
-
-  //black list userId아이디에 넣어줘야 한다.
-  console.log(parseToNumGroupId)
+  
+  
   useEffect(() => {
     if (parseToNumGroupId && cookies.token) {
       fetchReportList();
