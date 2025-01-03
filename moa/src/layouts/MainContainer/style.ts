@@ -10,6 +10,7 @@ export const mainContainer = css`
   background-color: white;
   border-radius: 0px 0px 10px 0px;
   min-width: 765px;
+  min-height: 640px;
   overflow-y: visible;
   overflow-x: hidden;
   

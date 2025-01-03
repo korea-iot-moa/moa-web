@@ -50,7 +50,7 @@ export const groupDetailBox = css`
   width: 50%;
   height: 100%;
   min-height: 300px;
-  padding:20px;
+  padding:10px;
   background-color: #eee;
   border-radius: 10px;
 
@@ -84,7 +84,7 @@ export const mapBox = css`
   width: 50%;
   height: 100%;
   min-height: 300px;
-  padding:20px;
+  padding:10px;
   background-color: #eee;
   border-radius: 10px; 
 

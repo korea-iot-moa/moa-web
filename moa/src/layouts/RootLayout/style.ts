@@ -8,9 +8,9 @@ export const fullDiv = css`
   height: 100vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
   background-color: #eee;
   overflow: hidden;
+  
 
   ::-webkit-scrollbar {
     display: none;
