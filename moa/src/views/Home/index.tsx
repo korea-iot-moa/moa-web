@@ -4,8 +4,6 @@ import AuthHomeGroup from './HomeGroup'
 
 export default function index() {
   return (
-    <div>
-      <AuthHomeGroup />
-    </div>
+    <div></div>
   )
 }

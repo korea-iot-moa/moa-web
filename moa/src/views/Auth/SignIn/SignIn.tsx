@@ -84,7 +84,7 @@ export default function SignIn() {
           signInSuccessResponse(response.data.data);
         }
 
-        navigate("/");
+        navigate("/main");
       } catch (error) {
         console.error(error);
         setErrorMessage(ERROR_MESSAGES.USER_NOT_FOUND);
@@ -111,7 +111,7 @@ export default function SignIn() {
   return (
     <div css={s.fullBox}>
       <div css={s.innerBox}>
-        <div css={logo.logoBox} onClick={() => navigate("/")}>
+        <div css={logo.logoBox} onClick={() => navigate("/main")}>
           <img src={logoImg} alt="로고" css={logo.logo} />
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function SignIn() {
           <a href="" css={s.linkText}>
             아이디찾기
           </a>
-          <a href="" css={s.linkText}>
+          <a href="/findPassword" css={s.linkText}>
             비밀번호찾기
           </a>
           <a href="/signUp" css={s.linkText}>

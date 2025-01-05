@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 
 export const naviBar = css`
+position: relative;
   box-sizing: border-box;
   border-radius: 10px 0px 0px 10px;
   height: 100%;
@@ -12,6 +13,7 @@ export const naviBar = css`
   flex-direction: column;
   align-items: center;
   min-width: 80px;
+  min-height: 730px;
 `;
 
 export const logoImage = css`

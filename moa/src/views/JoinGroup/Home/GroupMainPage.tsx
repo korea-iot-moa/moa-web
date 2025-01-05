@@ -3,7 +3,6 @@ import React from 'react';
 import * as s from "./style";
 import NaverMapComponent from '../../../components/NaverMap';
 import img from "../../../images/moaLogo.png";
-import { LuCopy } from "react-icons/lu";
 
 interface MainBoxProps {
   groupInfo: any;
