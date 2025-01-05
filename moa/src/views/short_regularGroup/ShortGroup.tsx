@@ -1,63 +1,40 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect } from 'react'
-import { BsHeart } from 'react-icons/bs';
-import axios from 'axios';
-import useGroupTypeStore from '../../stores/gruopType.store';
 import * as s from "./style";
+import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
+import usePaginationScroll from '../../components/paginationScroll/paginationScroll/UsePaginationScroll';
+import { useNavigate } from "react-router-dom";
 
 function ShortGroup() {
-  const results = useGroupTypeStore((state) => state.results);
-  const loading = useGroupTypeStore((state) => state.loading);
-  const setResult = useGroupTypeStore((state) => state.setResults);
-  const setLoading = useGroupTypeStore((state) => state.setLoading);
-  
-  const fetchData = async() => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`http://localhost:8081/api/v1/auth/meeting-group/groupType`, {params: {groupType:"단기모임"}});
+  const navigator = useNavigate();
 
-      const shortTypeData = response.data.data;
-      setResult(shortTypeData);
-    } catch(error) {
-      console.log("Error fetching data: ", error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const { data, loading, resetAndFetchData } = usePaginationScroll({
+    apiUrl: "http://localhost:8081/api/v1/auth/meeting-group/groupType",
+    recommendationApiUrl: "http://localhost:8081/api/v1/auth/recommendation",
+    limit: 10,
+    extraParams: {groupType: "단기모임"}
+  });
 
-  useEffect(() => {
-    fetchData();
-  },[]);
+  const handleSortChange = (sortBy: string) => {
+    resetAndFetchData(sortBy);
+  };
 
   return (
-    <div css={s.mainContainer}>
+    <div css={s.container}>
       <p>단기모임</p>
-      <div></div>
       <div>
-        {
-          loading 
-          ? <p></p>
-            : 
-            <ul css={s.groupList}>
-            {results.map(result => (
-              <li 
-              css={s.groupLi}
-              key={result.groupId}>
-                <div>{result.groupImage}</div>
-                <p>{result.groupTitle}</p>
-                <p>{result.groupDate}</p>
-                <p>{result.groupAddress}</p>
-                <div>
-                  <BsHeart />
-                </div>
-              </li>
-            )
-          )}
-        </ul>
-          }
+        <button onClick={() => handleSortChange("recommendation")}>기본순</button>
+        <button onClick={() => handleSortChange("default")}>추천순</button>
+      </div>
+      <div>
+        {loading ? (
+          <p>로딩 중...</p>
+        ) : (
+          <PaginationScroll data={data}/>
+            )}
       </div>
     </div>
-  )
+  );
 }
+
 
 export default ShortGroup;

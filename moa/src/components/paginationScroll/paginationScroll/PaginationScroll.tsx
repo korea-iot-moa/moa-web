@@ -1,18 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
-import { MeetingGroup, Recommendation } from '../../types';
-import * as s from "./style";
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
-import axios from 'axios';
+import { MeetingGroup, Recommendation } from '../../../types';
+import * as s from './style'
 import { useCookies } from 'react-cookie';
-import useGroupStore from '../../stores/group.store';
+import axios from 'axios';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-
-interface PaginationScrollProps {
-  fetchPageData: (page: number) => Promise<MeetingGroup[]>
-  totalProducts: number;
-  productsPerPage: number;
-}
+import useGroupStore from '../../../stores/group.store';
 
 
 const PaginationScroll = ({ data }: { data:MeetingGroup[] }) => {

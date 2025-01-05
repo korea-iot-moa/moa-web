@@ -16,6 +16,7 @@ function HobbyAndRegionCategory ()  {
   const navigator = useNavigate();
   const [openClose, setOpenClose] = useState<boolean>(false);
 
+
   const handleHobbyFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selectCategory = e.currentTarget.value;
     setGroupCategory(selectCategory);
@@ -40,9 +41,10 @@ function HobbyAndRegionCategory ()  {
     navigator('/search/categoryresult')
     if(!groupCategory || !region){
       alert("카테고리와 지역을 모두 선택해주세요.");
-      setOpenClose(prev=> !prev);
       return;
     }
+    setOpenClose(prev=> !prev);
+
     setLoading(true);
     try {
       const response = await axios.get(

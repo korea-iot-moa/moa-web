@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react'
+/** @jsxImportSource @emotion/react */
+import React, { useEffect, useState } from 'react'
 import { BsHeart } from 'react-icons/bs';
 import axios from 'axios';
 import useGroupTypeStore from '../../stores/gruopType.store';
+import * as s from "./style";
+import { MeetingGroup } from '../../types';
 
 function RegularGroup() {
-  const results = useGroupTypeStore((state) => state.results);
-  const loading = useGroupTypeStore((state) => state.loading);
-  const setResult = useGroupTypeStore((state) => state.setResults);
-  const setLoading = useGroupTypeStore((state) => state.setLoading);
+  const [results, setResult] = useState<MeetingGroup[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   
   const fetchData = async() => {
     setLoading(true);
@@ -28,29 +29,35 @@ function RegularGroup() {
   },[]);
 
   return (
-    <div>
-      <p>정기모임</p>
-      <div></div>
-        {
+  <div css={s.container}>
+        <p>정기모임</p>
+        <div></div>
+        <div>
+          {
             loading 
             ? <p></p>
-            : 
-        <ul>
-            {results.map(result => (
-              <li key={result.groupId}>
-                <div>{result.groupImage}</div>
-                <p>{result.groupTitle}</p>
-                <p>{result.groupDate}</p>
-                <p>{result.groupAddress}</p>
-                <div>
-                  <BsHeart />
-                </div>
-              </li>
-            )
-            )}
-        </ul>
-          }
-    </div>
+              : 
+              <ul css={s.groupList}>
+                          {results.map((result) => (
+                            <li css={s.groupLi} key={result.groupId}>
+                              <div>{result.groupImage}</div>
+                              <div css={s.line}></div>
+                              <div css={s.listDetail}>
+                                <p css={s.content}>{result.groupTitle}</p>
+                                <p css={s.content}>
+                                  <BsHeart />
+                                </p>
+                              </div>
+                              <div css={s.listDetail}>
+                                <p>{result.groupDate}</p>
+                                <p>{result.groupAddress}</p>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+            }
+        </div>
+      </div>
   )
 }
 
