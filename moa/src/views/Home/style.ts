@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 
 export const container =css`
   width: 80%;
-  margin: 50px auto;
+  margin: 0px auto;
+  margin-top: 50px;
   max-width: 700px;
   min-width: 400px;
 `
@@ -29,20 +30,21 @@ export const line = css`
 
 export const groupList =css`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 30px;
   list-style: none;
+  padding: 0px;
+  margin: 20px;
 `
 
 export const groupLi =css`
   display: block;
   float: left;
-  width: 190px;
+  width: 200px;
   box-sizing: border-box;
   padding: 10px;
   margin: 0px;
-  margin-top: 20px;
 `
 
 export const listDetail =css`
@@ -54,4 +56,14 @@ export const listDetail =css`
 
 export const content =css`
   margin: 0px;
+`
+
+export const marginPaddingDel =css`
+  margin: 0px;
+  padding: 0px;
+`
+export const click =css`
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
 `
