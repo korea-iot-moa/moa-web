@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const naviBar = css`
-position: relative;
+  position: relative;
   box-sizing: border-box;
   border-radius: 10px 0px 0px 10px;
   height: 100%;
@@ -75,4 +75,32 @@ export const line = css`
   width: 100%;
 `;
 
+export const bottomBox = css`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  padding: 10px;
+  bottom: 20px;
 
+`;
+
+export const createBox = css`
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const createIcon = css`
+  font-size: 50px;
+  color: #cfcfcf;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
