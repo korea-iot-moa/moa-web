@@ -1,9 +1,15 @@
+import usePagination from '@mui/material/usePagination/usePagination';
 import React from 'react'
-import UsePaginationScroll from '../paginationScroll/paginationScroll/UsePaginationScroll';
+import usePaginationScroll from '../paginationScroll/usePaginationScroll';
+
+interface RecommendationPageProps {
+  apiUrl: string;
+  extraParams?: Record<string, string>
+}
 
 function RecommendationPage() {
   const apiUrl = "http://localhost:8081/api/v1/recommendation";
-  const { data, loading, resetAndFetchData} = UsePaginationScroll({
+  const { data, loading, resetAndFetchData} = usePaginationScroll({
     apiUrl,
     limit: 10,
     // sortBy: "recommendatoin",

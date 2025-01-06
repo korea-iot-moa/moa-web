@@ -1,15 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
-import usePaginationScroll from '../../components/paginationScroll/paginationScroll/UsePaginationScroll';
-import { useNavigate } from "react-router-dom";
+import usePaginationScroll from '../../components/paginationScroll/usePaginationScroll';
 
 function ShortGroup() {
-  const navigator = useNavigate();
-
   const { data, loading, resetAndFetchData } = usePaginationScroll({
     apiUrl: "http://localhost:8081/api/v1/auth/meeting-group/groupType",
-    recommendationApiUrl: "http://localhost:8081/api/v1/auth/recommendation",
     limit: 10,
     extraParams: {groupType: "단기모임"}
   });
@@ -22,14 +18,16 @@ function ShortGroup() {
     <div css={s.container}>
       <p>단기모임</p>
       <div>
-        <button onClick={() => handleSortChange("recommendation")}>기본순</button>
-        <button onClick={() => handleSortChange("default")}>추천순</button>
+        <button onClick={() => handleSortChange("recent")}>최신순</button>
+        <button onClick={() => handleSortChange("default")}>기본순</button>
+        <button onClick={() => handleSortChange("past")}>과거순</button>
+        <button onClick={() => handleSortChange("recommendation")}>추천순</button>
       </div>
       <div>
         {loading ? (
           <p>로딩 중...</p>
         ) : (
-          <PaginationScroll data={data}/>
+          <PaginationScroll datas={data} />
             )}
       </div>
     </div>

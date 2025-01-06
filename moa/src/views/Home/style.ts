@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 
 export const container =css`
   width: 80%;
-  margin: 50px auto;
+  margin: 0px auto;
+  margin-top: 50px;
   max-width: 700px;
   min-width: 400px;
 `
@@ -60,4 +61,9 @@ export const content =css`
 export const marginPaddingDel =css`
   margin: 0px;
   padding: 0px;
+`
+export const click =css`
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
 `

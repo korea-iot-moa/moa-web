@@ -1,28 +1,16 @@
-import React, { useEffect } from 'react'
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import JoinGroupStart from './JoinGroupStart'
 import JoinGroupAnswer from './JoinGroupAnswer'
-import useGroupStore from '../../../stores/group.store';
-
+import GroupAnswerResult from './GroupAnswerResult';
 export default function Index() {
-  const { groupId } = useParams<{ groupId: string }>();
-  const numericGroupId = Number(groupId); 
-  const navigate = useNavigate();
-  const groupData = useGroupStore((state) => state.groupData);
-  const setGroupData = useGroupStore((state) => state.setGroupData);
-
-  // useEffect(() => {
-  //   if (!groupData?.groupId && groupId) {
-  //     setGroupData({ groupId });
-  //   }
-  //   navigate('/');
-  // }, [groupData?.groupId, navigate]);
 
   return (
     <div>
       <Routes>
-        <Route path={`/join-group`} element={<JoinGroupStart />}/>
-        <Route path={`/join-group/group-user-answer`} element={<JoinGroupAnswer />}/>
+        <Route path={`/join-group/:groupId`} element={<JoinGroupStart />}/>
+        <Route path={`/join-group/:groupId/group-user-answer`} element={<JoinGroupAnswer />}/>
+        <Route path={`/join-group/:groupId/group-user-answer/result`} element={<GroupAnswerResult />}/>
       </Routes>
     </div>
   )

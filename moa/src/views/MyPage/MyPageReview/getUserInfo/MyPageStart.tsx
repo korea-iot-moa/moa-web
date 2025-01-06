@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useUserInfoStore from '../../stores/userInfo.store';
+import useUserInfoStore from '../../../../stores/userInfo.store';
 import { useCookies } from 'react-cookie';
+import './style.css'
 
 function MyPageStart() {
   const navigator = useNavigate();
@@ -38,17 +39,22 @@ function MyPageStart() {
 
   return (
     <div>
-      <h4>마이페이지</h4>
-      <h4>비밀번호 인증 후 내 정보 수정이 가능합니다.</h4>
-      <input type="password" 
-      name='password' 
-      value={passwordValue.password || ''} 
-      placeholder='비밀번호를 입력해주세요'
-      onChange={handleChangePassword}
-      />
-      <button onClick={handleButtonGetInfo}>내 정보 수정</button>
-      <button onClick={handleButtonDeleteInfo}>회원탈퇴</button>
-    
+      <h4 className="mypageTitle">마이페이지</h4>
+      <div className='mypageBox'>
+        <h4 className='mypagesubTitle'>비밀번호 인증 후 내 정보 수정이 가능합니다.</h4>
+        <div className='passowordBox'>
+          <h4 className='mypagesubTitle'>비밀번호를 입력해주세요.</h4>
+          <input type="password" 
+          className='passwordInput'
+          name='password' 
+          value={passwordValue.password || ''} 
+          placeholder='비밀번호를 입력해주세요'
+          onChange={handleChangePassword}
+          />
+          <button className='infoUpdateBtn' onClick={handleButtonGetInfo}>내 정보 수정</button>
+        </div>
+        <button className='deleteUserIdBtn' onClick={handleButtonDeleteInfo}>회원탈퇴</button>
+      </div>
     </div>
   )
 }

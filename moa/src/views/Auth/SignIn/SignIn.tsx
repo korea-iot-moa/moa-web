@@ -76,7 +76,7 @@ export default function SignIn() {
         };
 
         const response = await axios.post(
-          `http://localhost:8081/api/v1/auth/login`,
+          `http://localhost:8080/api/v1/auth/login`,
           signinData
         );
 
@@ -144,7 +144,7 @@ export default function SignIn() {
 
       <div css={s.innerBox}>
         <div css={s.linkBox}>
-          <a href="" css={s.linkText}>
+          <a href="/findUserId" css={s.linkText}>
             아이디찾기
           </a>
           <a href="/findPassword" css={s.linkText}>

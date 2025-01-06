@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import MyPageStart from './MyPageStart'
-import GetUserInfo from './GetUserInfo'
-import DelelteUserInfoStart from './DelelteUserInfoStart'
-import DelelteUserInfo from './DelelteUserInfo'
+import MyPageStart from './MyPageReview/getUserInfo/MyPageStart'
+import GetUserInfo from './MyPageReview/getUserInfo/GetUserInfo'
+import DelelteUserInfoStart from './MyPageReview/deleteUserInfo/DelelteUserInfoStart'
+import DelelteUserInfo from './MyPageReview/deleteUserInfo/DelelteUserInfo'
 export default function index() {
 
   return (

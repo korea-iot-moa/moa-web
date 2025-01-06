@@ -1,38 +1,77 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
 import { MeetingGroup, Recommendation } from '../../types';
-import * as s from "./style";
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
-import axios from 'axios';
+import * as s from './style'
 import { useCookies } from 'react-cookie';
-import useGroupStore from '../../stores/group.store';
+import axios from 'axios';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import useGroupStore from '../../stores/group.store';
 
 interface PaginationScrollProps {
-  fetchPageData: (page: number) => Promise<MeetingGroup[]>
-  totalProducts: number;
-  productsPerPage: number;
+  datas: MeetingGroup[];
 }
 
-
-const PaginationScroll = ({ data }: { data:MeetingGroup[] }) => {
-  
+const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
   const [likedGroups, setLikedGroups] = useState<number[]>([]);
   const [cookies] = useCookies(["token"]);
-  const setGroupData = useGroupStore((state) => state.setGroupData); //이건 임시용
   const navigator = useNavigate();
+
+  // 중복 확인 상태관리
+  const [duplicationUserAnswer, setDuplicationUserAnswer] = useState<boolean>(false);
+
+  // 답변 중복확인 함수
+  const handleOpenGroup = async(group:MeetingGroup | null) => {
+    if(cookies.token){
+      try{
+        const response = await axios.get(`http://localhost:8081/api/v1/user-answers/duplication/${group?.groupId}`, 
+          {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            withCredentials: true,
+          }
+        );
+        if(response.data.data === true) {
+          alert("이미신청완료됐습니다");
+          setDuplicationUserAnswer(true);
+        } else {
+          useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
+          navigator(`/group/join-group/${group?.groupId}`);
+        }
+      }catch (error) {
+        console.error(error);
+      }
+    }
+  }
+
+  // const handleOpenGroup = (group: MeetingGroup | null) => {
+  //   fetchDataDuplication(group);
+  //   useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
+  //   navigator(`/group/join-group/${group?.groupId}`);
+  // };
+  
+  useEffect(() => {
+    async function fetchLikes() {
+      if(cookies.token) {
+        try{
+          const response = await axios.get('http://localhost:8081/api/v1/recommendation', {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            withCredentials: true,
+          });
+
+          const likedGroupIDs = response.data.data.map((item: {groupId: number}) => item.groupId);
+
+          setLikedGroups(likedGroupIDs);
+        } catch(error) {
+          console.error("찜 상태를 가져오는 중 오류 발생: ", error);
+        }
+      }
+    }
+    fetchLikes();
+  }, []);
 
   const toggleLike = (groupId: number) => {
     setLikedGroups((prev) => 
       prev.includes(groupId) ? prev.filter((id) => id !== groupId) : [...prev, groupId]);
-  }
-
-  const handleOpenGroup = (groupId: number) => {
-    const group = data.find(group => group.groupId === groupId);
-    if (group) {
-      setGroupData(group);
-      navigator(`/join-group/${groupId}`);
-    }
   }
   
   const handleFetchData = async (groupId: number) => {
@@ -73,39 +112,37 @@ const PaginationScroll = ({ data }: { data:MeetingGroup[] }) => {
     }
   };
 
-  useEffect(() => {
-    async function fetchLikes() {
-      const response = await axios.get('http://localhost:8081/api/v1/recommendation', {
-        headers: { Authorization: `Bearer ${cookies.token}` },
-      });
-      setLikedGroups(response.data.data);
-    }
-    fetchLikes();
-  }, []);
-
   return (
     <div>
-      <ul css={s.categoryList}>
-      {data.map((result, index) => (
-        <li css={s.groupLi} key={index}>
-          <div><img src={result.groupImage} alt={result.groupImage} onClick={()=> handleOpenGroup(result.groupId)}/></div>
-          <div css={s.line}></div>
-          <div css={s.listDetail}>
-            <p css={s.content}>{result.groupTitle}</p>
-            <p css={s.content}>
-              <button css={s.click} onClick={() => handleFetchData(result.groupId)}>
-                {likedGroups.includes(result.groupId) ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />}
-              </button>
-            </p>
-          </div>
-          <div css={s.listDetail}>
-          <p>{result.groupDate}</p>
-          <p>{result.groupAddress}</p>
-          <p>{result.groupType}</p>
-          </div>
-        </li>
-      ))}
-      </ul>
+      { 
+          datas.length > 0 ? 
+        <ul css={s.categoryList}>
+        {datas.map((data, index) => (
+          <li css={s.groupLi} key={index}>
+            <div>
+              <img src={data.groupImage} 
+              alt={data.groupImage} 
+              onClick={()=> handleOpenGroup(data)}/>
+              </div>
+            <div css={s.line}></div>
+            <div css={s.listDetail}>
+              <p css={s.content}>{data.groupTitle}</p>
+              <p css={s.content}>
+                <button css={s.click} onClick={() => handleFetchData(data.groupId)}>
+                  {likedGroups.includes(data.groupId) ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />}
+                </button>
+              </p>
+            </div>
+            <div css={s.listDetail}>
+            <p>{data.groupDate}</p>
+            <p>{data.groupAddress}</p>
+            </div>
+          </li>
+        ))}
+        </ul>
+        :
+        <p>검색결과를 찾을 수 없습니다.</p>
+        }
     </div>
   )
 }

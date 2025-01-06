@@ -1,8 +1,10 @@
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import * as s from './style'
 
-function DelelteUserInfoStart() {
+function DeleteUserInfoStart() {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [cookies, setCookies] = useCookies(['token', 'isChecked']);
   const navigate = useNavigate();
@@ -58,4 +60,4 @@ function DelelteUserInfoStart() {
   )
 }
 
-export default DelelteUserInfoStart
+export default DeleteUserInfoStart

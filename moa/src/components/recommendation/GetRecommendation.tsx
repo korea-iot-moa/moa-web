@@ -36,13 +36,7 @@ function GetRecommendation() {
   return (
     <div>
       <button onClick={handleRecommendationClick}>추천순</button>
-      {/* <PaginationScroll
-        results={results}
-        loading={loading}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-      /> */}
+    
     </div>
   );
 }

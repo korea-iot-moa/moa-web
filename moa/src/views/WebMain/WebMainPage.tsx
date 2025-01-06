@@ -4,7 +4,7 @@ import * as s from './style';
 import logoImg from "../../images/moaLo.png"
 import mainVideo from "../../video/mainVideo.mp4";
 import webAppMain from "../../images/webAppMain.png";
-import 'animate.css';
+// import 'animate.css';
 import { FaGithub } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
