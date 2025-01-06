@@ -28,7 +28,6 @@ export const signUpBox = css`
   min-width: 590px;
 `;
 
-
 export const pageStateBox = css`
   display: flex;
   flex-direction: row;

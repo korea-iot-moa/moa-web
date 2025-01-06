@@ -50,7 +50,6 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
 
   const handleApproveUser = async (userId: string) => {
   
-    
     const postReponseUserAnswer: PostUserAnswerReqeustDto = {
       userId: userId,
       isApproved: 1,

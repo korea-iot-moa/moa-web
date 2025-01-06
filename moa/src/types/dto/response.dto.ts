@@ -1,7 +1,7 @@
 
 //! === 모임 관리자 페이지 응답 객체 정리 === //
 
-import { Gender, MeetingGroup, ReportResult, ReportType, User, UserList } from "..";
+import { Gender, GroupCategory, GroupType, MeetingGroup, MeetingType, ReportResult, ReportType, User, UserList } from "..";
 
 export interface BlackListPageResponseDto {
   blackListId: number;
@@ -69,4 +69,43 @@ export interface PutUserLevelReponseDto {
   userId: string;
   nickName : string 
   UserLevel : UserList
+}
+
+// 모임 등록 응답 객체 정리
+export interface PostGroupResonseDto{
+  groupId: number;
+    creatorId: string;
+    groupTitle: string;
+    groupContent: string;
+    groupAddress: string;
+    groupImage: string;
+    groupSupplies: string;
+    groupDate: string;
+    groupQuestion: string;
+    groupCategory: GroupCategory;
+    groupType: GroupType;
+    meetingType: MeetingType;
+}
+
+// 모임 수정 응답 객체 정리
+export interface PutGroupResponseDto {
+  groupId: number;
+  creatorId: string;
+  groupTitle: string;
+  groupContent: string;
+  groupAddress: string;
+  groupImage: string;
+  groupSupplies: string;
+  groupDate: string;
+  groupQuestion: string;
+  groupCategory: GroupCategory;
+  groupType: GroupType;
+  meetingType: MeetingType;
+}
+
+export interface GetVoteAnswerChartResponseDto{
+  
+  voteAnswer : string ; 
+  count : number; 
+  ratio : number;
 }

@@ -65,7 +65,7 @@ export const ulStyle = css`
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0px;
-  padding: 0px
+  padding: 0px;
 `
 export const buttonStyle = css`
   border: none;

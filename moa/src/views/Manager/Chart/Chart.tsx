@@ -34,7 +34,7 @@ const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/user-list/genderChart/${groupId}`,
+          `http://localhost:8080/api/v1/user-list/genderChart/${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -55,7 +55,7 @@ const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/user-list/userChart/${groupId}`,
+          `http://localhost:8080/api/v1/user-list/userChart/${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,

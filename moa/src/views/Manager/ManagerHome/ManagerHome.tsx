@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   GetUserListResponseDto,
   PostUserLevelResponse,
@@ -24,10 +24,12 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
   const { groupId } = useParams();
   const [cookies] = useCookies(["token"]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const navigate = useNavigate();
   const [selectedLevel, setSelectedLevel] = useState<"일반회원"| "우수회원">("일반회원");
   useEffect(() => {
     fetchUserList();
   }, [groupId, cookies.token]);
+
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -36,6 +38,11 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const handleNextMeetingPage = () => {
+    navigate('/main/create-group')
+};
+  
 
   const fetchUserList = async () => {
     if (cookies.token) {
@@ -112,9 +119,30 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     }
   };
 
+  //모임 삭제
+  const handleDeleteGroup = async() => {
+    const url  = `http://localhost:8080/api/v1/meeting-group/${parseToNumGroupId}`;
+    if (cookies.token) {
+      try {
+        await axios.delete(url,
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.token}`,
+            },
+            withCredentials: true,
+          }
+        );
+     
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+
   if (userList.length === 0) {
     return <p>No users found.</p>;
   }
+
 
   return (
     <div>
@@ -154,6 +182,10 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
           <button onClick={() => handleDeleteUser(data.userId)}>탈퇴</button>
         </div>
       ))}
+      <div>
+        <button onClick={() => handleNextMeetingPage() }>모임 수정</button>
+        <button onClick={() => handleDeleteGroup()}>모임 삭제</button>
+      </div>
     </div>
   );
 };

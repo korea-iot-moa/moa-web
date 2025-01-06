@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RootLayout from "./layouts/RootLayout/RootLayout";
 import RootContainer from "./layouts/RootContainer/RootContainer";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "./views/Home/index";
 import GroupNaviBar from "./layouts/GroupNaviBar/GroupNaviBar";
 import InformationNaviBar from "./layouts/InformationNaviBar/InformationNaviBar";
@@ -11,7 +11,7 @@ import SignIn from "./views/Auth/SignIn/SignIn";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
-import { JOIN_GROUP_PAGE, REPORT_POST_PAGE } from "./contants";
+import * as p from "./contants";
 import GroupHeader from "./views/JoinGroup/GroupHeader";
 import SearchResult from "./layouts/SearchBar";
 import CategorySearchList from "./layouts/SearchBar/CategorySearchList";
@@ -22,11 +22,18 @@ import {ThemeProvider,createTheme,Theme } from "@mui/material/styles";
 import ReportPage from "./views/Report/ReportPage";
 import CreateReview from "./views/Review/CreateReview/CreateReview";
 import ReviewMain from "./views/Review/ReviewMain/ReviewMain";
+import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
+import FindPassword from "./views/Auth/FindPassword/FindPassword";
+import VerificationPassword from "./views/Auth/FindPassword/VerificationPassword";
+import NoticePage from "./views/Notice/NoticePage";
+import WebMainPage from "./views/WebMain/WebMainPage";
+import CreateGroup from "./views/GroupDetail/CreateGroup/CreateGroup";
+import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
 
 function App() {
   const theme = createTheme({
     palette: {
-      mode: 'light', // 또는 'dark'
+      mode: 'light',
     },
   });
   interface TokenUser {
@@ -37,7 +44,8 @@ function App() {
 
   const [cookies] = useCookies(["token"]);
   const { login, logout } = userAuthStore();
-  const navigate = useNavigate();
+  
+  const location = useLocation();
 
   useEffect(() => {
     if (cookies.token) {
@@ -57,66 +65,115 @@ function App() {
     }
   }, [cookies.token, login, logout]);
   return (
-  <ThemeProvider theme={theme}>
-    <RootLayout>
-      <GroupNaviBar />
-      <RootContainer>
-        <InformationNaviBar />
-        <MainContainer>
-          <Routes>
-            {/* 메인 영역 라우트 설정 */}
-            <Route path="/" element={<Home />} />
-            <Route path="/signUp" element={<SignUp />} />
-            <Route path="/signIn" element={<SignIn />} />
-            <Route path={JOIN_GROUP_PAGE} element={<GroupHeader/>} />
-            <Route path='/search/*' element={
-          <Routes>
-            <Route path='/' element={<SearchResult />}/>
-            <Route path='/categoryresult' element={<CategorySearchList />} />
-            <Route path='/grouptype/shorttype' element={<ShortGroup />}/>
-            <Route path='/grouptype/regulartype' element={<RegularGroup />}/>
-          </Routes>
-        }/>
-            < Route path="/manager/:groupId" element ={ <Manager />} />          
-            <Route path={JOIN_GROUP_PAGE} element={<GroupHeader />} />
-            <Route path={REPORT_POST_PAGE} element={<ReportPage />} />
-            <Route
-              path="/search/*"
-              element={
-                <Routes>
-                  <Route path="/" element={<SearchResult />} />
-                  <Route
-                    path="/categoryresult"
-                    element={<CategorySearchList />}
-                  />
-                  <Route path="/grouptype/shorttype" element={<ShortGroup />} />
-                  <Route
-                    path="/grouptype/regulartype"
-                    element={<RegularGroup />}
-                  />
-                </Routes>
-              }
-            />
-            <Route path="/manager/user-list/:groupId" element={<Manager />} />
+    <>
+      {location.pathname === p.WEB_MAIN ? (
+        <Routes>
+          <Route path={p.WEB_MAIN} element={<WebMainPage />} />
+        </Routes>
+      ) : (
+        <RootLayout>
+          <GroupNaviBar />
+          <RootContainer>
+            <InformationNaviBar />
+            <MainContainer>
+              <Routes>
+                {/* 메인 영역 라우트 설정 */}
+                <Route path={p.WEB_APP_MAIN} element={<Home />} />
+                <Route path={p.SIGN_UP_PAGE} element={<SignUp />} />
+                <Route path={p.SIGN_IN_PAGE} element={<SignIn />} />
+                <Route
+                  path={p.FIND_PASSWORD_PAGE}
+                  element={<FindPassword />}
+                />
+                <Route
+                  path={p.FIND__VERIFY_PASSWORD_PAGE}
+                  element={<VerificationPassword />}
+                />
+                <Route path={p.JOIN_GROUP_PAGE} element={<GroupHeader />} />
+                <Route path={p.REPORT_POST_PAGE} element={<ReportPage />} />
+                <Route
+                  path="/search/*"
+                  element={
+                    <Routes>
+                      <Route path="/" element={<SearchResult />} />
+                      <Route
+                        path="/categoryresult"
+                        element={<CategorySearchList />}
+                      />
+                      <Route
+                        path="/grouptype/shorttype"
+                        element={<ShortGroup />}
+                      />
+                      <Route
+                        path="/grouptype/regulartype"
+                        element={<RegularGroup />}
+                      />
+                    </Routes>
+                  }
+                />
+                <Route
+                path="/main/create-group"
+                element={<CreateGroup/>}
+                />
+                <Route
+                path="/main/create-group_1/:groupId"
+                element={<CreateGroup_1/>}
+                />
+                <Route
+                  path="/main/manager/user-list/:groupId"
+                  element={
+                  <ThemeProvider theme={theme}>
+                    <Manager />
+                  </ThemeProvider>  
+                    }
+                />
+                <Route
+                  path="/review/*"
+                  element={
+                    <Routes>
+                      {/* 리뷰 메인 */}
+                      <Route
+                        path={p.REVIEW_MAIN}
+                        element={<ReviewMain />}
+                      />
 
-            <Route
-              path="/review/*"
-              element={
-                <Routes>
-                  <Route path="main" element={<ReviewMain />} />
-                  {cookies.token ? (
-                    <Route path="create" element={<CreateReview />} />
-                  ) : (
-                    <Navigate to="main" replace />
-                  )}
-                </Routes>
-              }
-            />
-          </Routes>
-        </MainContainer>
-      </RootContainer>
-    </RootLayout>
-  </ThemeProvider>
+                      {/* 리뷰 생성 페이지 */}
+                      <Route
+                        path={p.CREATE_REVIEW_PAGE}
+                        element={
+                          cookies.token ? (
+                            <CreateReview />
+                          ) : (
+                            <Navigate to={p.SIGN_IN_PAGE} replace />
+                          )
+                        }
+                      />
+
+                      {/* 리뷰 마이페이지 */}
+                      <Route
+                        path={p.MY_PAGE_REVIEW}
+                        element={
+                          cookies.token ? (
+                            <MyPageReview />
+                          ) : (
+                            <Navigate to={p.SIGN_IN_PAGE} replace />
+                          )
+                        }
+                      />
+                    </Routes>
+                  }
+                />
+                {/* 공지사항 페이지 */}
+                <Route
+                  path={p.NOTICE_PAGE}
+                  element={<NoticePage />}
+                />
+              </Routes>
+            </MainContainer>
+          </RootContainer>
+        </RootLayout>
+      )}
+    </>
   );
 }
 

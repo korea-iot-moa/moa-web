@@ -186,6 +186,8 @@ export const btnBox = css`
       color: #E50914;
     }
   }
-    
+`;
 
+export const backPage = css`
+  cursor: pointer;
 `;

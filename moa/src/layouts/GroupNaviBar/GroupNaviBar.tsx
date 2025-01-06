@@ -50,7 +50,7 @@ export default function GroupNaviBar() {
 
   return (
     <div css={s.naviBar}>
-      <div css={s.imageBox} onClick={() => navigator("/")}>
+      <div css={s.imageBox} onClick={() => navigator("/main")}>
         <img src={logo} alt="로고" css={s.logoImage} />
         <h1>MOA</h1>
       </div>

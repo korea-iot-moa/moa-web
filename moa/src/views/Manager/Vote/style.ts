@@ -12,3 +12,8 @@ export const LayerBox = css `
 	opacity: 1;
 	visibility: visible;
 `;
+export const ReportBox = css `
+display: flex;
+flex-direction: row;
+gap: 15px;
+`;
