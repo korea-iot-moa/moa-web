@@ -19,14 +19,14 @@ export const REPORT_POST_PAGE = "/report/:groupId/:reportUserId"
 // 그룹 관련 매핑
 export const JOIN_GROUP_PAGE = "/join-group/:groupId"
 
-export const USER_LIST_PAGE ="/manager/user-list/:groupId" //홈화면 
-export const BLACK_LIST_PAGE ="/manager/black-list/:groupId"
-export const CHAR_PAGE ="/manager/chart/:groupId"
-export const REPORT_PAGE ="/manager/report/:groupId"
-export const APPROVED_PAGE ="/manager/approved/:groupId" 
-export const VOTE_PAGE ="/manager/vote/:groupId" 
-export const UPDATE_GROUP_PAGE ="/manager/update-group/:groupId" 
-
+// constants.ts
+// export const USER_LIST_PAGE = `/manager/user-list/:groupId`;
+// export const BLACK_LIST_PAGE = (groupId: string) => `/manager/black-list/${groupId}`;
+// export const CHAR_PAGE = (groupId: number) => `/manager/chart/${groupId}`;
+// export const REPORT_PAGE = (groupId: string) => `/manager/report/${groupId}`;
+// export const APPROVED_PAGE = (groupId: string) => `/manager/approved/${groupId}`;
+// export const VOTE_PAGE = (groupId: string) => `/manager/vote/${groupId}`;
+// export const UPDATE_GROUP_PAGE = (groupId: string) => `/manager/update-group/${groupId}`;
 
 // 공지사항
 export const NOTICE_PAGE = "/notice";
