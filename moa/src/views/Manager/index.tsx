@@ -17,7 +17,7 @@ import BlackList from "./BlackList/BlackList";
 import Chart from "./Chart/Chart";
 import Vote from "./Vote/Vote";
 import Report from "./Report/Report";
-import Approved from "./Approved";
+import Approved from "./Approved/index";
 
 const creatoId = "ckck7290";
 
