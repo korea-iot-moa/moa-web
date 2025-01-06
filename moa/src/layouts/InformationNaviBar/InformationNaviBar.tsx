@@ -13,7 +13,7 @@ import { BsPuzzleFill } from "react-icons/bs";
 import { HiMenu } from "react-icons/hi";
 import userAuthStore from "../../stores/auth.store";
 import { useCookies } from "react-cookie";
-import HobbyAndRegionCategory from "../SearchBar/HobbyAndRegionCategory";
+import HobbyAndRegionCategory from "../SearchBar/categotybar/HobbyAndRegionCategory";
 import HamburgerMenu from "../../components/HamburgerMenu";
 
 export default function InformationNaviBar() {
@@ -48,14 +48,14 @@ export default function InformationNaviBar() {
         <div css={s.naviBox}>
           <div
             css={s.naviDiv}
-            onClick={() => navigator("/search/grouptype/shorttype")}
+            onClick={() => navigator("/main/grouptype/shorttype")}
           >
             <IoExtensionPuzzle color="#FF7B54" fontSize="25px" />{" "}
             <p css={s.fontSt}>단기 모임</p>
           </div>
           <div
             css={s.naviDiv}
-            onClick={() => navigator("/search/grouptype/regulartype")}
+            onClick={() => navigator("/main/grouptype/regulartype")}
           >
             <BsPuzzleFill color="#FCD572" fontSize="25px" />{" "}
             <p css={s.fontSt}>정기 모임</p>
@@ -66,7 +66,7 @@ export default function InformationNaviBar() {
           </div>
         </div>
         <div css={s.userInfoBox}>
-          <div css={s.naviDiv} onClick={() => navigator("/search")}>
+          <div css={s.naviDiv} onClick={() => navigator("/main/search")}>
             <IoSearchSharp fontSize="25px" />
           </div>
           <button css={s.categoryBtn} onClick={handleClickButton}>
@@ -79,7 +79,7 @@ export default function InformationNaviBar() {
                   <img src={userImg} alt="userImage" css={s.userImg} />
                 ) : (
                   <img
-                    src={"http://localhost:8080/image/" + profileImage}
+                    src={"http://localhost:8081/image/" + profileImage}
                     alt="profileImage"
                     css={s.userImg}
                   />

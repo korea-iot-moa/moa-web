@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
-import * as s from "./style";
-import { Review } from '../../../types';
-import img from "../../../images/moaLogo.png";
+import * as s from "./MyPageReview/style";
+import { Review } from '../../types';
+// import img from "../../../images/moaLogo.png";
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
@@ -66,7 +66,7 @@ export default function MyPageReview() {
                         alt="REVIEW IMAGE"
                       />
                     ) : (
-                      <img src={img} alt="DEFAULT IMAGE" className="default" />
+                      <img src='' alt="DEFAULT IMAGE" className="default" />
                     )}
                 </div>
               </div>

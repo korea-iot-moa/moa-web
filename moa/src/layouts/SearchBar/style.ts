@@ -65,7 +65,7 @@ export const ulStyle = css`
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0px;
-  padding: 0px;
+  padding: 0px
 `
 export const buttonStyle = css`
   border: none;
@@ -84,9 +84,4 @@ export const categorySearchBtn = css`
   border: none;
   border-radius: 5px;
   background-color: rgb(194, 189, 189);
-`
-
-// KewordSearchGroupList style
-export const keyword = css`
-  
 `

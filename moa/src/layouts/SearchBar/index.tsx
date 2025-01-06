@@ -1,19 +1,19 @@
 import React from 'react'
-import SearchBar from './SearchBar';
+import SearchBar from './searchBar/SearchBar';
 import { Route, Routes } from 'react-router-dom';
-import KeywordSearchGroupList from './KeywordSearchGroupList';
-import CategorySearchList from './CategorySearchList';
+import KeywordSearchGroupList from './searchBar/KeywordSearchGroupList';
+import CategorySearchList from './categotybar/CategorySearchList';
 
-function SearchResult() {
+function index() {
   return (
     <div>
-      <SearchBar/>
       <Routes>
-        <Route path='/searchresult' element={<KeywordSearchGroupList />}/>
-        <Route path='/categoryresult' element={<CategorySearchList />} />
+        <Route path='/' element={<SearchBar/>}/>
+        <Route path='/searchresult/:keyword' element={<KeywordSearchGroupList />}/>
+        <Route path='/categoryresult/:groupCategory/:region' element={<CategorySearchList />} />
       </Routes>
     </div>
   )
 }
 
-export default SearchResult;
+export default index;
