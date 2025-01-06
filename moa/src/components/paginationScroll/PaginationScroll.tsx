@@ -35,7 +35,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
           setDuplicationUserAnswer(true);
         } else {
           useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
-          navigator(`/group/join-group/${group?.groupId}`);
+          navigator(`/group-join/${group?.groupId}/join-group/${group?.groupId}`);
         }
       }catch (error) {
         console.error(error);

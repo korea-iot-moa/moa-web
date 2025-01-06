@@ -29,11 +29,11 @@ function MyPageStart() {
     if(!passwordValue.password){
       alert('비밀번호를 입력해주세요.');
     }
-    navigator('/mypage/userInfo');
+    navigator('/mypage/userInfo/user');
   }
   
   const handleButtonDeleteInfo = () => {
-    navigator('/mypage/MembershipWithdrawal');
+    navigator('/mypage/userInfo/MembershipWithdrawal');
   };
   
 

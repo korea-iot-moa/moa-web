@@ -4,7 +4,7 @@ import useUserInfoStore from "../../../../stores/userInfo.store";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { User } from "../../../../types";
-import userImg from "../../../images/userImg.png";
+import userImg from "../../../../images/userImg.png";
 
 
 const GetUserInfo = () => {

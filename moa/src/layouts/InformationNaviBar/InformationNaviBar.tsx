@@ -66,7 +66,7 @@ export default function InformationNaviBar() {
           </div>
         </div>
         <div css={s.userInfoBox}>
-          <div css={s.naviDiv} onClick={() => navigator("/search")}>
+          <div css={s.naviDiv} onClick={() => navigator("/main/search")}>
             <IoSearchSharp fontSize="25px" />
           </div>
           <button css={s.categoryBtn} onClick={handleClickButton}>
@@ -79,7 +79,7 @@ export default function InformationNaviBar() {
                   <img src={userImg} alt="userImage" css={s.userImg} />
                 ) : (
                   <img
-                    src={"http://localhost:8080/image/" + profileImage}
+                    src={"http://localhost:8081/image/" + profileImage}
                     alt="profileImage"
                     css={s.userImg}
                   />

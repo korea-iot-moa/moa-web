@@ -10,7 +10,7 @@ export default function index() {
     <div>
       <Routes>
         <Route path='/' element={<MyPageStart/>}/>
-        <Route path='/userInfo' element={<GetUserInfo />}/>
+        <Route path='/user' element={<GetUserInfo />}/>
         <Route path='/MembershipWithdrawal' element={<DelelteUserInfoStart />}/>
         <Route path='/MembershipWithdrawal/enter' element={<DelelteUserInfo/>}/>
       </Routes>

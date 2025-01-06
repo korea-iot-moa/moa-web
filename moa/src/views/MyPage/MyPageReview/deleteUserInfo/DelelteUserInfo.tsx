@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../../../../types';
+import './style.css'
 
-function DelelteUserInfo () {
+function DeleteUserInfo () {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [passwordValue, setPasswordValue] = useState({password:''});
   const [cookies] = useCookies(['token', 'isChecked']);
@@ -46,26 +47,36 @@ function DelelteUserInfo () {
   }
 
   return (
-    <div>
-      { cookies.isChecked &&
-      <div>
-      <h4>탈퇴 본인 확인</h4><input
-          type="password"
-          placeholder='비밀번호를 입력하세요.'
-          name='password'
-          value={passwordValue.password}
-          onChange={handlePasswordChange} /><button onClick={handleDeleteUserInfo}>탈퇴하기기</button>
-      </div>
-      }
-
-      { !cookies.isChecked && 
-      <div>
-        <p>잘못된 접근방법입니다. 회원 탈퇴 확인 페이지로 이동하세요.</p>
-        <button onClick={() => navigator('/mypage/MembershipWithdrawal')}>탈퇴확인 페이지로 이동</button>
-      </div>
-      }
+<div className="withdrawalPage">
+  {cookies.isChecked ? (
+    <div className="confirmationSection">
+      <h4 className="sectionTitle">탈퇴 본인 확인</h4>
+      <input
+        className="passwordInput"
+        type="password"
+        placeholder="비밀번호를 입력하세요."
+        name="password"
+        value={passwordValue.password}
+        onChange={handlePasswordChange}
+      />
+      <button className="withdrawalButton" onClick={handleDeleteUserInfo}>
+        탈퇴하기
+      </button>
     </div>
+  ) : (
+    <div className="errorSection">
+      <p className="errorMessage">잘못된 접근방법입니다. 회원 탈퇴 확인 페이지로 이동하세요.</p>
+      <button
+        className="redirectButton"
+        onClick={() => navigator('/mypage/userInfo/MembershipWithdrawal')}
+      >
+        탈퇴확인 페이지로 이동
+      </button>
+    </div>
+  )}
+</div>
+
   )
 }
 
-export default DelelteUserInfo
+export default DeleteUserInfo

@@ -1,13 +1,13 @@
 //& 테이블 경로 상수 선언
 export const WEB_MAIN = '/'
-export const WEB_APP_MAIN = "/main"
+export const WEB_APP_MAIN = "/main/*"
 
 // 회원 매핑핑
 export const SIGN_IN_PAGE = "/signIn"
 export const SIGN_UP_PAGE = "/signUp"
 export const FIND_PASSWORD_PAGE = "/findPassword"
 export const FIND__VERIFY_PASSWORD_PAGE = "/findPassword/verify"
-
+export const FIND_USERID_PAGE = "/findUserId/*"
 // 리뷰 매핑
 export const REVIEW_MAIN = "/main";
 export const CREATE_REVIEW_PAGE = "/create";
@@ -30,5 +30,11 @@ export const JOIN_GROUP_PAGE = "/join-group/:groupId"
 
 // 공지사항
 export const NOTICE_PAGE = "/notice";
+
+// 모임참여 신청
+export const GROUP_JOIN_PAGE = "/group-join/:groupId/*";
+
+// 내정보조회 마이페이지
+export const MY_PAGE = "/mypage/userInfo/*"
 
 

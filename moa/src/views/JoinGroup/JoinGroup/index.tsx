@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import JoinGroupStart from './JoinGroupStart'
 import JoinGroupAnswer from './JoinGroupAnswer'
 import GroupAnswerResult from './GroupAnswerResult';
-export default function Index() {
+export default function index() {
 
   return (
     <div>
