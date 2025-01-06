@@ -25,7 +25,26 @@ const JoinGroupAnswer = () => {
 
   // 답변 데이터 전송 함수
   const fetchData = async () => {
-    if (!cookies.token) return alert("로그인이 필요합니다.");
+      // groupId 확인
+    if (!groupData?.groupId) {
+      console.error("groupId가 없습니다. 유효한 값을 확인하세요.");
+      return;
+    }
+
+    // userAnswer 확인
+    if (!groupAnswer.userAnswer.trim()) {
+      console.error("userAnswer가 비어 있습니다.");
+      alert("신청사유를 입력해주세요.");
+      return;
+    }
+
+    // 토큰 확인
+    if (!cookies.token) {
+      alert("로그인이 필요합니다.");
+      navigate("/signIn");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `http://localhost:8081/api/v1/user-answers`,
@@ -44,7 +63,7 @@ const JoinGroupAnswer = () => {
       const data = response.data.data;
       
       setGroupAnswer(data);
-      navigate(`/group/join-group/${groupId}/group-user-answer/result`);
+      navigate(`/group-join/join-group/${groupId}/group-user-answer/result`);
       
     } catch (error) {
       console.error("데이터 로딩 중 오류 발생:", error);

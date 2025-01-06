@@ -19,7 +19,7 @@ function HomeGroup() {
 
   const handleOpenGroup = (group: MeetingGroup | null) => {
     useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
-    navigator(`/group/join-group/${group?.groupId}`);
+    navigator(`/group-join/join-group/${group?.groupId}`);
   };
 
   const fetchData = async () => {

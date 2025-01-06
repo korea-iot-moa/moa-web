@@ -32,9 +32,7 @@ export const JOIN_GROUP_PAGE = "/join-group/:groupId"
 export const NOTICE_PAGE = "/notice";
 
 // 모임참여 신청
-export const GROUP_JOIN_PAGE = "/group-join/:groupId/*";
+export const GROUP_JOIN_PAGE = "/group-join/*";
 
 // 내정보조회 마이페이지
 export const MY_PAGE = "/mypage/userInfo/*"
-
-

@@ -14,7 +14,7 @@ function JoinGroupStart() {
     
   const handleButton = () => {
     navigator(
-      `/group/join-group/${groupData?.groupId}/group-user-answer`
+      `/group-join/join-group/${groupData?.groupId}/group-user-answer`
     )
   }
 
