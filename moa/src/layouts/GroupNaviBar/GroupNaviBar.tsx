@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie";
 import "react-tooltip/dist/react-tooltip.css";
 import defaultImg from "../../images/moaLo.png";
 import useGroupListStore from "../../stores/group.list.store";
+import { FiPlusCircle } from "react-icons/fi";
 
 export default function GroupNaviBar() {
   const { userId } = userAuthStore();
@@ -76,6 +77,14 @@ export default function GroupNaviBar() {
           )}
         </div>
       ))}
+      {cookies.token && (
+      <div css={s.bottomBox}>
+        <hr css={s.line} />
+        <div css={s.createBox}>
+          <FiPlusCircle css={s.createIcon}/>
+        </div>
+      </div>
+      )}
     </div>
   );
 }

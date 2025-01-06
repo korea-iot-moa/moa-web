@@ -18,6 +18,7 @@ import CategorySearchList from "./layouts/SearchBar/categotybar/CategorySearchLi
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import Manager from "./views/Manager";
+import {ThemeProvider,createTheme,Theme } from "@mui/material/styles";
 import ReportPage from "./views/Report/ReportPage";
 import CreateReview from "./views/Review/CreateReview/CreateReview";
 import ReviewMain from "./views/Review/ReviewMain/ReviewMain";
@@ -26,8 +27,15 @@ import FindPassword from "./views/Auth/FindPassword/FindPassword";
 import VerificationPassword from "./views/Auth/FindPassword/VerificationPassword";
 import NoticePage from "./views/Notice/NoticePage";
 import WebMainPage from "./views/WebMain/WebMainPage";
+import CreateGroup from "./views/GroupDetail/CreateGroup/CreateGroup";
+import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+    },
+  });
   interface TokenUser {
     userId: string;
     nickName: string;
@@ -56,7 +64,6 @@ function App() {
       logout();
     }
   }, [cookies.token, login, logout]);
-
   return (
     <>
       {location.pathname === p.WEB_MAIN ? (
@@ -105,8 +112,20 @@ function App() {
                   }
                 />
                 <Route
-                  path="/manager/user-list/:groupId"
-                  element={<Manager />}
+                path="/main/create-group"
+                element={<CreateGroup/>}
+                />
+                <Route
+                path="/main/create-group_1/:groupId"
+                element={<CreateGroup_1/>}
+                />
+                <Route
+                  path="/main/manager/user-list/:groupId"
+                  element={
+                  <ThemeProvider theme={theme}>
+                    <Manager />
+                  </ThemeProvider>  
+                    }
                 />
                 <Route
                   path="/review/*"
