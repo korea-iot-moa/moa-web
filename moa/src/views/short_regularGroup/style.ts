@@ -55,3 +55,23 @@ export const listDetail =css`
 export const content =css`
   margin: 0px;
 `
+
+export const buttonDiv = css`
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    
+  }
+
+  button:hover {
+    color: rgb(100, 100, 100)
+  }
+  span {
+    margin: 0px 5px;
+  }
+`

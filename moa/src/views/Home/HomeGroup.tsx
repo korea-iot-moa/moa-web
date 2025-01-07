@@ -8,6 +8,7 @@ import userAuthStore from "../../stores/auth.store";
 import { MeetingGroup, Recommendation } from "../../types";
 import useGroupStore from "../../stores/group.store";
 import { useNavigate } from "react-router-dom";
+import groupImg  from '../../images/moaLogo.png';
 
 function HomeGroup() {
   const { userId } = userAuthStore();
@@ -138,11 +139,23 @@ function HomeGroup() {
                   {datas.slice(start, end).map((data) => (
                     <li key={data.groupId} css={s.groupLi}>
                       <div>
-                        <img
-                          src={data.groupImage}
-                          alt={data.groupImage}
-                          onClick={() => handleOpenGroup(data)}
-                        />
+                        <div css={s.imgDiv}>
+                          {!data.groupImage ? (
+                            <img
+                              src={groupImg}
+                              alt="userImage"
+                              css={s.img}
+                              onClick={() => handleOpenGroup(data)}
+                            />
+                          ) : (
+                            <img
+                              src={`http://localhost:8081/image/${data.groupImage}`}
+                              css={s.img}
+                              alt={data.groupImage}
+                              onClick={() => handleOpenGroup(data)}
+                            />
+                          )}
+                        </div>
                       </div>
                       <div css={s.line}></div>
                       <div css={s.listDetail}>

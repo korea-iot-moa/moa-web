@@ -19,11 +19,17 @@ function RegularGroup() {
   return (
     <div css={s.container}>
       <p>정기모임</p>
-      <div>
-        <button onClick={() => handleSortChange("recent")}>최신순</button>
-        <button onClick={() => handleSortChange("default")}>기본순</button>
-        <button onClick={() => handleSortChange("past")}>과거순</button>
-        <button onClick={() => handleSortChange("recommendation")}>추천순</button>
+        <div css={s.container}>
+          <p>단기모임</p>
+          <div css={s.buttonDiv}>
+            <button onClick={() => handleSortChange("recent")}>최신순</button>
+            <span>|</span>
+            <button onClick={() => handleSortChange("default")}>기본순</button>
+            <span>|</span>
+            <button onClick={() => handleSortChange("past")}>과거순</button>
+            <span>|</span>
+            <button onClick={() => handleSortChange("recommendation")}>추천순</button>
+        </div>
       </div>
       <div>
         {loading ? (

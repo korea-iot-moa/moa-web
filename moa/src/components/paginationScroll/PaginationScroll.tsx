@@ -7,12 +7,14 @@ import axios from 'axios';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import useGroupStore from '../../stores/group.store';
+import groupImg  from '../../images/moaLogo.png';
 
 interface PaginationScrollProps {
   datas: MeetingGroup[];
 }
 
 const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
+
   const [likedGroups, setLikedGroups] = useState<number[]>([]);
   const [cookies] = useCookies(["token"]);
   const navigator = useNavigate();
@@ -42,12 +44,6 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
       }
     }
   }
-
-  // const handleOpenGroup = (group: MeetingGroup | null) => {
-  //   fetchDataDuplication(group);
-  //   useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
-  //   navigator(`/group/join-group/${group?.groupId}`);
-  // };
   
   useEffect(() => {
     async function fetchLikes() {
@@ -116,24 +112,34 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
     <div>
       { 
           datas.length > 0 ? 
-        <ul css={s.categoryList}>
+        <ul css={s.categoryList} >
         {datas.map((data, index) => (
-          <li css={s.groupLi} key={index}>
+          <li css={s.groupLi} key={index} >
             <div>
-              <img src={`${data.groupImage}`} 
-              alt={data.groupImage} 
-              onClick={()=> handleOpenGroup(data)}/>
+              <div css={s.imgDiv}>
+              {
+                !data.groupImage ? (
+                <img src={groupImg} alt='userImage' css={s.img} onClick={()=> handleOpenGroup(data)} />
+                ) : (
+                <img src={`http://localhost:8081/image/${data.groupImage}`} 
+                css={s.img}
+                alt={data.groupImage} 
+                onClick={()=> handleOpenGroup(data)}
+                />
+                )
+              }
               </div>
-            <div css={s.line}></div>
+              </div>
+            <div css={s.line} onClick={()=> handleOpenGroup(data)}></div>
             <div css={s.listDetail}>
-              <p css={s.content}>{data.groupTitle}</p>
+              <p css={s.content} onClick={()=> handleOpenGroup(data)}>{data.groupTitle}</p>
               <p css={s.content}>
                 <button css={s.click} onClick={() => handleFetchData(data.groupId)}>
                   {likedGroups.includes(data.groupId) ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />}
                 </button>
               </p>
             </div>
-            <div css={s.listDetail}>
+            <div css={s.listDetail} onClick={()=> handleOpenGroup(data)}>
             <p>{data.groupDate}</p>
             <p>{data.groupAddress}</p>
             </div>

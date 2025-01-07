@@ -67,3 +67,14 @@ export const click =css`
   background-color: rgba(0, 0, 0, 0);
   border: none;
 `
+
+export const imgDiv = css`
+  width: 100%;
+  height: 90px;
+  object-fit: contain;
+  cursor: pointer;
+`
+export const img = css`
+  width: 100%;
+  height: 100%;
+`
