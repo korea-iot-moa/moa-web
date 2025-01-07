@@ -24,6 +24,10 @@ export const mainBox = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  > h1 {
+  margin-bottom: 20px;
+  }
 `;
 
 export const topInput = css`
@@ -31,8 +35,7 @@ export const topInput = css`
   height: 40px;
   font-size: 17px;
   padding-left: 10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px 5px 0 0;
   border: 1px solid #ccc;
 
   &:focus {
@@ -50,6 +53,7 @@ export const middleInput = css`
   padding-left: 10px;
   border: 1px solid #ccc;
   border-top:  1px solid #fff;
+  border-radius: 0;
 
   &:focus {
     outline: none;
@@ -66,8 +70,7 @@ export const bottomInput = css`
   height: 40px;
   font-size: 17px;
   padding-left: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 0 0 5px 5px;
   border: 1px solid #ccc;
   border-top:  1px solid #fff;
   margin-bottom: 10px;
@@ -131,4 +134,8 @@ export const mainBox2 = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  > h1 {
+    margin-bottom: 20px;
+  }
 `;

@@ -15,7 +15,7 @@ function DeleteUserInfo () {
     console.log(passwordValue.password);
     if(cookies.token) {
       try{
-          const response = await axios.delete(`http://localhost:8081/api/v1/users/user`,
+          const response = await axios.delete(`http://localhost:8080/api/v1/users/user`,
             {
               headers: {
                 Authorization: `Bearer ${cookies.token}`,

@@ -11,7 +11,7 @@ function GetRecommendation() {
   const fetchDataGet = async (page: number) => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:8081/api/v1/recommendation", {
+      const response = await axios.get("http://localhost:8080/api/v1/recommendation", {
         params: { page, limit: 10, sortBy: "recommendation" },
       });
       setResults((prev) => [...prev, ...response.data.data]);

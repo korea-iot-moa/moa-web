@@ -29,7 +29,7 @@ const RecommendationsClick: React.FC<RecommendationsClickProps> = ({
       try {
         if (!isLike.includes(groupId)) {
           await axios.post<Recommendation>(
-            `http://localhost:8081/api/v1/recommendation`,
+            `http://localhost:8080/api/v1/recommendation`,
             { groupId },
             {
               headers: {
@@ -41,7 +41,7 @@ const RecommendationsClick: React.FC<RecommendationsClickProps> = ({
 
         } else {
           await axios.delete(
-            `http://localhost:8081/api/v1/recommendation/user-id`,
+            `http://localhost:8080/api/v1/recommendation/user-id`,
             {
               data: { groupId: groupId },
               headers: {

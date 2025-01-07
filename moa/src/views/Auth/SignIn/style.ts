@@ -36,8 +36,7 @@ export const topInput = (hasError: boolean) => css`
   height: 40px;
   font-size: 17px;
   padding-left: 10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px 5px 0 0 ;
   border: 1px solid ${hasError ? "#E50914" : "#ccc"};
 
   &:focus {
@@ -53,8 +52,7 @@ export const bottomInput = (hasError: boolean) => css`
   height: 40px;
   font-size: 17px;
   padding-left: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 0 0 5px 5px;
   border: 1px solid ${hasError ? "#E50914" : "#ccc"};
   border-top:  1px solid ${hasError ? "#E50914" : "#fff"};
   margin-bottom: 10px;

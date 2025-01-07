@@ -18,34 +18,28 @@ function HomeGroup() {
   const navigator = useNavigate();
 
   const handleOpenGroup = (group: MeetingGroup | null) => {
-    useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
-    navigator(`/group-join/join-group/${group?.groupId}`);
+    useGroupStore.getState().setGroupData(group); 
+    navigator(`/meeting-group/${group?.groupId}`);
   };
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      if (cookies.token) {
-        const response = await axios.get(
-          `http://localhost:8081/api/v1/meeting-group/home-recommendation`,
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-          }
-        );
-        const groupData = response.data.data;
-        setDatas(groupData);
-      } else {
-        const response = await axios.get(
-          `http://localhost:8081/api/v1/auth/meeting-group/group`
-        );
-        const groupData = response.data.data;
-        setDatas(groupData);
-      }
+      const response = cookies.token
+        ? await axios.get(
+            `http://localhost:8080/api/v1/meeting-group/home-recommendation`,
+            {
+              headers: { Authorization: `Bearer ${cookies.token}` },
+              withCredentials: true,
+            }
+          )
+        : await axios.get(`http://localhost:8080/api/v1/auth/meeting-group/group`);
+
+      const groupData = response.data.data;
+      setDatas(groupData);
     } catch (error) {
-      console.log("Error fetching data: ", error);
+      console.error("데이터 가져오기 오류: ", error);
+      alert("데이터를 가져오는 중 문제가 발생했습니다.");
     } finally {
       setLoading(false);
     }
@@ -57,28 +51,26 @@ function HomeGroup() {
 
   useEffect(() => {
     async function fetchLikes() {
-      if (cookies.token) {
-        try {
-          const response = await axios.get(
-            "http://localhost:8081/api/v1/recommendation",
-            {
-              headers: { Authorization: `Bearer ${cookies.token}` },
-              withCredentials: true,
-            }
-          );
+      if (!cookies.token) return;
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/v1/recommendation",
+          {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            withCredentials: true,
+          }
+        );
 
-          const likedGroupIDs = response.data.data.map(
-            (item: { groupId: number }) => item.groupId
-          );
-
-          setLikedGroups(likedGroupIDs);
-        } catch (error) {
-          console.error("찜 상태를 가져오는 중 오류 발생: ", error);
-        }
+        const likedGroupIDs = response.data.data.map(
+          (item: { groupId: number }) => item.groupId
+        );
+        setLikedGroups(likedGroupIDs);
+      } catch (error) {
+        console.error("찜 상태 가져오기 오류: ", error);
       }
     }
     fetchLikes();
-  }, []);
+  }, [cookies.token]);
 
   const toggleLike = (groupId: number) => {
     setLikedGroups((prev) =>
@@ -93,35 +85,30 @@ function HomeGroup() {
       alert("로그인 후 사용가능합니다.");
       return;
     }
-    if (cookies.token) {
-      try {
-        if (!likedGroups.includes(groupId)) {
-          await axios.post<Recommendation>(
-            `http://localhost:8081/api/v1/recommendation`,
-            { groupId },
-            {
-              headers: {
-                Authorization: `Bearer ${cookies.token}`,
-              },
-              withCredentials: true,
-            }
-          );
-        } else {
-          await axios.delete(
-            `http://localhost:8081/api/v1/recommendation/user-id`,
-            {
-              data: { groupId: groupId },
-              headers: {
-                Authorization: `Bearer ${cookies.token}`,
-              },
-              withCredentials: true,
-            }
-          );
-        }
-        toggleLike(groupId);
-      } catch (error) {
-        console.error(error);
+    try {
+      if (!likedGroups.includes(groupId)) {
+        await axios.post<Recommendation>(
+          `http://localhost:8080/api/v1/recommendation`,
+          { groupId },
+          {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            withCredentials: true,
+          }
+        );
+      } else {
+        await axios.delete(
+          `http://localhost:8080/api/v1/recommendation/user-id`,
+          {
+            data: { groupId },
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            withCredentials: true,
+          }
+        );
       }
+      toggleLike(groupId);
+    } catch (error) {
+      console.error("찜 상태 업데이트 오류: ", error);
+      alert("찜 상태를 업데이트하는 중 문제가 발생했습니다.");
     }
   };
 
@@ -143,8 +130,8 @@ function HomeGroup() {
             slices.map(({ start, end }, index) => (
               <ul css={s.groupList} key={`slice-${index}`}>
                 <div css={s.marginPaddingDel}>
-                  {datas.length > 0
-                    ? datas[start].groupCategory
+                  {datas.length > start
+                    ? datas[start]?.groupCategory || "카테고리가 없습니다."
                     : "카테고리가 없습니다."}
                 </div>
                 <ul css={s.marginPaddingDel}>
@@ -161,7 +148,10 @@ function HomeGroup() {
                       <div css={s.listDetail}>
                         <p>{data.groupTitle}</p>
                         <p>
-                          <button css={s.click} onClick={() => handleFetchData(data.groupId)}>
+                          <button
+                            css={s.click}
+                            onClick={() => handleFetchData(data.groupId)}
+                          >
                             {likedGroups.includes(data.groupId) ? (
                               <BsHeartFill style={{ color: "red" }} />
                             ) : (
