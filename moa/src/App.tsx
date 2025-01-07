@@ -32,6 +32,7 @@ import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
 import FindUserId from "./views/Auth/FindUserId/index";
 import JoinGroup from "./views/JoinGroup/JoinGroup/index";
 import MyPageReview from "./views/MyPage/MyPageReview";
+import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage";
 
 function App() {
   const theme = createTheme({
@@ -153,20 +154,22 @@ function App() {
                   path={p.NOTICE_PAGE}
                   element={<NoticePage />}
                 />
-              {/* 모임참여 신청청 */}
+              {/* 모임참여 신청 */}
               <Route path={p.GROUP_JOIN_PAGE} element={
                           cookies.token ? (
                             <JoinGroup />
                           ) : (
                             <Navigate to={p.SIGN_IN_PAGE} replace />
                           )} />
-              {/* 마이페이지 내정보 수정정 */}
+              {/* 마이페이지 내정보 수정 */}
               <Route path={p.MY_PAGE} element={
                           cookies.token ? (
                             <MyPage />
                           ) : (
                             <Navigate to={p.SIGN_IN_PAGE} replace />
                           )} />
+              {/* 그룹 상세 페이지 */}
+              <Route path={p.GROUP_DETAIL} element={<GroupDetailPage />}/>
               </Routes>
             </MainContainer>
           </RootContainer>

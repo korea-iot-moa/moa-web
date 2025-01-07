@@ -40,7 +40,7 @@ const GetUserInfo = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/users/user-id",
+        "http://localhost:8080/api/v1/users/user-id",
         { password: cookies.password },
         {
           headers: {
@@ -77,7 +77,7 @@ const GetUserInfo = () => {
       }
 
       const response = await axios.put(
-        "http://localhost:8081/api/v1/users/user-info",
+        "http://localhost:8080/api/v1/users/user-info",
         formData,
         {
           headers: {
@@ -99,7 +99,7 @@ const GetUserInfo = () => {
   const handleDulicationNickName = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/users/duplication/${userInfo?.nickName}`,
+        `http://localhost:8080/api/v1/users/duplication/${userInfo?.nickName}`,
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,

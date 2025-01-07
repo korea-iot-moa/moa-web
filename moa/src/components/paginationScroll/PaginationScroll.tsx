@@ -24,7 +24,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
   const handleOpenGroup = async(group:MeetingGroup | null) => {
     if(cookies.token){
       try{
-        const response = await axios.get(`http://localhost:8081/api/v1/user-answers/duplication/${group?.groupId}`, 
+        const response = await axios.get(`http://localhost:8080/api/v1/user-answers/duplication/${group?.groupId}`, 
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
@@ -35,7 +35,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
           setDuplicationUserAnswer(true);
         } else {
           useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
-          navigator(`/group-join/join-group/${group?.groupId}`);
+          navigator(`/meeting-group/${group?.groupId}`);
         }
       }catch (error) {
         console.error(error);
@@ -53,7 +53,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
     async function fetchLikes() {
       if(cookies.token) {
         try{
-          const response = await axios.get('http://localhost:8081/api/v1/recommendation', {
+          const response = await axios.get('http://localhost:8080/api/v1/recommendation', {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
           });
@@ -83,7 +83,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
       try {
         if (!likedGroups.includes(groupId)) {
           await axios.post<Recommendation>(
-            `http://localhost:8081/api/v1/recommendation`,
+            `http://localhost:8080/api/v1/recommendation`,
             { groupId },
             {
               headers: {
@@ -95,7 +95,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
 
         } else {
           await axios.delete(
-            `http://localhost:8081/api/v1/recommendation/user-id`,
+            `http://localhost:8080/api/v1/recommendation/user-id`,
             {
               data: { groupId: groupId },
               headers: {
@@ -120,7 +120,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
         {datas.map((data, index) => (
           <li css={s.groupLi} key={index}>
             <div>
-              <img src={data.groupImage} 
+              <img src={`${data.groupImage}`} 
               alt={data.groupImage} 
               onClick={()=> handleOpenGroup(data)}/>
               </div>

@@ -79,7 +79,7 @@ export default function InformationNaviBar() {
                   <img src={userImg} alt="userImage" css={s.userImg} />
                 ) : (
                   <img
-                    src={"http://localhost:8081/image/" + profileImage}
+                    src={"http://localhost:8080/image/" + profileImage}
                     alt="profileImage"
                     css={s.userImg}
                   />

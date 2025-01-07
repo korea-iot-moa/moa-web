@@ -124,7 +124,7 @@ export const imgBox  = css`
 export const contentBox = css`
   box-sizing: border-box;
   width: 70%;
-  max-width: 600px;
+  max-width: 800px;
   height: 100%;
   display: flex;
   flex-direction: column;
