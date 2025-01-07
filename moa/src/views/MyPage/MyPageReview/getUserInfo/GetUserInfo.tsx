@@ -15,6 +15,9 @@ const GetUserInfo = () => {
   const [userProfileImg, setUserProfileImg] = useState<string | null>(null);
   const setPasswordValue = useUserInfoStore((state) => state.setPasswordValue);
 
+  // 닉네임 초기값 상태 저장
+  const [initialNickName, setInitialNickName] = useState<string | null>(null);
+
   // 닉네임 중복 상태
   const [duplicatoinNickName, setDuplicationNickName] = useState<boolean>(false);
   const [duplicatoinNickNameMs, setDuplicationNickNameMs] = useState<string>("");
@@ -31,6 +34,7 @@ const GetUserInfo = () => {
 
   // 사용자 정보 가져오기
   const fetchUserInfo = async () => {
+    
     if (!cookies.token) {
       alert("로그인이 필요합니다.");
       navigate("/signIn");
@@ -50,6 +54,7 @@ const GetUserInfo = () => {
       );
       setUserInfo(response.data.data);
       setUserProfileImg(response.data.data.profileImage || null);
+      setInitialNickName(response.data.data.nickName); 
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
       alert("사용자 정보를 가져오는데 실패했습니다. 다시 시도해주세요.");
@@ -59,22 +64,23 @@ const GetUserInfo = () => {
   };
 
   // 사용자 정보 업데이트
-  const updateUserInfo = async () => {
+  const updateUserInfo = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     if (!userInfo) {
       alert("수정할 사용자 정보가 없습니다.");
-      return;
-    }
-    if (!duplicatoinNickName) {
-      alert("닉네임 중복 확인을 완료해주세요.");
       return;
     }
 
     try {
       const formData = new FormData();
-      formData.append("userInfo", JSON.stringify(userInfo));
-      if (userInfo.profileImage instanceof File) {
-        formData.append("profileImage", userInfo.profileImage);
-      }
+      Object.entries(userInfo).forEach(([key, value]) => {
+        if (value instanceof File) {
+            formData.append(key, value); // 파일 추가
+        } else {
+            formData.append(key, value || ""); // 빈 값 처리
+        }
+    });
 
       const response = await axios.put(
         "http://localhost:8081/api/v1/users/user-info",
@@ -82,11 +88,14 @@ const GetUserInfo = () => {
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
-            "Content-Type": "multipart/form-data",
+            withCredentials: true,
           },
         }
       );
-
+      if (!duplicatoinNickName && userInfo.nickName !== initialNickName) {
+        alert("닉네임 중복 확인을 완료해주세요.");
+        return;
+      }
       setUserInfo(response.data.data);
       alert("정보가 성공적으로 수정되었습니다.");
     } catch (error) {
@@ -97,6 +106,14 @@ const GetUserInfo = () => {
 
   // 닉네임 중복 확인
   const handleDulicationNickName = async () => {
+    
+    // 닉네임이 수정되지 않은 경우 중복 확인 생략
+    if (userInfo?.nickName === initialNickName) {
+      setDuplicationNickName(true);
+      setDuplicationNickNameMs("닉네임이 변경되지 않았습니다.");
+      return;
+    }
+    
     try {
       const response = await axios.get(
         `http://localhost:8081/api/v1/users/duplication/${userInfo?.nickName}`,
@@ -141,7 +158,7 @@ const GetUserInfo = () => {
 
     setUserInfo((prev) => (prev ? { ...prev, [name]: value } : null));
 
-    if (name === "nickName") {
+    if (name === "nickName" && value !== initialNickName) {
       setDuplicationNickName(false);
       setDuplicationNickNameMs("중복 확인이 필요합니다.");
     }
@@ -172,8 +189,9 @@ const GetUserInfo = () => {
                 />
               </li>
               <li className="userInfoUldetail duplicationMsgLi">
-                <span className="nickNameBox">닉네임</span>
                 <div className="nickNameDiv">
+                <span className="nickNameBox">닉네임</span>
+                  <div className="nickNameInputBtn">
                   <input
                     className="userli nickNameInput"
                     type="text"
@@ -188,6 +206,7 @@ const GetUserInfo = () => {
                   >
                     중복확인
                   </button>
+                  </div>
                 </div>
                 <span className="duplicationMsg">{duplicatoinNickNameMs}</span>
               </li>
@@ -238,7 +257,7 @@ const GetUserInfo = () => {
                       <img src={userImg} alt="userImage"  className="userImg"/>
                     ) : (
                       <img
-                        src={userProfileImg}
+                        src={`http://localhost:8081/image/${userProfileImg}`}
                         alt="profileImage"
                         className="userImg"
                       />
@@ -255,7 +274,7 @@ const GetUserInfo = () => {
                 <button className="updateBtn" onClick={updateUserInfo}>
                   수정
                 </button>
-                <button className="updateCancel" onClick={() => navigate("/mypage")}>
+                <button className="updateCancel" onClick={() => navigate("/mypage/userInfo")}>
                   취소
                 </button>
               </li>
