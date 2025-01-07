@@ -41,7 +41,6 @@ export default function GroupHeader() {
 
   // url 에서 그룹 id 추출
   const { groupId } = useParams();
-  console.log(groupId);
   const parseToNumGroupId = Number(groupId);
 
   const location = useLocation();
@@ -57,7 +56,7 @@ export default function GroupHeader() {
   //& 그룹정보 호출
   useEffect(() => {
     try {
-      axios.get(`http://localhost:8080/api/v1/meeting-group/${groupId}`, {
+      axios.get(`http://localhost:8080/api/v1/auth/meeting-group/${groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },

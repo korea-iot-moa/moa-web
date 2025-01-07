@@ -10,11 +10,11 @@ function FindUserIdResult() {
 
   const fetchData = async() => {     
     try {
-      const resoponse = await axios.get(`http://localhost:8081/api/v1/auth/userId`,
+      const response = await axios.get(`http://localhost:8080/api/v1/auth/userId`,
         {
           params : { userName, userBirthDate },
         });
-        setResult(resoponse.data.data);
+        setResult(response.data.data);
     } catch (error){
       console.error('데이터 로딩중 오류: ', error);
     }

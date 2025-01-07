@@ -7,7 +7,7 @@ import usePaginationScroll from '../../components/paginationScroll/usePagination
 
 function RegularGroup() {
   const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: "http://localhost:8081/api/v1/auth/meeting-group/groupType",
+    apiUrl: "http://localhost:8080/api/v1/auth/meeting-group/groupType",
     limit: 10,
     extraParams: {groupType: "정기모임"}
   });

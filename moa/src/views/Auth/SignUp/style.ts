@@ -43,6 +43,7 @@ export const input = css`
   border-radius: 5px;
   border: 1px solid #000;
   flex: 1;
+  width: 100%;
 
   &:focus {
     outline: #4d4d4d;
@@ -56,6 +57,7 @@ export const passwordBottom = css`
   border: 1px solid #000;
   border-top: none;
   flex: 1;
+  width: 100%;
 
   &:focus {
     outline: #4d4d4d;
@@ -68,6 +70,7 @@ export const passwordTop = css`
   border-radius: 5px 5px 0 0;
   border: 1px solid #000;
   flex: 1;
+  width: 100%;
 
   &:focus {
     outline: #4d4d4d;
@@ -77,8 +80,7 @@ export const passwordTop = css`
 
 export const validInput = css`
   padding: 12px 10px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-radius: 5px 0 0 5px;
   border: 1px solid #000;
   flex: 1;
 

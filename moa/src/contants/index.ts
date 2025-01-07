@@ -36,3 +36,6 @@ export const GROUP_JOIN_PAGE = "/group-join/*";
 
 // 내정보조회 마이페이지
 export const MY_PAGE = "/mypage/userInfo/*"
+
+// 그룹 상세 페이지
+export const GROUP_DETAIL = "/meeting-group/:groupId"

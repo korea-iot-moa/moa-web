@@ -316,7 +316,7 @@ export default function SignUp() {
         );
         console.log(response.data.data);
         alert("회원가입이 완료되었습니다!")
-        navigate('/main');
+        navigate('/signIn');
       } catch (error) {
       console.error("Sign-up failed:", error);
       alert("회원가입에 실패했습니다. 다시 시도해주세요.");
