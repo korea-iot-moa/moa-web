@@ -149,7 +149,7 @@ function HomeGroup() {
                             />
                           ) : (
                             <img
-                              src={`http://localhost:8081/image/${data.groupImage}`}
+                              src={`http://localhost:8080/image/${data.groupImage}`}
                               css={s.img}
                               alt={data.groupImage}
                               onClick={() => handleOpenGroup(data)}

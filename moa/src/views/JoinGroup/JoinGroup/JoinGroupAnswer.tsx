@@ -25,7 +25,7 @@ const JoinGroupAnswer = () => {
 
   // 답변 데이터 전송 함수
   const fetchData = async () => {
-      // groupId 확인
+    // groupId 확인
     if (!groupData?.groupId) {
       console.error("groupId가 없습니다. 유효한 값을 확인하세요.");
       return;
@@ -61,10 +61,9 @@ const JoinGroupAnswer = () => {
       );
 
       const data = response.data.data;
-      
+
       setGroupAnswer(data);
       navigate(`/group-join/join-group/${groupId}/group-user-answer/result`);
-      
     } catch (error) {
       console.error("데이터 로딩 중 오류 발생:", error);
     }
@@ -91,9 +90,7 @@ const JoinGroupAnswer = () => {
       <div css={s.container}>
         <ul css={s.AnswerListBox} key={groupData?.groupId}>
           <li css={s.questionTitle}>질문</li>
-          <li css={s.questionContent}>
-            {groupData?.groupQuestion}
-          </li>
+          <li css={s.questionContent}>{groupData?.groupQuestion}</li>
         </ul>
         <div css={s.line2}></div>
         <ul css={s.AnswerListBox}>

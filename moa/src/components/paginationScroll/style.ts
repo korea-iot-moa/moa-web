@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 export const container = css`
   width: 80%;
   margin: 0 auto;
-  max-width: 700px;
   min-width: 400px;
   `
 
@@ -35,21 +34,27 @@ export const categoryList =css`
 `
 export const imgDiv = css`
   width: 100%;
-  height: 90px;
+  height: 80px;
   object-fit: contain;
   cursor: pointer;
 `
 export const img = css`
   width: 100%;
   height: 100%;
+  transition: scale 0.1s;
+  &:hover{
+    scale: calc(1.2);
+  }
 `
-
 export const groupLi = css`
-  width: 200px;
+  width: 165px;
   box-sizing: border-box;
   padding: 10px;
   margin-top: 20px;
-  cursor: pointer;
+  cursor: pointer;  
+  @media (min-width: 500px) {
+    width: 140px;
+}
 `
 export const line = css`
   border: 1px solid #ddd;
@@ -77,4 +82,9 @@ export const click =css`
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  transition: scale 0.1s;
+
+  &:active {
+    scale: calc(1.5);
+  }
 `

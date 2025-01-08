@@ -2,28 +2,24 @@ import { create } from "zustand";
 import { User } from "../types";
 
 interface UserInfoStore {
-  userInfo: User | null;
-  loading: boolean;
+  errorMg: string;
   passwordValue: {
     password: string
   };
 
-  setLoading: (loading: boolean) => void;
-  setUserInfo: (userInfo: User) => void;
+  setErrorMg:(errorMg: string) => void;  
   setPasswordValue: (passwordValue: {
     password: string
   }) => void;
 }
 
 const useUserInfoStore = create<UserInfoStore>((set) => ({
-  userInfo: null,
-  loading: false,
   passwordValue:{
     password: ""
   },
+  errorMg: '',
 
-  setLoading: (loading) => set({loading: loading}),
-  setUserInfo: (userInfo) => set({userInfo: userInfo}),
+  setErrorMg: (errorMg) => set({errorMg: errorMg}),
   setPasswordValue: (passwordValue) => set({passwordValue:passwordValue}) 
 }));
 
