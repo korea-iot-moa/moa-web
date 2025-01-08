@@ -39,6 +39,7 @@ export const pageStateBox = css`
 `;
 
 export const input = css`
+  box-sizing: border-box;
   padding: 12px 10px;
   border-radius: 5px;
   border: 1px solid #4d4d4d;
@@ -52,6 +53,7 @@ export const input = css`
 `;
 
 export const passwordBottom = css`
+  box-sizing: border-box; 
   padding: 12px 10px;
   border-radius: 0 0 5px 5px;
   border: 1px solid #4d4d4d;
@@ -67,6 +69,7 @@ export const passwordBottom = css`
 `;
 
 export const passwordTop = css`
+  box-sizing: border-box;
   padding: 12px 10px;
   border-radius: 5px 5px 0 0;
   border: 1px solid #4d4d4d;
@@ -366,6 +369,7 @@ export const rowFieldBox = css`
 `;
 
 export const birthDateInput = css`
+  box-sizing: border-box;
   padding: 12px 10px;
   border-radius: 5px;
   border: 1px solid #4d4d4d;
