@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { PostGroupResonseDto } from "../../../types/dto/response.dto";
 import { PostGroupRequestDto } from "../../../types/dto/request.dto";
@@ -11,8 +11,8 @@ import { bottomBox, Tab } from "./style";
 import { AllBox } from "../../Manager/Chart/style";
 
 const CreateGroup_1 = () => {
-  const [groupTypes, setGroupTypes] = useState([]);
-  const [userProfileImg, setUserProfileImg] = useState<any>(null);
+  const [groupImage, setGroupImage] = useState([]);
+  const [privewImage, setPriviewImage] = useState([]);
   const navigate = useNavigate();
   const { groupId } = useParams();
   const [cookies] = useCookies(["token", "userId"]);
@@ -23,6 +23,7 @@ const CreateGroup_1 = () => {
     groupTitle: "",
     groupContent: "",
     groupSupplies: "",
+    groupImage: [],
     groupQuestion: "",
   });
 
@@ -37,6 +38,7 @@ const CreateGroup_1 = () => {
     }));
   };
 
+  //모임 생성
   const handlePostGroup = async () => {
     if (isPosting) return;
     setIsPosting(true);
@@ -50,6 +52,7 @@ const CreateGroup_1 = () => {
       groupCategory: formData.groupCategory,
       groupType: formData.groupType,
       meetingType: formData.meetingType,
+      groupImage:formDetails.groupImage
     };
     const url = `http://localhost:8080/api/v1/meeting-group`;
     if (cookies.token) {
@@ -70,11 +73,13 @@ const CreateGroup_1 = () => {
     }
   };
 
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    
+  }
+
   return (
-    <div>
-      <strong>
-        모임 게시물
-      </strong>
+    <div css={s.CreatorBox_1}>
+      <strong>모임 게시물</strong>
       <div>
         <strong>
           <h2>제목</h2>
@@ -127,7 +132,14 @@ const CreateGroup_1 = () => {
         <strong>
           <h2>모임사진 등록</h2>
         </strong>
-        <input type="file" />
+
+        <input
+          type="file"
+          id="groupImage"
+          name="groupImage"
+          multiple
+          onChange={handleFileChange}
+        />
       </div>
       <div css={bottomBox}>
         <button css={Tab} onClick={handlePrevePage}>

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 export const AllBox = css`
 display: flex;
-justify-content: space-between;
+justify-content: space-evenly;
 `;
 
 
@@ -62,3 +62,21 @@ export const TitleInput = css `
   font-weight: 500;
   border-radius: 7px;
  `;
+//  nth-of-type()
+export const CreatorBox = css `
+  display : flex;
+  flex-direction : column;
+  justify-content : center;
+  & > div {
+    margin : 25px;
+  }
+
+`;
+export const CreatorBox_1 = css `
+  display : flex;
+  flex-direction : column;
+  justify-content : center;
+  & > div {
+    margin : 25px;
+  }
+`;

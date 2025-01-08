@@ -40,7 +40,7 @@ export default function CreateGroup() {
 
 
   return (
-    <div>
+    <div css={s.CreatorBox}>
     <div>
       <strong><h4>모임 유형</h4></strong>
       <div css ={AllBox}>

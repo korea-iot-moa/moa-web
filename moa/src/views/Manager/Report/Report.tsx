@@ -118,7 +118,6 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
   return (
     <div>
       <h3>신고 접수건: {reportList.length} </h3>
-      {/* 신고에 관한 div 박스 만들어야 하고  */}
       <ul>
         {reportList.map((data) => (
           <li key={data.reportId}>
