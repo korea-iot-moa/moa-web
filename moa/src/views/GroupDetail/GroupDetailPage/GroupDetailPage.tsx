@@ -20,7 +20,7 @@ export default function GroupDetailPage() {
   useEffect(() => {
     if(!!groupId) {
       try{
-        axios.get(`http://localhost:8081/api/v1/auth/meeting-group/${groupId}`).then((response) => {
+        axios.get(`http://localhost:8080/api/v1/auth/meeting-group/${groupId}`).then((response) => {
           setGroupData(response.data.data);
         })
       } catch (error) {
@@ -66,7 +66,7 @@ export default function GroupDetailPage() {
     }
 
     try {
-      await axios.get(`http://localhost:8081/api/v1/user-list/user-list-in/${groupData?.groupId}`, {
+      await axios.get(`http://localhost:8080/api/v1/user-list/user-list-in/${groupData?.groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -93,7 +93,7 @@ export default function GroupDetailPage() {
 
       <div css={s.imageBox}>
         {groupData?.groupImage ? (
-          <img src={"http://localhost:8081/image/" + groupData.groupImage} alt="그룹 이미지" />
+          <img src={"http://localhost:8080/image/" + groupData.groupImage} alt="그룹 이미지" />
         ) : (
           <img src={img} alt="defaultImage" />
         )}

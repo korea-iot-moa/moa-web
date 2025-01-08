@@ -245,7 +245,7 @@ export default function SignUp() {
       if (signUpData.userId && idRegex.test(signUpData.userId)) {
         setValidId("");
         const result = await axios.get(
-          `http://localhost:8081/api/v1/auth/duplicateId/${signUpData.userId}`
+          `http://localhost:8080/api/v1/auth/duplicateId/${signUpData.userId}`
         );
 
         if (result.data.data === true) {
