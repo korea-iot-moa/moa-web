@@ -18,8 +18,9 @@ import Chart from "./Chart/Chart";
 import Vote from "./Vote/Vote";
 import Report from "./Report/Report";
 import Approved from "./Approved/index";
+import GroupUpdate from "./GroupUpdate/GroupUpdate";
 
-const creatoId = "ckck7290";
+
 
 export default function Index() {
   const { groupId } = useParams();
@@ -27,10 +28,7 @@ export default function Index() {
   // const navigator = useNavigate();
   const parseToNumGroupId = Number(groupId);
 
-  if (!creatoId) {
-    alert("관리자만 접근 할 수 있습니다!");
-    return null;
-  }
+
 
 
   return (
@@ -43,6 +41,7 @@ export default function Index() {
           <Tab value={3}>블랙</Tab>
           <Tab value={4}>신고</Tab>
           <Tab value={5}>승인</Tab>
+          <Tab value={6}>수정</Tab>
         </TabsList>
         <TabPanel value={0}>
           {/* 각 컴포넌트에 index.tsx 해당 파일에 있는 groupId값을 props로 전달하기 */}
@@ -62,6 +61,9 @@ export default function Index() {
         </TabPanel>
         <TabPanel value={5}>
           <Approved parseToNumGroupId={parseToNumGroupId}/>
+        </TabPanel>
+        <TabPanel value={6}>
+          <GroupUpdate parseToNumGroupId={parseToNumGroupId}/>
         </TabPanel>
       </Tabs>
     </div>
