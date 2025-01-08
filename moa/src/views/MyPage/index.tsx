@@ -1,18 +1,9 @@
-<<<<<<< HEAD
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import MyPageStart from './getUserInfo/MyPageStart'
-import GetUserInfo from './getUserInfo/GetUserInfo'
-import DelelteUserInfoStart from './deleteUserInfo/DelelteUserInfoStart'
-import DelelteUserInfo from './deleteUserInfo/DelelteUserInfo'
-=======
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import MyPageStart from "./getUserInfo/MyPageStart";
 import GetUserInfo from "./getUserInfo/GetUserInfo";
 import DelelteUserInfoStart from "./deleteUserInfo/DelelteUserInfoStart";
 import DelelteUserInfo from "./deleteUserInfo/DelelteUserInfo";
->>>>>>> develop
 export default function index() {
   return (
     <div>
