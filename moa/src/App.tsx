@@ -34,6 +34,7 @@ import JoinGroup from "./views/JoinGroup/JoinGroup/index";
 import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
 import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage";
 import AuthRedirectHandler from "./views/Auth/SignUp/AuthRedirectHandler";
+import SnsSuccess from "./views/Auth/SignIn/SnsSuccess";
 
 function App() {
   const theme = createTheme({
@@ -87,6 +88,7 @@ function App() {
                 <Route path={p.SIGN_UP_PAGE} element={<SignUp />} />
                 <Route path='/auth' element={<AuthRedirectHandler />} />
                 <Route path={p.SIGN_IN_PAGE} element={<SignIn />} />
+                <Route path='/sns-success' element={<SnsSuccess />} />
                 <Route
                   path={p.FIND_PASSWORD_PAGE}
                   element={<FindPassword />}

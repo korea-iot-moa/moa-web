@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import * as logo from "../../../styles/LogoStyle";
 import logoImg from "../../../images/moaLogo.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SignInResponseDto } from "../../../types";
 import { useCookies } from "react-cookie";
