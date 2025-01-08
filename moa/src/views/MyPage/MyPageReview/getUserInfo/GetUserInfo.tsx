@@ -5,14 +5,14 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { User } from "../../../../types";
 import userImg from "../../../../images/userImg.png";
-
+import { profileImgBox } from "../../../Auth/SignUp/style";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
   const [cookies] = useCookies(["token", "password"]);
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [userProfileImg, setUserProfileImg] = useState<string | null>(null);
+  const [userProfileImg, setUserProfileImg] = useState<any>(null);
   const setPasswordValue = useUserInfoStore((state) => state.setPasswordValue);
 
   // 닉네임 초기값 상태 저장
@@ -44,7 +44,7 @@ const GetUserInfo = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/users/user-id",
+        "http://localhost:8081/api/v1/users/user-id",
         { password: cookies.password },
         {
           headers: {
@@ -53,7 +53,7 @@ const GetUserInfo = () => {
         }
       );
       setUserInfo(response.data.data);
-      setUserProfileImg(response.data.data.profileImage || null);
+      setUserProfileImg(`http://localhost:8081/image/${response.data.data.profileImage}`);
       setInitialNickName(response.data.data.nickName); 
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
@@ -75,15 +75,14 @@ const GetUserInfo = () => {
     try {
       const formData = new FormData();
       Object.entries(userInfo).forEach(([key, value]) => {
-        if (value instanceof File) {
-            formData.append(key, value); // 파일 추가
-        } else {
+        if (key === "profileImage" && !(value instanceof File)) {
+          return;
+        } 
             formData.append(key, value || ""); // 빈 값 처리
-        }
-    });
+      });
 
       const response = await axios.put(
-        "http://localhost:8080/api/v1/users/user-info",
+        "http://localhost:8081/api/v1/users/user-info",
         formData,
         {
           headers: {
@@ -96,6 +95,7 @@ const GetUserInfo = () => {
         alert("닉네임 중복 확인을 완료해주세요.");
         return;
       }
+      if (!userInfo)
       setUserInfo(response.data.data);
       alert("정보가 성공적으로 수정되었습니다.");
     } catch (error) {
@@ -116,7 +116,7 @@ const GetUserInfo = () => {
     
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/users/duplication/${userInfo?.nickName}`,
+        `http://localhost:8081/api/v1/users/duplication/${userInfo?.nickName}`,
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
@@ -142,21 +142,20 @@ const GetUserInfo = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setUserInfo((prev) => (prev ? { ...prev, profileImage: file } : null));
-
+      
       const reader = new FileReader();
-      reader.onload = () => {
-        setUserProfileImg(reader.result as string);
+      reader.onload = (e) => {
+        setUserProfileImg(e.target?.result || null);
       };
       reader.readAsDataURL(file);
-    }
+  }
   };
 
   // 사용자 정보 수정 핸들러
   const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    if (!userInfo) return;
     const { name, value } = e.target;
 
-    setUserInfo((prev) => (prev ? { ...prev, [name]: value } : null));
+    setUserInfo((prev) => ({ ...prev!, [name]: value }));
 
     if (name === "nickName" && value !== initialNickName) {
       setDuplicationNickName(false);
@@ -257,7 +256,7 @@ const GetUserInfo = () => {
                       <img src={userImg} alt="userImage"  className="userImg"/>
                     ) : (
                       <img
-                        src={`http://localhost:8081/image/${userProfileImg}`}
+                        src={userProfileImg}
                         alt="profileImage"
                         className="userImg"
                       />

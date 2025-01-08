@@ -20,8 +20,8 @@ function MyPageStart() {
     const newPassword =e.target.value;
     setPasswordValue({ password: newPassword });
     setCookies('password', newPassword, {
-      path:'/',
-      maxAge:3600,
+      path:'/mypage/userInfo/user',
+      maxAge:360,
     });
   }
 
