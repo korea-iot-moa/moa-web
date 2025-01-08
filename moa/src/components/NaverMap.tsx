@@ -14,14 +14,14 @@ const apiKey = process.env.REACT_APP_NAVER_API;
 const NaverMapComponent: React.FC<Address> = ({ address }) => {
   const [addressMessage, setAddressMessage] = useState<string>("");
   const [latLng, setLatLng] = useState<Point | null>(null);
-  const [map, setMap] = useState<any>(null); // 지도 객체 상태 추가
+  const [map, setMap] = useState<any>(null); 
 
   useEffect(() => {
     if (!address) {
       setAddressMessage("주소가 존재하지 않습니다.");
-      setLatLng(null); // 주소가 없으면 latLng도 초기화
+      setLatLng(null); 
       if (map) {
-        map.setCenter(new window.naver.maps.LatLng(37.5665, 126.9784)); // 서울로 초기화
+        map.setCenter(new window.naver.maps.LatLng(37.5665, 126.9784)); 
       }
       return;
     }
@@ -31,7 +31,6 @@ const NaverMapComponent: React.FC<Address> = ({ address }) => {
       return;
     }
 
-    // 주소 -> 좌표 변환
     window.naver.maps.Service.geocode(
       { query: `${address}` },
       function(status, response) {

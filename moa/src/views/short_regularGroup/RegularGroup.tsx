@@ -1,55 +1,43 @@
-import React, { useEffect } from 'react'
-import { BsHeart } from 'react-icons/bs';
-import axios from 'axios';
-import useGroupTypeStore from '../../stores/gruopType.store';
+/** @jsxImportSource @emotion/react */
+import * as s from "./style";
+import React from 'react'
+import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
+import usePaginationScroll from '../../components/paginationScroll/usePaginationScroll';
+
 
 function RegularGroup() {
-  const results = useGroupTypeStore((state) => state.results);
-  const loading = useGroupTypeStore((state) => state.loading);
-  const setResult = useGroupTypeStore((state) => state.setResults);
-  const setLoading = useGroupTypeStore((state) => state.setLoading);
-  
-  const fetchData = async() => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`http://localhost:8081/api/v1/auth/meeting-group/groupType`, {params: {groupType:"정기모임"}});
+  const { data, loading, resetAndFetchData } = usePaginationScroll({
+    apiUrl: "http://localhost:8080/api/v1/auth/meeting-group/groupType",
+    limit: 10,
+    extraParams: {groupType: "정기모임"}
+  });
 
-      const shortTypeData = response.data.data;
-      setResult(shortTypeData);
-    } catch(error) {
-      console.log("Error fetching data: ", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  },[]);
+  const handleSortChange = (sortBy: string) => {
+    resetAndFetchData(sortBy);
+  };
 
   return (
-    <div>
+    <div css={s.container}>
       <p>정기모임</p>
-      <div></div>
-        {
-            loading 
-            ? <p></p>
-            : 
-        <ul>
-            {results.map(result => (
-              <li key={result.groupId}>
-                <div>{result.groupImage}</div>
-                <p>{result.groupTitle}</p>
-                <p>{result.groupDate}</p>
-                <p>{result.groupAddress}</p>
-                <div>
-                  <BsHeart />
-                </div>
-              </li>
-            )
+        <div css={s.container}>
+          <p>단기모임</p>
+          <div css={s.buttonDiv}>
+            <button onClick={() => handleSortChange("recent")}>최신순</button>
+            <span>|</span>
+            <button onClick={() => handleSortChange("default")}>기본순</button>
+            <span>|</span>
+            <button onClick={() => handleSortChange("past")}>과거순</button>
+            <span>|</span>
+            <button onClick={() => handleSortChange("recommendation")}>추천순</button>
+        </div>
+      </div>
+      <div>
+        {loading ? (
+          <p>로딩 중...</p>
+        ) : (
+          <PaginationScroll datas={data}/>
             )}
-        </ul>
-          }
+      </div>
     </div>
   )
 }

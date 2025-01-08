@@ -120,7 +120,7 @@ export interface UserAnswer {
   userId: string;
   userAnswer: string;
   answerDate: Date;
-  isApproved: boolean;
+  isApproved: number;
 }
 
 export interface UserListId {

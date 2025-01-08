@@ -1,67 +1,48 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./style";
-import axios from "axios";
+import * as s from "../style";
 import React, { useState } from "react";
-import useSearchStore from "../../stores/search.store";
 import { useNavigate } from "react-router-dom";
 
-function HobbyAndRegionCategory ()  {
-  const setGroupCategory = useSearchStore((state) => state.setGroupCategory);
-  const setRegion = useSearchStore((state) => state.setRegion);
-  const setResults = useSearchStore((state) => state.setResults);
-  const setIsResults = useSearchStore((state) => state.setIsResults);
-  const setLoading = useSearchStore((state) => state.setLoading);
-  const groupCategory = useSearchStore((state) => state.groupCategory);
-  const region = useSearchStore((state) => state.region);
+
+const HobbyAndRegionCategory = () => {
+  const [groupCategory, setGroupCategory] = useState<string>('');
+  const [region, setRegion] = useState<string>('');
   const navigator = useNavigate();
   const [openClose, setOpenClose] = useState<boolean>(false);
 
+
+  // 취미카테고리 버튼 이벤트 핸들러
   const handleHobbyFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selectCategory = e.currentTarget.value;
     setGroupCategory(selectCategory);
   };
 
+  // 지역카테고리 버튼 이벤트 핸들러
   const handleResionFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selectCategory = e.currentTarget.value;
     setRegion(selectCategory);
   };
 
+  // 취미버튼 스타일
   const categoryButtonStyle = (button: string) => ({
         backgroundColor: groupCategory === button ? "red" : "rgb(194, 189, 189)",
         color: groupCategory === button ? "white" : "black" 
   });
 
+  // 지역버튼 스타일
   const regionButtonStyle = (button:string) => ({
       backgroundColor: region === button ? "red" : "rgb(194, 189, 189)",
       color: region === button ? "white" : "black" 
   });
 
+  // 검색버튼 이벤트 핸들러
   const handlefetchCategoryBtn = async (e:React.MouseEvent<HTMLButtonElement>) => {
-    navigator('/search/categoryresult')
-    if(!groupCategory || !region){
-      alert("카테고리와 지역을 모두 선택해주세요.");
-      setOpenClose(prev=> !prev);
-      return;
+    if(!groupCategory || !region) {
+      alert('취미 혹은 지역을 선택해주세요.')
+    }else{
+      navigator(`/main/search/categoryresult/${groupCategory}/${region}`);
     }
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:8081/api/v1/auth/meeting-group/groupCategory`,
-        { params: { groupCategory, region } }
-      );
-      const categoryData = response.data.data;
-      setResults(categoryData);
-      
-      if(categoryData.length > 0){
-        setIsResults(true);
-      } else {
-        setIsResults(false);
-      };
-    } catch (error) {
-      console.log("Error fetching data: ", error);
-    } finally {
-      setLoading(false);
-    }
+    setOpenClose(true);
   }
 
   return (

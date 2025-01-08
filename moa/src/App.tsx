@@ -20,7 +20,7 @@ import userAuthStore from "./stores/auth.store";
 import * as p from "./contants";
 import GroupHeader from "./views/JoinGroup/GroupHeader";
 import SearchResult from "./layouts/SearchBar";
-import CategorySearchList from "./layouts/SearchBar/CategorySearchList";
+import CategorySearchList from "./layouts/SearchBar/categotybar/CategorySearchList";
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import Manager from "./views/Manager";
@@ -28,13 +28,17 @@ import { ThemeProvider, createTheme, Theme } from "@mui/material/styles";
 import ReportPage from "./views/Report/ReportPage";
 import CreateReview from "./views/Review/CreateReview/CreateReview";
 import ReviewMain from "./views/Review/ReviewMain/ReviewMain";
-import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
+import MyPage from "./views/MyPage/index";
 import FindPassword from "./views/Auth/FindPassword/FindPassword";
 import VerificationPassword from "./views/Auth/FindPassword/VerificationPassword";
 import NoticePage from "./views/Notice/NoticePage";
 import WebMainPage from "./views/WebMain/WebMainPage";
 import CreateGroup from "./views/GroupDetail/CreateGroup/CreateGroup";
 import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
+import FindUserId from "./views/Auth/FindUserId/index";
+import JoinGroup from "./views/JoinGroup/JoinGroup/index";
+import MyPageReview from "./views/MyPage/MyPageReview";
+import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage";
 
 function App() {
   const theme = createTheme({
@@ -89,6 +93,11 @@ function App() {
                 <Route path={p.SIGN_IN_PAGE} element={<SignIn />} />
                 <Route path={p.FIND_PASSWORD_PAGE} element={<FindPassword />} />
                 <Route
+                  path={p.FIND_PASSWORD_PAGE}
+                  element={<FindPassword />}
+                />
+                <Route path={p.FIND_USERID_PAGE} element={<FindUserId />} />
+                <Route
                   path={p.FIND__VERIFY_PASSWORD_PAGE}
                   element={<VerificationPassword />}
                 />
@@ -115,6 +124,14 @@ function App() {
                   }
                 />
                 <Route path="/main/create-group" element={<CreateGroup />} />
+                <Route
+                path="/main/create-group"
+                element={<CreateGroup/>}
+                />
+                {/* <Route
+                path="/main/create-group_1/:groupId"
+                element={<CreateGroup_1/>}
+                /> */}
                 <Route
                   path="/main/create-group_1"
                   element={<CreateGroup_1 />}
@@ -162,6 +179,26 @@ function App() {
                 />
                 {/* 공지사항 페이지 */}
                 <Route path={p.NOTICE_PAGE} element={<NoticePage />} />
+                <Route
+                  path={p.NOTICE_PAGE}
+                  element={<NoticePage />}
+                />
+              {/* 모임참여 신청 */}
+              <Route path={p.GROUP_JOIN_PAGE} element={
+                          cookies.token ? (
+                            <JoinGroup />
+                          ) : (
+                            <Navigate to={p.SIGN_IN_PAGE} replace />
+                          )} />
+              {/* 마이페이지 내정보 수정 */}
+              <Route path={p.MY_PAGE} element={
+                          cookies.token ? (
+                            <MyPage />
+                          ) : (
+                            <Navigate to={p.SIGN_IN_PAGE} replace />
+                          )} />
+              {/* 그룹 상세 페이지 */}
+              <Route path={p.GROUP_DETAIL} element={<GroupDetailPage />}/>
               </Routes>
             </MainContainer>
           </RootContainer>
