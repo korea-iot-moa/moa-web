@@ -51,7 +51,7 @@ export default function GroupHeader() {
   const navigate = useNavigate();
 
   const handleManagerPageRender = (groupId: number) => {
-    navigate(`/manager/${groupId}`)
+    navigate(`/main/manager/user-list/${groupId}`)
   }
 
   //& 그룹정보 호출
