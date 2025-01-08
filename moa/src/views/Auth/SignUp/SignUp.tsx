@@ -42,7 +42,6 @@ const regions = [
   "경남",
 ];
 
-
 // 정규식 할당
 const idRegex = /^[a-zA-Z0-9]{8,14}$/
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,16}$/
