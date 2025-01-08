@@ -31,8 +31,17 @@ export const categoryList =css`
   list-style: none;
   gap: 50px;
   font-size: 11px;
-  margin-top: 30px;
   padding: 0;
+`
+export const imgDiv = css`
+  width: 100%;
+  height: 90px;
+  object-fit: contain;
+  cursor: pointer;
+`
+export const img = css`
+  width: 100%;
+  height: 100%;
 `
 
 export const groupLi = css`
@@ -40,6 +49,7 @@ export const groupLi = css`
   box-sizing: border-box;
   padding: 10px;
   margin-top: 20px;
+  cursor: pointer;
 `
 export const line = css`
   border: 1px solid #ddd;

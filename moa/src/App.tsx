@@ -33,6 +33,7 @@ import FindUserId from "./views/Auth/FindUserId/index";
 import JoinGroup from "./views/JoinGroup/JoinGroup/index";
 import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
 import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage";
+import AuthRedirectHandler from "./views/Auth/SignUp/AuthRedirectHandler";
 
 function App() {
   const theme = createTheme({
@@ -84,6 +85,7 @@ function App() {
                 {/* 메인 영역 라우트 설정 */}
                 <Route path={p.WEB_APP_MAIN} element={<Home />} />
                 <Route path={p.SIGN_UP_PAGE} element={<SignUp />} />
+                <Route path='/auth' element={<AuthRedirectHandler />} />
                 <Route path={p.SIGN_IN_PAGE} element={<SignIn />} />
                 <Route
                   path={p.FIND_PASSWORD_PAGE}
