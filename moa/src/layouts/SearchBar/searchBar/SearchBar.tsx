@@ -7,6 +7,7 @@ import axios from "axios";
 import { MeetingGroup } from "../../../types";
 import { FaClosedCaptioning } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
+import { SEARCHBAR_GET_API } from "../../../apis";
 
 export default function SearchBar() {
   const [keyword, setKeyword] = useState<string>("");
@@ -31,7 +32,7 @@ export default function SearchBar() {
     if (keyword.trim()) {
       try {
         const response = await axios.get(
-          `http://localhost:8081/api/v1/auth/meeting-group`,
+          SEARCHBAR_GET_API,
           { params: { keyword } }
         );
         const datas: MeetingGroup[] = response.data.data;

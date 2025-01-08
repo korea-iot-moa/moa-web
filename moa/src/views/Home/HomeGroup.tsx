@@ -9,6 +9,7 @@ import { MeetingGroup, Recommendation } from "../../types";
 import useGroupStore from "../../stores/group.store";
 import { useNavigate } from "react-router-dom";
 import groupImg  from '../../images/moaLogo.png';
+import { HOME_GROUP_AUTH_GET_API, HOME_GROUP_GET_API, HOME_GROUP_IMG_API, HOME_GROUP_RECOMMENDATION_DELETE_API, HOME_GROUP_RECOMMENDATION_GET_API, HOME_GROUP_RECOMMENDATION_POST_API } from "../../apis";
 
 function HomeGroup() {
   const { userId } = userAuthStore();
@@ -28,13 +29,13 @@ function HomeGroup() {
     try {
       const response = cookies.token
         ? await axios.get(
-            `http://localhost:8080/api/v1/meeting-group/home-recommendation`,
+          HOME_GROUP_GET_API,
             {
               headers: { Authorization: `Bearer ${cookies.token}` },
               withCredentials: true,
             }
           )
-        : await axios.get(`http://localhost:8080/api/v1/auth/meeting-group/group`);
+        : await axios.get(HOME_GROUP_AUTH_GET_API);
 
       const groupData = response.data.data;
       setDatas(groupData);
@@ -55,7 +56,7 @@ function HomeGroup() {
       if (!cookies.token) return;
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/recommendation",
+          HOME_GROUP_RECOMMENDATION_GET_API,
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
@@ -89,7 +90,7 @@ function HomeGroup() {
     try {
       if (!likedGroups.includes(groupId)) {
         await axios.post<Recommendation>(
-          `http://localhost:8080/api/v1/recommendation`,
+          HOME_GROUP_RECOMMENDATION_POST_API,
           { groupId },
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
@@ -98,7 +99,7 @@ function HomeGroup() {
         );
       } else {
         await axios.delete(
-          `http://localhost:8080/api/v1/recommendation/user-id`,
+          HOME_GROUP_RECOMMENDATION_DELETE_API,
           {
             data: { groupId },
             headers: { Authorization: `Bearer ${cookies.token}` },
@@ -149,7 +150,7 @@ function HomeGroup() {
                             />
                           ) : (
                             <img
-                              src={`http://localhost:8080/image/${data.groupImage}`}
+                              src={`${HOME_GROUP_IMG_API}${data.groupImage}`}
                               css={s.img}
                               alt={data.groupImage}
                               onClick={() => handleOpenGroup(data)}
