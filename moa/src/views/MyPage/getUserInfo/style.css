@@ -82,7 +82,7 @@
   background-color: #ffffff;
   padding: 25px;
   width: 400px;
-  height: 490px;
+  height: 500px;
   margin: 0 auto;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -92,6 +92,7 @@
 .nickNameDiv {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -125,6 +126,7 @@
   font-size: 12px;
   margin-bottom: 10px;
 }
+
 
 .nickNameInputBtn {
   width: 300px;
@@ -241,25 +243,26 @@
 
 /* 프로필 이미지 등록 */
 .imgDiv {
+  width: 300x;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
   margin-top: 20px;
 }
 
 .imgBox img {
-  height: 120px;
+  width: 120px;
   object-fit: cover;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 50%;
 }
 
 .imgBox input {
   margin-top: 10px;
   font-size: 14px;
   border: none;
-
+  display: none;
 }
 
 /* 버튼 스타일 */

@@ -8,7 +8,9 @@ function FindUserId() {
   const [formData, setFormData] = useState({
     userName: "",
     userBirthDate: "",
+    email: ""
   });
+
   const navigator = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

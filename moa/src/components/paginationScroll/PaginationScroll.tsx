@@ -19,37 +19,17 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
   const [cookies] = useCookies(["token"]);
   const navigator = useNavigate();
 
-  // 중복 확인 상태관리
-  const [duplicationUserAnswer, setDuplicationUserAnswer] = useState<boolean>(false);
 
   // 답변 중복확인 함수
   const handleOpenGroup = async(group:MeetingGroup | null) => {
-    if(cookies.token){
-      try{
-        const response = await axios.get(`http://localhost:8081/api/v1/user-answers/duplication/${group?.groupId}`, 
-          {
-            headers: { Authorization: `Bearer ${cookies.token}` },
-            withCredentials: true,
-          }
-        );
-        if(response.data.data === true) {
-          alert("이미신청완료됐습니다");
-          setDuplicationUserAnswer(true);
-        } else {
-          useGroupStore.getState().setGroupData(group); // 그룹 데이터 저장
-          navigator(`/meeting-group/${group?.groupId}`);
-        }
-      }catch (error) {
-        console.error(error);
-      }
-    }
+    navigator(`/meeting-group/${group?.groupId}`);
   }
   
   useEffect(() => {
     async function fetchLikes() {
       if(cookies.token) {
         try{
-          const response = await axios.get('http://localhost:8081/api/v1/recommendation', {
+          const response = await axios.get('http://localhost:8080/api/v1/recommendation', {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
           });
@@ -79,7 +59,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
       try {
         if (!likedGroups.includes(groupId)) {
           await axios.post<Recommendation>(
-            `http://localhost:8081/api/v1/recommendation`,
+            `http://localhost:8080/api/v1/recommendation`,
             { groupId },
             {
               headers: {
@@ -91,7 +71,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
 
         } else {
           await axios.delete(
-            `http://localhost:8081/api/v1/recommendation/user-id`,
+            `http://localhost:8080/api/v1/recommendation/user-id`,
             {
               data: { groupId: groupId },
               headers: {

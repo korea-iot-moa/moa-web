@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import useUserInfoStore from "../../../stores/userInfo.store";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-
 import { User } from "../../../types";
 import userImg from "../../../images/userImg.png";
-import { profileImgBox } from "../../Auth/SignUp/style";
-import { MdAddPhotoAlternate } from "react-icons/md";
+import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
@@ -258,11 +256,12 @@ const GetUserInfo = () => {
                         className="userImg"
                       />
                     )}
-                    <label htmlFor="profileInput">
-                      <MdAddPhotoAlternate />
+                    <label htmlFor="profileImage">
+                      <MdOutlineAddPhotoAlternate style={{margin:'0px', padding:'0px', fontSize: '30px'}}/>
                     </label>
                     <input
                     type="file"
+                    id="profileImage"
                     name="profileImage"
                     className="profileInput"
                     onChange={handleImgFileChange}
