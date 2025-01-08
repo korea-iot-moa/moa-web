@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import RootLayout from "./layouts/RootLayout/RootLayout";
 import RootContainer from "./layouts/RootContainer/RootContainer";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Home from "./views/Home/index";
 import GroupNaviBar from "./layouts/GroupNaviBar/GroupNaviBar";
 import InformationNaviBar from "./layouts/InformationNaviBar/InformationNaviBar";
@@ -18,7 +24,7 @@ import CategorySearchList from "./layouts/SearchBar/categotybar/CategorySearchLi
 import ShortGroup from "./views/short_regularGroup/ShortGroup";
 import RegularGroup from "./views/short_regularGroup/RegularGroup";
 import Manager from "./views/Manager";
-import {ThemeProvider,createTheme,Theme } from "@mui/material/styles";
+import { ThemeProvider, createTheme, Theme } from "@mui/material/styles";
 import ReportPage from "./views/Report/ReportPage";
 import CreateReview from "./views/Review/CreateReview/CreateReview";
 import ReviewMain from "./views/Review/ReviewMain/ReviewMain";
@@ -39,7 +45,7 @@ import SnsSuccess from "./views/Auth/SignIn/SnsSuccess";
 function App() {
   const theme = createTheme({
     palette: {
-      mode: 'light',
+      mode: "light",
     },
   });
   interface TokenUser {
@@ -50,7 +56,7 @@ function App() {
 
   const [cookies] = useCookies(["token"]);
   const { login, logout } = userAuthStore();
-  
+
   const location = useLocation();
 
   useEffect(() => {
@@ -100,7 +106,27 @@ function App() {
                 />
                 <Route path={p.JOIN_GROUP_PAGE} element={<GroupHeader />} />
                 <Route path={p.REPORT_POST_PAGE} element={<ReportPage />} />
-                
+                <Route
+                  path="/search/*"
+                  element={
+                    <Routes>
+                      <Route path="/" element={<SearchResult />} />
+                      <Route
+                        path="/categoryresult"
+                        element={<CategorySearchList />}
+                      />
+                      <Route
+                        path="/grouptype/shorttype"
+                        element={<ShortGroup />}
+                      />
+                      <Route
+                        path="/grouptype/regulartype"
+                        element={<RegularGroup />}
+                      />
+                    </Routes>
+                  }
+                />
+                <Route path="/main/create-group" element={<CreateGroup />} />
                 <Route
                 path="/main/create-group"
                 element={<CreateGroup/>}
@@ -110,22 +136,23 @@ function App() {
                 element={<CreateGroup_1/>}
                 /> */}
                 <Route
+                  path="/main/create-group_1"
+                  element={<CreateGroup_1 />}
+                />
+                <Route
                   path="/main/manager/user-list/:groupId"
                   element={
-                  <ThemeProvider theme={theme}>
-                    <Manager />
-                  </ThemeProvider>  
-                    }
+                    <ThemeProvider theme={theme}>
+                      <Manager />
+                    </ThemeProvider>
+                  }
                 />
                 <Route
                   path="/review/*"
                   element={
                     <Routes>
                       {/* 리뷰 메인 */}
-                      <Route
-                        path={p.REVIEW_MAIN}
-                        element={<ReviewMain />}
-                      />
+                      <Route path={p.REVIEW_MAIN} element={<ReviewMain />} />
 
                       {/* 리뷰 생성 페이지 */}
                       <Route
@@ -154,6 +181,7 @@ function App() {
                   }
                 />
                 {/* 공지사항 페이지 */}
+                <Route path={p.NOTICE_PAGE} element={<NoticePage />} />
                 <Route
                   path={p.NOTICE_PAGE}
                   element={<NoticePage />}

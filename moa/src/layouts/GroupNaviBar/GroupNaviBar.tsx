@@ -21,6 +21,10 @@ export default function GroupNaviBar() {
   const { setGroupListStore } = useGroupListStore();
   const navigator = useNavigate();
 
+  const handleNext = () => {
+    navigator('/main/create-group');
+   
+  };
   useEffect(() => {
     const fetchGroup = async () => {
       if (cookies.token) {
@@ -80,7 +84,7 @@ export default function GroupNaviBar() {
       {cookies.token && (
       <div css={s.bottomBox}>
         <hr css={s.line} />
-        <div css={s.createBox}>
+        <div onClick={() =>handleNext()} css={s.createBox}>
           <FiPlusCircle css={s.createIcon}/>
         </div>
       </div>

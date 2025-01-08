@@ -7,7 +7,7 @@ import {
   GetVoteAnswerChartResponseDto,
   GetVoteResponseDto,
 } from "../../../types/dto/response.dto";
-import { LayerBox, ReportBox } from "./style";
+import { Botton, BottonBox, LayerBox, ReportBox } from "./style";
 import {
   PostVoteRequestDto,
   PutVoteRequestDto,
@@ -41,13 +41,12 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   
   
   useEffect(() => {
-    console.log("투표 데이터 불러오기");
     fetchVote();
 
     if (vote) {
       fetchVoteAnswerChart(vote.voteId);
     }
-  }, [groupId, cookies.token, vote]);
+  }, [groupId, cookies.token]);
 
   const handleEditClick = (vote: GetVoteResponseDto) => {
     setIsEditing(true);
@@ -63,11 +62,13 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+
   const fetchVote = async () => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/votes/${parseToNumGroupId}`,
+          `http://localhost:8081/api/v1/votes/${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -99,10 +100,12 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       createDate: new Date(createDate),
       closeDate: new Date(closeDate),
     };
-    const url = `http://localhost:8080/api/v1/votes`;
+    const url = `http://localhost:8081/api/v1/votes`;
+    
     if (cookies.token) {
       try {
-        console.log("등록 데이터 : "+postVoteRequestDto.creatorId);
+       
+
         const response = await axios.post(url, postVoteRequestDto, {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
@@ -218,7 +221,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
           />
         </p>
         <p>
-          마감감 날짜{" "}
+          마감 날짜{" "}
           <input
             type="date"
             value={closeDate}
@@ -298,9 +301,9 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
               </p>
               <strong>마감 날짜:</strong>{" "}
               {new Date(vote.closeDate).toLocaleDateString()}
-              <div>
-                <button onClick={() => handleEditClick(vote)}>수정</button>
-                <button onClick={() => handleDeleteVote(vote.voteId)}>
+              <div css ={BottonBox}>
+                <button css={Botton} onClick={() => handleEditClick(vote)}>수정</button>
+                <button css={Botton} onClick={() => handleDeleteVote(vote.voteId)}>
                   삭제
                 </button>
               </div>
