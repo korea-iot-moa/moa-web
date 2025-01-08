@@ -112,6 +112,8 @@ export interface User {
   hobbies: Array<number>;
   profileImage: any;
   region: Region | null;
+  snsId: string | null;
+  joinPath: string;
 }
 
 export interface UserAnswer {
