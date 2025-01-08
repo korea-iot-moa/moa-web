@@ -28,13 +28,13 @@ function HomeGroup() {
     try {
       const response = cookies.token
         ? await axios.get(
-            `http://localhost:8080/api/v1/meeting-group/home-recommendation`,
+            `http://localhost:8081/api/v1/meeting-group/home-recommendation`,
             {
               headers: { Authorization: `Bearer ${cookies.token}` },
               withCredentials: true,
             }
           )
-        : await axios.get(`http://localhost:8080/api/v1/auth/meeting-group/group`);
+        : await axios.get(`http://localhost:8081/api/v1/auth/meeting-group/group`);
 
       const groupData = response.data.data;
       setDatas(groupData);
@@ -55,7 +55,7 @@ function HomeGroup() {
       if (!cookies.token) return;
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/recommendation",
+          "http://localhost:8081/api/v1/recommendation",
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
@@ -89,7 +89,7 @@ function HomeGroup() {
     try {
       if (!likedGroups.includes(groupId)) {
         await axios.post<Recommendation>(
-          `http://localhost:8080/api/v1/recommendation`,
+          `http://localhost:8081/api/v1/recommendation`,
           { groupId },
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
@@ -98,7 +98,7 @@ function HomeGroup() {
         );
       } else {
         await axios.delete(
-          `http://localhost:8080/api/v1/recommendation/user-id`,
+          `http://localhost:8081/api/v1/recommendation/user-id`,
           {
             data: { groupId },
             headers: { Authorization: `Bearer ${cookies.token}` },
