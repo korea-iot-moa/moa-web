@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import * as s from "./style";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Gender, Hobby, Region, User } from "../../../types";
 import logo from "../../../images/moaLo.png";
 import naverLogo from "../../../images/naverLogo.png";
@@ -53,6 +53,12 @@ const nameRegex = /^[a-zA-Z가-힣]+$/;
 
 export default function SignUp() {
   const navigate = useNavigate();
+  
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const snsId = params.get("snsId");
+  const joinPath = params.get("joinPath");
+  const path = params.get("path");
 
   const [page, setPage] = useState<number>(0);
   const [hobbies, setHobbies] = useState<Hobby[]>([]);
@@ -86,6 +92,8 @@ export default function SignUp() {
     hobbies: [],
     profileImage: null,
     region: null,
+    snsId: snsId,
+    joinPath: joinPath ? joinPath : "Home"
   });
 
   //& DB 취미 요청
@@ -93,7 +101,11 @@ export default function SignUp() {
     axios.get("http://localhost:8080/api/v1/auth/hobbies").then((response) => {
       setHobbies(response.data.data);
     });
-  }, []);
+
+    if (path === "1") {
+      setPage(1);
+    }
+  }, [path]);
 
   //& 회원가입 데이터 할당
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -329,71 +341,76 @@ export default function SignUp() {
     }
   };
 
+  // event handler: SNS 버튼 클릭 이벤트 처리 //
+  const onSnsButtonClickHandler = (sns: 'kakao' | 'naver') => {
+      window.location.href = `http://localhost:8080/api/v1/auth/sns-sign-in/${sns}`;
+  };
+  
 
   return (
     <div css={s.fullBox}>
       <div css={s.signUpBox}>
         {page === 0 && (
           <>
-          <Box sx={{ width: '100%', padding: "20px 0"}}>
-      <Stepper activeStep={page} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
-    <div css={s.selectBox}>
-            <div css={s.headerBox}>
-              <img src={logo} alt="Logo" />
-              <h1>회원가입</h1>
+            <Box sx={{ width: "100%", padding: "20px 0" }}>
+              <Stepper activeStep={page} alternativeLabel>
+                {steps.map((label) => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
+            <div css={s.selectBox}>
+              <div css={s.headerBox}>
+                <img src={logo} alt="Logo" />
+                <h1>회원가입</h1>
+              </div>
+              <div css={s.allSignUpBox}>
+                <div
+                  css={s.anotherSignInBox}
+                  className="moa"
+                  onClick={() => setPage(1)}
+                >
+                  <div css={s.anotherLogoBox}>
+                    <img src={logo} alt="모아로고" className="moa" />
+                  </div>
+                  <div>
+                    <p>Moa 계정으로 회원가입</p>
+                  </div>
+                </div>
+                <div css={s.anotherSignInBox} className="naver" onClick={() => onSnsButtonClickHandler('naver')}>
+                  <div css={s.anotherLogoBox}>
+                    <img src={naverLogo} alt="네이버로고" className="naver" />
+                  </div>
+                  <div>
+                    <p>Naver 계정으로 회원가입</p>
+                  </div>
+                </div>
+                <div css={s.anotherSignInBox} className="kakao" onClick={() => onSnsButtonClickHandler('kakao')}>
+                  <div css={s.anotherLogoBox}>
+                    <img src={kakoLogo} alt="카카오로고" className="kakao" />
+                  </div>
+                  <div>
+                    <p>Kakao 계정으로 회원가입</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div css={s.allSignUpBox}>
-              <div
-                css={s.anotherSignInBox}
-                className="moa"
-                onClick={() => setPage(1)}
-              >
-                <div css={s.anotherLogoBox}>
-                  <img src={logo} alt="모아로고" className="moa" />
-                </div>
-                <div>
-                  <p>Moa 계정으로 회원가입</p>
-                </div>
-              </div>
-              <div css={s.anotherSignInBox} className="naver">
-                <div css={s.anotherLogoBox}>
-                  <img src={naverLogo} alt="네이버로고" className="naver" />
-                </div>
-                <div>
-                  <p>Naver 계정으로 회원가입</p>
-                </div>
-              </div>
-              <div css={s.anotherSignInBox} className="kakao">
-                <div css={s.anotherLogoBox}>
-                  <img src={kakoLogo} alt="카카오로고" className="kakao" />
-                </div>
-                <div>
-                  <p>Kakao 계정으로 회원가입</p>
-                </div>
-              </div>
-            </div>
-          </div>
           </>
         )}
 
-        { page === 1 && (
+        {page === 1 && (
           <>
-            <Box sx={{ width: '100%', padding: "20px 0"}}>
-      <Stepper activeStep={page} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
+            <Box sx={{ width: "100%", padding: "20px 0" }}>
+              <Stepper activeStep={page} alternativeLabel>
+                {steps.map((label) => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
             <div css={s.fieldBox}>
               <label htmlFor="userId" css={s.labelBox}>
                 <p css={s.label}>아이디*</p>{" "}
@@ -563,19 +580,19 @@ export default function SignUp() {
               </div>
             </div>
           </>
-        )}  
-        
+        )}
+
         {page === 2 && (
           <>
-            <Box sx={{ width: '100%', padding: "20px 0" }}>
-      <Stepper activeStep={page} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
+            <Box sx={{ width: "100%", padding: "20px 0" }}>
+              <Stepper activeStep={page} alternativeLabel>
+                {steps.map((label) => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
 
             <div css={s.fieldBox}>
               <h1 css={s.label}>프로필 이미지</h1>
