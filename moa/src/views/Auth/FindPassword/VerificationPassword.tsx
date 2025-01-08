@@ -56,7 +56,7 @@ export default function VerifyToken() {
     }
 
     try {
-      await axios.put("http://localhost:8080/api/v1/users/resetPassword", {
+      await axios.put("http://localhost:8081/api/v1/users/resetPassword", {
           newPassword: resetData.newPassword,
         }, {
           headers: {

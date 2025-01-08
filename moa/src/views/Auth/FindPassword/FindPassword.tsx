@@ -5,7 +5,6 @@ import * as logo from "../../../styles/LogoStyle";
 import { useNavigate } from 'react-router-dom';
 import logoImg from "../../../images/moaLogo.png";
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
 
 type findPasswordDto = {
   userId: string;
@@ -59,7 +58,7 @@ export default function FindPassword() {
       if(!isButtonDisabled) {
         try {
           setIsButtonDisabled(true);
-          const response = await axios.post('http://localhost:8080/api/v1/mail/send', findPasswordData);
+          const response = await axios.post('http://localhost:8081/api/v1/mail/send', findPasswordData);
           if (!!response.data.result) {
             setHasSendMail(true);
           }
