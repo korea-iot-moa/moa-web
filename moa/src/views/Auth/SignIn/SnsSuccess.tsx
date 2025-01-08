@@ -13,13 +13,14 @@ export default function SnsSuccess() {
 
   useEffect(() => {
       if (accessToken && expiration) {
-        const expires = new Date(Date.now() + expiration);
+        const expires = new Date(Date.now() + Number(expiration));
+        console.log(expires);
           setCookies("token", accessToken, {
             path: "/",
             expires,
           });;
 
-          navigator('/main/*');
+          navigator('/main');
       }
       else navigator("/signUp");
   }, [accessToken, expiration, navigator, setCookies]);
