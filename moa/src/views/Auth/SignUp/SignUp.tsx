@@ -98,7 +98,7 @@ export default function SignUp() {
 
   //& DB 취미 요청
   useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/auth/hobbies").then((response) => {
+    axios.get("http://localhost:8081/api/v1/auth/hobbies").then((response) => {
       setHobbies(response.data.data);
     });
 
@@ -245,7 +245,7 @@ export default function SignUp() {
       if (signUpData.userId && idRegex.test(signUpData.userId)) {
         setValidId("");
         const result = await axios.get(
-          `http://localhost:8080/api/v1/auth/duplicateId/${signUpData.userId}`
+          `http://localhost:8081/api/v1/auth/duplicateId/${signUpData.userId}`
         );
 
         if (result.data.data === true) {
@@ -274,7 +274,7 @@ export default function SignUp() {
       if (signUpData.nickName && nicknameRegex.test(signUpData.nickName)) {
         setValidNickName("");
         const result = await axios.get(
-          `http://localhost:8080/api/v1/auth/duplicateNickName/${signUpData.nickName}`
+          `http://localhost:8081/api/v1/auth/duplicateNickName/${signUpData.nickName}`
         );
 
         if (result.data.data === true) {
@@ -323,7 +323,7 @@ export default function SignUp() {
     if (valid) {
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/v1/auth/signUp",
+          "http://localhost:8081/api/v1/auth/signUp",
           signUpForm,
           {
             headers: {
@@ -343,7 +343,7 @@ export default function SignUp() {
 
   // event handler: SNS 버튼 클릭 이벤트 처리 //
   const onSnsButtonClickHandler = (sns: 'kakao' | 'naver') => {
-      window.location.href = `http://localhost:8080/api/v1/auth/sns-sign-in/${sns}`;
+      window.location.href = `http://localhost:8081/api/v1/auth/sns-sign-in/${sns}`;
   };
   
 

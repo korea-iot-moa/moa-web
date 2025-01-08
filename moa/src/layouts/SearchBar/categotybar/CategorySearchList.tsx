@@ -10,7 +10,7 @@ function CategorySearchList() {
   const groupCategoryWord = groupCategory || '';
   const regionWord = region || '';
   const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: 'http://localhost:8080/api/v1/auth/meeting-group/groupCategory',
+    apiUrl: 'http://localhost:8081/api/v1/auth/meeting-group/groupCategory',
     limit: 10,
     extraParams: { groupCategory:groupCategoryWord, region: regionWord },
   });

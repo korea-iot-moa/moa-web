@@ -76,7 +76,7 @@ export default function SignIn() {
         };
 
         const response = await axios.post(
-          `http://localhost:8080/api/v1/auth/login`,
+          `http://localhost:8081/api/v1/auth/login`,
           signinData
         );
 
@@ -110,7 +110,7 @@ export default function SignIn() {
   // event handler: SNS 버튼 클릭 이벤트 처리 //
   const onSnsButtonClickHandler = (sns: 'kakao' | 'naver') => {
     console.log(sns);
-      window.location.href = `http://localhost:8080/api/v1/auth/sns-sign-in/${sns}`;
+      window.location.href = `http://localhost:8081/api/v1/auth/sns-sign-in/${sns}`;
   };
 
   return (

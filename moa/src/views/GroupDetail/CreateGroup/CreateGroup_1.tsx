@@ -55,7 +55,7 @@ const CreateGroup_1:React.FC<CreateGroup_1> = ({parseToNumGroupId}) => {
       groupType: formData.groupType,
       meetingType:formData.meetingType
     };
-    const url = `http://localhost:8080/api/v1/meeting-group`;
+    const url = `http://localhost:8081/api/v1/meeting-group`;
     if (cookies.token) {
       try {
         
@@ -88,7 +88,7 @@ const CreateGroup_1:React.FC<CreateGroup_1> = ({parseToNumGroupId}) => {
       groupType: formData.groupType,
       meetingType:formData.meetingType
     };
-    const url = `http://localhost:8080/api/v1/meeting-group/${parseToNumGroupId}`;
+    const url = `http://localhost:8081/api/v1/meeting-group/${parseToNumGroupId}`;
     if (cookies.token) {
       try {
         
