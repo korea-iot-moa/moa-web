@@ -31,7 +31,7 @@ import CreateGroup from "./views/GroupDetail/CreateGroup/CreateGroup";
 import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
 import FindUserId from "./views/Auth/FindUserId/index";
 import JoinGroup from "./views/JoinGroup/JoinGroup/index";
-import MyPageReview from "./views/MyPage/MyPageReview";
+import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
 import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage";
 
 function App() {
