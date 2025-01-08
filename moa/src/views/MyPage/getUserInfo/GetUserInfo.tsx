@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useUserInfoStore from "../../../../stores/userInfo.store";
+import useUserInfoStore from "../../../stores/userInfo.store";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { User } from "../../../../types";
-import userImg from "../../../../images/userImg.png";
-import { profileImgBox } from "../../../Auth/SignUp/style";
+
+import { User } from "../../../types";
+import userImg from "../../../images/userImg.png";
+import { profileImgBox } from "../../Auth/SignUp/style";
 import { MdAddPhotoAlternate } from "react-icons/md";
 
 const GetUserInfo = () => {

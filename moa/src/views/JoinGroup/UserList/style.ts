@@ -44,11 +44,12 @@ export const listItem = css`
   }
 
   > div:nth-child(2) {
+    box-sizing: border-box;
     flex: 5;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-end;
-    padding: 0 10px;
+    align-items: center;
+    padding: 10px 10px;
 
     > p {
       font-size: 18px;

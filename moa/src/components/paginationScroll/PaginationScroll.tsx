@@ -121,7 +121,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
                 !data.groupImage ? (
                 <img src={groupImg} alt='userImage' css={s.img} onClick={()=> handleOpenGroup(data)} />
                 ) : (
-                <img src={`http://localhost:8081/image/${data.groupImage}`} 
+                <img src={`http://localhost:8080/image/${data.groupImage}`} 
                 css={s.img}
                 alt={data.groupImage} 
                 onClick={()=> handleOpenGroup(data)}

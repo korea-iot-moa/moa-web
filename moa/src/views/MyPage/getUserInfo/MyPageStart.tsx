@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useUserInfoStore from '../../../../stores/userInfo.store';
+import useUserInfoStore from '../../../stores/userInfo.store';
 import { useCookies } from 'react-cookie';
 import './style.css'
 
