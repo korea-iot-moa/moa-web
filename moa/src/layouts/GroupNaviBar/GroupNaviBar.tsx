@@ -23,7 +23,7 @@ export default function GroupNaviBar() {
 
   const handleNext = () => {
     navigator('/main/create-group');
-   
+  
   };
   useEffect(() => {
     const fetchGroup = async () => {

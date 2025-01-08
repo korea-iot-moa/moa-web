@@ -4,13 +4,14 @@ import * as s from "../resultStyle";
 import usePaginationScroll from "../../../components/paginationScroll/usePaginationScroll";
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/paginationScroll/PaginationScroll";
+import { CATEGORY_GET_API } from "../../../apis";
 
 function CategorySearchList() {
   const { groupCategory, region} = useParams<{ groupCategory?: string; region?: string }>();
   const groupCategoryWord = groupCategory || '';
   const regionWord = region || '';
   const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: 'http://localhost:8081/api/v1/auth/meeting-group/groupCategory',
+    apiUrl: CATEGORY_GET_API,
     limit: 10,
     extraParams: { groupCategory:groupCategoryWord, region: regionWord },
   });

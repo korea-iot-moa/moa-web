@@ -3,11 +3,12 @@ import * as s from "./style";
 import React, { useState } from 'react'
 import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
 import usePaginationScroll from '../../components/paginationScroll/usePaginationScroll';
+import { GROUP_TYPE_API } from "../../apis";
 
 
 function RegularGroup() {
   const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: "http://localhost:8081/api/v1/auth/meeting-group/groupType",
+    apiUrl: GROUP_TYPE_API,
     limit: 10,
     extraParams: {groupType: "정기모임"}
   });

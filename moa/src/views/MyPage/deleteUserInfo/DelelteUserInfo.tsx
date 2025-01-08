@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../types";
 import "./style.css";
+import { DELTE_USER_INFO_API } from "../../../apis";
 
 function DeleteUserInfo() {
   const [userInfo, setUserInfo] = useState<User | null>(null);
@@ -16,7 +17,7 @@ function DeleteUserInfo() {
     if (cookies.token) {
       try {
         const response = await axios.delete(
-          `http://localhost:8081/api/v1/users/user`,
+          DELTE_USER_INFO_API,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,

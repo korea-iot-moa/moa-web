@@ -6,6 +6,7 @@ import axios from "axios";
 import { User } from "../../../types";
 import userImg from "../../../images/userImg.png";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
+import { GET_USER_INFO_API, GET_USER_INFO_IMG_API } from "../../../apis";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const GetUserInfo = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/users/user-id",
+        GET_USER_INFO_API,
         { password: cookies.password },
         {
           headers: {
@@ -46,7 +47,7 @@ const GetUserInfo = () => {
         }
       );
       setUserInfo(response.data.data);
-      setUserProfileImg(`http://localhost:8081/image/${response.data.data.profileImage}`);
+      setUserProfileImg(`${GET_USER_INFO_IMG_API}${response.data.data.profileImage}`);
       setInitialNickName(response.data.data.nickName); 
 
     } catch (error) {

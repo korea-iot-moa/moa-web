@@ -6,8 +6,8 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import useGroupStore from '../../stores/group.store';
 import groupImg  from '../../images/moaLogo.png';
+import { PAGINATION_RECOMMENDATION_GET_API, PAGINATION_GROUP_IMG_API, PAGINATION_RECOMMENDATION_DELETE_API, PAGINATION_RECOMMENDATION_POST_API } from '../../apis';
 
 interface PaginationScrollProps {
   datas: MeetingGroup[];
@@ -29,7 +29,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
     async function fetchLikes() {
       if(cookies.token) {
         try{
-          const response = await axios.get('http://localhost:8081/api/v1/recommendation', {
+          const response = await axios.get(PAGINATION_RECOMMENDATION_GET_API, {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
           });
@@ -59,7 +59,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
       try {
         if (!likedGroups.includes(groupId)) {
           await axios.post<Recommendation>(
-            `http://localhost:8081/api/v1/recommendation`,
+            PAGINATION_RECOMMENDATION_POST_API,
             { groupId },
             {
               headers: {
@@ -71,7 +71,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
 
         } else {
           await axios.delete(
-            `http://localhost:8081/api/v1/recommendation/user-id`,
+            PAGINATION_RECOMMENDATION_DELETE_API,
             {
               data: { groupId: groupId },
               headers: {
@@ -101,7 +101,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
                 !data.groupImage ? (
                 <img src={groupImg} alt='userImage' css={s.img} onClick={()=> handleOpenGroup(data)} />
                 ) : (
-                <img src={`http://localhost:8081/image/${data.groupImage}`} 
+                <img src={`${PAGINATION_GROUP_IMG_API}${data.groupImage}`} 
                 css={s.img}
                 alt={data.groupImage} 
                 onClick={()=> handleOpenGroup(data)}
