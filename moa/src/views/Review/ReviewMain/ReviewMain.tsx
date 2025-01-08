@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as s from "./style";
 import img from "../../../images/moaLogo.png";
 import { Review } from "../../../types";
@@ -9,13 +9,60 @@ import { useNavigate } from "react-router-dom";
 
 export default function ReviewMain() {
   const [reviewData, setReviewData] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const sentinelRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/reviews/auth").then((response) => {
-      setReviewData(response.data.data);
-    });
-  }, []);
+    const fetchReviews = async () => {
+      if (loading) return;
+
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/v1/reviews/auth",
+          { params: { page, size: 5 } }
+        );
+
+        setReviewData((prev) => {
+          const newData = [...prev, ...response.data.data];
+          const uniqueData = Array.from(new Set(newData.map(item => item.reviewId))).map(id => 
+            newData.find(item => item.reviewId === id)
+          );
+          return uniqueData;
+        });
+
+        if (response.data.data.length === 0) {
+          setLoading(false);
+        }
+
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [page]);
+
+  useEffect(() => {
+    const handleObserver = (entries: IntersectionObserverEntry[]) => { // 타입 명시
+      if (entries[0].isIntersecting && !loading) {
+        setPage((prev) => prev + 1); 
+      }
+    };
+
+    if (sentinelRef.current) {
+      const observer = new IntersectionObserver(handleObserver, { threshold: 0.5 });
+      observer.observe(sentinelRef.current);
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [loading]);
 
   const handlePostReviewPage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -65,6 +112,7 @@ export default function ReviewMain() {
           </div>
         </div>
         ))}
+        <div ref={sentinelRef} style={{ height: '10px', background: 'transparent' }}></div>
       </div>
     </div>
   );

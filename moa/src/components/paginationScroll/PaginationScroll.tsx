@@ -26,7 +26,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
   const handleOpenGroup = async(group:MeetingGroup | null) => {
     if(cookies.token){
       try{
-        const response = await axios.get(`http://localhost:8080/api/v1/user-answers/duplication/${group?.groupId}`, 
+        const response = await axios.get(`http://localhost:8081/api/v1/user-answers/duplication/${group?.groupId}`, 
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
@@ -49,7 +49,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
     async function fetchLikes() {
       if(cookies.token) {
         try{
-          const response = await axios.get('http://localhost:8080/api/v1/recommendation', {
+          const response = await axios.get('http://localhost:8081/api/v1/recommendation', {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
           });
@@ -79,7 +79,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
       try {
         if (!likedGroups.includes(groupId)) {
           await axios.post<Recommendation>(
-            `http://localhost:8080/api/v1/recommendation`,
+            `http://localhost:8081/api/v1/recommendation`,
             { groupId },
             {
               headers: {
@@ -91,7 +91,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
 
         } else {
           await axios.delete(
-            `http://localhost:8080/api/v1/recommendation/user-id`,
+            `http://localhost:8081/api/v1/recommendation/user-id`,
             {
               data: { groupId: groupId },
               headers: {
@@ -121,7 +121,7 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
                 !data.groupImage ? (
                 <img src={groupImg} alt='userImage' css={s.img} onClick={()=> handleOpenGroup(data)} />
                 ) : (
-                <img src={`http://localhost:8081/image/${data.groupImage}`} 
+                <img src={`http://localhost:8080/image/${data.groupImage}`} 
                 css={s.img}
                 alt={data.groupImage} 
                 onClick={()=> handleOpenGroup(data)}

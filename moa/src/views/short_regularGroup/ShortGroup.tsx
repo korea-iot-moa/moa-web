@@ -11,23 +11,45 @@ function ShortGroup() {
     extraParams: {groupType: "단기모임"}
   });
 
-  const [isClick, setIsClick] = useState<boolean>(false);
+  const [btnStatus, setBtnStatus] = useState<string>('default');
+
 
   const handleSortChange = (sortBy: string) => {
+    setBtnStatus(sortBy);
     resetAndFetchData(sortBy);
   };
 
+  const btnStyle = (button: string) => ({
+    color: btnStatus === button ? "red" : "black" 
+  })
+
+  const buttons = [
+    { label: "기본순", sortBy: "default" },
+    { label: "최신순", sortBy: "recent" },
+    { label: "과거순", sortBy: "past" },
+    { label: "추천순", sortBy: "recommendation" },
+  ];
+
   return (
     <div css={s.container}>
-      <p>단기모임</p>
+      <div css={s.headerDiv}>
+      <h3>단기모임</h3>
       <div css={s.buttonDiv}>
-        <button onClick={() => handleSortChange("recent")}>최신순</button>
-        <span>|</span>
-        <button onClick={() => handleSortChange("default")}>기본순</button>
-        <span>|</span>
-        <button onClick={() => handleSortChange("past")}>과거순</button>
-        <span>|</span>
-        <button onClick={() => handleSortChange("recommendation")}>추천순</button>
+          {
+            buttons.map((button, index) => (
+              <div key={index}>
+                <button style={btnStyle(button.sortBy)}
+                value={button.sortBy} 
+                onClick={() => handleSortChange(button.sortBy)}
+                >
+                  {button.label}
+                </button>
+                {index < buttons.length -1 &&  <span>|</span>}
+              </div>
+            ))
+          }
+      </div>
+        <div css={s.resultLine}></div>
       </div>
       <div>
         {loading ? (

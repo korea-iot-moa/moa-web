@@ -1,11 +1,18 @@
 import { css } from '@emotion/react';
 
 export const container = css`
-  width: 80%;
-  margin: 0 auto;
-  max-width: 700px;
+  width: 70%;
+  margin: 0px auto;
+  margin-top: 50px;
+  max-width: 600px;
   min-width: 400px;
   `
+
+export const resultLine = css`
+  width: 100%;
+  border: 1px solid #eee;
+  margin-top: 10px;
+`
 
 export const mainBox = css`
   margin: 0px;
@@ -41,4 +48,24 @@ export const category =css`
   padding: 5px;
   box-sizing: border-box;
   color: white;
+`
+
+export const buttonDiv = css`
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    
+  }
+
+  button:hover {
+    color: rgb(100, 100, 100)
+  }
+  span {
+    margin: 0px 5px;
+  }
 `

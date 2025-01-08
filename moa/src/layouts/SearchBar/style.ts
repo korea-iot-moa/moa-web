@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 
+
+
 export const container = css`
   display: flex;
   flex-direction: column;
@@ -10,12 +12,12 @@ export const container = css`
 export const searchBar = css`
   width: 100%;
   height: 10%;
-  /* border: 1px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 650px;
-  margin: 30px auto;
+  margin: 0px auto;
+  margin-top: 100px;
 `;
 
 export const searchBarLine = css`
@@ -42,9 +44,33 @@ export const searchInput = css`
   outline: none;
   font-size: 16px;
   margin-bottom: 10px;
-  &::placeholder {color: #ddd;}
 `
 
+export const searchTitleList = css`
+  width: 55%;
+  list-style: none;
+  margin-top: 40px;
+
+  li {
+    border-bottom: 2px solid #eee;
+    margin-bottom: 15px;
+    padding: 0px 0px 5px 10px;
+    transition: border-bottom 0.2s;
+  }
+  li:hover {
+    border-bottom: 2px solid rgb(252, 86, 44);
+    font-weight: 600;
+  }
+
+  button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: rgb(102, 102, 102);
+  }
+  button:hover {
+    color: rgb(0, 0, 0);
+  }
+`
 
 //HobbyAndRegionCategory
 export const categorybox = css`
@@ -65,7 +91,7 @@ export const ulStyle = css`
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0px;
-  padding: 0px
+  padding: 0px;
 `
 export const buttonStyle = css`
   border: none;

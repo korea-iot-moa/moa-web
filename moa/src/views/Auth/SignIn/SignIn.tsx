@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import * as logo from "../../../styles/LogoStyle";
 import logoImg from "../../../images/moaLogo.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SignInResponseDto } from "../../../types";
 import { useCookies } from "react-cookie";
@@ -107,6 +107,11 @@ export default function SignIn() {
     }
   };
 
+  // event handler: SNS 버튼 클릭 이벤트 처리 //
+  const onSnsButtonClickHandler = (sns: 'kakao' | 'naver') => {
+    console.log(sns);
+      window.location.href = `http://localhost:8080/api/v1/auth/sns-sign-in/${sns}`;
+  };
 
   return (
     <div css={s.fullBox}>
@@ -157,7 +162,7 @@ export default function SignIn() {
       </div>
 
       <div css={s.innerBox}>
-        <div css={s.anotherSignInBox} className="naver">
+        <div css={s.anotherSignInBox} className="naver" onClick={() => onSnsButtonClickHandler('naver')}>
           <div css={s.anotherLogoBox}>
             <img src={naverLogo} alt="네이버로고" className="naver"/>
           </div>
@@ -165,7 +170,7 @@ export default function SignIn() {
             <p>Naver 계정으로 로그인</p>
           </div>
         </div>
-        <div css={s.anotherSignInBox} className="kakao">
+        <div css={s.anotherSignInBox} className="kakao" onClick={() => onSnsButtonClickHandler('kakao')}>
           <div css={s.anotherLogoBox}>
             <img src={kakoLogo} alt="카카오로고" className="kakao"/>
           </div>

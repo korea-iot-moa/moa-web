@@ -1,12 +1,23 @@
 import { css } from '@emotion/react';
 
 export const container =css`
-  width: 80%;
-  margin: 50px auto;
-  max-width: 700px;
+  width: 70%;
+  margin: 0px auto;
+  margin-top: 50px;
+  max-width: 600px;
   min-width: 400px;
 `
+export const headerDiv = css`
+    @media screen and (min-width: 500px) {
+    width: 520px;
+}
+`
 
+export const resultLine = css`
+  width: 100%;
+  border: 1px solid #eee;
+  margin-top: 10px;
+`
 export const mainBox = css`
   margin: 0px;
   display: flex;
@@ -65,9 +76,7 @@ export const buttonDiv = css`
   button {
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    
   }
-
   button:hover {
     color: rgb(100, 100, 100)
   }
