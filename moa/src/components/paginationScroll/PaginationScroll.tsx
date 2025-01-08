@@ -19,11 +19,10 @@ const PaginationScroll = ({ datas }:PaginationScrollProps ) => {
   const [cookies] = useCookies(["token"]);
   const navigator = useNavigate();
 
-  // 중복 확인 상태관리
-  const [duplicationUserAnswer, setDuplicationUserAnswer] = useState<boolean>(false);
 
   // 답변 중복확인 함수
   const handleOpenGroup = async(group:MeetingGroup | null) => {
+    navigator(`/meeting-group/${group?.groupId}`);
     if(cookies.token){
       try{
         const response = await axios.get(`http://localhost:8081/api/v1/user-answers/duplication/${group?.groupId}`, 
