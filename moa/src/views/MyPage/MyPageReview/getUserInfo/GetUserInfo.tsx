@@ -6,6 +6,7 @@ import axios from "axios";
 import { User } from "../../../../types";
 import userImg from "../../../../images/userImg.png";
 import { profileImgBox } from "../../../Auth/SignUp/style";
+import { MdAddPhotoAlternate } from "react-icons/md";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const GetUserInfo = () => {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [userProfileImg, setUserProfileImg] = useState<any>(null);
-  const setPasswordValue = useUserInfoStore((state) => state.setPasswordValue);
+  const setErrorMg = useUserInfoStore((state) => state.setErrorMg);
 
   // 닉네임 초기값 상태 저장
   const [initialNickName, setInitialNickName] = useState<string | null>(null);
@@ -23,14 +24,8 @@ const GetUserInfo = () => {
   const [duplicatoinNickNameMs, setDuplicationNickNameMs] = useState<string>("");
 
   useEffect(() => {
-    if (!cookies.password) {
-      alert("비밀번호가 필요합니다.");
-      navigate("/mypage");
-      return;
-    }
-    setPasswordValue({ password: cookies.password });
     fetchUserInfo();
-  }, [cookies.password, setPasswordValue, navigate]);
+  }, [cookies.password, navigate]);
 
   // 사용자 정보 가져오기
   const fetchUserInfo = async () => {
@@ -40,7 +35,6 @@ const GetUserInfo = () => {
       navigate("/signIn");
       return;
     }
-
     setLoading(true);
     try {
       const response = await axios.post(
@@ -55,9 +49,11 @@ const GetUserInfo = () => {
       setUserInfo(response.data.data);
       setUserProfileImg(`http://localhost:8081/image/${response.data.data.profileImage}`);
       setInitialNickName(response.data.data.nickName); 
+
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
-      alert("사용자 정보를 가져오는데 실패했습니다. 다시 시도해주세요.");
+      setErrorMg("비밀번호를 확인해주세요");
+      navigate('/mypage/userInfo');
     } finally {
       setLoading(false);
     }
@@ -187,7 +183,7 @@ const GetUserInfo = () => {
                   onChange={handleChangeInfo}
                 />
               </li>
-              <li className="userInfoUldetail duplicationMsgLi">
+              <li className="duplicationMsgLi">
                 <div className="nickNameDiv">
                 <span className="nickNameBox">닉네임</span>
                   <div className="nickNameInputBtn">
@@ -212,7 +208,7 @@ const GetUserInfo = () => {
               <li className="userInfoUldetail">
                 <span className="addressBox">주소</span>
                 <select
-                  className="userli"
+                  className="userli addressSelectUI"
                   name="region"
                   value={userInfo.region || ""}
                   onChange={handleChangeInfo}
@@ -261,6 +257,9 @@ const GetUserInfo = () => {
                         className="userImg"
                       />
                     )}
+                    <label htmlFor="profileInput">
+                      <MdAddPhotoAlternate />
+                    </label>
                     <input
                     type="file"
                     name="profileImage"

@@ -8,17 +8,11 @@ function MyPageStart() {
   const navigator = useNavigate();
   const passwordValue = useUserInfoStore((state) => state.passwordValue);
   const setPasswordValue = useUserInfoStore((state) => state.setPasswordValue);
+  const errorMg = useUserInfoStore((state) => state.errorMg);
   const [cookies, setCookies] = useCookies(['password']);
-
-  useEffect(() => {
-    if (cookies.password) {
-      setPasswordValue({ password: cookies.password });
-    }
-  }, [cookies.password, setPasswordValue]);
 
   const handleChangePassword = (e:React.ChangeEvent<HTMLInputElement>) => {
     const newPassword =e.target.value;
-    setPasswordValue({ password: newPassword });
     setCookies('password', newPassword, {
       path:'/mypage/userInfo/user',
       maxAge:360,
@@ -26,10 +20,12 @@ function MyPageStart() {
   }
 
   const handleButtonGetInfo = () => {
-    if(!passwordValue.password){
+    if(!cookies.password){
       alert('비밀번호를 입력해주세요.');
+      navigator('/mypage/userInfo');
+    } else {
+      navigator('/mypage/userInfo/user');
     }
-    navigator('/mypage/userInfo/user');
   }
   
   const handleButtonDeleteInfo = () => {
@@ -45,12 +41,13 @@ function MyPageStart() {
         <div className='passowordBox'>
           <h4 className='mypagesubTitle'>비밀번호를 입력해주세요.</h4>
           <input type="password" 
-          className='passwordInput'
+          className='passwordCheckInput'
           name='password' 
-          value={passwordValue.password || ''} 
+          value={cookies.password || ''} 
           placeholder='비밀번호를 입력해주세요'
           onChange={handleChangePassword}
           />
+          <span className='errorMassage'>{errorMg}</span>
           <button className='infoUpdateBtn' onClick={handleButtonGetInfo}>내 정보 수정</button>
         </div>
         <button className='deleteUserIdBtn' onClick={handleButtonDeleteInfo}>회원탈퇴</button>
