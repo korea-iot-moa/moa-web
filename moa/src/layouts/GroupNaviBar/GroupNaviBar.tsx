@@ -23,13 +23,13 @@ export default function GroupNaviBar() {
 
   const handleNext = () => {
     navigator('/main/create-group');
-   
+  
   };
   useEffect(() => {
     const fetchGroup = async () => {
       if (cookies.token) {
         try {
-          const response = await axios.get(`http://localhost:8081/api/v1/user-list`, {
+          const response = await axios.get(`http://localhost:8080/api/v1/user-list`, {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
             },
@@ -74,7 +74,7 @@ export default function GroupNaviBar() {
             <p>{group.groupTitle}</p> 
           ) : (
             <img
-              src={group.groupImage ? `http://localhost:8081/image/${group.groupImage}` : `${defaultImg}`}
+              src={group.groupImage ? `http://localhost:8080/image/${group.groupImage}` : `${defaultImg}`}
               alt="그룹 이미지"
               css={s.logoImage}
             />
