@@ -9,6 +9,7 @@ import { SignInResponseDto } from "../../../types";
 import { useCookies } from "react-cookie";
 import kakoLogo from '../../../images/kakaoLogo.png';
 import naverLogo from '../../../images/naverLogo.png';
+import { SIGN_IN_API, SIGN_IN_SNS_API } from "../../../apis";
 
 const ERROR_MESSAGES = {
   INVALID_ID: "영문, 숫자 8 ~ 14자 아이디를 입력 해 주세요.",
@@ -76,7 +77,7 @@ export default function SignIn() {
         };
 
         const response = await axios.post(
-          `http://localhost:8080/api/v1/auth/login`,
+          SIGN_IN_API,
           signinData
         );
 
@@ -110,7 +111,7 @@ export default function SignIn() {
   // event handler: SNS 버튼 클릭 이벤트 처리 //
   const onSnsButtonClickHandler = (sns: 'kakao' | 'naver') => {
     console.log(sns);
-      window.location.href = `http://localhost:8080/api/v1/auth/sns-sign-in/${sns}`;
+      window.location.href = `${SIGN_IN_SNS_API}${sns}`;
   };
 
   return (

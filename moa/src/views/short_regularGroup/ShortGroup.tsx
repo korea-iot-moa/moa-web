@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function ShortGroup() {
   const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: "http://localhost:8080/api/v1/auth/meeting-group/groupType",
+    apiUrl: "http://localhost:8081/api/v1/auth/meeting-group/groupType",
     limit: 10,
     extraParams: {groupType: "단기모임"}
   });

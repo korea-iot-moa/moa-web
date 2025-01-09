@@ -4,12 +4,13 @@ import * as s from '../resultStyle'
 import usePaginationScroll from "../../../components/paginationScroll/usePaginationScroll";
 import { useParams } from 'react-router-dom';
 import PaginationScroll from '../../../components/paginationScroll/PaginationScroll';
+import { KEYWORD_LIST_API } from '../../../apis';
 
 function KeywordSearchGroupList() {
   const { keyword } = useParams<{ keyword: string }>();
   const searchKeyword = keyword || '';
   const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: 'http://localhost:8081/api/v1/auth/meeting-group',
+    apiUrl: KEYWORD_LIST_API,
     limit: 10,
     extraParams: { keyword: searchKeyword },
   });
