@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { NAVER_MAP_API } from '../apis';
 
 type Point = {
   lat: number;
@@ -61,7 +62,7 @@ const NaverMapComponent: React.FC<Address> = ({ address }) => {
     }
 
     const script = document.createElement("script");
-    script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${apiKey}`;
+    script.src = `${NAVER_MAP_API}${apiKey}`;
     script.onload = () => {
       if (!window.naver || !window.naver.maps) {
         console.error("네이버 지도 에러");

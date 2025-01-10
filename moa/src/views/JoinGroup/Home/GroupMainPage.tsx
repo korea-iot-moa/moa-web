@@ -3,6 +3,7 @@ import React from 'react';
 import * as s from "./style";
 import NaverMapComponent from '../../../components/NaverMap';
 import img from "../../../images/moaLogo.png";
+import { GROUP_MAIN_IMG_API } from '../../../apis';
 
 interface MainBoxProps {
   groupInfo: any;
@@ -15,7 +16,7 @@ const GroupMainPage: React.FC<MainBoxProps> = ({ groupInfo, isLoading }) => {
       <div css={s.groupImgBox}>
         {groupInfo?.groupImage ? (
           <img 
-            src={`http://localhost:8080/image/${groupInfo.groupImage}`} 
+            src={`${GROUP_MAIN_IMG_API}${groupInfo.groupImage}`} 
             alt="GROUP IMAGE" 
           />
         ) : (

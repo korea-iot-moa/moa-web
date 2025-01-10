@@ -9,6 +9,7 @@ import { Review } from '../../../types';
 import img from "../../../images/moaLo.png";
 import useGroupListStore from '../../../stores/group.list.store';
 import axios from 'axios';
+import { CREATE_REVIEW_POST_API } from '../../../apis';
 
 function CreateReview() {
   const { userId } = userAuthStore();
@@ -120,7 +121,7 @@ function CreateReview() {
   try {
     console.log(reviewDataForm);
     const response = await axios.post(
-      `http://localhost:8080/api/v1/reviews`,
+      CREATE_REVIEW_POST_API,
       reviewDataForm,
 
       {

@@ -4,13 +4,14 @@ import * as s from './style';
 import { Notice } from '../../types';
 import axios from 'axios';
 import { format } from 'date-fns';
+import { NOTICE_API } from '../../apis';
 
 export default function NoticePage() {
   const [ noticeData, setNoticeData ] = useState<Notice[]>([]);
 
   useEffect(() => {
     try{
-      axios.get('http://localhost:8080/api/v1/notices', {
+      axios.get(NOTICE_API, {
       }).then((response) => {
         setNoticeData(response.data.data);
       })

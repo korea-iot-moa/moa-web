@@ -35,7 +35,10 @@ export const NOTICE_PAGE = "/notice";
 export const GROUP_JOIN_PAGE = "/group-join/*";
 
 // 내정보조회 마이페이지
-export const MY_PAGE = "/mypage/userInfo/*"
+export const MY_PAGE = "/mypage/userInfo/*";
 
 // 그룹 상세 페이지
-export const GROUP_DETAIL = "/meeting-group/:groupId"
+export const GROUP_DETAIL = "/meeting-group/:groupId";
+
+// 모임 참여 신청 확인 페이지지
+export const PARTICIPATION_STATUS_PAGE = "/mypage/participationStatus";

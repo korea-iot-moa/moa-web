@@ -8,6 +8,7 @@ import { IoArrowBackOutline } from 'react-icons/io5';
 import img from "../../../images/moaLogo.png";
 import NaverMapComponent from '../../../components/NaverMap';
 import { useCookies } from 'react-cookie';
+import { GROUP_DETAIL_IMG_API, GROUP_DETAIL_MEETING_API, GROUP_DETAIL_USER_LIST_API } from '../../../apis';
 
 export default function GroupDetailPage() {
   const [ groupData, setGroupData ] = useState<MeetingGroup>();
@@ -20,7 +21,7 @@ export default function GroupDetailPage() {
   useEffect(() => {
     if(!!groupId) {
       try{
-        axios.get(`http://localhost:8080/api/v1/auth/meeting-group/${groupId}`).then((response) => {
+        axios.get(`${GROUP_DETAIL_MEETING_API}${groupId}`).then((response) => {
           setGroupData(response.data.data);
         })
       } catch (error) {
@@ -66,7 +67,7 @@ export default function GroupDetailPage() {
     }
 
     try {
-      await axios.get(`http://localhost:8080/api/v1/user-list/user-list-in/${groupData?.groupId}`, {
+      await axios.get(`${GROUP_DETAIL_USER_LIST_API}${groupData?.groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -93,7 +94,7 @@ export default function GroupDetailPage() {
 
       <div css={s.imageBox}>
         {groupData?.groupImage ? (
-          <img src={"http://localhost:8080/image/" + groupData.groupImage} alt="그룹 이미지" />
+          <img src={GROUP_DETAIL_IMG_API + groupData.groupImage} alt="그룹 이미지" />
         ) : (
           <img src={img} alt="defaultImage" />
         )}

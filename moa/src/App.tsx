@@ -34,13 +34,14 @@ import VerificationPassword from "./views/Auth/FindPassword/VerificationPassword
 import NoticePage from "./views/Notice/NoticePage";
 import WebMainPage from "./views/WebMain/WebMainPage";
 import CreateGroup from "./views/GroupDetail/CreateGroup/CreateGroup";
-import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
 import FindUserId from "./views/Auth/FindUserId/index";
 import JoinGroup from "./views/JoinGroup/JoinGroup/index";
 import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
 import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage";
 import AuthRedirectHandler from "./views/Auth/SignUp/AuthRedirectHandler";
 import SnsSuccess from "./views/Auth/SignIn/SnsSuccess";
+import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
+import ParticipationStatusPage from "./views/MyPage/ParticipationStatusPage/ParticipationStatusPage";
 
 function App() {
   const theme = createTheme({
@@ -131,13 +132,13 @@ function App() {
                 path="/main/create-group"
                 element={<CreateGroup/>}
                 />
-                {/* <Route
-                path="/main/create-group_1/:groupId"
-                element={<CreateGroup_1/>}
-                /> */}
                 <Route
-                  path="/main/create-group_1"
-                  element={<CreateGroup_1 />}
+                path="/main/create-group_1"
+                element={<CreateGroup_1/>}
+                />
+                <Route
+                  path="/main/create-group"
+                  element={<CreateGroup/>}
                 />
                 <Route
                   path="/main/manager/user-list/:groupId"
@@ -202,6 +203,12 @@ function App() {
                           )} />
               {/* 그룹 상세 페이지 */}
               <Route path={p.GROUP_DETAIL} element={<GroupDetailPage />}/>
+
+              <Route path={p.PARTICIPATION_STATUS_PAGE} element={cookies.token ? (
+                            <ParticipationStatusPage />
+                          ) : (
+                            <Navigate to={p.SIGN_IN_PAGE} replace />
+                          )}/>
               </Routes>
             </MainContainer>
           </RootContainer>

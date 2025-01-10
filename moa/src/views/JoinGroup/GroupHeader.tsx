@@ -12,6 +12,7 @@ import { PiUserList } from "react-icons/pi";
 import VoteComponent from '../../components/VoteComponent/VoteComponent';
 import GroupMainPage from './Home/GroupMainPage';
 import UserListPage from './UserList/UserListPage';
+import { GROUP_HEADER_EXIST_GET_API, GROUP_HEADER_EXIST_VOTE_GET_API, GROUP_HEADER_GET_API, GROUP_HEADER_USER_LIST_DELETE_API } from '../../apis';
 
 // 기본 주소
 const baseUrl = "http://localhost:3000/meeting-group/";
@@ -56,7 +57,7 @@ export default function GroupHeader() {
   //& 그룹정보 호출
   useEffect(() => {
     try {
-      axios.get(`http://localhost:8080/api/v1/auth/meeting-group/${groupId}`, {
+      axios.get(`${GROUP_HEADER_GET_API}${groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -74,7 +75,7 @@ export default function GroupHeader() {
   //& 투표 존재 여부 확인
   useEffect(() => {
     try{
-      axios.get(`http://localhost:8080/api/v1/votes/existsVote/${groupId}`, {
+      axios.get(`${GROUP_HEADER_EXIST_VOTE_GET_API}${groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -90,7 +91,7 @@ export default function GroupHeader() {
   //& 모임 생성자 여부 확인 
   useEffect(() => {
     try{
-      axios.get(`http://localhost:8080/api/v1/meeting-group/exists/${groupId}`, {
+      axios.get(`${GROUP_HEADER_EXIST_GET_API}${groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -107,7 +108,7 @@ export default function GroupHeader() {
   //& 모임 나가기
   const handleLeaveGroup = (e: React.MouseEvent<HTMLButtonElement>) => {
     try{
-      axios.delete(`http://localhost:8080/api/v1/user-list/leave/${groupId}`, {
+      axios.delete(`${GROUP_HEADER_USER_LIST_DELETE_API}${groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
