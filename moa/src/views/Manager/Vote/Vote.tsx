@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import * as s from "./style";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -30,7 +31,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   const [vote, setVote] = useState<GetVoteResponseDto | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { groupId } = useParams();
-  const [cookies] = useCookies(["token","userId"]);
+  const [cookies] = useCookies(["token", "userId"]);
   const [voteContent, setVoteContent] = useState<string>("");
   const [createDate, setCreateDate] = useState<string>("");
   const [closeDate, setCloseDate] = useState<string>("");
@@ -38,8 +39,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   const [voteAnswerChart, setVoteAnswerChart] = useState<
     GetVoteAnswerChartResponseDto[]
   >([]);
-  
-  
+
   useEffect(() => {
     fetchVote();
 
@@ -62,7 +62,6 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
-
 
   const fetchVote = async () => {
     if (cookies.token) {
@@ -101,11 +100,9 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       closeDate: new Date(closeDate),
     };
     const url = `http://localhost:8081/api/v1/votes`;
-    
+
     if (cookies.token) {
       try {
-       
-
         const response = await axios.post(url, postVoteRequestDto, {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
@@ -208,6 +205,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
           투표 내용{" "}
           <input
             type="text"
+            css={s.ContentBox}
             value={voteContent}
             onChange={(e) => setVoteContent(e.target.value)}
           />
@@ -216,6 +214,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
           생성 날짜{" "}
           <input
             type="date"
+            css={s.DateBox}
             value={createDate}
             onChange={(e) => setCreateDate(e.target.value)}
           />
@@ -224,35 +223,37 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
           마감 날짜{" "}
           <input
             type="date"
+            css={s.DateBox}
             value={closeDate}
             onChange={(e) => setCloseDate(e.target.value)}
           />
         </p>
-        <button
-          onClick={() =>{
-            const creatorId = vote ? vote.creatorId : cookies.userId;
-            handlePostVote(
-              parseToNumGroupId,
-              creatorId,
-              voteContent,
-              createDate,
-              closeDate
-            );
-          }}
-          css={closeModalButton}
-        >
-          등록
-        </button>
-        <button onClick={closeModal} css={closeModalButton}>
-          닫기
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              const creatorId = vote ? vote.creatorId : cookies.userId;
+              handlePostVote(
+                parseToNumGroupId,
+                creatorId,
+                voteContent,
+                createDate,
+                closeDate
+              );
+            }}
+            css={closeModalButton}
+          >
+            등록
+          </button>
+          <button onClick={closeModal} css={closeModalButton}>
+            닫기
+          </button>
+        </div>
       </ReactModal>
       {isEditing ? (
-        <div css={LayerBox}>
+        <div css={s.LayerBox}>
           <p>
             <strong>투표 내용 :</strong>
-            <input
-              type="text"
+            <textarea
               value={voteContent}
               onChange={(e) => setVoteContent(e.target.value)}
             />
@@ -301,9 +302,14 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
               </p>
               <strong>마감 날짜:</strong>{" "}
               {new Date(vote.closeDate).toLocaleDateString()}
-              <div css ={BottonBox}>
-                <button css={Botton} onClick={() => handleEditClick(vote)}>수정</button>
-                <button css={Botton} onClick={() => handleDeleteVote(vote.voteId)}>
+              <div css={BottonBox}>
+                <button css={Botton} onClick={() => handleEditClick(vote)}>
+                  수정
+                </button>
+                <button
+                  css={Botton}
+                  onClick={() => handleDeleteVote(vote.voteId)}
+                >
                   삭제
                 </button>
               </div>

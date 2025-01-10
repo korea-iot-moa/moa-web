@@ -50,14 +50,16 @@ export const modalOverlay= css`
 
 
 export const modalContent =css`
-  position: relative;
+  position: absolute;
   background: white;
+  top: 40%;
+  right: 40%;
   padding: 20px;
-  max-width: 500px;
-  width: 100%;
+  width: 300px;
+  height: 300px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  `
+  `;
 
 
 export const closeModalButton = css`
@@ -75,6 +77,7 @@ export const closeModalButton = css`
   margin: 5px;
   border: none;
   border-radius: 7px;
+  text-align: center;
 `
 
 export const Botton =css `

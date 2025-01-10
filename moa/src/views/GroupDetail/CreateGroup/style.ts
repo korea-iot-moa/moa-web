@@ -1,7 +1,10 @@
 import { css } from '@emotion/react';
 export const AllBox = css`
 display: flex;
-justify-content: space-evenly;
+  justify-content: flex-start; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+  margin-bottom: 15px; 
 `;
 
 
@@ -28,6 +31,16 @@ export const Tab =css `
     color: #fff;
     outline: 3px solid #DAE2ED;
   }
+`;
+
+export const activeTab = css`
+  background-color: #000;
+  color: #fff;
+  padding: 10px 12px;
+  width: 20%;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
 `;
 
 export const  bottomBox = css `
@@ -61,15 +74,16 @@ export const TitleInput = css `
   font-size: 16px;
   font-weight: 500;
   border-radius: 7px;
+   text-align: left; 
+   resize: none;
+   display: block;
+  box-sizing: border-box; 
  `;
 //  nth-of-type()
 export const CreatorBox = css `
   display : flex;
   flex-direction : column;
   justify-content : center;
-  & > div {
-    margin : 25px;
-  }
 
 `;
 export const CreatorBox_1 = css `
@@ -79,4 +93,11 @@ export const CreatorBox_1 = css `
   & > div {
     margin : 25px;
   }
+`;
+export const BottomButtonContainer = css`
+ display: flex;
+ margin-left: 25px;
+ justify-content: start;
+ width: 100%; 
+ margin-top: 150px; 
 `;

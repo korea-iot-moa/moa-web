@@ -119,7 +119,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
   };
 
   return (
-    <div>
+    <div css={s.fullBox}>
       <button css={s.Botton} onClick={openModal}>블랙리스트 추가</button>
       <div>총 인원수 : {blackUserList.length}</div>
       <ReactModal
