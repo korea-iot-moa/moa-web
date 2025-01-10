@@ -19,7 +19,10 @@ function MyPageStart() {
     });
   }
 
-  const handleButtonGetInfo = () => {
+  const handleButtonGetInfo = (e:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLInputElement>) => {
+    if("key" in e && e.key !== "Enter") return;
     if(!cookies.password){
       alert('비밀번호를 입력해주세요.');
       navigator('/mypage/userInfo');
@@ -34,7 +37,7 @@ function MyPageStart() {
   
 
   return (
-    <div>
+    <div>  
       <h4 className="mypageTitle">마이페이지</h4>
       <div className='mypageBox'>
         <h4 className='mypagesubTitle'>비밀번호 인증 후 내 정보 수정이 가능합니다.</h4>
@@ -46,6 +49,7 @@ function MyPageStart() {
           value={cookies.password || ''} 
           placeholder='비밀번호를 입력해주세요'
           onChange={handleChangePassword}
+          onKeyDown={handleButtonGetInfo}
           />
           <span className='errorMassage'>{errorMg}</span>
           <button className='infoUpdateBtn' onClick={handleButtonGetInfo}>내 정보 수정</button>

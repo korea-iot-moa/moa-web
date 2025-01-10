@@ -9,8 +9,8 @@ export const findUserIdTitle = css`
   margin: 20px 40px;
 `
 export const inputBox = css`
-  margin: 80px auto;
-  width: 350px;
+  margin: 50px auto;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,18 +20,60 @@ export const findUserIdForm = css`
   display: flex;
   flex-direction: column;
 `
-export const findUserIdLabel = css`
-  margin-bottom: 5px;
-` 
-export const findUserIdInput = css`
-  margin-bottom: 25px;
+
+export const findUserIdInput1 = css`
   height: 40px;
-  border-radius: 5px;
-  background-color: #eee;
-  border: none;
+  width: 320px;
+  border-radius: 5px 5px 0px 0px;
   padding: 20px;
   box-sizing: border-box;
-  font-size: 17px;
+  border: 1px solid #999;
+  font-size: 12px;
+  margin-top: 20px;
+  outline: none;
+  transition: border 0.5s, scale 0.5s;
+  &:focus {
+    border: 1px solid #999;
+    &::placeholder:active {
+        scale: calc(0.8);
+      }
+  }
+` 
+
+export const findUserIdInput2 = css`
+  height: 40px;
+  width: 320px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-top: none;
+  border-radius: 0px 0px 5px 5px;
+  font-size: 12px;
+  outline: none;
+  transition: border 0.5s, scale 0.5s;
+  &:focus {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    &::placeholder:active {
+        scale: calc(0.8);
+      }
+  }
+` 
+
+export const findUserIdInput3 = css`
+  height: 40px;
+  width: 320px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-radius: 0px 0px 5px 5px;
+  font-size: 12px;
+  outline: none;
+  transition: border 0.5s, scale 0.5s;
+  &:focus {
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid #999;
+  }
 ` 
 
 export const findUserIdBtn = css`

@@ -243,26 +243,45 @@
 
 /* 프로필 이미지 등록 */
 .imgDiv {
-  width: 300x;
+  width: 300px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
   margin-top: 20px;
+  margin: 0 auto;
+}
+
+.imgBackroundColor {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rgb(235, 235, 235);
+  border-radius: 50%; */
+  /* box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1); */
 }
 
 .imgBox img {
-  width: 120px;
+  width: 130px;
   object-fit: cover;
   border: 1px solid #ddd;
   border-radius: 50%;
 }
 
 .imgBox input {
-  margin-top: 10px;
-  font-size: 14px;
-  border: none;
   display: none;
+}
+
+.imgUpdateBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 150px;
+  height: 40px;
+  position: absolute;
+  z-index: 2;
 }
 
 /* 버튼 스타일 */
@@ -279,6 +298,7 @@
   font-size: 16px;
 }
 
+
 .updateBtn:hover,
 .updateCancel:hover {
   background-color: #e5673b;
@@ -290,4 +310,10 @@
 
 .updateCancel:hover {
   background-color: #888;
+}
+
+.userInfoButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
