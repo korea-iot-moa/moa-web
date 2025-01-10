@@ -1,16 +1,16 @@
 import { css } from '@emotion/react';
 
 export const container =css`
-  width: 70%;
+  width: 80%;
   margin: 0px auto;
   margin-top: 50px;
   max-width: 600px;
   min-width: 400px;
 `
 export const headerDiv = css`
-    @media screen and (min-width: 500px) {
+    /* @media screen and (min-width: 500px) {
     width: 520px;
-}
+} */
 `
 
 export const resultLine = css`

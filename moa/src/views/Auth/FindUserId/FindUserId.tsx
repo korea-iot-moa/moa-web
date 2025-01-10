@@ -18,9 +18,10 @@ function FindUserId() {
     setFormData({ ...formData, [element.name]: element.value });
   };
 
-  const handleNavigator = () => {
+  const handleNavigator = (e:React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
+    if("key" in e && e.key !== "Enter") return;
     if (!formData.userName || !formData.userBirthDate) {
-      alert("이름 혹은 생일은 입력해주세요");
+      alert("이름, 휴대폰번호, 이메일을 입력해주세요");
     } else {
       navigator(`findUserId/${formData.userName}/${formData.userBirthDate}`);
     }
@@ -32,27 +33,23 @@ function FindUserId() {
       <div css={s.inputBox}>
         <img src={Img} alt="img" css={s.findUserIdImg}/>
         <form onSubmit={(e) => e.preventDefault()} css={s.findUserIdForm}>
-          <label htmlFor="userName" css={s.findUserIdLabel}>
-            이름
-          </label>
           <input
-            css={s.findUserIdInput}
+            css={s.findUserIdInput1}
             type="text"
             onChange={handleChange}
             name="userName"
             value={formData.userName}
             placeholder="이름을 입력해주세요."
+            onKeyDown={handleNavigator}
           />
-          <label htmlFor="birthDate" css={s.findUserIdLabel}>
-            생년월일
-          </label>
           <input
-            css={s.findUserIdInput}
+            css={s.findUserIdInput2}
             type="text"
             onChange={handleChange}
             name="userBirthDate"
             value={formData.userBirthDate}
-            placeholder="YYYYMMDD"
+            placeholder="휴대폰번호를 입력해주세요."
+            onKeyDown={handleNavigator}
           />
           <button css={s.findUserIdBtn} onClick={handleNavigator}>
             아이디찾기
