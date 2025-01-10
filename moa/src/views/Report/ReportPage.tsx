@@ -9,6 +9,7 @@ import img from "../../images/moaLogo.png";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import useGroupListStore from "../../stores/group.list.store";
+import { REPORT_POST_API } from "../../apis";
 
 export default function ReportPage() {
   const { groupId, reportUserId } = useParams();
@@ -100,7 +101,7 @@ export default function ReportPage() {
 
   try {
     const response = await axios.post(
-      `http://localhost:8080/api/v1/reports`,
+      REPORT_POST_API,
       reportDataForm,
       {
         headers: {

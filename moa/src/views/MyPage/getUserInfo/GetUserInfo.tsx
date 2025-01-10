@@ -6,6 +6,7 @@ import axios from "axios";
 import { User } from "../../../types";
 import userImg from "../../../images/userImg.png";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
+import { GET_USER_INFO_API, GET_USER_INFO_IMG_API } from "../../../apis";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const GetUserInfo = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/users/user-id",
+        GET_USER_INFO_API,
         { password: cookies.password },
         {
           headers: {
@@ -46,12 +47,12 @@ const GetUserInfo = () => {
         }
       );
       setUserInfo(response.data.data);
-      setUserProfileImg(`http://localhost:8081/image/${response.data.data.profileImage}`);
+      setUserProfileImg(`${GET_USER_INFO_IMG_API}${response.data.data.profileImage}`);
       setInitialNickName(response.data.data.nickName); 
 
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
-      setErrorMg("비밀번호를 확인해주세요");
+      setErrorMg("비밀번호를 다시 입력해주세요");
       navigate('/mypage/userInfo');
     } finally {
       setLoading(false);
@@ -247,6 +248,7 @@ const GetUserInfo = () => {
               <li className="imgBox">
                 <span>프로필 이미지</span>
                 <div className="imgDiv">
+                  <div className="imgBackroundColor">
                 {!userProfileImg ? (
                       <img src={userImg} alt="userImage"  className="userImg"/>
                     ) : (
@@ -256,7 +258,8 @@ const GetUserInfo = () => {
                         className="userImg"
                       />
                     )}
-                    <label htmlFor="profileImage">
+                  </div>
+                    <label className="imgUpdateBtn" htmlFor="profileImage">
                       <MdOutlineAddPhotoAlternate style={{margin:'0px', padding:'0px', fontSize: '30px'}}/>
                     </label>
                     <input

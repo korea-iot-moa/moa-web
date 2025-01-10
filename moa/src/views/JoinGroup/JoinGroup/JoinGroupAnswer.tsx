@@ -6,6 +6,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import useGroupStore from "../../../stores/group.store";
 import { useNavigate, useParams } from "react-router-dom";
+import { JOIN_GROUP_ANSWER_POST_API } from "../../../apis";
 
 const JoinGroupAnswer = () => {
   const { groupId } = useParams();
@@ -47,7 +48,7 @@ const JoinGroupAnswer = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/user-answers`,
+        JOIN_GROUP_ANSWER_POST_API,
         {
           groupId: groupData?.groupId,
           userAnswer: groupAnswer.userAnswer,

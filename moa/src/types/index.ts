@@ -106,7 +106,7 @@ export interface User {
   password: string;
   confirmPassword: string;
   userBirthDate: Date;
-  userGender: Gender;
+  userGender: Gender | null;
   userName: string;
   nickName: string;
   hobbies: Array<number>;
@@ -114,6 +114,8 @@ export interface User {
   region: Region | null;
   snsId: string | null;
   joinPath: string;
+  phoneNumber: string;
+  email: string;
 }
 
 export interface UserAnswer {

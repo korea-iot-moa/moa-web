@@ -6,6 +6,7 @@ import { Review } from "../../../types";
 import { format } from "date-fns";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { CREATE_REVIEW_GET_API, CREATE_REVIEW_IMG_API } from "../../../apis";
 
 export default function ReviewMain() {
   const [reviewData, setReviewData] = useState<Review[]>([]);
@@ -21,7 +22,7 @@ export default function ReviewMain() {
       setLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/reviews/auth",
+          CREATE_REVIEW_GET_API,
           { params: { page, size: 5 } }
         );
 
@@ -91,7 +92,7 @@ export default function ReviewMain() {
               <div>
               {review.reviewImage ? (
                     <img
-                      src={`http://localhost:8080/image/${review.reviewImage}`}
+                      src={`${CREATE_REVIEW_IMG_API}${review.reviewImage}`}
                       alt="REVIEW IMAGE"
                     />
                   ) : (

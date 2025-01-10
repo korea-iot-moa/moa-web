@@ -4,6 +4,7 @@ import { User } from "../../../types";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import * as s from "./style";
+import { Find_USERID_GET_API } from "../../../apis";
 
 function FindUserIdResult() {
   const { userName, userBirthDate } = useParams<{
@@ -20,7 +21,7 @@ function FindUserIdResult() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/auth/userId`,
+        Find_USERID_GET_API,
         {
           params: { userName, userBirthDate },
         }

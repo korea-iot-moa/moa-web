@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { truncate } from "fs/promises";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { RESET_PASSWORD_PUT_API } from "../../../apis";
 
 type ResetPassword = {
   newPassword: string;
@@ -56,7 +57,7 @@ export default function VerifyToken() {
     }
 
     try {
-      await axios.put("http://localhost:8081/api/v1/users/resetPassword", {
+      await axios.put(RESET_PASSWORD_PUT_API, {
           newPassword: resetData.newPassword,
         }, {
           headers: {

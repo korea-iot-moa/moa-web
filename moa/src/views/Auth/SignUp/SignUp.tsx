@@ -21,6 +21,7 @@ import {
 import userImg from "../../../images/userImg.png";
 import axios from "axios";
 import { format } from "date-fns";
+import { SIGN_UP_DUPLICATION_NICKNAME_API, SIGN_UP_DUPLICATION_USERID_API, SIGN_UP_HPBBY_GET_API, SIGN_UP_POST_API, SIGN_UP_SNS_API } from "../../../apis";
 
 const regions = [
   "부산",
@@ -50,6 +51,8 @@ const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,16}$/;
 const birthDateRegex = /^\d{8}$/;
 const nicknameRegex = /^[a-zA-Z가-힣0-9]{1,10}$/;
 const nameRegex = /^[a-zA-Z가-힣]+$/;
+const phoneRegex = /^01[016789]\d{7,8}$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -75,6 +78,8 @@ export default function SignUp() {
   const [validNickName, setValidNickName] = useState<string>("");
   const [validGender, setValidGender] = useState<string>("");
   const [validHobby, setValidHobby] = useState<string>("");
+  const [validPhone, setValidPhone] = useState<string>("");
+  const [validEmail, setValidEmail] = useState<string>("");
 
   // 중복 확인 상태 관리
   const [duplicateIdMs, setDuplicateIdMs] = useState<string>("");
@@ -87,18 +92,20 @@ export default function SignUp() {
     confirmPassword: "",
     userName: "",
     nickName: "",
-    userGender: "MALE",
+    userGender: null,
     userBirthDate: new Date(),
     hobbies: [],
     profileImage: null,
     region: null,
     snsId: snsId,
-    joinPath: joinPath ? joinPath : "Home"
+    joinPath: joinPath ? joinPath : "Home",
+    phoneNumber: "",
+    email: ""
   });
 
   //& DB 취미 요청
   useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/auth/hobbies").then((response) => {
+    axios.get(SIGN_UP_HPBBY_GET_API).then((response) => {
       setHobbies(response.data.data);
     });
 
@@ -193,6 +200,7 @@ export default function SignUp() {
     } else {
       setValidPassword("");
     }
+
     // 생년월일 정규식 확인
     if (
       !signUpData.userBirthDate ||
@@ -207,9 +215,17 @@ export default function SignUp() {
     // 이름 정규식 확인
     if (!signUpData.userName || !nameRegex.test(signUpData.userName)) {
       valid = false;
-      setValidName("※ 한글, 영문의 사용자 이름 입력");
+      setValidName("※ 한글, 영문의 이름 입력");
     } else {
       setValidName("");
+    }
+
+    // 번호 정규식 확인
+    if (!signUpData.phoneNumber || !phoneRegex.test(signUpData.phoneNumber)) {
+      valid = false;
+      setValidPhone("※ 하이픈 제외 입력");
+    } else {
+      setValidPhone("");
     }
 
     // 닉네임 확인
@@ -218,6 +234,14 @@ export default function SignUp() {
       setValidNickName("※ 1~10자의 한글, 영문, 숫자 입력 (특수문자 불가)");
     } else {
       setValidNickName("");
+    }
+
+    // 이메일일 확인
+    if (!signUpData.email || !emailRegex.test(signUpData.email)) {
+      valid = false;
+      setValidEmail("※ 이메일 입력해주세요요");
+    } else {
+      setValidEmail("");
     }
 
     // 성별 확인
@@ -233,6 +257,7 @@ export default function SignUp() {
     } else {
       alert("정보입력 or 중복검사를 진행해주세요!!");
     }
+    console.log(signUpData);
   };
 
   //# 이전 페이지 이동
@@ -245,7 +270,7 @@ export default function SignUp() {
       if (signUpData.userId && idRegex.test(signUpData.userId)) {
         setValidId("");
         const result = await axios.get(
-          `http://localhost:8080/api/v1/auth/duplicateId/${signUpData.userId}`
+          `${SIGN_UP_DUPLICATION_USERID_API}${signUpData.userId}`
         );
 
         if (result.data.data === true) {
@@ -274,7 +299,7 @@ export default function SignUp() {
       if (signUpData.nickName && nicknameRegex.test(signUpData.nickName)) {
         setValidNickName("");
         const result = await axios.get(
-          `http://localhost:8080/api/v1/auth/duplicateNickName/${signUpData.nickName}`
+          `${SIGN_UP_DUPLICATION_NICKNAME_API}${signUpData.nickName}`
         );
 
         if (result.data.data === true) {
@@ -321,9 +346,11 @@ export default function SignUp() {
     });
 
     if (valid) {
+      console.log(signUpData);
+      console.log(signUpForm);
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/v1/auth/signUp",
+          SIGN_UP_POST_API,
           signUpForm,
           {
             headers: {
@@ -343,7 +370,7 @@ export default function SignUp() {
 
   // event handler: SNS 버튼 클릭 이벤트 처리 //
   const onSnsButtonClickHandler = (sns: 'kakao' | 'naver') => {
-      window.location.href = `http://localhost:8080/api/v1/auth/sns-sign-in/${sns}`;
+      window.location.href = `${SIGN_UP_SNS_API}${sns}`;
   };
   
 
@@ -356,7 +383,7 @@ export default function SignUp() {
               <Stepper activeStep={page} alternativeLabel>
                 {steps.map((label) => (
                   <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
+                    <StepLabel sx={{fontWeight:"bold"}}>{label}</StepLabel>
                   </Step>
                 ))}
               </Stepper>
@@ -467,21 +494,6 @@ export default function SignUp() {
               />
             </div>
             <div css={s.fieldBox}>
-              <label htmlFor="userName" css={s.labelBox}>
-                <p css={s.label}>성명*</p>{" "}
-                {validName ? <p css={s.errorMessage}>{validName}</p> : <></>}
-              </label>
-              <input
-                css={s.input}
-                type="text"
-                name="userName"
-                id="userName"
-                value={signUpData.userName}
-                onChange={handleInputChange}
-                placeholder="한글, 영문의 사용자 이름 입력"
-              />
-            </div>
-            <div css={s.fieldBox}>
               <label htmlFor="nickName" css={s.labelBox}>
                 <p css={s.label}>닉네임*</p>{" "}
                 {validNickName ? (
@@ -515,6 +527,39 @@ export default function SignUp() {
 
             <div css={s.rowFieldFullBox}>
               <div css={s.rowFieldBox}>
+                <label htmlFor="userName" css={s.labelBox}>
+                <p css={s.label}>성명*</p>{" "}
+                {validName ? <p css={s.errorMessage}>{validName}</p> : <></>}
+                </label>
+                <input
+                css={s.input}
+                type="text"
+                name="userName"
+                id="userName"
+                value={signUpData.userName}
+                onChange={handleInputChange}
+                placeholder="한글, 영문의 사용자 이름 입력"
+                />
+              </div>
+              <div css={s.rowFieldBox}>
+                <label htmlFor="phoneNumber" css={s.labelBox}>
+                <p css={s.label}>휴대폰 번호*</p>{" "}
+                {validName ? <p css={s.errorMessage}>{validPhone}</p> : <></>}
+                </label>
+                <input
+                css={s.input}
+                type="text"
+                name="phoneNumber"
+                id="phoneNumber"
+                value={signUpData.phoneNumber}
+                onChange={handleInputChange}
+                placeholder="하이픈(-) 제외 입력"
+                />
+              </div>
+            </div>
+
+            <div css={s.rowFieldFullBox}>
+              <div css={s.rowFieldBox}>
                 <label htmlFor="userBirthDate" css={s.labelBox}>
                   <p css={s.label}>생년월일*</p>{" "}
                   {validBirthDay ? (
@@ -529,7 +574,7 @@ export default function SignUp() {
                   name="userBirthDate"
                   id="userBirthDate"
                   onChange={handleInputChange}
-                  placeholder="하이픈(-) 없이 8자 입력 "
+                  placeholder="하이픈(-) 제외 8자 입력 "
                 />
               </div>
 
@@ -572,6 +617,27 @@ export default function SignUp() {
                 </div>
               </div>
             </div>
+
+            <div css={s.fieldBox}>
+              
+            <label htmlFor="password" css={s.labelBox}>
+                <p css={s.label}>이메일</p>{" "}
+                {validEmail ? (
+                  <p css={s.errorMessage}>{validEmail}</p>
+                ) : (
+                  <></>
+                )}
+              </label>
+              <input
+                css={s.input}
+                type="email"
+                name="email"
+                id="email"
+                value={signUpData.email}
+                onChange={handleInputChange}
+                placeholder="이메일 입력력"
+                />
+              </div>
 
             <div css={s.fieldBox}>
               <div css={s.btnBox}>

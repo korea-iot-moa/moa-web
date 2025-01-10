@@ -52,9 +52,9 @@ export const groupLi = css`
   padding: 10px;
   margin-top: 20px;
   cursor: pointer;  
-  @media (min-width: 500px) {
+  /* @media (min-width: 500px) {
     width: 140px;
-}
+} */
 `
 export const line = css`
   border: 1px solid #ddd;

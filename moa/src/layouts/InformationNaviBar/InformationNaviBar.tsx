@@ -15,6 +15,7 @@ import userAuthStore from "../../stores/auth.store";
 import { useCookies } from "react-cookie";
 import HobbyAndRegionCategory from "../SearchBar/categotybar/HobbyAndRegionCategory";
 import HamburgerMenu from "../../components/HamburgerMenu";
+import { INFORMATION_IMG } from "../../apis";
 
 export default function InformationNaviBar() {
   const { nickName, profileImage, isAuthenticated, logout } = userAuthStore();
@@ -79,7 +80,7 @@ export default function InformationNaviBar() {
                   <img src={userImg} alt="userImage" css={s.userImg} />
                 ) : (
                   <img
-                    src={"http://localhost:8080/image/" + profileImage}
+                    src={INFORMATION_IMG + profileImage}
                     alt="profileImage"
                     css={s.userImg}
                   />
