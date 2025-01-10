@@ -81,7 +81,7 @@ export default function HamburgerMenu() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigator('/mypage/participationStatus')}>
               <ListItemText css={defaultBtnSt} primary="내 모임 관리" />
             </ListItemButton>
           </ListItem>

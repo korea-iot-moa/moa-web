@@ -5,6 +5,7 @@ import { Review } from '../../../types';
 import img from "../../../images/moaLogo.png";
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import { REVIEW_DELETE_API, REVIEW_GET_API, REVIEW_IMG_API } from '../../../apis';
 
 export default function MyPageReview() {
   const [reviewData, setReviewData] = useState<Review[]>([]);
@@ -13,7 +14,7 @@ export default function MyPageReview() {
 
   useEffect(() => {
     try { 
-      axios.get('http://localhost:8080/api/v1/reviews/myReview', {
+      axios.get(REVIEW_GET_API, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -27,7 +28,7 @@ export default function MyPageReview() {
 
   const handleDeleteReview = async(reviewId: number) => {
       try{
-        await axios.delete(`http://localhost:8080/api/v1/reviews/${reviewId}`, {
+        await axios.delete(`${REVIEW_DELETE_API}${reviewId}`, {
           headers: {
             Authorization: `Bearer ${cookies.token}`
           }
@@ -62,7 +63,7 @@ export default function MyPageReview() {
                 <div>
                   {review.reviewImage ? (
                       <img
-                        src={`http://localhost:8080/image/${review.reviewImage}`}
+                        src={`${REVIEW_IMG_API}${review.reviewImage}`}
                         alt="REVIEW IMAGE"
                       />
                     ) : (

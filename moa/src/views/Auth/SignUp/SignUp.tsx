@@ -51,6 +51,8 @@ const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,16}$/;
 const birthDateRegex = /^\d{8}$/;
 const nicknameRegex = /^[a-zA-Z가-힣0-9]{1,10}$/;
 const nameRegex = /^[a-zA-Z가-힣]+$/;
+const phoneRegex = /^01[016789]\d{7,8}$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -76,6 +78,8 @@ export default function SignUp() {
   const [validNickName, setValidNickName] = useState<string>("");
   const [validGender, setValidGender] = useState<string>("");
   const [validHobby, setValidHobby] = useState<string>("");
+  const [validPhone, setValidPhone] = useState<string>("");
+  const [validEmail, setValidEmail] = useState<string>("");
 
   // 중복 확인 상태 관리
   const [duplicateIdMs, setDuplicateIdMs] = useState<string>("");
@@ -88,13 +92,15 @@ export default function SignUp() {
     confirmPassword: "",
     userName: "",
     nickName: "",
-    userGender: "MALE",
+    userGender: null,
     userBirthDate: new Date(),
     hobbies: [],
     profileImage: null,
     region: null,
     snsId: snsId,
-    joinPath: joinPath ? joinPath : "Home"
+    joinPath: joinPath ? joinPath : "Home",
+    phoneNumber: "",
+    email: ""
   });
 
   //& DB 취미 요청
@@ -194,6 +200,7 @@ export default function SignUp() {
     } else {
       setValidPassword("");
     }
+
     // 생년월일 정규식 확인
     if (
       !signUpData.userBirthDate ||
@@ -208,9 +215,17 @@ export default function SignUp() {
     // 이름 정규식 확인
     if (!signUpData.userName || !nameRegex.test(signUpData.userName)) {
       valid = false;
-      setValidName("※ 한글, 영문의 사용자 이름 입력");
+      setValidName("※ 한글, 영문의 이름 입력");
     } else {
       setValidName("");
+    }
+
+    // 번호 정규식 확인
+    if (!signUpData.phoneNumber || !phoneRegex.test(signUpData.phoneNumber)) {
+      valid = false;
+      setValidPhone("※ 하이픈 제외 입력");
+    } else {
+      setValidPhone("");
     }
 
     // 닉네임 확인
@@ -219,6 +234,14 @@ export default function SignUp() {
       setValidNickName("※ 1~10자의 한글, 영문, 숫자 입력 (특수문자 불가)");
     } else {
       setValidNickName("");
+    }
+
+    // 이메일일 확인
+    if (!signUpData.email || !emailRegex.test(signUpData.email)) {
+      valid = false;
+      setValidEmail("※ 이메일 입력해주세요요");
+    } else {
+      setValidEmail("");
     }
 
     // 성별 확인
@@ -234,6 +257,7 @@ export default function SignUp() {
     } else {
       alert("정보입력 or 중복검사를 진행해주세요!!");
     }
+    console.log(signUpData);
   };
 
   //# 이전 페이지 이동
@@ -322,6 +346,8 @@ export default function SignUp() {
     });
 
     if (valid) {
+      console.log(signUpData);
+      console.log(signUpForm);
       try {
         const response = await axios.post(
           SIGN_UP_POST_API,
@@ -357,7 +383,7 @@ export default function SignUp() {
               <Stepper activeStep={page} alternativeLabel>
                 {steps.map((label) => (
                   <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
+                    <StepLabel sx={{fontWeight:"bold"}}>{label}</StepLabel>
                   </Step>
                 ))}
               </Stepper>
@@ -468,21 +494,6 @@ export default function SignUp() {
               />
             </div>
             <div css={s.fieldBox}>
-              <label htmlFor="userName" css={s.labelBox}>
-                <p css={s.label}>성명*</p>{" "}
-                {validName ? <p css={s.errorMessage}>{validName}</p> : <></>}
-              </label>
-              <input
-                css={s.input}
-                type="text"
-                name="userName"
-                id="userName"
-                value={signUpData.userName}
-                onChange={handleInputChange}
-                placeholder="한글, 영문의 사용자 이름 입력"
-              />
-            </div>
-            <div css={s.fieldBox}>
               <label htmlFor="nickName" css={s.labelBox}>
                 <p css={s.label}>닉네임*</p>{" "}
                 {validNickName ? (
@@ -516,6 +527,39 @@ export default function SignUp() {
 
             <div css={s.rowFieldFullBox}>
               <div css={s.rowFieldBox}>
+                <label htmlFor="userName" css={s.labelBox}>
+                <p css={s.label}>성명*</p>{" "}
+                {validName ? <p css={s.errorMessage}>{validName}</p> : <></>}
+                </label>
+                <input
+                css={s.input}
+                type="text"
+                name="userName"
+                id="userName"
+                value={signUpData.userName}
+                onChange={handleInputChange}
+                placeholder="한글, 영문의 사용자 이름 입력"
+                />
+              </div>
+              <div css={s.rowFieldBox}>
+                <label htmlFor="phoneNumber" css={s.labelBox}>
+                <p css={s.label}>휴대폰 번호*</p>{" "}
+                {validName ? <p css={s.errorMessage}>{validPhone}</p> : <></>}
+                </label>
+                <input
+                css={s.input}
+                type="text"
+                name="phoneNumber"
+                id="phoneNumber"
+                value={signUpData.phoneNumber}
+                onChange={handleInputChange}
+                placeholder="하이픈(-) 제외 입력"
+                />
+              </div>
+            </div>
+
+            <div css={s.rowFieldFullBox}>
+              <div css={s.rowFieldBox}>
                 <label htmlFor="userBirthDate" css={s.labelBox}>
                   <p css={s.label}>생년월일*</p>{" "}
                   {validBirthDay ? (
@@ -530,7 +574,7 @@ export default function SignUp() {
                   name="userBirthDate"
                   id="userBirthDate"
                   onChange={handleInputChange}
-                  placeholder="하이픈(-) 없이 8자 입력 "
+                  placeholder="하이픈(-) 제외 8자 입력 "
                 />
               </div>
 
@@ -573,6 +617,27 @@ export default function SignUp() {
                 </div>
               </div>
             </div>
+
+            <div css={s.fieldBox}>
+              
+            <label htmlFor="password" css={s.labelBox}>
+                <p css={s.label}>이메일</p>{" "}
+                {validEmail ? (
+                  <p css={s.errorMessage}>{validEmail}</p>
+                ) : (
+                  <></>
+                )}
+              </label>
+              <input
+                css={s.input}
+                type="email"
+                name="email"
+                id="email"
+                value={signUpData.email}
+                onChange={handleInputChange}
+                placeholder="이메일 입력력"
+                />
+              </div>
 
             <div css={s.fieldBox}>
               <div css={s.btnBox}>

@@ -109,3 +109,15 @@ export interface GetVoteAnswerChartResponseDto{
   count : number; 
   ratio : number;
 }
+
+export type ParticipationStatusDataDto = {
+  groupId: number;
+  groupTitle: string;
+  groupType: string;
+  meetingType: string;
+  groupCategory: string;
+  groupImage: string;
+  answerId: number;
+  answerDate: Date;
+  isApproved: number;
+}
