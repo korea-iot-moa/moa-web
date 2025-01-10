@@ -5,18 +5,17 @@ import * as logo from "../../../styles/LogoStyle";
 import { useNavigate } from 'react-router-dom';
 import logoImg from "../../../images/moaLogo.png";
 import axios from 'axios';
+import { MAIL_SEND_API } from '../../../apis';
 
 type findPasswordDto = {
   userId: string;
   userName: string;
-  email: string;
 }
 
 export default function FindPassword() {
   const [ findPasswordData, setFindPasswordData ] = useState<findPasswordDto>({
     userId: "",
-    userName: "",
-    email: ""
+    userName: ""
   });
 
   const [ sendMailErrorMs, setSendMailErrorMs ] = useState<string>("");
@@ -58,7 +57,7 @@ export default function FindPassword() {
       if(!isButtonDisabled) {
         try {
           setIsButtonDisabled(true);
-          const response = await axios.post('http://localhost:8081/api/v1/mail/send', findPasswordData);
+          const response = await axios.post(MAIL_SEND_API, findPasswordData);
           if (!!response.data.result) {
             setHasSendMail(true);
           }
@@ -86,32 +85,26 @@ export default function FindPassword() {
             <>
               <div css={s.mainBox}>
                 <h1>비밀번호 찾기</h1>
-                <input
-                  type="text"
-                  placeholder="아이디"
-                  name="userId"
-                  value={findPasswordData.userId}
-                  css={s.topInput}
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="text"
-                  placeholder="성명"
-                  name="userName"
-                  value={findPasswordData.userName}
-                  css={s.middleInput}
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="email"
-                  placeholder="인증 이메일"
-                  name="email"
-                  value={findPasswordData.email}
-                  css={s.bottomInput}
-                  onChange={handleInputChange}
-                />
-                {sendMailError && <p css={s.errorMessage}>{sendMailErrorMs}</p>}
-              </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="아이디"
+                    name="userId"
+                    value={findPasswordData.userId}
+                    css={s.topInput}
+                    onChange={handleInputChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="성명"
+                    name="userName"
+                    value={findPasswordData.userName}
+                    css={s.bottomInput}
+                    onChange={handleInputChange}
+                  />
+                  {sendMailError && <p css={s.errorMessage}>{sendMailErrorMs}</p>}
+                </div>
+                </div>
     
               <div css={s.bottomBox}>
                 <button onClick={handleSendEmail} disabled={isButtonDisabled}>

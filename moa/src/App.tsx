@@ -41,6 +41,7 @@ import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage
 import AuthRedirectHandler from "./views/Auth/SignUp/AuthRedirectHandler";
 import SnsSuccess from "./views/Auth/SignIn/SnsSuccess";
 import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
+import ParticipationStatusPage from "./views/MyPage/ParticipationStatusPage/ParticipationStatusPage";
 
 function App() {
   const theme = createTheme({
@@ -202,6 +203,12 @@ function App() {
                           )} />
               {/* 그룹 상세 페이지 */}
               <Route path={p.GROUP_DETAIL} element={<GroupDetailPage />}/>
+
+              <Route path={p.PARTICIPATION_STATUS_PAGE} element={cookies.token ? (
+                            <ParticipationStatusPage />
+                          ) : (
+                            <Navigate to={p.SIGN_IN_PAGE} replace />
+                          )}/>
               </Routes>
             </MainContainer>
           </RootContainer>

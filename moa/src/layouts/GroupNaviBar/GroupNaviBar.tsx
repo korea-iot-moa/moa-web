@@ -11,6 +11,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import defaultImg from "../../images/moaLo.png";
 import useGroupListStore from "../../stores/group.list.store";
 import { FiPlusCircle } from "react-icons/fi";
+import { GROUP_NAV_GET_API, GROUP_NAV_IMG } from "../../apis";
 
 export default function GroupNaviBar() {
   const { userId } = userAuthStore();
@@ -29,7 +30,7 @@ export default function GroupNaviBar() {
     const fetchGroup = async () => {
       if (cookies.token) {
         try {
-          const response = await axios.get(`http://localhost:8080/api/v1/user-list`, {
+          const response = await axios.get(GROUP_NAV_GET_API, {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
             },
@@ -74,7 +75,7 @@ export default function GroupNaviBar() {
             <p>{group.groupTitle}</p> 
           ) : (
             <img
-              src={group.groupImage ? `http://localhost:8080/image/${group.groupImage}` : `${defaultImg}`}
+              src={group.groupImage ? `${GROUP_NAV_IMG}${group.groupImage}` : `${defaultImg}`}
               alt="그룹 이미지"
               css={s.logoImage}
             />

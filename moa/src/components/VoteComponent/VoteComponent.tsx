@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import { Vote, VoteAnswer, VoteResult } from '../../types';
 import { format } from 'date-fns';
 import userAuthStore from '../../stores/auth.store';
+import { VOTE_API, VOTE_RESULT_GET_API, VOTE_RESULT_POST } from "../../apis";
 
 type PropsType = {
   groupId: number;
@@ -37,7 +38,7 @@ const VoteComponent: React.FC<PropsType> = ({ groupId, groupTitle, closeVote }) 
   useEffect(() => {
     const fetchVote = async () => {
       try {
-        const voteResponse = await axios.get(`http://localhost:8080/api/v1/votes/${groupId}`, {
+        const voteResponse = await axios.get(`${VOTE_API}${groupId}`, {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
           },
@@ -59,7 +60,7 @@ const VoteComponent: React.FC<PropsType> = ({ groupId, groupTitle, closeVote }) 
       
       const checkVoteParticipation = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/api/v1/vote-results/existAnswer/${vote?.voteId}`, {
+          const response = await axios.get(`${VOTE_RESULT_GET_API}${vote?.voteId}`, {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
             },
@@ -98,7 +99,7 @@ const VoteComponent: React.FC<PropsType> = ({ groupId, groupTitle, closeVote }) 
   const postVoteData = async () => {
     if (cookies.token) {
       try {
-        await axios.post(`http://localhost:8080/api/v1/vote-results`, voteSelectData, {
+        await axios.post(VOTE_RESULT_POST, voteSelectData, {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
           },
