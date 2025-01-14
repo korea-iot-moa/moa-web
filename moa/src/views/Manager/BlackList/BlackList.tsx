@@ -70,10 +70,10 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
       alert("사용자 ID를 입력해주세요.");
       return;
     }
-    if(selectedLevel === "관리자") {
-      alert("관리자는 블랙리스트에 추가할 수 없습니다.");
-      return;
-    }
+    // if(selectedLevel === "관리자") {
+    //   alert("관리자는 블랙리스트에 추가할 수 없습니다.");
+    //   return;
+    // }
     
     const url = `http://localhost:8080/api/v1/black-list/${parseToNumGroupId}`;
 
@@ -108,7 +108,6 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
           withCredentials: true,
         });
         setBlackUserList((prevList) => prevList.filter((item) => item.blackListId !== blackListId));
-        console.log(`BlackList ID ${blackListId} has been deleted.`);
         await fetchBlackList();
         alert("삭제 되었습니다")
       } catch (error) {
@@ -119,7 +118,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
   };
 
   return (
-    <div>
+    <div css={s.fullBox}>
       <button css={s.Botton} onClick={openModal}>블랙리스트 추가</button>
       <div>총 인원수 : {blackUserList.length}</div>
       <ReactModal

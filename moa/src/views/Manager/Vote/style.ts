@@ -42,3 +42,21 @@ export const Botton =css `
     outline: 3px solid #DAE2ED;
   }
 `;
+export const ContentBox = css `
+ text-align: start;
+  width : 60%;
+  height: 20px;
+  text-align:center;
+  font-size: 14px;
+  border-radius: 2px;
+  text-align: left; 
+   resize: none; 
+  box-sizing: border-box; 
+`;
+export const DateBox = css `
+  width : 60%;
+  height: 20px;
+  text-align:center;
+  font-size: 16px;
+  border-radius: 7px;
+`;

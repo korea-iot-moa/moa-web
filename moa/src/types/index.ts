@@ -9,7 +9,7 @@ export type GroupCategory =
   | "문화_예술"
   | "스포츠_운동"
   | "푸드_맛집"
-  | "자기계발"
+  | "자기개발"
   | "여행"
   | "연애"
   | "힐링";
@@ -24,7 +24,7 @@ export interface MeetingGroup {
   groupTitle: string;
   groupContent: string;
   groupAddress: string;
-  groupImage: string;
+  groupImage: any;
   groupSupplies: string;
   groupDate: string;
   groupQuestion: string;
