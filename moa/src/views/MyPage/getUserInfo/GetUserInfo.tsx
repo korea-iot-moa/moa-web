@@ -52,7 +52,7 @@ const GetUserInfo = () => {
 
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
-      setErrorMg("비밀번호를 확인해주세요");
+      setErrorMg("비밀번호를 다시 입력해주세요");
       navigate('/mypage/userInfo');
     } finally {
       setLoading(false);
@@ -248,6 +248,7 @@ const GetUserInfo = () => {
               <li className="imgBox">
                 <span>프로필 이미지</span>
                 <div className="imgDiv">
+                  <div className="imgBackroundColor">
                 {!userProfileImg ? (
                       <img src={userImg} alt="userImage"  className="userImg"/>
                     ) : (
@@ -257,7 +258,8 @@ const GetUserInfo = () => {
                         className="userImg"
                       />
                     )}
-                    <label htmlFor="profileImage">
+                  </div>
+                    <label className="imgUpdateBtn" htmlFor="profileImage">
                       <MdOutlineAddPhotoAlternate style={{margin:'0px', padding:'0px', fontSize: '30px'}}/>
                     </label>
                     <input

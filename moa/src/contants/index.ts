@@ -1,3 +1,5 @@
+export const REQUEST_URL = "http://localhost:8080";
+
 //& 테이블 경로 상수 선언
 export const WEB_MAIN = '/'
 export const WEB_APP_MAIN = "/main/*"
