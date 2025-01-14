@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 
 export const fullBox = css`
+  position: relative;
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -190,6 +191,41 @@ export const joinBox = css`
 
     &:hover {
       background-color: #FCD572;
+    }
+  }
+`;
+
+export const modalBox = css`
+  position: fixed;
+  bottom: 50%;
+  width: 500px;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1002;
+
+  > button {
+    width: 200px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #FF7B54;
+    border-radius: 5px;
+    color: #FF7B54;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #FF7B54;
+      color: #fff;
     }
   }
 `;

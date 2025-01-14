@@ -9,6 +9,8 @@ import { REVIEW_DELETE_API, REVIEW_GET_API, REVIEW_IMG_API } from '../../../apis
 
 export default function MyPageReview() {
   const [reviewData, setReviewData] = useState<Review[]>([]);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>('');
 
   const [cookies] = useCookies(["token"]);
 
@@ -20,9 +22,11 @@ export default function MyPageReview() {
         },
       }).then((response) => {
         setReviewData(response.data.data)
+        console.log(reviewData);
       })
     } catch (error) {
       console.error(error);
+      setReviewData([]);
     }
   },[])
 
@@ -35,7 +39,8 @@ export default function MyPageReview() {
         }).then((response) => {
           if(!!response.data.result) {
             setReviewData((prevData) => prevData.filter((review) => review.reviewId !== reviewId))
-            alert("삭제 성공")
+            setOpenModal(true)
+            setModalMessage('삭제 정공')
           }
         })
       } catch (error) {
@@ -87,6 +92,12 @@ export default function MyPageReview() {
           <div>리뷰 데이터가 없음</div>
         )}
       </div>
+      {openModal && (
+        <div css={s.modalBox}>
+          {modalMessage}
+          <button onClick={() => setOpenModal(false)}>닫기</button>
+        </div>
+      )}
     </div>
   )
 }

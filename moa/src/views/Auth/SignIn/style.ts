@@ -25,8 +25,8 @@ export const innerBox = css`
 
   > .kakao {
     &:hover{
-      background-color: #FDDC3F;
-      border: 1px solid #FDDC3F;
+      background-color: #FEE500;
+      border: 1px solid #FEE500;
     }
   }
 `;
@@ -74,11 +74,11 @@ export const signInBtn = css`
   border-radius: 5px;
   border: none;
   padding: 10px 10px;
-  background-color: #4b4b4b;
+  background-color: #FF7B54;
   color: #fff;
   cursor: pointer;
   &:hover, :active{
-    background-color: #1a1a1a;
+    background-color: #FCD572;
     border: none;
     outline: none;
   }
