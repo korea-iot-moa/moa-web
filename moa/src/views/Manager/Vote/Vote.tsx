@@ -67,7 +67,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8081/api/v1/votes/${parseToNumGroupId}`,
+          `http://localhost:8080/api/v1/votes/${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -99,7 +99,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       createDate: new Date(createDate),
       closeDate: new Date(closeDate),
     };
-    const url = `http://localhost:8081/api/v1/votes`;
+    const url = `http://localhost:8080/api/v1/votes`;
 
     if (cookies.token) {
       try {
@@ -253,7 +253,8 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
         <div css={s.LayerBox}>
           <p>
             <strong>투표 내용 :</strong>
-            <textarea
+            <input
+              type="text"
               value={voteContent}
               onChange={(e) => setVoteContent(e.target.value)}
             />
@@ -275,6 +276,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
             />
           </p>
           <button
+            css={s.Botton}
             onClick={() => {
               handleUpdateVote(
                 vote!.voteId,
@@ -287,7 +289,9 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
           >
             수정 완료
           </button>
-          <button onClick={() => setIsEditing(false)}>취소</button>
+          <button css={s.Botton} onClick={() => setIsEditing(false)}>
+            취소
+          </button>
         </div>
       ) : (
         <ul>

@@ -24,7 +24,7 @@ export interface MeetingGroup {
   groupTitle: string;
   groupContent: string;
   groupAddress: string;
-  groupImage: string;
+  groupImage: any;
   groupSupplies: string;
   groupDate: string;
   groupQuestion: string;

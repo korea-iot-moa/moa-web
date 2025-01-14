@@ -40,7 +40,6 @@ import MyPageReview from "./views/MyPage/MyPageReview/MyPageReview";
 import GroupDetailPage from "./views/GroupDetail/GroupDetailPage/GroupDetailPage";
 import AuthRedirectHandler from "./views/Auth/SignUp/AuthRedirectHandler";
 import SnsSuccess from "./views/Auth/SignIn/SnsSuccess";
-import CreateGroup_1 from "./views/GroupDetail/CreateGroup/CreateGroup_1";
 import ParticipationStatusPage from "./views/MyPage/ParticipationStatusPage/ParticipationStatusPage";
 
 function App() {
@@ -132,18 +131,6 @@ function App() {
                 path="/main/create-group"
                 element={<CreateGroup/>}
                 />
-<<<<<<< HEAD
-               
-=======
-                <Route
-                path="/main/create-group_1"
-                element={<CreateGroup_1/>}
-                />
-                <Route
-                  path="/main/create-group"
-                  element={<CreateGroup/>}
-                />
->>>>>>> develop
                 <Route
                   path="/main/manager/user-list/:groupId"
                   element={

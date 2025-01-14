@@ -104,7 +104,7 @@ const Tab = styled(BaseTab)`
   justify-content: space-evenly;
 
   &:hover {
-    background-color: ${grey[400]};
+    background-color: #0a3140;
   }
 
   &:focus {
@@ -139,7 +139,7 @@ const TabPanel = styled(BaseTabPanel)<{ theme?: Theme }>(
 const TabsList = styled(BaseTabsList)<{ theme?: Theme }>(
   ({ theme }) => `
   min-width: 400px;
-  background-color: ${grey[500]};
+  background-color: ${grey[400]};
   border-radius: 12px;
   margin-bottom: 16px;
   display: flex;

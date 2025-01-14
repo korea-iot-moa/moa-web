@@ -10,11 +10,11 @@ display: flex;
 
 export const Tab =css `
   font-family: "IBM Plex Sans", sans-serif;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  background-color:rgb(128, 132, 138);
+  background-color:rgb(222, 222, 222);
   width: 20%;
   padding: 10px 12px;
   margin: 10px;
@@ -24,7 +24,7 @@ export const Tab =css `
   justify-content: space-evenly;
 
   &:hover {
-    background-color: #B0B8C4;
+    background-color: #f7e2d5;
   }
 
   &:focus {
@@ -34,8 +34,8 @@ export const Tab =css `
 `;
 
 export const activeTab = css`
-  background-color: #000;
-  color: #fff;
+  background-color: #f7e2d5;
+  color: #000;
   padding: 10px 12px;
   width: 20%;
   border: none;
@@ -100,4 +100,38 @@ export const BottomButtonContainer = css`
  justify-content: start;
  width: 100%; 
  margin-top: 150px; 
+`;
+
+export const ImgInput = css `
+ width :50vh;
+ height: 20px;
+ font-size: 16px;
+ font-weight: 500;
+ border-radius: 7px;
+
+ `;
+
+ export const MoveButton =css `
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #000;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  background-color:rgb(255, 132, 25);
+  width: 20%;
+  padding: 10px 12px;
+  margin: 10px;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-evenly;
+
+  &:hover {
+    background-color: #fab77d;
+  }
+
+  &:focus {
+    color: #fff;
+    outline: 3px solid #DAE2ED;
+  }
 `;

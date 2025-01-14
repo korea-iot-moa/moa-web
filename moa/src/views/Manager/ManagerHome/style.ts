@@ -15,7 +15,7 @@ export const openModalButton = css`
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  background-color:rgb(128, 132, 138);
+  background-color:rgb(9, 28, 36);
   width: 15%;
   padding: 8px 10px;
   margin: 5px;
@@ -86,7 +86,7 @@ export const Botton =css `
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  background-color:rgb(128, 132, 138);
+  background-color:rgb(9, 28, 36);
   width: 15%;
   padding: 8px 10px;
   margin: 5px;

@@ -42,3 +42,28 @@ export const userImg = css`
   width: 100%;
   transition: transform 0.3s ease;
 `;
+
+export const Tab =css `
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  background-color:rgb(128, 132, 138);
+  width: 20%;
+  padding: 10px 12px;
+  margin: 10px;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-evenly;
+
+  &:hover {
+    background-color:rgb(80, 82, 85);
+  }
+
+  &:focus {
+    color: #fff;
+    outline: 3px solid rgb(58, 59, 61);
+  }
+`;

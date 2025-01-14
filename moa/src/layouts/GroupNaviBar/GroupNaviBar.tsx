@@ -30,11 +30,7 @@ export default function GroupNaviBar() {
     const fetchGroup = async () => {
       if (cookies.token) {
         try {
-<<<<<<< HEAD
-          const response = await axios.get(`http://localhost:8080/api/v1/user-list`, {
-=======
           const response = await axios.get(GROUP_NAV_GET_API, {
->>>>>>> develop
             headers: {
               Authorization: `Bearer ${cookies.token}`,
             },

@@ -1,12 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { AllBox, DateBox, Tab } from "../../GroupDetail/CreateGroup/style";
 import { buttonBox } from "./style";
 import { GroupType } from "../../../types";
 import { useNavigate } from "react-router-dom";
+import groupImage from "../../../images/group.jpg";
+import { group } from "console";
+import { LuImagePlus } from "react-icons/lu";
+import { MANGE_HOME_IMG_API } from "../../../apis";
 
 interface GroupUpdateProps {
   parseToNumGroupId: number;
@@ -15,7 +19,8 @@ interface GroupUpdateProps {
 const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
   const [cookies] = useCookies(["token"]);
   const navigate = useNavigate();
-  const [shouldReload, setShouldReload] = useState(false);
+  const [groupImg, setGroupImg] = useState<any>(null);
+  const [previewUrl, setPreviewUrl] = useState<any>(null);
   const [formData, setFormData] = useState({
     groupType: "",
     groupCategory: "",
@@ -26,66 +31,146 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
     groupContent: "",
     groupSupplies: "",
     groupQuestion: "",
+    groupImg: null,
   });
 
-  const handleInputChange = (field: string, value: string) => {
+  useEffect(() => {
+    fetchGroupData();
+  }, [parseToNumGroupId, cookies.token]);
+
+  //메모리 해제 
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
+
+  const handleInputChange = (field: string, value: any) => {
     setFormData({
       ...formData,
       [field]: value,
     });
   };
 
-  useEffect(() => {
-    const fetchGroupData = async () => {
-      const url = `http://localhost:8080/api/v1/auth/meeting-group/${parseToNumGroupId}`;
-      if (cookies.token) {
-        try {
-          const response = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-          });
-          setFormData(response.data.data || {});
-        } catch (error) {
-          console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
-        }
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      if (!file.type.startsWith("image/")) {
+        alert("이미지 파일만 업로드 가능합니다.");
+        return;
       }
-    };
 
-    fetchGroupData();
-  }, [parseToNumGroupId, cookies.token]);
+      setGroupImg(file); 
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewUrl(previewUrl);
+    } 
+  };
+
+  //모임 정보 가져오기기
+  const fetchGroupData = async () => {
+    const url = `http://localhost:8080/api/v1/auth/meeting-group/${parseToNumGroupId}`;
+
+    if (!cookies.token) {
+      console.error("토큰이 없습니다. 데이터를 가져올 수 없습니다.");
+      return;
+    }
+
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        withCredentials: true,
+      });
+
+      const data = response.data.data;
+
+      if (!data) {
+        console.error("응답 데이터가 없습니다.");
+        return;
+      }
+
+      setFormData({
+        groupType: data.groupType || "",
+        groupCategory: data.groupCategory || "",
+        groupDate: data.groupDate || "",
+        meetingType: data.meetingType || "",
+        groupAddress: data.groupAddress || "",
+        groupTitle: data.groupTitle || "",
+        groupContent: data.groupContent || "",
+        groupSupplies: data.groupSupplies || "",
+        groupQuestion: data.groupQuestion || "",
+        groupImg: data.groupImage || "",
+      });
+
+      // 이미지 URL 설정
+      if (data.groupImage) {
+        const imageUrl = `${MANGE_HOME_IMG_API}${data.groupImage}`;
+        setPreviewUrl(imageUrl);
+      } else {
+        setPreviewUrl(groupImage);
+      }
+    } catch (error) {
+      console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
+      alert("데이터를 가져오는 데 실패했습니다. 나중에 다시 시도하세요.");
+    }
+  };
 
   const handleUpdateGroup = async () => {
-    const putGroupRequestDto = {
-      groupTitle: formData.groupTitle,
-      groupContent: formData.groupContent,
-      groupSupplies: formData.groupSupplies,
-      groupQuestion: formData.groupQuestion,
-      groupAddress: formData.groupAddress,
-      groupDate: formData.groupDate,
-      groupCategory: formData.groupCategory,
-      groupType: formData.groupType,
-      meetingType: formData.meetingType,
-    };
+    const putGroupRequestDto = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) {
+        putGroupRequestDto.append(key, value as string);
+      }
+    });
+
+    if (groupImg) {
+      putGroupRequestDto.append("groupImage", groupImg);
+    }
+
     const url = `http://localhost:8080/api/v1/meeting-group/${parseToNumGroupId}`;
     if (cookies.token) {
       try {
         const response = await axios.put(url, putGroupRequestDto, {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
+            "Content-Type": "multipart/form-data",
           },
           withCredentials: true,
         });
-        const responseData = response.data.data;
-        setFormData(responseData);
-        console.log(responseData);
-        alert("수정이 완료 되었습니다");
-        navigate(`/main/manager/user-list/${parseToNumGroupId}`)
-        setShouldReload((prev) => !prev);
-        
+
+        if (response.status === 200) {
+          alert("수정이 완료되었습니다.");
+
+          const updatedGroupData = response.data.data;
+
+          if (updatedGroupData.groupImage) {
+            setPreviewUrl(updatedGroupData.groupImage);
+          }
+          setFormData({
+            groupType: updatedGroupData.groupType || "",
+            groupCategory: updatedGroupData.groupCategory || "",
+            groupDate: updatedGroupData.groupDate || "",
+            meetingType: updatedGroupData.meetingType || "",
+            groupAddress: updatedGroupData.groupAddress || "",
+            groupTitle: updatedGroupData.groupTitle || "",
+            groupContent: updatedGroupData.groupContent || "",
+            groupSupplies: updatedGroupData.groupSupplies || "",
+            groupQuestion: updatedGroupData.groupQuestion || "",
+            groupImg: updatedGroupData.groupImage || "",
+          });
+
+          if (updatedGroupData.groupImage) {
+            setPreviewUrl(
+              `${MANGE_HOME_IMG_API}${updatedGroupData.groupImage}`
+            );
+          } else {
+            setPreviewUrl(null);
+          }
+        }
       } catch (error) {
         console.error(error);
+        alert("수정에 실패했습니다. 다시 시도해주세요.");
       }
     }
   };
@@ -101,6 +186,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           withCredentials: true,
         });
         alert("모임 삭제가 되었습니다");
+        navigate(`/main/manager/user-list/${parseToNumGroupId}`);
       } catch (error) {
         console.error(error);
       }
@@ -110,7 +196,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
   return (
     <div>
       <strong>
-        <h4>모임 유형</h4>
+        <h1 css={s.label}>*모임 유형</h1>
       </strong>
       <div css={s.buttonBox}>
         <button
@@ -131,67 +217,29 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
       <div>
         <h1 css={s.label}>*모임 카테고리</h1>{" "}
         <div css={s.AllBox}>
-          <button
-            css={formData.groupCategory === "취미" ? s.activeTab : s.Tab}
-            value="취미"
-            onClick={() => handleInputChange("groupCategory", "취미")}
-          >
-            취미
-          </button>
-          <button
-            css={formData.groupCategory === "문화_예술" ? s.activeTab : s.Tab}
-            value="문화_예술"
-            onClick={() => handleInputChange("groupCategory", "문화_예술")}
-          >
-            문화_예술
-          </button>
-          <button
-            css={formData.groupCategory === "스포츠_운동" ? s.activeTab : s.Tab}
-            value="스포츠_운동"
-            onClick={() => handleInputChange("groupCategory", "스포츠_운동")}
-          >
-            스포츠_운동
-          </button>
-          <button
-            css={formData.groupCategory === "푸드_맛집" ? s.activeTab : s.Tab}
-            value="푸드_맛집"
-            onClick={() => handleInputChange("groupCategory", "푸드_맛집")}
-          >
-            푸드_맛집
-          </button>
-          <button
-            css={formData.groupCategory === "자기계발" ? s.activeTab : s.Tab}
-            value="자기계발"
-            onClick={() => handleInputChange("groupCategory", "자기계발")}
-          >
-            자기계발
-          </button>
-          <button
-            css={formData.groupCategory === "힐링" ? s.activeTab : s.Tab}
-            value="힐링"
-            onClick={() => handleInputChange("groupCategory", "힐링")}
-          >
-            힐링
-          </button>
-          <button
-            css={formData.groupCategory === "연애" ? s.activeTab : s.Tab}
-            value="연애"
-            onClick={() => handleInputChange("groupCategory", "연애")}
-          >
-            연애
-          </button>
-          <button
-            css={formData.groupCategory === "여행" ? s.activeTab : s.Tab}
-            value="여행"
-            onClick={() => handleInputChange("groupCategory", "여행")}
-          >
-            여행
-          </button>
+          {[
+            "취미",
+            "문화_예술",
+            "스포츠_운동",
+            "푸드_맛집",
+            "자기계발",
+            "힐링",
+            "연애",
+            "여행",
+          ].map((category) => (
+            <button
+              key={category}
+              css={formData.groupCategory === category ? s.activeTab : s.Tab}
+              onClick={() => handleInputChange("groupCategory", category)}
+            >
+              {category}
+            </button>
+          ))}
         </div>
       </div>
       <div>
         <strong>
-          <h2>모임 날짜</h2>
+          <h2>*모임 날짜</h2>
         </strong>
         <input
           type="date"
@@ -278,9 +326,18 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
       </div>
       <div>
         <strong>
-          <h2>사진</h2>
+          <h2>모임사진</h2>
         </strong>
-        <input type="file" />
+      </div>
+      <div>
+        <img
+          src={previewUrl || groupImage}
+          alt="미리보기"
+          style={{ width: "400px", height: "200px" }}
+        />
+      </div>
+      <div>
+        <input type="file" id="groupImg" onChange={handleFileChange} />
       </div>
       <div css={s.buttonBox}>
         <button css={s.Tab} onClick={handleUpdateGroup}>
