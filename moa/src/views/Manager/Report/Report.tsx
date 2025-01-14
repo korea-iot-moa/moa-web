@@ -1,18 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import axios from "axios";
 import * as s from "./style";
-import userImg from "../../../images/userImg.png";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import { GetReportListResponseDto } from "../../../types/dto/response.dto";
 import { LayerBox, ReportBox } from "./style";
-import img from "../../images/moaLogo.png";
+
 import {
   DeleteReportResponseDto,
   PostReportRequestDto,
 } from "../../../types/dto/request.dto";
 import { ReportResult } from "../../../types";
+import { REPORT_IMG_API } from "../../../apis";
 interface ReportProps {
   parseToNumGroupId: number;
 }
@@ -21,7 +21,8 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
   const [reportList, setReportList] = useState<GetReportListResponseDto[]>([]);
   const [cookies] = useCookies(["token"]);
   const [openState, setOpenState] = useState<Record<number, boolean>>({});
-
+  const [reportImg, setReportImg] = useState<any>(null);
+  const [previewUrl, setPreviewUrl] = useState<any>(null);
   useEffect(() => {
     if (parseToNumGroupId && cookies.token) {
       fetchReportList();
@@ -42,7 +43,13 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setReportList(responseData);
-        console.log(responseData);
+         // 이미지 URL 설정
+      if (responseData.reportImage) {
+        const imageUrl = `${REPORT_IMG_API}${responseData.reportImage}`;
+        setPreviewUrl(imageUrl);
+      } else {
+        setPreviewUrl(reportImg);
+      }
       } catch (error) {
         console.error(error);
       }
@@ -59,7 +66,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
           reportUser: reportUser,
           reportResult,
         };
-        console.log(postReportRequestDto);
+        
         const response = await axios.post(
           `http://localhost:8080/api/v1/reports/${parseToNumGroupId}`,
           postReportRequestDto,
@@ -72,7 +79,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setReportList(responseData);
-        console.log(responseData);
+       
       } catch (error) {
         console.error(error);
       }
@@ -136,14 +143,22 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
               <p>
                 <strong>신고 종류:</strong> {data.reportType}
               </p>
-              {/* <div>
-                {!Report ? (
-                  <img src={img} />
-                ) : (
-                  <img src={img} alt="미리보기 사진" />
-                )}
-              </div> */}
+              <div>
+                <img
+                  src={data.reportImage ? data.reportImage : undefined}
+                  alt={
+                    data.reportImage ? "신고 이미지 미리보기" : "기본 이미지"
+                  }
+                  onError={(e) => (e.currentTarget.src = "")} // 로드 실패 시 기본 이미지
+                  style={{
+                    width: "100px", 
+                    height: "100px",
+                    objectFit: "cover", 
+                  }}
+                />
+              </div>
               <button
+                css={s.Tab}
                 onClick={() =>
                   handlePostReport(data.reportUser, "추방" as ReportResult)
                 }
@@ -151,6 +166,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
                 방출
               </button>
               <button
+                css={s.Tab}
                 onClick={() =>
                   handleDeleteReport(data.userId, "유지" as ReportResult)
                 }

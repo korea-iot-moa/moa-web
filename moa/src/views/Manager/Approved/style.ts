@@ -1,1 +1,27 @@
-export const emp='';
+import { css } from "@emotion/react";
+
+
+export const Tab =css `
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  background-color:rgb(128, 132, 138);
+  width: 20%;
+  padding: 10px 12px;
+  margin: 10px;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-evenly;
+
+  &:hover {
+    background-color: #B0B8C4;
+  }
+
+  &:focus {
+    color: #fff;
+    outline: 3px solid #DAE2ED;
+  }
+`;

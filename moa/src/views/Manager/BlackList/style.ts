@@ -1,7 +1,13 @@
 import { css } from "@emotion/react";
 
-export const emp = "";
 
+export const fullBox = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
 
 export const Botton =css `
   font-family: "IBM Plex Sans", sans-serif;

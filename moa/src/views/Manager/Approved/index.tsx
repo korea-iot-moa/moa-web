@@ -1,9 +1,12 @@
+/** @jsxImportSource @emotion/react */
+import * as s from "./style";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import { GetReponseUserAnswer } from "../../../types/dto/response.dto";
 import { PostUserAnswerReqeustDto } from "../../../types/dto/request.dto";
+import { APPROVED_USER_ANSWERS_GET_API } from "../../../apis";
 
 interface ApprovedProps {
   parseToNumGroupId: number;
@@ -24,7 +27,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/user-answers/${groupId}`,
+          `${APPROVED_USER_ANSWERS_GET_API}${groupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -48,6 +51,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     }
   };
 
+  // 유저 승인 
   const handleApproveUser = async (userId: string) => {
   
     const postReponseUserAnswer: PostUserAnswerReqeustDto = {
@@ -81,7 +85,8 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  const handleDeleteUser = async (userId: string) => {
+  // 승인=0 일때 유저 삭제 
+  const handlePutApproveUser = async (userId: string) => {
     const deleteUserAnswerRequestDto: PostUserAnswerReqeustDto = {
       userId: userId,
       isApproved: 0,
@@ -89,7 +94,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
 
     if (cookies.token) {
       try {
-        await axios.delete(
+        await axios.put(
           `http://localhost:8080/api/v1/user-answers/${groupId}`,
           {
             headers: {
@@ -121,8 +126,8 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
               {data.grouptitle ? data.MeetingGroup.groupTitle : "N/A"} ---
               <strong>유저 아이디: </strong> {data.userId} ---
               <strong>승인 결과: </strong> {data.isApproved}
-              <button onClick={() => handleApproveUser(data.userId)}>승인</button>
-              <button onClick={() => handleDeleteUser(data.userId)}>거절</button>
+              <button css={s.Tab} onClick={() => handleApproveUser(data.userId)}>승인</button>
+              <button css={s.Tab} onClick={() => handlePutApproveUser(data.userId)}>거절</button>
             </li>
           ))
         ) : (
