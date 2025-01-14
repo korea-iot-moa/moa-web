@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { Gender, Hobby } from "../../../types";
 
 export const fullBox = css`
+  position: relative;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -186,17 +187,17 @@ export const btnBox = css`
 
   & > button {
     width: 100px;
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #000;
+    background-color: #FF7B54;
+    color: #fff;
+    border: 1px solid #FF7B54;
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
     margin-top: 30px;
 
     &:hover {
-      border: 1px solid #4d4d4d;
-      background-color: #4d4d4d;
+      border: 1px solid #FCD572;
+      background-color: #FCD572;
       color: #fff;
     }
   }
@@ -205,19 +206,20 @@ export const btnBox = css`
 export const hobbyBox = css`
   box-sizing: border-box;
   width: 100%;
-  background-color: #cfcfcf;
+  border: 1px solid #4d4d4d;
   padding: 10px;
   border-radius: 5px;
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 
   & > input {
     display: none;
   }
 
   & > input:checked + label {
-    background-color: #4d4d4d;
+    background-color: #FF7B54;
+    border: 1px solid #FF7B54;
     color: #fff;
   }
 
@@ -228,11 +230,13 @@ export const hobbyBox = css`
     margin: 5px;
     border-radius: 20px;
     background-color: #fff;
+    border: 1px solid #4d4d4d;
     color: #000;
     cursor: pointer;
 
     &:hover {
-      background-color: #4d4d4d;
+      background-color: #FF7B54;
+      border: 1px solid #FF7B54;
       color: #fff;
     }
   }
@@ -321,7 +325,7 @@ export const userImgGroup = css`
     cursor: pointer;
     transition: background-color 0.3s;
     background-color: #9d9d9d;
-    z-index: 9999;
+    z-index: 1000;
 
     &:hover {
       background-color: #4f4f4f;
@@ -483,8 +487,8 @@ export const allSignUpBox = css`
 
   > .kakao {
     &:hover{
-      background-color: #FDDC3F;
-      border: 1px solid #FDDC3F;
+      background-color: #FEE500;
+      border: 1px solid #FEE500;
     }
   }
 
@@ -492,6 +496,41 @@ export const allSignUpBox = css`
     &:hover{
       background-color: #FF7B54;
       border: 1px solid #FF7B54;
+    }
+  }
+`;
+
+export const modalBox = css`
+  position: fixed;
+  bottom: 50%;
+  width: 500px;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1002;
+
+  > button {
+    width: 200px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #FF7B54;
+    border-radius: 5px;
+    color: #FF7B54;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #FF7B54;
+      color: #fff;
     }
   }
 `;

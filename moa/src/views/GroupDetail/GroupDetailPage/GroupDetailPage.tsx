@@ -13,6 +13,8 @@ import { GROUP_DETAIL_IMG_API, GROUP_DETAIL_MEETING_API, GROUP_DETAIL_USER_LIST_
 export default function GroupDetailPage() {
   const [ groupData, setGroupData ] = useState<MeetingGroup>();
   const [activeTab, setActiveTab] = useState<string>('');
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>('');
 
   const [cookies] = useCookies(["token"]);
   const { groupId } = useParams();
@@ -75,7 +77,8 @@ export default function GroupDetailPage() {
         if(!response.data.data) {
           navigate(`/group-join/join-group/${groupId}`)
         } else {
-          alert("이미 가입 된 모임입니다.")
+          setOpenModal(true);
+          setModalMessage('이미 가입 된 모임입니다.')
         }
       })
     } catch (error) {
@@ -159,6 +162,12 @@ export default function GroupDetailPage() {
           모임 참여 신청
         </button>
       </div>
+      {openModal && (
+        <div css={s.modalBox}>
+          {modalMessage}
+          <button onClick={() => setOpenModal(false)}>닫기</button>
+        </div>
+      )}
     </div>
   )
 }

@@ -17,6 +17,9 @@ function CreateReview() {
   const [cookies] = useCookies(["token"]);
   const navigate = useNavigate();
 
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>('');
+  const [postClear, setPostClear] = useState<boolean>(false);
   const [reviewImg, setReviewImg] = useState<any>(null);
   const [reviewData, setReviewData] = useState<Review>({
     reviewId: null,
@@ -133,12 +136,15 @@ function CreateReview() {
       }
     );
     if(response.data.result) {
-      alert("후기 등록 완료 !");
-      backPage();
+      setOpenModal(true);
+      setModalMessage('후기 등록 완료 !');
+      setPostClear(true);
     }
   } catch (error) {
     console.error(error);
-    alert('후기 등록에 실패하였습니다.');
+    setOpenModal(true);
+    setModalMessage('후기 등록에 실패하였습니다.');
+    setPostClear(false);
   }
 };
 
@@ -200,6 +206,16 @@ function CreateReview() {
         <button onClick={handleReset}>초기화</button>
         <button onClick={handlePostReviewData}>등록</button>
       </div>
+      {openModal && (
+        <div>
+          {modalMessage}
+          {postClear ? (
+            <button onClick={backPage}>닫기</button>
+          ) : (
+            <button onClick={() => setOpenModal(false)}>돌아가기</button>
+          )}
+        </div>
+      )}
     </div>
   )
 }

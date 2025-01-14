@@ -8,7 +8,7 @@ export const naviBar = css`
   width: 8%;
   padding: 10px;
   overflow: hidden;
-  background-color: #4b4b4b;
+  background-color: #FF7B54;
   display: flex;
   flex-direction: column;
   align-items: center;

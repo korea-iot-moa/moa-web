@@ -67,6 +67,9 @@ export default function SignUp() {
   const [hobbies, setHobbies] = useState<Hobby[]>([]);
   const [region, setRegion] = useState<Region | null>(null);
   const [userProfileImg, setUserProfileImg] = useState<any>(null);
+  const [clearModal, setClearModal] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>('');
+  const [signUpClear, setSignUpClear] = useState<boolean>(false);
 
   // 유효성 확인 상태 관리
   const [duplicateId, setDuplicateId] = useState<boolean>(false);
@@ -239,7 +242,7 @@ export default function SignUp() {
     // 이메일일 확인
     if (!signUpData.email || !emailRegex.test(signUpData.email)) {
       valid = false;
-      setValidEmail("※ 이메일 입력해주세요요");
+      setValidEmail("※ 이메일 입력해주세요");
     } else {
       setValidEmail("");
     }
@@ -255,7 +258,8 @@ export default function SignUp() {
     if (valid && duplicateId && duplicateNickName) {
       setPage((prev) => prev + 1);
     } else {
-      alert("정보입력 or 중복검사를 진행해주세요!!");
+      setClearModal(true)
+      setModalMessage("정보입력 or 중복검사를 진행해주세요!!")
     }
     console.log(signUpData);
   };
@@ -346,8 +350,6 @@ export default function SignUp() {
     });
 
     if (valid) {
-      console.log(signUpData);
-      console.log(signUpForm);
       try {
         const response = await axios.post(
           SIGN_UP_POST_API,
@@ -359,11 +361,14 @@ export default function SignUp() {
           }
         );
         console.log(response.data.data);
-        alert("회원가입이 완료되었습니다!");
-        navigate("/signIn");
+        setClearModal(true)
+        setModalMessage("회원가입이 완료되었습니다!")
+        setSignUpClear(true)
+        
       } catch (error) {
         console.error("Sign-up failed:", error);
-        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        setClearModal(true)
+        setModalMessage("회원가입에 실패했습니다. 다시 시도해주세요.")
       }
     }
   };
@@ -372,6 +377,11 @@ export default function SignUp() {
   const onSnsButtonClickHandler = (sns: 'kakao' | 'naver') => {
       window.location.href = `${SIGN_UP_SNS_API}${sns}`;
   };
+
+  const handleSignUpClear = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate('/signIn')
+  }
   
 
   return (
@@ -635,7 +645,7 @@ export default function SignUp() {
                 id="email"
                 value={signUpData.email}
                 onChange={handleInputChange}
-                placeholder="이메일 입력력"
+                placeholder="이메일 입력"
                 />
               </div>
 
@@ -739,17 +749,18 @@ export default function SignUp() {
                   autoWidth
                   label="지역"
                   sx={{
+                    zIndex: "1001",
                     "& .MuiSelect-root": {
                       borderColor: "#4d4d4d", // 기본 보더라인 색상
                     },
                     "&.Mui-focused .MuiSelect-root": {
-                      borderColor: "#4d4d4d", // 포커스 상태일 때 보더라인 색상
+                      borderColor: "#FF7B54", // 포커스 상태일 때 보더라인 색상
                     },
                     "& .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#4d4d4d", // 기본 보더라인 색상
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#4d4d4d", // 포커스 상태일 때 보더라인 색상
+                      borderColor: "#FF7B54", // 포커스 상태일 때 보더라인 색상
                     },
                   }}
                 >
@@ -787,6 +798,16 @@ export default function SignUp() {
           </>
         )}
       </div>
+      {clearModal && (
+        <div css={s.modalBox}>
+          {modalMessage}
+          {signUpClear ? (
+            <button onClick={handleSignUpClear}>완료</button>
+          ) : (
+          <button onClick={() => setClearModal(false)}>닫기</button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
