@@ -91,7 +91,7 @@ export default function HamburgerMenu() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton onClick={() =>navigator('/mypage/MembershipWithdrawal')} css={leaveBtnSt}>
+            <ListItemButton onClick={() =>navigator('/mypage/userInfo/MembershipWithdrawal')} css={leaveBtnSt}>
               <ListItemText  primary="회원탈퇴" />
             </ListItemButton>
           </ListItem>

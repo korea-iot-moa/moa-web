@@ -6,8 +6,6 @@ import './style.css'
 
 function MyPageStart() {
   const navigator = useNavigate();
-  const passwordValue = useUserInfoStore((state) => state.passwordValue);
-  const setPasswordValue = useUserInfoStore((state) => state.setPasswordValue);
   const errorMg = useUserInfoStore((state) => state.errorMg);
   const [cookies, setCookies] = useCookies(['password']);
 

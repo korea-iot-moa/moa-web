@@ -73,14 +73,14 @@ export const buttonDiv = css`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  button {
+  >div>button {
     background-color: rgba(0, 0, 0, 0);
     border: none;
   }
-  button:hover {
+  >div>button:hover {
     color: rgb(100, 100, 100)
   }
-  span {
+  >div>span {
     margin: 0px 5px;
   }
 `

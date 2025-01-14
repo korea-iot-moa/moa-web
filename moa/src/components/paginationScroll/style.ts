@@ -83,7 +83,6 @@ export const click =css`
   background-color: rgba(0, 0, 0, 0);
   border: none;
   transition: scale 0.1s;
-
   &:active {
     scale: calc(1.5);
   }

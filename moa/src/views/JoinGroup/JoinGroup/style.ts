@@ -107,6 +107,14 @@ export const resultContainer = css`
     height: 200px;
   } 
 `
+
+export const groupImg = css`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid #333;
+`
+
 export const groupDataDiv = css`
   /* border: 1px solid #333; */
   display: flex;

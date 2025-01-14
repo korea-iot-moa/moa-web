@@ -16,12 +16,13 @@ import { useCookies } from "react-cookie";
 import HobbyAndRegionCategory from "../SearchBar/categotybar/HobbyAndRegionCategory";
 import HamburgerMenu from "../../components/HamburgerMenu";
 import { INFORMATION_IMG } from "../../apis";
+import useCategoryBarStore from "../../stores/categoryBar.store";
 
 export default function InformationNaviBar() {
   const { nickName, profileImage, isAuthenticated, logout } = userAuthStore();
   const [cookies, setCookies, removeCookie] = useCookies(["token"]);
-  const [button, setButton] = useState<boolean>(true);
-  const [category, setCategory] = useState<boolean>(false);
+  const category = useCategoryBarStore((state) => state.isOpen);
+  const setCategory = useCategoryBarStore((state) => state.setIsOpne);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const navigator = useNavigate();
@@ -35,8 +36,7 @@ export default function InformationNaviBar() {
 
   //카테고리바 핸들러
   const handleClickButton = () => {
-    setButton((prev) => !prev);
-    setCategory((prev) => !prev);
+    setCategory(!category);
   };
 
   const handleMenuClick = () => {
@@ -71,7 +71,7 @@ export default function InformationNaviBar() {
             <IoSearchSharp fontSize="25px" />
           </div>
           <button css={s.categoryBtn} onClick={handleClickButton}>
-            카테고리{button ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
+            {category ? <span css={s.categoryBtnSpan}><p>카테고리</p><MdKeyboardArrowDown /></span> : <span css={s.categoryBtnSpan}><p>카테고리</p><MdKeyboardArrowUp /></span>}
           </button>
           {isAuthenticated ? (
             <div css={s.userBox} onClick={handleMenuClick}>
@@ -98,11 +98,8 @@ export default function InformationNaviBar() {
       </div>
       {menuOpen && <HamburgerMenu />}
 
-      <div css={s.categoryBox}>
-        <div></div>
-        <div></div>
-        {category ? <HobbyAndRegionCategory /> : null}
-      </div>
+      {category && <HobbyAndRegionCategory />}
+
     </div>
   );
 }

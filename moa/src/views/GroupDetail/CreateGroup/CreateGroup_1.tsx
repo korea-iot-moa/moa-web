@@ -54,7 +54,7 @@ const CreateGroup_1 = () => {
       meetingType: formData.meetingType,
       groupImage:formDetails.groupImage
     };
-    const url = `http://localhost:8080/api/v1/meeting-group`;
+    const url = `http://localhost:8081/api/v1/meeting-group`;
     if (cookies.token) {
       try {
         const response = await axios.post(url, postGroupRequestDto, {

@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import * as s from "./style";
-import { UserAnswer } from "../../../types";
+import { MeetingGroup, UserAnswer } from "../../../types";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import useGroupStore from "../../../stores/group.store";
 import { useNavigate, useParams } from "react-router-dom";
-import { JOIN_GROUP_ANSWER_POST_API } from "../../../apis";
+import { FIND_GROUP_GET_API, JOIN_GROUP_ANSWER_POST_API } from "../../../apis";
 
 const JoinGroupAnswer = () => {
   const { groupId } = useParams();
@@ -20,9 +19,31 @@ const JoinGroupAnswer = () => {
   });
 
   // 데이터를 유지 전달
-  const groupData = useGroupStore((state) => state.groupData);
   const [cookies] = useCookies(["token"]);
   const navigate = useNavigate();
+  const [groupData, setGroupData] = useState<MeetingGroup | null>(null);
+
+  const groupFetchData = async () => {
+    // 토큰 확인
+    if (!cookies.token) {
+      alert("로그인이 필요합니다.");
+      navigate("/signIn");
+      return;
+    }
+
+    try {
+      const responseGroup = await axios.get(`${FIND_GROUP_GET_API}${groupId}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        withCredentials: true,
+      });
+      const group = responseGroup.data.data;
+      setGroupData(group);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // 답변 데이터 전송 함수
   const fetchData = async () => {
@@ -47,10 +68,10 @@ const JoinGroupAnswer = () => {
     }
 
     try {
-      const response = await axios.post(
+      const responseAnswer = await axios.post(
         JOIN_GROUP_ANSWER_POST_API,
         {
-          groupId: groupData?.groupId,
+          groupId: groupId,
           userAnswer: groupAnswer.userAnswer,
         },
         {
@@ -61,9 +82,8 @@ const JoinGroupAnswer = () => {
         }
       );
 
-      const data = response.data.data;
-
-      setGroupAnswer(data);
+      const answer = responseAnswer.data.data;
+      setGroupAnswer(answer);
       navigate(`/group-join/join-group/${groupId}/group-user-answer/result`);
     } catch (error) {
       console.error("데이터 로딩 중 오류 발생:", error);
@@ -74,6 +94,7 @@ const JoinGroupAnswer = () => {
     if (!groupData) {
       console.log("로컬 스토리지에서 상태를 복원 중...");
     }
+    groupFetchData();
   }, [groupData]);
 
   // 사용자 답변 변경 핸들러
@@ -89,7 +110,7 @@ const JoinGroupAnswer = () => {
     <div>
       <h4 css={s.title}>모임 참여 신청</h4>
       <div css={s.container}>
-        <ul css={s.AnswerListBox} key={groupData?.groupId}>
+        <ul css={s.AnswerListBox} key={groupId}>
           <li css={s.questionTitle}>질문</li>
           <li css={s.questionContent}>{groupData?.groupQuestion}</li>
         </ul>
