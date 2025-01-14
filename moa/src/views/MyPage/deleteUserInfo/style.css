@@ -68,7 +68,7 @@
 /* 버튼 스타일 */
 .next-btn,
 .redirect-btn {
-  background-color: #ff7f27;
+  background-color: #FF7B54;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -76,7 +76,7 @@
   font-size: 16px;
   cursor: pointer;
   text-align: center;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
   display: block;
   width: 100%;
   max-width: 300px;
@@ -135,7 +135,7 @@
   margin-bottom: 20px;
   color: #333;
   text-align: center;
-  border-bottom: 2px solid #ff7f27;
+  border-bottom: 2px solid #FF7B54;
   padding-bottom: 10px;
 }
 
@@ -154,7 +154,7 @@
 
 /* 버튼 스타일 */
 .withdrawalButton {
-  background-color: #ff7f27;
+  background-color: #FF7B54;
   color: #fff;
   border: none;
   border-radius: 4px;

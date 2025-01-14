@@ -167,7 +167,7 @@ function HomeGroup() {
                             onClick={() => handleFetchData(data.groupId)}
                           >
                             {likedGroups.includes(data.groupId) ? (
-                              <BsHeartFill style={{ color: "red" }} />
+                              <BsHeartFill style={{ color: "#FF7B54" }} />
                             ) : (
                               <BsHeart />
                             )}

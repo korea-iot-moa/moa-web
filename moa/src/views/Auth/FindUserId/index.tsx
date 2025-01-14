@@ -8,7 +8,7 @@ function index() {
     <div>
     <Routes>
     <Route path="/" element={<FindUserId />} />
-    <Route path="/findUserId/:userName/:userBirthDate" element={<FindUserIdResult />} />
+    <Route path="/verify-find-userId" element={<FindUserIdResult />} />
     </Routes>  
     </div>
   )

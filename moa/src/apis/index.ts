@@ -34,7 +34,8 @@ export const MAIL_SEND_API = `http://localhost:8080/api/v1/mail/send`;
 export const RESET_PASSWORD_PUT_API = `http://localhost:8080/api/v1/users/resetPassword`;
 
 //FindUserIdResult
-export const Find_USERID_GET_API = `http://localhost:8080/api/v1/auth/userId`;
+export const Find_USERID_POST_API = `http://localhost:8080/api/v1/mail/send-find-userId`;
+export const Find_USERID_GET_API = `http://localhost:8080/api/v1/mail/verify-find-userId`;
 
 //SignIn
 export const SIGN_IN_API = `http://localhost:8080/api/v1/auth/login`;
@@ -68,6 +69,8 @@ export const GROUP_MAIN_IMG_API = `http://localhost:8080/image/`;
 
 //JoinGroupAnswer
 export const JOIN_GROUP_ANSWER_POST_API = `http://localhost:8080/api/v1/user-answers`;
+export const FIND_GROUP_GET_API = `http://localhost:8080/api/v1/meeting-group/`;
+export const JOIN_GROUP_ANSWER_IMG_API = `http://localhost:8080/image/`;
 
 //UserListPage
 export const USER_LIST_PAGE_GET_API = `http://localhost:8080/api/v1/user-list/`;
@@ -115,7 +118,9 @@ export const VOTE_RESULT_POST = `http://localhost:8080/api/v1/vote-results`;
 export const DELTE_USER_INFO_API = `http://localhost:8080/api/v1/users/user`;
 
 //GetUserInfo
-export const GET_USER_INFO_API = `http://localhost:8080/api/v1/users/user-id`;
+export const POST_USER_INFO_API = `http://localhost:8080/api/v1/users/user-id`;
+export const PUT_USER_INFO_API = `http://localhost:8080/api/v1/users/user-info`;
+export const GET_DUPLICATION_NICK_NAME_API = `http://localhost:8080/api/v1/users/duplication/`;
 export const GET_USER_INFO_IMG_API = `http://localhost:8080/image/`;
 
 //MypageReview

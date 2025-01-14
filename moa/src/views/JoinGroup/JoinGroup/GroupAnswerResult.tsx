@@ -1,18 +1,54 @@
 /** @jsxImportSource @emotion/react */
-import * as s from './style'
-import React from 'react'
-import useGroupStore from '../../../stores/group.store';
-import { useNavigate } from 'react-router-dom';
+import * as s from "./style";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { FIND_GROUP_GET_API, JOIN_GROUP_ANSWER_IMG_API } from "../../../apis";
+import moaLogo from "../../../images/moaLogo.png";
+import axios from "axios";
+import { MeetingGroup } from "../../../types";
+import { useCookies } from "react-cookie";
 
 function GroupAnswerResult() {
-  const groupData = useGroupStore((state) => state.groupData);
+  const { groupId } = useParams();
+    const [cookies] = useCookies(["token"]);
+  const [groupData, setGroupData] = useState<MeetingGroup | null>(null);
   const navigator = useNavigate();
 
-  
+  const fetchData = async() => {
+    try{ 
+      const responseGroup = await axios.get(`${FIND_GROUP_GET_API}${groupId}`, 
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          withCredentials: true,
+        } 
+      );
+
+      setGroupData(responseGroup.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div css={s.container}>
       <div css={s.resultContainer}>
-        <img src={groupData?.groupImage} alt="groupData?.groupImage" />
+        <div css={s.groupImg}>
+        <img
+          src={
+            groupData?.groupImage
+              ? `${JOIN_GROUP_ANSWER_IMG_API}${groupData?.groupImage}`
+              : moaLogo
+          }
+          alt="groupData?.groupImage"
+          css={s.groupImg}
+        />
+        </div>
         <div css={s.groupDataDiv}>
           <div>{groupData?.groupTitle}</div>
           <ul css={s.dateBox}>
@@ -21,11 +57,13 @@ function GroupAnswerResult() {
           </ul>
         </div>
       </div>
-        <div css={s.line3}></div>
-        <p css={s.p}>모임 참여 신청이 완료됐습니다.</p>
-        <button onClick={() => navigator(-3)} css={s.button}>확인완료</button>
+      <div css={s.line3}></div>
+      <p css={s.p}>모임 참여 신청이 완료됐습니다.</p>
+      <button onClick={() => navigator(-3)} css={s.button}>
+        확인완료
+      </button>
     </div>
-  )
+  );
 }
 
-export default GroupAnswerResult
+export default GroupAnswerResult;

@@ -25,7 +25,7 @@ export const searchBarLine = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1.2px solid #ddd;
+  border-bottom: 1.2px solid #FF7B54;
 `
 
 export const searchBtn = css`
@@ -33,8 +33,11 @@ export const searchBtn = css`
   margin: 0px 10px 0px 10px;
   background-color: rgba(0, 0, 0, 0);
   border: none;
-  color: #777;
+  color: #FF7B54;
   cursor: pointer;
+  &:active{
+    color:rgb(250, 86, 37);
+  }
 `
 
 export const searchInput = css`
@@ -51,30 +54,38 @@ export const searchTitleList = css`
   list-style: none;
   margin-top: 40px;
 
-  li {
+  >li {
     border-bottom: 2px solid #eee;
     margin-bottom: 15px;
     padding: 0px 0px 5px 10px;
     transition: border-bottom 0.2s;
   }
-  li:hover {
-    border-bottom: 2px solid rgb(252, 86, 44);
+  >li:hover {
+    border-bottom: 2px solid #FF7B54;
     font-weight: 600;
   }
 
-  button {
+  >li>button {
     background-color: rgba(0, 0, 0, 0);
     border: none;
     color: rgb(102, 102, 102);
   }
-  button:hover {
+  li>button:hover {
     color: rgb(0, 0, 0);
   }
 `
 
 //HobbyAndRegionCategory
+export const mainContainer = css`
+  position: absolute;
+  top: 100%;
+  right: 160px;
+  transform: translateX(0); 
+  min-width: 500px;
+`
+
 export const categorybox = css`
-  background-color: rgb(240, 240, 240);
+  background-color: #fff;
   width: 420px;
   box-sizing: border-box;
   margin-top: 0px;
@@ -83,31 +94,42 @@ export const categorybox = css`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: flex-end;
+  box-shadow: 0px 8px 6px 2px rgba(0,0,0,0.1);
 `
 export const ulStyle = css`
   list-style: none;
+  width: 330px;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   margin: 0px;
   padding: 0px;
 `
 export const buttonStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   border-radius: 5px;
   font-size: 11px;
   height: 21px;
   margin: 5px;
+  padding: 5px;
 `
 export const cateogyTitle = css`
+width: 360px;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
+margin-top: 20px;
+margin-left: 20px;
 `
 export const categorySearchBtn = css`
+width: 50px;
   margin: 10px; 
   border: none;
   border-radius: 5px;
-  background-color: rgb(194, 189, 189);
+  background-color: #FF7B54;
+  color: #fff;
+  padding: 3px;
+  box-sizing: border-box;
 `
