@@ -66,6 +66,10 @@ export const click =css`
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  transition: scale 0.1s;
+  &:active {
+    scale: calc(1.5);
+  }
 `
 
 export const imgDiv = css`
@@ -77,4 +81,8 @@ export const imgDiv = css`
 export const img = css`
   width: 100%;
   height: 100%;
+  transition: scale 0.1s;
+  &:hover{
+    scale: calc(1.2);
+  }
 `

@@ -9,30 +9,9 @@ import { DELTE_USER_INFO_API } from "../../../apis";
 function DeleteUserInfo() {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [passwordValue, setPasswordValue] = useState({ password: "" });
-  const [cookies] = useCookies(["token", "isChecked"]);
+  const [cookies] = useCookies(["token", "password", "isChecked"]);
   const navigator = useNavigate();
 
-  const fetchData = async () => {
-    console.log(passwordValue.password);
-    if (cookies.token) {
-      try {
-        const response = await axios.delete(
-          DELTE_USER_INFO_API,
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-            data: { password: passwordValue.password },
-          }
-        );
-        setUserInfo(response.data.data);
-      } catch (error) {
-        console.error("데이터 로딩중 오류 발생");
-      }
-    }
-  };
-  console.log(cookies.isChecked);
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswordValue((prev) => ({
@@ -41,11 +20,44 @@ function DeleteUserInfo() {
     }));
   };
 
-  const handleDeleteUserInfo = async () => {
-    const confirmed = window.confirm("탈퇴 하시겠습니까?");
-    if (confirmed) {
-      await fetchData(); // 서버에 탈퇴 요청
-      navigator("/"); // 홈 페이지로 이동
+  const handleDeleteFetchData = async (
+    e:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if ("key" in e && e.key !== "Enter") return;
+    
+    if(passwordValue.password === null) {
+      alert("비밀번호를 입력해주세요.");
+    }
+    
+    if (cookies.token) {
+      try {
+        const comfirmed = window.confirm("탈퇴 하시겠습니까?");
+        if (!comfirmed) return;
+
+        const response = await axios.delete(DELTE_USER_INFO_API, {
+          data: { password: passwordValue.password },
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          withCredentials: true,
+        });
+
+
+        if (response.data.data === null) {
+          alert("탈퇴가 완료되었습니다.");
+          navigator('/');
+          localStorage.removeItem("token");
+          sessionStorage.removeItem("token");
+          document.cookie = "token=; Max-Age=0; path=/;";
+        } else {
+          alert("응답 데이터가 올바르지 않습니다.");
+        }
+      } catch (error) {
+        console.error("데이터 로딩중 오류 발생");
+        alert("탈퇴 실패했습니다. 다시 시도해주세요.");
+      }
     }
   };
 
@@ -61,21 +73,19 @@ function DeleteUserInfo() {
             name="password"
             value={passwordValue.password}
             onChange={handlePasswordChange}
+            onKeyDown={handleDeleteFetchData}
           />
-          <button className="withdrawalButton" onClick={handleDeleteUserInfo}>
+          <button className="withdrawalButton" onClick={handleDeleteFetchData}>
             탈퇴하기
           </button>
         </div>
       ) : (
         <div className="errorSection">
           <p className="errorMessage">
-            잘못된 접근방법입니다. 회원 탈퇴 확인 페이지로 이동하세요.
+            잘못된 접근방법입니다. 홈화면으로 페이지로 이동하세요.
           </p>
-          <button
-            className="redirectButton"
-            onClick={() => navigator("/mypage/userInfo/MembershipWithdrawal")}
-          >
-            탈퇴확인 페이지로 이동
+          <button className="redirectButton" onClick={() => navigator("/main")}>
+            홈으로 이동
           </button>
         </div>
       )}

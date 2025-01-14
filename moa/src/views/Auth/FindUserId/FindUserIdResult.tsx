@@ -1,75 +1,75 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { User } from "../../../types";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as s from "./style";
 import { Find_USERID_GET_API } from "../../../apis";
 
 function FindUserIdResult() {
-  const { userName, userBirthDate } = useParams<{
-    userName: string;
-    userBirthDate: string;
-  }>();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [result, setResult] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
   // 불일치여부 확인
   const [isdata, setIsData] = useState<boolean>(false);
-  const navigate = useNavigate();
 
-  const fetchData = async () => {
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    console.log(token);
+    if (!token) {
+      console.error("토큰이 없습니다.");
+      alert("유효하지 않는 요청입니다.");
+    }
+
+    fetchData(token);
+  }, [location]);
+
+  const fetchData = async (token: string | null) => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        Find_USERID_GET_API,
-        {
-          params: { userName, userBirthDate },
-        }
-      );
+      const response = await axios.get(`${Find_USERID_GET_API}?token=${token}`);
       const userIdData = response.data.data;
-      setResult(userIdData);
-      setIsData(true);
-      if (userIdData.length > 0) {
+      if (userIdData) {
+        setResult(userIdData);
+        setIsData(true);
+      } else {
         setIsData(false);
       }
     } catch (error) {
-      console.error("데이터 로딩중 오류: ", error);
+      console.error("API 요청 오류:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const hideUserId = (id: string | undefined) => {
-    const sliceId = id?.slice(0, -4);
-    const changeId = "*".repeat(4);
-    return sliceId + changeId;
-  };
-
-  const changeUserId = hideUserId(result?.userId);
   return (
     <div css={s.findUserIdContainer}>
       <h4 css={s.findUserIdTitle}>아이디 찾기</h4>
       <div css={s.findUserIdResultBox}>
-      {loading ? (
-        <p>로딩중....</p>
-      ) : isdata ? (
-        <>
-        <ul css={s.findUserIdResultUl}>
-          <li>"{result?.userName}" 님의 아이디는</li>
-          <li>
-            <p>{changeUserId}  입니다.</p>
-          </li>
-        </ul>
-        <div css={s.findUserIdResultline}></div>
-        <button css={s.findUserIdResultBtn} onClick={() => navigate('/signIn')}>로그인하기기</button>
-        </>
-      ) : (
-        <p>죄송합니다. 아이디를 찾을 수 없습니다.</p>
-      )}     
+        {loading ? (
+          <p>로딩중....</p>
+        ) : isdata ? (
+          <>
+            <ul css={s.findUserIdResultUl}>
+              <li>{result?.userName} 님의 아이디는</li>
+              <li>
+                <p>{result?.userId} 입니다.</p>
+              </li>
+            </ul>
+            <div css={s.findUserIdResultline}></div>
+            <button
+              css={s.findUserIdResultBtn}
+              onClick={() => navigate("/signIn")}
+            >
+              로그인하기기
+            </button>
+          </>
+        ) : (
+          <p>죄송합니다. 아이디를 찾을 수 없습니다.</p>
+        )}
       </div>
     </div>
   );

@@ -6,7 +6,10 @@ import axios from "axios";
 import { User } from "../../../types";
 import userImg from "../../../images/userImg.png";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
-import { GET_USER_INFO_API, GET_USER_INFO_IMG_API } from "../../../apis";
+import { POST_USER_INFO_API, GET_USER_INFO_IMG_API, PUT_USER_INFO_API, GET_DUPLICATION_NICK_NAME_API } from "../../../apis";
+import { IoCall } from "react-icons/io5";
+import "./style.css"
+import userAuthStore from "../../../stores/auth.store";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
@@ -16,6 +19,9 @@ const GetUserInfo = () => {
   const [userProfileImg, setUserProfileImg] = useState<any>(null);
   const setErrorMg = useUserInfoStore((state) => state.setErrorMg);
 
+  // 현재 내용 수정 여부
+  const [isChanged, setIsChanged] = useState(false);
+
   // 닉네임 초기값 상태 저장
   const [initialNickName, setInitialNickName] = useState<string | null>(null);
 
@@ -24,6 +30,7 @@ const GetUserInfo = () => {
   const [duplicatoinNickNameMs, setDuplicationNickNameMs] = useState<string>("");
 
   useEffect(() => {
+    
     fetchUserInfo();
   }, [cookies.password, navigate]);
 
@@ -38,7 +45,7 @@ const GetUserInfo = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        GET_USER_INFO_API,
+        POST_USER_INFO_API,
         { password: cookies.password },
         {
           headers: {
@@ -46,9 +53,17 @@ const GetUserInfo = () => {
           },
         }
       );
-      setUserInfo(response.data.data);
+      const updateUser = response.data.data;
+      setUserInfo(updateUser);
       setUserProfileImg(`${GET_USER_INFO_IMG_API}${response.data.data.profileImage}`);
       setInitialNickName(response.data.data.nickName); 
+
+      // 상태 업데이트
+      userAuthStore.getState().login({
+        userId: updateUser.userId,
+        nickName: updateUser.nickName,
+        profileImage: updateUser.profileImage,
+      });
 
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
@@ -62,6 +77,13 @@ const GetUserInfo = () => {
   // 사용자 정보 업데이트
   const updateUserInfo = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    
+    if(!isChanged) {
+      alert("수정된 내용이 없습니다.");
+    } else {
+      const comfirmed = window.confirm("수정 하시겠습니까?");
+      if (!comfirmed) return;
+    }
 
     if (!userInfo) {
       alert("수정할 사용자 정보가 없습니다.");
@@ -78,7 +100,7 @@ const GetUserInfo = () => {
       });
 
       const response = await axios.put(
-        "http://localhost:8081/api/v1/users/user-info",
+        PUT_USER_INFO_API,
         formData,
         {
           headers: {
@@ -91,9 +113,11 @@ const GetUserInfo = () => {
         alert("닉네임 중복 확인을 완료해주세요.");
         return;
       }
-      if (!userInfo)
       setUserInfo(response.data.data);
-      alert("정보가 성공적으로 수정되었습니다.");
+    if (isChanged && userInfo) {
+      alert("수정완료 되었습니다.");
+    }
+
     } catch (error) {
       console.error("정보 수정 중 오류 발생:", error);
       alert("정보 수정에 실패했습니다. 다시 시도해주세요.");
@@ -112,7 +136,7 @@ const GetUserInfo = () => {
     
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/users/duplication/${userInfo?.nickName}`,
+        `${GET_DUPLICATION_NICK_NAME_API}${userInfo?.nickName}`,
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
@@ -144,6 +168,7 @@ const GetUserInfo = () => {
         setUserProfileImg(e.target?.result || null);
       };
       reader.readAsDataURL(file);
+      setIsChanged(true);
   }
   };
 
@@ -157,6 +182,8 @@ const GetUserInfo = () => {
       setDuplicationNickName(false);
       setDuplicationNickNameMs("중복 확인이 필요합니다.");
     }
+
+    setIsChanged(true);
   };
 
   return (
@@ -168,47 +195,58 @@ const GetUserInfo = () => {
             <p>로딩 중...</p>
           ) : userInfo ? (
             <ul className="userInfoUl">
+            <li className="imgBox">
+              <span>프로필 이미지</span>
+              <div className="imgDiv">
+                <div className="imgBackroundColor">
+              {!userProfileImg ? (
+                    <img src={userImg} alt="userImage"  className="userImg"/>
+                  ) : (
+                    <img
+                      src={userProfileImg}
+                      alt="profileImage"
+                      className="userImg"
+                    />
+                  )}
+                </div>
+                  <label className="imgUpdateBtn" htmlFor="profileImage">
+                    <span className="photoIconSpan"><MdOutlineAddPhotoAlternate className="photoIcon" /></span>
+                  </label>
+                  <input
+                  type="file"
+                  id="profileImage"
+                  name="profileImage"
+                  className="profileInput"
+                  onChange={handleImgFileChange}
+                />
+              </div>
+            </li>
               <li className="userInfoUldetail">
+                <div className="divInLI">
                 <span className="userTitleli">아이디</span>
-                <span className="userli">{userInfo.userId}</span>
-              </li>
-              <li className="userInfoUldetail">
+                <span className="userliSmall">{userInfo.userId}</span>
+                </div>
+                <div className="divInLI">
                 <span className="userTitleli">이름</span>
                 <input
-                  className="userli"
+                  className="userliSmall"
                   type="text"
                   name="userName"
                   value={userInfo.userName}
                   placeholder={userInfo.userName}
                   onChange={handleChangeInfo}
                 />
-              </li>
-              <li className="duplicationMsgLi">
-                <div className="nickNameDiv">
-                <span className="nickNameBox">닉네임</span>
-                  <div className="nickNameInputBtn">
-                  <input
-                    className="userli nickNameInput"
-                    type="text"
-                    name="nickName"
-                    value={userInfo.nickName}
-                    placeholder={userInfo.nickName}
-                    onChange={handleChangeInfo}
-                  />
-                  <button
-                    className="duplicationNickNameBtn"
-                    onClick={handleDulicationNickName}
-                  >
-                    중복확인
-                  </button>
-                  </div>
                 </div>
-                <span className="duplicationMsg">{duplicatoinNickNameMs}</span>
               </li>
               <li className="userInfoUldetail">
-                <span className="addressBox">주소</span>
+                <div className="divInLI">
+                <span className="userTitleli">성별</span>
+                <span className="userliSmall">{userInfo.userGender}</span>
+                </div>
+                <div className="divInLI">
+                <span className="userTitleli">주소</span>
                 <select
-                  className="userli addressSelectUI"
+                  className="userliSmall addressSelectUI"
                   name="region"
                   value={userInfo.region || ""}
                   onChange={handleChangeInfo}
@@ -240,36 +278,52 @@ const GetUserInfo = () => {
                     </option>
                   ))}
                 </select>
+                </div>
+                  
+              </li>
+              <li className="duplicationMsgLi">
+                <div className="nickNameDiv">
+                <span className="nickNameBox">닉네임</span>
+                  <div className="nickNameInputBtn">
+                  <input
+                    className="userli nickNameInput"
+                    type="text"
+                    name="nickName"
+                    value={userInfo.nickName}
+                    placeholder={userInfo.nickName}
+                    onChange={handleChangeInfo}
+                  />
+                  <button
+                    className="duplicationNickNameBtn"
+                    onClick={handleDulicationNickName}
+                  >
+                    중복확인
+                  </button>
+                  </div>
+                </div>
+                <span className="duplicationMsg">{duplicatoinNickNameMs}</span>
               </li>
               <li className="userInfoUldetail">
-                <span className="genderBox">성별</span>
-                <span className="userli">{userInfo.userGender}</span>
+                <span className="userTitleli"><IoCall /></span>
+                <input
+                  className="userli"
+                  type="text"
+                  name="phoneNumber"
+                  value={userInfo.phoneNumber}
+                  placeholder={userInfo.phoneNumber}
+                  onChange={handleChangeInfo}
+                />
               </li>
-              <li className="imgBox">
-                <span>프로필 이미지</span>
-                <div className="imgDiv">
-                  <div className="imgBackroundColor">
-                {!userProfileImg ? (
-                      <img src={userImg} alt="userImage"  className="userImg"/>
-                    ) : (
-                      <img
-                        src={userProfileImg}
-                        alt="profileImage"
-                        className="userImg"
-                      />
-                    )}
-                  </div>
-                    <label className="imgUpdateBtn" htmlFor="profileImage">
-                      <MdOutlineAddPhotoAlternate style={{margin:'0px', padding:'0px', fontSize: '30px'}}/>
-                    </label>
-                    <input
-                    type="file"
-                    id="profileImage"
-                    name="profileImage"
-                    className="profileInput"
-                    onChange={handleImgFileChange}
-                  />
-                </div>
+              <li className="userInfoUldetail">
+                <span className="userTitleli">E-mail</span>
+                <input
+                  className="userli"
+                  type="text"
+                  name="email"
+                  value={userInfo.email}
+                  placeholder={userInfo.email}
+                  onChange={handleChangeInfo}
+                />
               </li>
               <li className="userInfoButtons">
                 <button className="updateBtn" onClick={updateUserInfo}>

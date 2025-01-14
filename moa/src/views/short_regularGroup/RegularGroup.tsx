@@ -21,7 +21,7 @@ function RegularGroup() {
     };
   
     const btnStyle = (button: string) => ({
-      color: btnStatus === button ? "red" : "black" 
+      color: btnStatus === button ? "#FF7B54" : "black" 
     })
   
     const buttons = [
