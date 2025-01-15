@@ -11,11 +11,11 @@ export const openModalButton = css`
   padding: 0px 0px 0px 0px; 
   font-size: 16px;
   font-family: "IBM Plex Sans", sans-serif;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  background-color:rgb(9, 28, 36);
+  background-color:rgb(237, 152, 52);
   width: 15%;
   padding: 8px 10px;
   margin: 5px;
@@ -29,7 +29,7 @@ export const openModalButton = css`
   }
 
   &:focus {
-    color: #fff;
+    color: #000;
     outline: 3px solid #DAE2ED;
   }
 
@@ -67,26 +67,33 @@ export const closeModalButton = css`
   padding: 0px 0px 0px 0px; 
   font-size: 16px;
   font-family: "IBM Plex Sans", sans-serif;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  background-color:rgb(128, 132, 138);
-  width: 15%;
+  background-color:rgb(250, 221, 195);
+  width: 20%;
   padding: 8px 10px;
   margin: 5px;
   border: none;
   border-radius: 7px;
   text-align: center;
+  &:hover {
+    background-color: #B0B8C4;
+  }
+  &:focus {
+    color: #fff;
+    outline: 3px solid #DAE2ED;
+  }
 `
 
 export const Botton =css `
   font-family: "IBM Plex Sans", sans-serif;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  background-color:rgb(9, 28, 36);
+  background-color:rgb(252, 138, 3);
   width: 15%;
   padding: 8px 10px;
   margin: 5px;

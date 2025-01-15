@@ -20,16 +20,10 @@ import Report from "./Report/Report";
 import Approved from "./Approved/index";
 import GroupUpdate from "./GroupUpdate/GroupUpdate";
 
-
-
 export default function Index() {
   const { groupId } = useParams();
-  console.log(groupId);
-  // const navigator = useNavigate();
+
   const parseToNumGroupId = Number(groupId);
-
-
-
 
   return (
     <div>
@@ -45,25 +39,25 @@ export default function Index() {
         </TabsList>
         <TabPanel value={0}>
           {/* 각 컴포넌트에 index.tsx 해당 파일에 있는 groupId값을 props로 전달하기 */}
-          <ManagerHome  parseToNumGroupId={parseToNumGroupId}/>
+          <ManagerHome parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
         <TabPanel value={1}>
-          <Chart  parseToNumGroupId={parseToNumGroupId}/>
+          <Chart parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
         <TabPanel value={2}>
-          <Vote  parseToNumGroupId={parseToNumGroupId}/>
+          <Vote parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
         <TabPanel value={3}>
           <BlackList parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
         <TabPanel value={4}>
-          <Report  parseToNumGroupId={parseToNumGroupId}/>
+          <Report parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
         <TabPanel value={5}>
-          <Approved parseToNumGroupId={parseToNumGroupId}/>
+          <Approved parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
         <TabPanel value={6}>
-          <GroupUpdate parseToNumGroupId={parseToNumGroupId}/>
+          <GroupUpdate parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
       </Tabs>
     </div>
@@ -74,7 +68,7 @@ const theme = createTheme({
   palette: {
     mode: "light", // 또는 'dark'
     grey: {
-      50: "#F3F6F9",
+      50: "#fff",
       100: "#E5EAF2",
       200: "#DAE2ED",
       300: "#C7D0DD",
@@ -90,11 +84,11 @@ const theme = createTheme({
 
 const Tab = styled(BaseTab)`
   font-family: "IBM Plex Sans", sans-serif;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  background-color: transparent;
+  background-color: #fff;
   width: 100%;
   padding: 10px 12px;
   margin: 10px;
@@ -104,16 +98,16 @@ const Tab = styled(BaseTab)`
   justify-content: space-evenly;
 
   &:hover {
-    background-color: #0a3140;
+    background-color: #f7ac57;
   }
 
   &:focus {
-    color: #fff;
+    color: #000;
     outline: 3px solid ${grey[200]};
   }
 
   &.${tabClasses.selected} {
-    background-color: #fff;
+    background-color: #f7ac57;
     color: ${grey[600]};
   }
 
@@ -129,8 +123,8 @@ const TabPanel = styled(BaseTabPanel)<{ theme?: Theme }>(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 16px;
   padding: 20px 12px;
-  ackground: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-  border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+  ackground: ${theme.palette.mode === "dark" ? grey[900] : "#000"};
+  border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[50]};
   border-radius: 12px;
   opacity: 0.6;
   `
@@ -139,7 +133,7 @@ const TabPanel = styled(BaseTabPanel)<{ theme?: Theme }>(
 const TabsList = styled(BaseTabsList)<{ theme?: Theme }>(
   ({ theme }) => `
   min-width: 400px;
-  background-color: ${grey[400]};
+  background-color: ${grey[50]};
   border-radius: 12px;
   margin-bottom: 16px;
   display: flex;

@@ -20,6 +20,7 @@ import {
 import userImg from "../../../images/userImg.png";
 import { UserList } from "../../../types";
 import { PostUserLevelRequestDto } from "../../../types/dto/request.dto";
+import { MANGE_HOME_DELTE_API, MANGE_HOME_GET_API, MANGE_HOME_PUT_API } from "../../../apis";
 
 interface ManagerHomeProps {
   parseToNumGroupId: number;
@@ -51,7 +52,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/user-list/${parseToNumGroupId}`,
+          `${MANGE_HOME_GET_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -74,7 +75,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
       userLevel: selectedLevel,
     };
 
-    const url = `http://localhost:8080/api/v1/user-list/userLevel/${parseToNumGroupId}`;
+    const url = `${MANGE_HOME_PUT_API}${parseToNumGroupId}`;
     if (cookies.token) {
       try {
         const reponse = await axios.put(url, putUserLevelRequestDto, {
@@ -102,7 +103,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         await axios.delete(
-          `http://localhost:8080/api/v1/user-list/van/${parseToNumGroupId}?userId=${userId}`,
+          `${MANGE_HOME_DELTE_API}${parseToNumGroupId}?userId=${userId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
