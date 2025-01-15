@@ -20,7 +20,7 @@ const UserListPage: React.FC<UserListProps> = ({ groupInfo }) => {
   //& 유저 리스트 호출
   useEffect(() => {
     try{
-      axios.get(`http://localhost:8080/api/v1/user-list/${groupInfo.groupId}`, {
+      axios.get(`http://localhost:8081/api/v1/user-list/${groupInfo.groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -48,7 +48,7 @@ const UserListPage: React.FC<UserListProps> = ({ groupInfo }) => {
             {!user.profileImage ? (
               <img src={userImg} alt="userImage" css={s.userImg} />
             ) : (
-              <img src={"http://localhost:8080/image/" + user.profileImage} alt="profileImage" css={s.userImg} />
+              <img src={"http://localhost:8081/image/" + user.profileImage} alt="profileImage" css={s.userImg} />
             )}
             </div>
           </div>

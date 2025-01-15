@@ -137,7 +137,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
             {!data.profileImage ? (
               <img src={userImg} alt="userImage" css={s.userImg} />
             ) : (
-              <img src={"http://localhost:8080/image/" + data.profileImage} alt="profileImage" css={s.userImg} />
+              <img src={"http://localhost:8081/image/" + data.profileImage} alt="profileImage" css={s.userImg} />
             )}
             </div>
           </div>

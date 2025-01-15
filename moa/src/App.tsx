@@ -17,7 +17,7 @@ import SignIn from "./views/Auth/SignIn/SignIn";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
-import * as p from "./contants";
+import * as p from "./constants";
 import GroupHeader from "./views/JoinGroup/GroupHeader";
 import SearchResult from "./layouts/SearchBar";
 import CategorySearchList from "./layouts/SearchBar/categotybar/CategorySearchList";

@@ -1,39 +1,42 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
 import * as s from "../resultStyle";
-import usePaginationScroll from "../../../components/paginationScroll/usePaginationScroll";
+import usePaginationScroll from "../../../components/paginationScroll/usePaginationScrollhook";
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/paginationScroll/PaginationScroll";
 import { CATEGORY_GET_API } from "../../../apis";
 
 function CategorySearchList() {
-  const { groupCategory, region} = useParams<{ groupCategory?: string; region?: string }>();
-  const groupCategoryWord = groupCategory || '';
-  const regionWord = region || '';
+  const { groupCategory, region } = useParams<{
+    groupCategory?: string;
+    region?: string;
+  }>();
+  const groupCategoryWord = groupCategory || "";
+  const regionWord = region || "";
   const { data, loading, resetAndFetchData } = usePaginationScroll({
     apiUrl: CATEGORY_GET_API,
     limit: 10,
-    extraParams: { groupCategory:groupCategoryWord, region: regionWord },
+    extraParams: { groupCategory: groupCategoryWord, region: regionWord },
   });
 
-  const [btnStatus, setBtnStatus] = useState<string>('default');
-  
+  const [btnStatus, setBtnStatus] = useState<string>("default");
+
   // 모임필터 핸들러
-    const handleSortChange = (sortBy: string) => {
-      setBtnStatus(sortBy);
-      resetAndFetchData(sortBy);
-    };
-  
-    const btnStyle = (button: string) => ({
-      color: btnStatus === button ? "red" : "black" 
-    })
-  
-    const buttons = [
-      { label: "기본순", sortBy: "default" },
-      { label: "최신순", sortBy: "recent" },
-      { label: "과거순", sortBy: "past" },
-      { label: "추천순", sortBy: "recommendation" },
-    ];
+  const handleSortChange = (sortBy: string) => {
+    setBtnStatus(sortBy);
+    resetAndFetchData(sortBy);
+  };
+
+  const btnStyle = (button: string) => ({
+    color: btnStatus === button ? "#FF7B54" : "black",
+  });
+
+  const buttons = [
+    { label: "기본순", sortBy: "default" },
+    { label: "최신순", sortBy: "recent" },
+    { label: "과거순", sortBy: "past" },
+    { label: "추천순", sortBy: "recommendation" },
+  ];
 
   return (
     <div css={s.container}>
@@ -44,29 +47,26 @@ function CategorySearchList() {
           <li>|</li>
           <li css={s.category}>{region}</li>
         </ul>
-      <div css={s.buttonDiv}>
-          {
-            buttons.map((button, index) => (
+        <div css={s.buttonContainer}>
+          <div css={s.buttonDiv}>
+            {buttons.map((button, index) => (
               <div key={index}>
-                <button style={btnStyle(button.sortBy)}
-                value={button.sortBy} 
-                onClick={() => handleSortChange(button.sortBy)}
+                <button
+                  style={btnStyle(button.sortBy)}
+                  value={button.sortBy}
+                  onClick={() => handleSortChange(button.sortBy)}
                 >
                   {button.label}
                 </button>
-                {index < buttons.length -1 &&  <span>|</span>}
+                {index < buttons.length - 1 && <span>|</span>}
               </div>
-            ))
-          }
-      </div>
-      <div css={s.resultLine}></div>
-      <div>
-        {loading ? (
-          <p>로딩 중...</p>
-        ) : (
-          <PaginationScroll datas={data}/>
-            )}
-      </div>
+            ))}
+          </div>
+        </div>
+        <div css={s.resultLine}></div>
+        <div>
+          {loading ? <p>로딩 중...</p> : <PaginationScroll datas={data} />}
+        </div>
       </div>
     </div>
   );

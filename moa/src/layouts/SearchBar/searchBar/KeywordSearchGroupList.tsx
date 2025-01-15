@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
 import * as s from '../resultStyle'
-import usePaginationScroll from "../../../components/paginationScroll/usePaginationScroll";
+import usePaginationScroll from "../../../components/paginationScroll/usePaginationScrollhook";
 import { useParams } from 'react-router-dom';
 import PaginationScroll from '../../../components/paginationScroll/PaginationScroll';
 import { KEYWORD_LIST_API } from '../../../apis';
@@ -24,7 +24,7 @@ function KeywordSearchGroupList() {
     };
   
     const btnStyle = (button: string) => ({
-      color: btnStatus === button ? "red" : "black" 
+      color: btnStatus === button ? "#FF7B54" : "black" 
     })
   
     const buttons = [

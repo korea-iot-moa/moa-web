@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
-import usePaginationScroll from '../../components/paginationScroll/usePaginationScroll';
+import usePaginationScroll from '../../components/paginationScroll/usePaginationScrollhook';
 import { useState } from "react";
+import { GROUP_TYPE_API } from "../../apis";
 
 function ShortGroup() {
   const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: "http://localhost:8080/api/v1/auth/meeting-group/groupType",
+    apiUrl: GROUP_TYPE_API,
     limit: 10,
     extraParams: {groupType: "단기모임"}
   });
@@ -20,7 +21,7 @@ function ShortGroup() {
   };
 
   const btnStyle = (button: string) => ({
-    color: btnStatus === button ? "red" : "black" 
+    color: btnStatus === button ? "#FF7B54" : "black" 
   })
 
   const buttons = [

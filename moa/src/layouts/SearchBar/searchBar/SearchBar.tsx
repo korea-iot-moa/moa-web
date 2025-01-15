@@ -1,12 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import * as s from "../style";
-import { IoClose, IoCloseSharp, IoSearchOutline } from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { MeetingGroup } from "../../../types";
-import { FaClosedCaptioning } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
 import { SEARCHBAR_GET_API } from "../../../apis";
 
 export default function SearchBar() {

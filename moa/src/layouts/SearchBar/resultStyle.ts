@@ -27,6 +27,7 @@ export const selectCategry =css`
   list-style: none;
   width: 150px;
   justify-content: space-around;
+  margin-top: 10px;
   `
 
 export const categoryList =css`
@@ -44,28 +45,35 @@ export const categoryList =css`
 
 export const category =css`
   border-radius: 5px;
-  background-color: orange;
-  padding: 5px;
+  background-color: #FF7B54;
+  padding: 5px 10px;
   box-sizing: border-box;
   color: white;
+  height: 25px;
+  line-height: 13px;
+  font-size: 13px;
+`
+export const buttonContainer = css`
+  width: 100%;
+  align-items: flex-end;
 `
 
 export const buttonDiv = css`
-  margin-top: 40px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  button {
+  >div>button {
     background-color: rgba(0, 0, 0, 0);
     border: none;
     
   }
 
-  button:hover {
+  >div>button:hover {
     color: rgb(100, 100, 100)
   }
-  span {
+  >div>span {
     margin: 0px 5px;
   }
 `

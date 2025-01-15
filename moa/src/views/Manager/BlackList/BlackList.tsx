@@ -102,7 +102,7 @@ const handleDeleteBlackList = async (groupId : number, userId: string) => {
 
   if (cookies.token) {
       try {
-          console.log(`Deleting groupId: ${groupId}, userId: ${userId}`);
+          
           const response = await axios.delete(url, {
               headers: {
                   Authorization: `Bearer ${cookies.token}`,

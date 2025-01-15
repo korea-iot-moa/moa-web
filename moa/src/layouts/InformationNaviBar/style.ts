@@ -4,10 +4,10 @@ import { css } from "@emotion/react";
 export const infoNaviBar = css`
   box-sizing: border-box;
   padding: 10px;
-  height: 90px;
+  height: 80px;
   width: 100%;
   overflow: hidden;
-  background-color: #cfcfcf;
+  background-color: #E7E7E7;
   border-radius: 0px 10px 0px 0px;
   display: flex;
   justify-content: space-between;
@@ -24,11 +24,11 @@ export const userInfoBox = css`
 
 export const userImgBox = css`
   margin-right: 0;
-  border: 2px solid #dbdbdb;
+  border: 2px solid #E7E7E7;
   box-sizing: border-box;
   width: 40px;
   height: 40px;
-  background-color: #ffffff;
+  background-color: #E7E7E7;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -60,7 +60,7 @@ export const userBox = css`
   align-items: center;
   gap: 10px;
   padding: 10px 20px;
-  background-color: #cfcfcf;
+  background-color: #E7E7E7;
   margin: 0 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -100,13 +100,13 @@ export const signBtn = css`
   padding: 5px 10px;
   margin: 10px;
   border-radius: 5px;
-  background-color: #cfcfcf;
+  background-color: #E7E7E7;
   border: 1px solid #0a3140;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
   &:hover{
-    background-color: #afafaf;
-    color: #fff;
-    border: 1px solid #fff;
+    transform: scale(1.1);
   }
 `;
 
@@ -124,8 +124,9 @@ export const naviDiv = css`
   align-items: center;
   border-radius: 10px;
   cursor: pointer;
+  transition: transform 0.3s ease;
   &:hover {
-    background-color: #c6c6c6;
+    transform: scale(1.1);
   }
 `;
 
@@ -156,6 +157,11 @@ export const mainContainer = css`
   border: 1px ;
   position: relative;
 `;
+
+export const categoryBtnSpan = css`
+  display: flex;
+  align-items: center;
+`
 
 export const iconSt = css`
   font-size: 24px;

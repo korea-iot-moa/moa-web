@@ -100,9 +100,9 @@ export default function ParticipationStatusPage() {
 
                 <div css={s.answerInfoBox}>
                   <div>
-                    {data.isApproved === 0 ? 
-                    <button onClick={() => handleCancellationRequest(data.answerId)}>내역 삭제</button> : 
-                    <button onClick={() => handleCancellationRequest(data.answerId)}>신청 취소</button>
+                    {data.isApproved === 2 ? 
+                    <button onClick={() => handleCancellationRequest(data.answerId)}>신청 취소</button> :
+                    <button onClick={() => handleCancellationRequest(data.answerId)}>내역 삭제</button> 
                     }
                     
                   </div>
