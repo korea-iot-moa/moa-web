@@ -19,6 +19,9 @@ export default function ReportPage() {
   const [cookies] = useCookies(["token"]);
   const navigate = useNavigate();
 
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>('');
+  const [postClear, setPostClear] = useState<boolean>(false);
   const [reportImg, setReportImg] = useState<any>(null);
   const [reportData, setReportData] = useState<PostReportDto>({
     groupId: groupIdNum,
@@ -112,14 +115,22 @@ export default function ReportPage() {
       }
     );
     if(response.data.result) {
-      alert("신고 등록 완료 !")
-      navigate(`/join-group/${groupId}`)
+      setOpenModal(true)
+      setModalMessage("신고 등록 완료");
+      setPostClear(true);
     }
   } catch (error) {
     console.error(error);
-    alert('신고 등록에 실패하였습니다.')
+    setOpenModal(true)
+    setPostClear(false);
+    setModalMessage("신고 등록에 실패하였습니다.");
   }
 };
+
+  const handleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(`/join-group/${groupId}`)
+  }
   
   return (
     <div css={s.fullBox}>
@@ -187,6 +198,16 @@ export default function ReportPage() {
         <button onClick={handleReset}>초기화</button>
         <button onClick={handlePostReportData}>등록</button>
       </div>
+      {openModal && (
+        <div css={s.modalBox}>
+          {modalMessage}
+          {postClear ? (
+            <button onClick={handleModal}>완료</button>
+          ) : (
+            <button onClick={() => setOpenModal(false)}>닫기</button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

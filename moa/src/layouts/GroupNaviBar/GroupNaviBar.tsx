@@ -55,40 +55,47 @@ export default function GroupNaviBar() {
 
 
   return (
-    <div css={s.naviBar}>
-      <div css={s.imageBox} onClick={() => navigator("/main")}>
-        <img src={logo} alt="로고" css={s.logoImage} />
-        <h1>MOA</h1>
-      </div>
-      <hr css={s.line} />
-    
-      {groupList.map((group) => (
-        <div
-          css={s.imageBox}
-          onClick={() => renderGroupPage(group.groupId)}
-          key={group.groupId}
-          style={{ marginBottom: "15px" }}
-          onMouseEnter={() => setHoveredGroupId(group.groupId)}
-          onMouseLeave={() => setHoveredGroupId(null)}
-        >
-          {hoveredGroupId === group.groupId ? (
-            <p>{group.groupTitle}</p> 
-          ) : (
-            <img
-              src={group.groupImage ? `${GROUP_NAV_IMG}${group.groupImage}` : `${defaultImg}`}
-              alt="그룹 이미지"
-              css={s.logoImage}
-            />
-          )}
+    <div css={s.fullBox}>
+      <div css={s.headerBox}>
+        <div css={s.imageBox} onClick={() => navigator("/main")}>
+          <img src={logo} alt="로고" css={s.logoImage} />
+          <h1>MOA</h1>
         </div>
-      ))}
+      </div>
+
+      <div css={s.middleBox}>
+        {groupList.map((group) => (
+          <div
+            css={s.imageBox}
+            onClick={() => renderGroupPage(group.groupId)}
+            key={group.groupId}
+            style={{ marginBottom: "15px" }}
+            onMouseEnter={() => setHoveredGroupId(group.groupId)}
+            onMouseLeave={() => setHoveredGroupId(null)}
+          >
+            {hoveredGroupId === group.groupId ? (
+              <p>{group.groupTitle}</p>
+            ) : (
+              <img
+                src={
+                  group.groupImage
+                    ? `${GROUP_NAV_IMG}${group.groupImage}`
+                    : `${defaultImg}`
+                }
+                alt="그룹 이미지"
+                css={s.logoImage}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
       {cookies.token && (
-      <div css={s.bottomBox}>
-        <hr css={s.line} />
-        <div onClick={() =>handleNext()} css={s.createBox}>
-          <FiPlusCircle css={s.createIcon}/>
+        <div css={s.bottomBox}>
+          <div onClick={() => handleNext()} css={s.createBox}>
+            <FiPlusCircle css={s.createIcon} />
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
