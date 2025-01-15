@@ -12,18 +12,19 @@ import groupImg  from '../../images/moaLogo.png';
 import { HOME_GROUP_AUTH_GET_API, HOME_GROUP_GET_API, HOME_GROUP_IMG_API, HOME_GROUP_RECOMMENDATION_DELETE_API, HOME_GROUP_RECOMMENDATION_GET_API, HOME_GROUP_RECOMMENDATION_POST_API } from "../../apis";
 
 function HomeGroup() {
-  const { userId } = userAuthStore();
   const [datas, setDatas] = useState<MeetingGroup[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [likedGroups, setLikedGroups] = useState<number[]>([]);
   const [cookies] = useCookies(["token"]);
   const navigator = useNavigate();
 
+  // 모임상세페이지 이동동
   const handleOpenGroup = (group: MeetingGroup | null) => {
     useGroupStore.getState().setGroupData(group); 
     navigator(`/meeting-group/${group?.groupId}`);
   };
 
+  // 홈화면 그룹리스트 로그인용/비로그인용용
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -51,6 +52,7 @@ function HomeGroup() {
     fetchData();
   }, []);
 
+  // 사용자 좋아요 리스트트 조회
   useEffect(() => {
     async function fetchLikes() {
       if (!cookies.token) return;
@@ -82,6 +84,7 @@ function HomeGroup() {
     );
   };
 
+  // 좋아요 등록/취소소
   const handleFetchData = async (groupId: number) => {
     if (!cookies.token) {
       alert("로그인 후 사용가능합니다.");
