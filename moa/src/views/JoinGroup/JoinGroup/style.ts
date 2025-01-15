@@ -16,17 +16,16 @@ export const title = css`
 export const p = css`
   font-size: 15px;
 ` 
-export const button = css`
+export const joinButton = css`
   border: none;
   border-radius: 5px;
   font-size: 12px;
   height: 50px;
+  background-color: #FF7B54;
+  margin-top: 10px;
   cursor: pointer;
   :hover {
-    background-color: rgb(200, 200, 200);
-  }
-  :active {
-    background-color: rgb(170, 170, 170);
+    background-color: #e5673b;
   }
 `
 
@@ -50,7 +49,6 @@ export const liststyle = css`
   }
 `
 export const line = css`
-  border: 1px solid #333;
   margin: 40px 0px 10px;
 `
 
@@ -78,7 +76,6 @@ export const answerTitle = css`
 `
 export const line2 = css`
   width: 100%;
-  border: 1px solid #333;
   margin: 30px 0px;
 `
 
@@ -92,42 +89,48 @@ export const answerContent = css`
   border-radius: 5px;
   font-size: 12px;
   padding: 5px;
-  border: 1px solid #333;
   outline: #333;
 `
 
 // GroupAnswerResult
 export const resultContainer = css`
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
   margin-top: 150px;
   width: 100%;
-  img{
-    width: 100%;
-    height: 200px;
-  } 
+  max-width: 700px;
+
+  gap: 10px;
 `
 
 export const groupImg = css`
-  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
   height: 150px;
   object-fit: cover;
-  border: 1px solid #333;
+  overflow: hidden;
+
+  `
+export const mainImg = css`
+  width: 100%;
 `
 
 export const groupDataDiv = css`
-  /* border: 1px solid #333; */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 200px;
   height: 200px;
   padding: 10px;
   box-sizing: border-box;
+  gap: 10px;
 `
 
 export const dateBox = css`
-  width: 55%;
+  width: 130px;
   display: flex;
   list-style: none;
   justify-content: space-between;

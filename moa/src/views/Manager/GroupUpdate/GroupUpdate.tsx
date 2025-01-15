@@ -68,7 +68,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
 
   //모임 정보 가져오기기
   const fetchGroupData = async () => {
-    const url = `http://localhost:8080/api/v1/auth/meeting-group/${parseToNumGroupId}`;
+    const url = `http://localhost:8081/api/v1/auth/meeting-group/${parseToNumGroupId}`;
 
     if (!cookies.token) {
       console.error("토큰이 없습니다. 데이터를 가져올 수 없습니다.");
@@ -128,7 +128,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
       putGroupRequestDto.append("groupImage", groupImg);
     }
 
-    const url = `http://localhost:8080/api/v1/meeting-group/${parseToNumGroupId}`;
+    const url = `http://localhost:8081/api/v1/meeting-group/${parseToNumGroupId}`;
     if (cookies.token) {
       try {
         const response = await axios.put(url, putGroupRequestDto, {
@@ -176,7 +176,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
   };
 
   const handleDeleteGroup = async () => {
-    const url = `http://localhost:8080/api/v1/meeting-group/${parseToNumGroupId}`;
+    const url = `http://localhost:8081/api/v1/meeting-group/${parseToNumGroupId}`;
     if (cookies.token) {
       try {
         await axios.delete(url, {

@@ -142,22 +142,13 @@ export const categoryBtn = css`
   background-color: rgba(0,0,0,0);
   border: none;
 `
-export const categoryBtnSpan = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-`
 export const categoryBox = css`
   display: flex;
-  width: 75%;
-  border: 1px solid #333;
   flex-direction: column;
   align-items: flex-end;
   position: absolute;
   z-index: 2;
   margin: 90px;
-  min-width: 580px;
 `;
 
 export const mainContainer = css`
@@ -166,6 +157,11 @@ export const mainContainer = css`
   border: 1px ;
   position: relative;
 `;
+
+export const categoryBtnSpan = css`
+  display: flex;
+  align-items: center;
+`
 
 export const iconSt = css`
   font-size: 24px;

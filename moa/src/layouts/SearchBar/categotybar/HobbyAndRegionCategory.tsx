@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "../style";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCategoryBarStore from "../../../stores/categoryBar.store";
 
@@ -49,7 +49,7 @@ const HobbyAndRegionCategory = () => {
   };
 
   return (
-    <div css = {s.mainContainer}>
+    <div css={s.mainContainer}>
       {category ? (
         <div css={s.categorybox}>
           <div css={s.cateogyTitle}>
@@ -114,7 +114,7 @@ const HobbyAndRegionCategory = () => {
             </ul>
           </div>
           {category && (
-            <div>
+            <div css={s.buttonDiv}>
               <button
                 css={s.categorySearchBtn}
                 onClick={handlefetchCategoryBtn}

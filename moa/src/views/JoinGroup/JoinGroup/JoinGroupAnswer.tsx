@@ -128,7 +128,7 @@ const JoinGroupAnswer = () => {
         </ul>
         <div css={s.line2}></div>
         <p css={s.p}>작성 완료 되셨나요?</p>
-        <button css={s.button} onClick={fetchData}>
+        <button css={s.joinButton} onClick={fetchData}>
           답변 보내기
         </button>
       </div>

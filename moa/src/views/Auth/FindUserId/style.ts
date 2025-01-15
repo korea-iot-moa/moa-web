@@ -9,7 +9,7 @@ export const findUserIdTitle = css`
   margin: 20px 40px;
 `
 export const inputBox = css`
-  margin: 50px auto;
+  margin: 120px auto;
   width: 500px;
   display: flex;
   flex-direction: column;
@@ -43,14 +43,6 @@ export const findUserIdInput2 = css`
   border-radius: 0px 0px 5px 5px;
   font-size: 12px;
   outline: none;
-  transition: border 0.5s, scale 0.5s;
-  &:focus {
-    border-left: 1px solid #999;
-    border-right: 1px solid #999;
-    &::placeholder:active {
-        scale: calc(0.8);
-      }
-  }
 `  
 
 export const findUserIdBtn = css`
@@ -60,7 +52,7 @@ export const findUserIdBtn = css`
   margin-top: 30px;
   color: #fff;
   background-color: #FF7B54;
-  transition: background-color 0.5s;
+  transition: background-color 0.05s;
   &:hover {
     background-color: #e5673b
   }
