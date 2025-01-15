@@ -88,11 +88,10 @@ export default function CreateGroup() {
     setPage((prev) => prev + 1);
   };
 
-
   // 이전 페이지로 이동
   const handlePrevPage = () => setPage((prev) => prev - 1);
 
-  // 모임 등록 
+  // 모임 등록
   const handlePostGroup = async () => {
     const postGroupRequestDto = new FormData();
     Object.keys(formData).forEach((key) => {
@@ -100,7 +99,7 @@ export default function CreateGroup() {
     });
 
     if (groupImg) {
-      postGroupRequestDto.append("groupImage", groupImg); 
+      postGroupRequestDto.append("groupImage", groupImg);
     }
 
     try {
@@ -114,6 +113,7 @@ export default function CreateGroup() {
       if (response.status === 200) {
         alert("모임이 성공적으로 등록되었습니다!");
         navigate("/main");
+        window.location.reload();
       }
     } catch (error) {
       console.error(error);
@@ -144,27 +144,34 @@ export default function CreateGroup() {
           </div>
 
           {/* 모임 카테고리 */}
-          <div>
+          <div css={s.Container}>
             <h4>모임 카테고리</h4>
             <div css={s.AllBox}>
-              {["취미", "문화_예술", "스포츠_운동", "푸드_맛집","자기계발","힐링","연애","여행"].map(
-                (category) => (
-                  <button
-                    key={category}
-                    css={
-                      formData.groupCategory === category ? s.activeTab : s.Tab
-                    }
-                    onClick={() => handleInputChange("groupCategory", category)}
-                  >
-                    {category}
-                  </button>
-                )
-              )}
+              {[
+                "취미",
+                "문화_예술",
+                "스포츠_운동",
+                "푸드_맛집",
+                "자기계발",
+                "힐링",
+                "연애",
+                "여행",
+              ].map((category) => (
+                <button
+                  key={category}
+                  css={
+                    formData.groupCategory === category ? s.activeTab : s.Tab
+                  }
+                  onClick={() => handleInputChange("groupCategory", category)}
+                >
+                  {category}
+                </button>
+              ))}
             </div>
           </div>
 
           {/* 모임 날짜 */}
-          <div>
+          <div css={s.Container}>
             <h4>모임 날짜</h4>
             <input
               type="date"
@@ -175,7 +182,7 @@ export default function CreateGroup() {
           </div>
 
           {/* 모임 장소 */}
-          <div>
+          <div css={s.Container}>
             <h4>모임 장소</h4>
             <div css={s.AllBox}>
               <button
@@ -194,7 +201,7 @@ export default function CreateGroup() {
           </div>
 
           {/* 모임 주소 */}
-          <div>
+          <div css={s.Container}>
             <h4>모임 주소</h4>
             <input
               type="text"
@@ -219,41 +226,54 @@ export default function CreateGroup() {
       )}
 
       {page === 1 && (
-        <div css={s.CreatorBox_1}>
-          <h4>모임 게시물</h4>
-          <input
-            type="text"
-            css={s.TitleInput}
-            placeholder="모임 제목"
-            value={formData.groupTitle}
-            onChange={(e) => handleInputChange("groupTitle", e.target.value)}
-          />
-          <h4>내용</h4>
-          <textarea
-            css={s.ContentBox}
-            placeholder="모임에 대한 소개말"
-            value={formData.groupContent}
-            onChange={(e) => handleInputChange("groupContent", e.target.value)}
-          />
-
-          <h4>준비물</h4>
-          <input
-            type="text"
-            css={s.TitleInput}
-            placeholder="모임 필요한 준비물"
-            value={formData.groupSupplies}
-            onChange={(e) => handleInputChange("groupSupplies", e.target.value)}
-          />
-          <h2>질문</h2>
-          <input
-            type="text"
-            css={s.TitleInput}
-            placeholder="설정하고 싶은 모입 가입 질문"
-            value={formData.groupQuestion}
-            onChange={(e) => handleInputChange("groupQuestion", e.target.value)}
-          />
-          {/* 이미지 미리보기 */}
+        <div>
           <div>
+            <h4>모임 게시물</h4>
+            <input
+              type="text"
+              css={s.TitleInput}
+              placeholder="모임 제목"
+              value={formData.groupTitle}
+              onChange={(e) => handleInputChange("groupTitle", e.target.value)}
+            />
+          </div>
+          <div css={s.Container}>
+            <h4 >내용</h4>
+            <textarea
+              css={s.ContentBox}
+              placeholder="모임에 대한 소개말"
+              value={formData.groupContent}
+              onChange={(e) =>
+                handleInputChange("groupContent", e.target.value)
+              }
+            />
+          </div>
+          <div css={s.Container}>
+            <h4>준비물</h4>
+            <input
+              type="text"
+              css={s.TitleInput}
+              placeholder="모임 필요한 준비물"
+              value={formData.groupSupplies}
+              onChange={(e) =>
+                handleInputChange("groupSupplies", e.target.value)
+              }
+            />
+          </div>
+          <div css={s.Container}>
+            <h4>질문</h4>
+            <input
+              type="text"
+              css={s.TitleInput}
+              placeholder="설정하고 싶은 모입 가입 질문"
+              value={formData.groupQuestion}
+              onChange={(e) =>
+                handleInputChange("groupQuestion", e.target.value)
+              }
+            />
+          </div>
+          {/* 이미지 미리보기 */}
+          <div css={s.Container}>
             <img
               src={previewUrl || groupImage}
               alt="미리보기"

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import groupImage from "../../../images/group.jpg";
 import { group } from "console";
 import { LuImagePlus } from "react-icons/lu";
-import { MANGE_HOME_IMG_API } from "../../../apis";
+import { GROUP_UPDATE_API, MANGE_HOME_IMG_API } from "../../../apis";
 
 interface GroupUpdateProps {
   parseToNumGroupId: number;
@@ -38,7 +38,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
     fetchGroupData();
   }, [parseToNumGroupId, cookies.token]);
 
-  //메모리 해제 
+  //메모리 해제
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -60,15 +60,15 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
         return;
       }
 
-      setGroupImg(file); 
+      setGroupImg(file);
       const previewUrl = URL.createObjectURL(file);
       setPreviewUrl(previewUrl);
-    } 
+    }
   };
 
   //모임 정보 가져오기기
   const fetchGroupData = async () => {
-    const url = `http://localhost:8081/api/v1/auth/meeting-group/${parseToNumGroupId}`;
+    const url = `${GROUP_UPDATE_API}${parseToNumGroupId}`;
 
     if (!cookies.token) {
       console.error("토큰이 없습니다. 데이터를 가져올 수 없습니다.");
@@ -128,7 +128,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
       putGroupRequestDto.append("groupImage", groupImg);
     }
 
-    const url = `http://localhost:8081/api/v1/meeting-group/${parseToNumGroupId}`;
+    const url = `${GROUP_UPDATE_API}${parseToNumGroupId}`;
     if (cookies.token) {
       try {
         const response = await axios.put(url, putGroupRequestDto, {
@@ -159,7 +159,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
             groupQuestion: updatedGroupData.groupQuestion || "",
             groupImg: updatedGroupData.groupImage || "",
           });
-
+          
           if (updatedGroupData.groupImage) {
             setPreviewUrl(
               `${MANGE_HOME_IMG_API}${updatedGroupData.groupImage}`
@@ -176,7 +176,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
   };
 
   const handleDeleteGroup = async () => {
-    const url = `http://localhost:8081/api/v1/meeting-group/${parseToNumGroupId}`;
+    const url = `${GROUP_UPDATE_API}${parseToNumGroupId}`;
     if (cookies.token) {
       try {
         await axios.delete(url, {
@@ -187,6 +187,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
         });
         alert("모임 삭제가 되었습니다");
         navigate(`/main/manager/user-list/${parseToNumGroupId}`);
+        window.location.reload();
       } catch (error) {
         console.error(error);
       }
@@ -196,7 +197,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
   return (
     <div>
       <strong>
-        <h1 css={s.label}>*모임 유형</h1>
+        <h2 css={s.label}>모임 유형</h2>
       </strong>
       <div css={s.buttonBox}>
         <button
@@ -214,8 +215,8 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           정기 모임
         </button>
       </div>
-      <div>
-        <h1 css={s.label}>*모임 카테고리</h1>{" "}
+      <div css={s.Container}>
+        <h2 css={s.label}>모임 카테고리</h2>{" "}
         <div css={s.AllBox}>
           {[
             "취미",
@@ -237,9 +238,9 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           ))}
         </div>
       </div>
-      <div>
+      <div css={s.Container}>
         <strong>
-          <h2>*모임 날짜</h2>
+          <h2 css={s.label}>모임 날짜</h2>
         </strong>
         <input
           type="date"
@@ -248,9 +249,9 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           onChange={(e) => handleInputChange("groupDate", e.target.value)}
         />
       </div>
-      <div>
+      <div css={s.Container}>
         <strong>
-          <h2>모임 장소</h2>
+          <h2 css={s.label}>모임 장소</h2>
         </strong>
         <div css={s.buttonBox}>
           <button
@@ -269,9 +270,9 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           </button>
         </div>
       </div>
-      <div>
+      <div css={s.Container}>
         <strong>
-          <h2>모임 주소</h2>
+          <h2 css={s.label}>모임 주소</h2>
         </strong>
         <textarea
           css={s.TitleInput}
@@ -280,9 +281,9 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           onChange={(e) => handleInputChange("groupAddress", e.target.value)}
         />
       </div>
-      <div>
+      <div css={s.Container}>
         <strong>
-          <h2>제목</h2>
+          <h2 css={s.label}>제목</h2>
         </strong>
         <textarea
           placeholder="모임 제목 설정"
@@ -291,9 +292,9 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           onChange={(e) => handleInputChange("groupTitle", e.target.value)}
         />
       </div>
-      <div>
+      <div css={s.Container}>
         <strong>
-          <h2>내용</h2>
+          <h2 css={s.label}>내용</h2>
         </strong>
         <textarea
           placeholder="모임 내용"
@@ -302,9 +303,9 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           onChange={(e) => handleInputChange("groupContent", e.target.value)}
         />
       </div>
-      <div>
+      <div css={s.Container}>
         <strong>
-          <h2>준비물</h2>
+          <h2 css={s.label}>준비물</h2>
         </strong>
         <textarea
           placeholder="준비물"
@@ -313,9 +314,9 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           onChange={(e) => handleInputChange("groupSupplies", e.target.value)}
         />
       </div>
-      <div>
+      <div css={s.Container}>
         <strong>
-          <h2>질문</h2>
+          <h2 css={s.label}>질문</h2>
         </strong>
         <textarea
           css={s.TitleInput}
@@ -326,26 +327,28 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
       </div>
       <div>
         <strong>
-          <h2>모임사진</h2>
+          <h2 css={s.label}>모임사진</h2>
         </strong>
-      </div>
-      <div>
-        <img
-          src={previewUrl || groupImage}
-          alt="미리보기"
-          style={{ width: "400px", height: "200px" }}
-        />
-      </div>
-      <div>
-        <input type="file" id="groupImg" onChange={handleFileChange} />
-      </div>
-      <div css={s.buttonBox}>
-        <button css={s.Tab} onClick={handleUpdateGroup}>
-          수정
-        </button>
-        <button css={s.Tab} onClick={handleDeleteGroup}>
-          삭제
-        </button>
+        <div css={s.Container}>
+          <img
+            src={previewUrl || groupImage}
+            alt="미리보기"
+            style={{ width: "400px", height: "200px" }}
+          />
+        </div>
+        <div>
+          <input type="file" id="groupImg" onChange={handleFileChange} />
+        </div>
+        <div css={s.Container}>
+          <div css={s.buttonBox}>
+            <button css={s.MoveButton} onClick={handleUpdateGroup}>
+              수정
+            </button>
+            <button css={s.MoveButton} onClick={handleDeleteGroup}>
+              삭제
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import { GetReponseUserAnswer } from "../../../types/dto/response.dto";
 import { PostUserAnswerReqeustDto } from "../../../types/dto/request.dto";
-import { APPROVED_USER_ANSWERS_GET_API } from "../../../apis";
+import { APPROVED_USER_ANSWERS_DELETE_API, APPROVED_USER_ANSWERS_GET_API, APPROVED_USER_ANSWERS_POST_API } from "../../../apis";
 
 interface ApprovedProps {
   parseToNumGroupId: number;
@@ -20,9 +20,11 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
   useEffect(() => {
     if (groupId && cookies.token) {
       fetchApprove();
-    }
+      console.log("Approve state updated:", approve);
+      }
   }, [parseToNumGroupId, cookies.token]);
 
+  //참여 요청 조회 
   const fetchApprove = async () => {
     if (cookies.token) {
       try {
@@ -39,9 +41,13 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
         const responseData = response.data?.data;
 
         if (Array.isArray(responseData)) {
-          setApprove(responseData);
+          const mappedData = responseData.map((item) => ({
+            ...item,
+            groupTitle:
+              item.groupTitle || item.MeetingGroup?.groupTitle || "N/A",
+          }));
+          setApprove(mappedData);
         } else {
-          console.error("Unexpected response data format:", responseData);
           setApprove([]);
         }
       } catch (error) {
@@ -51,9 +57,8 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  // 유저 승인 
+  // 유저 승인
   const handleApproveUser = async (userId: string) => {
-  
     const postReponseUserAnswer: PostUserAnswerReqeustDto = {
       userId: userId,
       isApproved: 1,
@@ -62,7 +67,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         await axios.post(
-          `http://localhost:8081/api/v1/user-answers/approved/${groupId}`,
+          `${APPROVED_USER_ANSWERS_POST_API}${groupId}`,
           postReponseUserAnswer,
           {
             headers: {
@@ -85,17 +90,17 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  // 승인=0 일때 유저 삭제 
+  // 승인=0 일때 유저 삭제
   const handlePutApproveUser = async (userId: string) => {
     const deleteUserAnswerRequestDto: PostUserAnswerReqeustDto = {
       userId: userId,
       isApproved: 0,
     };
-
+  
     if (cookies.token) {
       try {
-        await axios.put(
-          `http://localhost:8081/api/v1/user-answers/${groupId}`,
+        const response = await axios.delete(
+          `${APPROVED_USER_ANSWERS_DELETE_API}${groupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -104,12 +109,15 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
             withCredentials: true,
           }
         );
-
-        setApprove((prevApprove) =>
-          Array.isArray(prevApprove)
-            ? prevApprove.filter((item) => item.userId !== userId)
-            : []
-        );
+  
+        if (response.status === 200) {
+          setApprove((prevApprove) =>
+            Array.isArray(prevApprove)
+              ? prevApprove.filter((item) => item.userId !== userId)
+              : []
+          );
+        }
+        fetchApprove();
       } catch (error) {
         console.error("Error deleting user:", error);
       }
@@ -122,12 +130,14 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
         {Array.isArray(approve) && approve.length > 0 ? (
           approve.map((data) => (
             <li key={data.answerId}>
-              <strong>모임 이름: </strong>
-              {data.grouptitle ? data.MeetingGroup.groupTitle : "N/A"} ---
-              <strong>유저 아이디: </strong> {data.userId} ---
+              <strong>모임 이름: </strong>{" "}
+              {data.groupTitle || data.MeetingGroup?.groupTitle || "N/A"}{" "}
+              <strong>유저 아이디: </strong> {data.userId}{" "}
               <strong>승인 결과: </strong> {data.isApproved}
-              <button css={s.Tab} onClick={() => handleApproveUser(data.userId)}>승인</button>
-              <button css={s.Tab} onClick={() => handlePutApproveUser(data.userId)}>거절</button>
+              <div css ={s.BottonBox}>
+              <button css={s.Botton} onClick={() => handleApproveUser(data.userId)}>승인</button>
+              <button css={s.Botton} onClick={() => handlePutApproveUser(data.userId)}>거절</button>
+              </div>
             </li>
           ))
         ) : (
