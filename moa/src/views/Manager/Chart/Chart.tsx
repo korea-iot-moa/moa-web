@@ -10,6 +10,7 @@ import {
 import { AllBox, GenderChartBox, QuartChartName, QuarterBox } from "./style";
 import GenderChartComponent from "./GenderChartComponent";
 import QuarterChartComponent from "./QuarterChartComponent";
+import { GENDER_CHART_GET_API, USER_CHART_API } from "../../../apis";
 
 interface ChartProps {
   parseToNumGroupId : number;
@@ -34,7 +35,7 @@ const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/user-list/genderChart/${parseToNumGroupId}`,
+          `${GENDER_CHART_GET_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -55,7 +56,7 @@ const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/user-list/userChart/${parseToNumGroupId}`,
+          `${USER_CHART_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,

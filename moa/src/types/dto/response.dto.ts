@@ -4,10 +4,10 @@
 import { Gender, GroupCategory, GroupType, MeetingGroup, MeetingType, ReportResult, ReportType, User, UserList } from "..";
 
 export interface BlackListPageResponseDto {
+  userId: string;
   blackListId: number;
   profileImage: string 
   nickName: string;
-  userLevel: string;
 }
 
 export interface GetUserListResponseDto {
@@ -50,13 +50,16 @@ export type GetVoteResponseDto = {
   closeDate: Date;
 }
 
-export interface  GetReponseUserAnswer {
-  answerId : number;
-  MeetingGroup: any;
-  grouptitle : MeetingGroup; 
-  userId : string ; 
-  isApproved : number;
+export interface GetReponseUserAnswer {
+  answerId: number;
+  MeetingGroup?: {
+    groupTitle: string;
+  };
+  groupTitle: string; 
+  userId: string;
+  isApproved: number;
 }
+
 
 export interface PostUserLevelResponse {
   groupId: number; 

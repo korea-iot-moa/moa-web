@@ -10,6 +10,7 @@ import { BlackListPageResponseDto } from "../../../types/dto/response.dto";
 import ReactModal from "react-modal";
 import { closeModalButton, modalContent, userImgBox } from "../ManagerHome/style";
 import { input } from "../../Auth/SignUp/style";
+import { BLACK_LIST_API } from "../../../apis";
 
 interface BlackListProps {
   parseToNumGroupId: number;
@@ -23,6 +24,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
   const [cookies] = useCookies(["token"]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [inputUserId, setInputUserId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState<"일반회원" | "우수회원"|"관리자">("관리자");
 
 
@@ -39,24 +41,21 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
     setModalIsOpen(false);
     setInputUserId(""); 
   };
+
   const fetchBlackList = async () => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/black-list/${groupId}`,
+          `${ BLACK_LIST_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
             },
+           
             withCredentials: true,
           }
         );
-        const responseData = response.data.data.map(
-          (item: any, index: number) => ({
-            ...item,
-            blackListId: index + 1,
-          })
-        );
+        const responseData = response.data.data;
         setBlackUserList(responseData);
         console.log("transformed Data : " + responseData);
       } catch (error) {
@@ -65,57 +64,64 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  const handlePostBlackList = async () => {
+ const handlePostBlackList = async () => {
     if (!inputUserId.trim()) {
-      alert("사용자 ID를 입력해주세요.");
-      return;
+        alert("사용자 ID를 입력해주세요.");
+        return;
     }
-    // if(selectedLevel === "관리자") {
-    //   alert("관리자는 블랙리스트에 추가할 수 없습니다.");
-    //   return;
-    // }
-    
-    const url = `http://localhost:8080/api/v1/black-list/${parseToNumGroupId}`;
+    setIsLoading(true);
+    const url = `${ BLACK_LIST_API}${parseToNumGroupId}`;
 
     if (cookies.token) {
-      try {
-        const response = await axios.post(url, {userId: inputUserId}, {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-          withCredentials: true,
-        });
-        const responseData = response.data.data;
-        console.log(responseData);
-        await fetchBlackList();
-        closeModal();
-      } catch (error) {
-        console.error(error);
-      }
+        try {
+            const response = await axios.post(url, { userId: inputUserId }, {
+                headers: {
+                    Authorization: `Bearer ${cookies.token}`,
+                },
+                withCredentials: true,
+            });
+
+            if (response.data.status === "SUCCESS") {
+                fetchBlackList(); 
+                alert("등록되었습니다.");
+                closeModal();
+            } else {
+                alert(response.data.message || "등록에 실패했습니다.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("블랙리스트 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }finally {
+          setIsLoading(false);
+        }
     }
-  };
+};
 
-  const handleDeleteBlackList = async (blackListId: number) => {
-    const url = `http://localhost:8080/api/v1/black-list/${blackListId}`;
+const handleDeleteBlackList = async (groupId : number, userId: string) => {
+  const url = `http://localhost:8080/api/v1/black-list?groupId=${groupId}&userId=${userId}`;
 
-    if (cookies.token) {
-
+  if (cookies.token) {
       try {
-         await axios.delete(url, {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-          withCredentials: true,
-        });
-        setBlackUserList((prevList) => prevList.filter((item) => item.blackListId !== blackListId));
-        await fetchBlackList();
-        alert("삭제 되었습니다")
+          
+          const response = await axios.delete(url, {
+              headers: {
+                  Authorization: `Bearer ${cookies.token}`,
+              },
+              withCredentials: true,
+          });
+
+          if (response.status === 200) {
+              alert("삭제되었습니다.");
+              fetchBlackList(); 
+          } else {
+              throw new Error("삭제 요청이 실패했습니다.");
+          }
       } catch (error) {
-        console.error(error);
-        alert("블랙리스트 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+          console.error(error);
+          alert("블랙리스트 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
       }
-    }
-  };
+  }
+};
 
   return (
     <div css={s.fullBox}>
@@ -138,7 +144,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
           />
         </p>
         <button
-          onClick={handlePostBlackList}
+          onClick={() => handlePostBlackList()}
           css={closeModalButton}
         >
           등록
@@ -159,12 +165,12 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
             )}
             </div>
           </div>
-            <strong>{data.nickName} --- </strong>
-            <strong>{data.userLevel}</strong>
+            <strong>{data.userId}</strong>{" , "}
+            <strong>{data.nickName}</strong>{" "}
             <button
               css={s.Botton}
               onClick={() => {
-                handleDeleteBlackList(data.blackListId);
+                handleDeleteBlackList(parseToNumGroupId, data.userId);
               }}
             >
               해제

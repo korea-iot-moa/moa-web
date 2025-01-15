@@ -11,11 +11,11 @@ export const fullBox = css`
 
 export const Botton =css `
   font-family: "IBM Plex Sans", sans-serif;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  background-color:rgb(128, 132, 138);
+  background-color:rgb(252, 138, 3);
   width: 15%;
   padding: 8px 10px;
   margin: 5px;

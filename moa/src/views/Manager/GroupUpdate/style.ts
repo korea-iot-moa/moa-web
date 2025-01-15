@@ -1,5 +1,7 @@
 import { css } from "@emotion/react";
-
+export const Container = css `
+margin-top: 10px;
+`;
 export const AllBox = css`
 display: flex;
 justify-content: space-evenly;
@@ -13,6 +15,7 @@ export const TitleInput = css `
  height: 40px;
  font-size: 16px;
  font-weight: 500;
+ padding-left: 15px;
  border-radius: 7px;
  text-align: left; 
    resize: none;
@@ -27,7 +30,7 @@ export const TitleInput = css `
   font-size: 16px;
   font-weight: 500;
   border-radius: 7px;
-  padding: 10px;
+  padding-left: 15px;
   text-align: left; 
    resize: none;
    display: block;
@@ -53,11 +56,11 @@ export const DateBox = css `
 
 export const Tab =css `
   font-family: "IBM Plex Sans", sans-serif;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  background-color:rgb(128, 132, 138);
+  background-color:rgb(255, 128, 10);
   width: 20%;
   padding: 10px 12px;
   margin: 10px;
@@ -65,15 +68,27 @@ export const Tab =css `
   border-radius: 7px;
   display: flex;
   justify-content: space-evenly;
+  box-sizing: border-box; 
+  transition: none;
 
   &:hover {
-    background-color:rgb(80, 82, 85);
+    background-color:rgb(245, 190, 140);
   }
 
   &:focus {
     color: #fff;
     outline: 3px solid rgb(58, 59, 61);
   }
+`;
+
+export const activeTab = css`
+  background-color: #fff;
+  color: #000;
+  padding: 10px 12px;
+  width: 20%;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
 `;
 export const rowFieldBox = css`
   box-sizing: border-box ;
@@ -152,12 +167,27 @@ export const label = css`
   margin: 0;
 `;
 
-export const activeTab = css`
-  background-color: #000;
+export const MoveButton =css `
+font-family: "IBM Plex Sans", sans-serif;
+color: #000;
+cursor: pointer;
+font-size: 16px;
+font-weight: 600;
+background-color:rgb(255, 132, 25);
+width: 20%;
+padding: 10px 12px;
+margin: 10px;
+border: none;
+border-radius: 7px;
+display: flex;
+justify-content: space-evenly;
+
+&:hover {
+  background-color: #fab77d;
+}
+
+&:focus {
   color: #fff;
-  padding: 10px 12px;
-  width: 20%;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
+  outline: 3px solid #DAE2ED;
+}
 `;

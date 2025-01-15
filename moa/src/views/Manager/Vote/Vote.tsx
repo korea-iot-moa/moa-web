@@ -22,6 +22,7 @@ import {
   modalContent,
   openModalButton,
 } from "../ManagerHome/style";
+import { VOTE_API, VOTE_RESULT_GET_API } from "../../../apis";
 
 interface VoteProps {
   parseToNumGroupId: number;
@@ -67,7 +68,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/votes/${parseToNumGroupId}`,
+          `${VOTE_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -76,9 +77,8 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
           }
         );
         const responseData = response.data.data;
-        console.log("조회 데이터" + responseData);
         setVote(responseData);
-        console.log(responseData);
+      
       } catch (error) {
         console.error(error);
       }
@@ -99,7 +99,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       createDate: new Date(createDate),
       closeDate: new Date(closeDate),
     };
-    const url = `http://localhost:8080/api/v1/votes`;
+    const url = `${VOTE_API}`;
 
     if (cookies.token) {
       try {
@@ -128,7 +128,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       createDate: new Date(createDate),
       closeDate: new Date(closeDate),
     };
-    const url = `http://localhost:8080/api/v1/votes/${voteId}`;
+    const url = `${VOTE_API}${voteId}`;
     if (cookies.token) {
       try {
         const response = await axios.put(url, putVoteRequestDto, {
@@ -151,7 +151,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.delete(
-          `http://localhost:8080/api/v1/votes/${voteId}`,
+          `${VOTE_API}${voteId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -172,7 +172,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/vote-results/${voteId}`,
+          `${VOTE_RESULT_GET_API}${voteId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
