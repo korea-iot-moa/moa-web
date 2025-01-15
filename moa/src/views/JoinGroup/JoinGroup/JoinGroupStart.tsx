@@ -43,7 +43,7 @@ function JoinGroupStart() {
           </div>
           <div css={s.line}></div>
           <p css={s.p}>위에 내용을 확인하셨습니까?</p>
-          <button css={s.button} onClick={handleButton}>
+          <button css={s.joinButton} onClick={handleButton}>
             네, 확인했습니다.
           </button>
         </div>

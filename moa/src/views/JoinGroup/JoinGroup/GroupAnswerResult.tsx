@@ -46,11 +46,11 @@ function GroupAnswerResult() {
               : moaLogo
           }
           alt="groupData?.groupImage"
-          css={s.groupImg}
+          css={s.mainImg}
         />
         </div>
         <div css={s.groupDataDiv}>
-          <div>{groupData?.groupTitle}</div>
+          <p>{groupData?.groupTitle}</p>
           <ul css={s.dateBox}>
             <li>날짜: </li>
             <li>{groupData?.groupDate}</li>
@@ -59,7 +59,7 @@ function GroupAnswerResult() {
       </div>
       <div css={s.line3}></div>
       <p css={s.p}>모임 참여 신청이 완료됐습니다.</p>
-      <button onClick={() => navigator(-3)} css={s.button}>
+      <button onClick={() => navigator(-3)} css={s.joinButton}>
         확인완료
       </button>
     </div>

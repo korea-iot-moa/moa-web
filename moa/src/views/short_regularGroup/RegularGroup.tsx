@@ -2,7 +2,7 @@
 import * as s from "./style";
 import React, { useState } from 'react'
 import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
-import usePaginationScroll from '../../components/paginationScroll/usePaginationScroll';
+import usePaginationScroll from '../../components/paginationScroll/usePaginationScrollhook';
 import { GROUP_TYPE_API } from "../../apis";
 
 

@@ -93,8 +93,8 @@ export const BLACK_LIST_API = `http://localhost:8081/api/v1/black-list/`;
 export const BLACK_LIST_PAGE_IMG_API = `http://localhost:8081/image/`;
 
 //Chart
-export const GENDER_CHART_GET_API = `http://localhost:8080/api/v1/user-list/genderChart/`;
-export const USER_CHART_API = `http://localhost:8080/api/v1/user-list/userChart/`;
+export const GENDER_CHART_GET_API = `http://localhost:8081/api/v1/user-list/genderChart/`;
+export const USER_CHART_API = `http://localhost:8081/api/v1/user-list/userChart/`;
 
 //GroupUpdate
 export const GROUP_UPDATE_API = `http://localhost:8081/api/v1/meeting-group/`;
@@ -106,8 +106,8 @@ export const MANGE_HOME_DELTE_API = `http://localhost:8081/api/v1/user-list/van/
 export const MANGE_HOME_IMG_API = `http://localhost:8081/image/`;
 
 //Report 
-export const REPORT_API = `http://localhost:8080/api/v1/reports/`;
-export const  REPORT_IMG_API=`http://localhost:8080/image/`;
+export const REPORT_API = `http://localhost:8081/api/v1/reports/`;
+export const  REPORT_IMG_API=`http://localhost:8081/image/`;
 
 //Vote
 export const VOTE_API = `http://localhost:8081/api/v1/votes/`;

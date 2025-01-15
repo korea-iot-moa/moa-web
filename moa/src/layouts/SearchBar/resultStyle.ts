@@ -46,7 +46,7 @@ export const categoryList =css`
 export const category =css`
   border-radius: 5px;
   background-color: #FF7B54;
-  padding: 5px;
+  padding: 5px 10px;
   box-sizing: border-box;
   color: white;
   height: 25px;

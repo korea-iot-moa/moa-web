@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
-import usePaginationScroll from '../../components/paginationScroll/usePaginationScroll';
+import usePaginationScroll from '../../components/paginationScroll/usePaginationScrollhook';
 import { useState } from "react";
 import { GROUP_TYPE_API } from "../../apis";
 

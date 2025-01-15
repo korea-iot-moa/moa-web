@@ -77,28 +77,32 @@ export const searchTitleList = css`
 
 //HobbyAndRegionCategory
 export const mainContainer = css`
-  position: absolute;
-  top: 100%;
-  right: 160px;
-  transform: translateX(0); 
-  min-width: 500px;
-`
+  width: 100%;
+  margin: 0px;
+  display: flex;
+  justify-content: end;
+  padding-right: 230px;
+  box-sizing: border-box;
+  `
 
 export const categorybox = css`
+  position: absolute;
+  z-index: 2;
   background-color: #fff;
-  width: 420px;
+  width: 305px;
+  height: 300px;
   box-sizing: border-box;
   margin-top: 0px;
-  padding: 15px;
   border-radius: 0px 0px 10px 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0px 8px 6px 2px rgba(0,0,0,0.1);
 `
 export const ulStyle = css`
   list-style: none;
-  width: 330px;
+  width: 300px;
   display: flex;
   flex-wrap: wrap;
   margin: 0px;
@@ -116,7 +120,7 @@ export const buttonStyle = css`
   padding: 5px;
 `
 export const cateogyTitle = css`
-width: 360px;
+width: 300px;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
@@ -124,7 +128,7 @@ margin-top: 20px;
 margin-left: 20px;
 `
 export const categorySearchBtn = css`
-width: 50px;
+  width: 50px;
   margin: 10px; 
   border: none;
   border-radius: 5px;
@@ -132,4 +136,13 @@ width: 50px;
   color: #fff;
   padding: 3px;
   box-sizing: border-box;
+  &:hover {
+    background-color: #e5673b;
+  }
+`
+
+export const buttonDiv = css`
+  width: 300px;
+  display: flex;
+  justify-content: flex-end;
 `

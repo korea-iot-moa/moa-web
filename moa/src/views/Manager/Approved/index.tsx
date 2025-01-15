@@ -62,7 +62,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         await axios.post(
-          `http://localhost:8080/api/v1/user-answers/approved/${groupId}`,
+          `http://localhost:8081/api/v1/user-answers/approved/${groupId}`,
           postReponseUserAnswer,
           {
             headers: {
@@ -95,7 +95,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         await axios.put(
-          `http://localhost:8080/api/v1/user-answers/${groupId}`,
+          `http://localhost:8081/api/v1/user-answers/${groupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,

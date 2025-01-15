@@ -98,7 +98,6 @@ export default function InformationNaviBar() {
       </div>
       {menuOpen && <HamburgerMenu />}
 
-      {category && <HobbyAndRegionCategory />}
 
     </div>
   );
