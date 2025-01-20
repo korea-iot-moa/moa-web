@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { Button } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -11,16 +10,14 @@ import {
   PutUserLevelReponseDto,
 } from "../../../types/dto/response.dto";
 import ReactModal from "react-modal";
-import {
-  Botton,
-  closeModalButton,
-  modalContent,
-  openModalButton,
-} from "./style";
 import userImg from "../../../images/userImg.png";
 import { UserList } from "../../../types";
 import { PostUserLevelRequestDto } from "../../../types/dto/request.dto";
-import { MANGE_HOME_DELTE_API, MANGE_HOME_GET_API, MANGE_HOME_PUT_API } from "../../../apis";
+import {
+  MANGE_HOME_DELTE_API,
+  MANGE_HOME_GET_API,
+  MANGE_HOME_PUT_API,
+} from "../../../apis";
 
 interface ManagerHomeProps {
   parseToNumGroupId: number;
@@ -30,7 +27,7 @@ ReactModal.setAppElement("#root");
 const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
   const [userList, setUserList] = useState<GetUserListResponseDto[]>([]);
   const { groupId } = useParams();
-  const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies(["token", "userId"]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState<"일반회원" | "우수회원">(
     "일반회원"
@@ -48,6 +45,13 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     setModalIsOpen(false);
   };
 
+  const isAdmin = (level: string): boolean => {
+    if (!["일반회원", "우수회원", "관리자"].includes(level)) {
+      console.error(`Unknown user level detected: ${level}`);
+      return false;
+    }
+    return level === "관리자";
+  };
   const fetchUserList = async () => {
     if (cookies.token) {
       try {
@@ -100,6 +104,10 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
 
   //유저 추방
   const handleDeleteUser = async (userId: string) => {
+    if (cookies.userId === userId) {
+      alert("관리자는 스스로 방출 안됩니다 ");
+      return;
+    }
     if (cookies.token) {
       try {
         await axios.delete(
@@ -123,22 +131,26 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
   };
 
   return (
-    <div>
+    <div css ={s.box}>
       <div>
         <h2>총 인원수 : {userList.length}</h2>
       </div>
       {userList.map((data) => (
         <div
           key={data.nickName}
-          style={{ position: "relative", display: "flex" }}
+          css={s.boxContainer}
         >
           <div>
-          <div css={s.userImgBox}>
-            {!data.profileImage ? (
-              <img src={userImg} alt="userImage" css={s.userImg} />
-            ) : (
-              <img src={"http://localhost:8081/image/" + data.profileImage} alt="profileImage" css={s.userImg} />
-            )}
+            <div css={s.userImgBox}>
+              {!data.profileImage ? (
+                <img src={userImg} alt="userImage" css={s.userImg} />
+              ) : (
+                <img
+                  src={"http://localhost:8081/image/" + data.profileImage}
+                  alt="profileImage"
+                  css={s.userImg}
+                />
+              )}
             </div>
           </div>
           <div>
@@ -154,7 +166,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
             overlayClassName="modalOverlay"
-            css={modalContent}
+            css={s.modalContent}
           >
             <h2>등급 수정</h2>
             <p>
@@ -181,17 +193,26 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
             </p>
             <button
               onClick={() => handleUserLevel(data.userId)}
-              css={closeModalButton}
+              css={s.closeModalButton}
             >
               변경
             </button>
-            <button onClick={closeModal} css={closeModalButton}>
+            <button onClick={closeModal} css={s.closeModalButton}>
               닫기
             </button>
           </ReactModal>
-          <button css={Botton} onClick={() => handleDeleteUser(data.userId)}>
-            탈퇴
-          </button>
+          <div>
+            {typeof data.userLevel === "string" && isAdmin(data.userLevel) ? (
+              ""
+            ) : (
+              <button
+                css={s.openModalButton}
+                onClick={() => handleDeleteUser(data.userId)}
+              >
+                추방
+              </button>
+            )}
+          </div>
         </div>
       ))}
     </div>

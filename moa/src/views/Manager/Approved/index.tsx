@@ -99,7 +99,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
   
     if (cookies.token) {
       try {
-        const response = await axios.delete(
+        const response = await axios.put(
           `${APPROVED_USER_ANSWERS_DELETE_API}${groupId}`,
           {
             headers: {
