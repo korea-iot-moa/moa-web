@@ -81,7 +81,7 @@ export default function GroupDetailPage() {
           },
         }),
         axios.get(
-          `http://localhost:8081/api/v1/user-answers/duplication/${groupData?.groupId}`,
+          `http://localhost:8080/api/v1/user-answers/duplication/${groupData?.groupId}`,
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,
