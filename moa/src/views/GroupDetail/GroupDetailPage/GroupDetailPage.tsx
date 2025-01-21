@@ -9,6 +9,7 @@ import img from "../../../images/moaLogo.png";
 import NaverMapComponent from "../../../components/NaverMap";
 import { useCookies } from "react-cookie";
 import {
+  GROUP_DETAIL_DUPLICATION_ANSWER,
   GROUP_DETAIL_IMG_API,
   GROUP_DETAIL_MEETING_API,
   GROUP_DETAIL_USER_LIST_API,
@@ -81,7 +82,7 @@ export default function GroupDetailPage() {
           },
         }),
         axios.get(
-          `http://localhost:8080/api/v1/user-answers/duplication/${groupData?.groupId}`,
+          `${GROUP_DETAIL_DUPLICATION_ANSWER}${groupData?.groupId}`,
           {
             headers: { Authorization: `Bearer ${cookies.token}` },
             withCredentials: true,

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import * as s from './style'
 import { ParticipationStatusDataDto } from '../../../types/dto/response.dto';
-import { GROUP_MAIN_IMG_API, GROUP_PARTICIPATION_STATUS } from '../../../apis';
+import { GROUP_GET_PARTICIPATION_STATUS, GROUP_MAIN_IMG_API, GROUP_PARTICIPATION_STATUS } from '../../../apis';
 import img from "../../../images/moaLogo.png";
 import { MdOutlineTitle } from "react-icons/md";
 import { IoExtensionPuzzle } from "react-icons/io5";
@@ -40,7 +40,7 @@ export default function ParticipationStatusPage() {
 
   const handleCancellationRequest = async(answerId: number) => {
     try {
-      axios.delete(`http://localhost:8080/api/v1/user-answers/${answerId}`, {
+      axios.delete(`${GROUP_GET_PARTICIPATION_STATUS}${answerId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },

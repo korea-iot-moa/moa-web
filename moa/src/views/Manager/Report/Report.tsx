@@ -12,7 +12,7 @@ import {
   PostReportRequestDto,
 } from "../../../types/dto/request.dto";
 import { ReportResult } from "../../../types";
-import { REPORT_IMG_API } from "../../../apis";
+import { REPORT_API, REPORT_IMG_API } from "../../../apis";
 interface ReportProps {
   parseToNumGroupId: number;
 }
@@ -33,7 +33,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/reports/${parseToNumGroupId}`,
+          `${REPORT_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -68,7 +68,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         };
         
         const response = await axios.post(
-          `http://localhost:8080/api/v1/reports/${parseToNumGroupId}`,
+          `${REPORT_API}}${parseToNumGroupId}`,
           postReportRequestDto,
           {
             headers: {
@@ -79,7 +79,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setReportList(responseData);
-       
+      
       } catch (error) {
         console.error(error);
       }
@@ -105,7 +105,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
           reportResult: reportResult,
         };
         const response = await axios.delete(
-          `http://localhost:8080/api/v1/reports/${parseToNumGroupId}`,
+          `${REPORT_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
