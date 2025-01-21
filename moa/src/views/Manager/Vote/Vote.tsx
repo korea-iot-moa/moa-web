@@ -22,7 +22,7 @@ import {
   modalContent,
   openModalButton,
 } from "../ManagerHome/style";
-import { VOTE_API, VOTE_RESULT_GET_API } from "../../../apis";
+import { VOTE_API, VOTE_RESULT_GET, VOTE_RESULT_GET_API } from "../../../apis";
 
 interface VoteProps {
   parseToNumGroupId: number;
@@ -43,11 +43,11 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
 
   useEffect(() => {
     fetchVote();
-
+ 
     if (vote) {
       fetchVoteAnswerChart(vote.voteId);
     }
-  }, [groupId, cookies.token]);
+  }, [groupId, cookies.token,vote]);
 
   const handleEditClick = (vote: GetVoteResponseDto) => {
     setIsEditing(true);
@@ -99,8 +99,8 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       createDate: new Date(createDate),
       closeDate: new Date(closeDate),
     };
-    const url = `${VOTE_API}`;
-
+    const url = `http://localhost:8080/api/v1/votes`;
+  
     if (cookies.token) {
       try {
         const response = await axios.post(url, postVoteRequestDto, {
@@ -172,7 +172,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `${VOTE_RESULT_GET_API}${voteId}`,
+          `${VOTE_RESULT_GET}${voteId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -182,7 +182,6 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setVoteAnswerChart(responseData);
-        console.log(responseData);
       } catch (error) {
         console.error(error);
       }
