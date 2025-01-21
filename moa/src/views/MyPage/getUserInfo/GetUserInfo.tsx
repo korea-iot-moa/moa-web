@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useUserInfoStore from "../../../stores/userInfo.store";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { User } from "../../../types";
@@ -13,11 +12,12 @@ import userAuthStore from "../../../stores/auth.store";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
-  const [cookies] = useCookies(["token", "password"]);
+  const [cookies] = useCookies(["token"]);
+  const { result } = useParams();
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [userProfileImg, setUserProfileImg] = useState<any>(null);
-  const setErrorMg = useUserInfoStore((state) => state.setErrorMg);
+
 
   // 현재 내용 수정 여부
   const [isChanged, setIsChanged] = useState(false);
@@ -30,9 +30,8 @@ const GetUserInfo = () => {
   const [duplicatoinNickNameMs, setDuplicationNickNameMs] = useState<string>("");
 
   useEffect(() => {
-    
     fetchUserInfo();
-  }, [cookies.password, navigate]);
+  }, [ navigate]);
 
   // 사용자 정보 가져오기
   const fetchUserInfo = async () => {
@@ -43,10 +42,13 @@ const GetUserInfo = () => {
       return;
     }
     setLoading(true);
+
+    if (result !== "true") {
+      navigate('/mypage/userInfo');
+    }
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         POST_USER_INFO_API,
-        { password: cookies.password },
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
@@ -67,7 +69,6 @@ const GetUserInfo = () => {
 
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
-      setErrorMg("비밀번호를 다시 입력해주세요");
       navigate('/mypage/userInfo');
     } finally {
       setLoading(false);

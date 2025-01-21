@@ -4,7 +4,6 @@ import * as s from "./style";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import userAuthStore from "../../stores/auth.store";
 import { MeetingGroup, Recommendation } from "../../types";
 import useGroupStore from "../../stores/group.store";
 import { useNavigate } from "react-router-dom";
@@ -18,13 +17,13 @@ function HomeGroup() {
   const [cookies] = useCookies(["token"]);
   const navigator = useNavigate();
 
-  // 모임상세페이지 이동동
+  // 모임상세페이지 이동
   const handleOpenGroup = (group: MeetingGroup | null) => {
     useGroupStore.getState().setGroupData(group); 
     navigator(`/meeting-group/${group?.groupId}`);
   };
 
-  // 홈화면 그룹리스트 로그인용/비로그인용용
+  // 홈화면 그룹리스트 로그인용/비로그인용
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -40,6 +39,7 @@ function HomeGroup() {
 
       const groupData = response.data.data;
       setDatas(groupData);
+      console.log(datas);
     } catch (error) {
       console.error("데이터 가져오기 오류: ", error);
       alert("데이터를 가져오는 중 문제가 발생했습니다.");
