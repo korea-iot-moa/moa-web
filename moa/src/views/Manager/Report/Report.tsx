@@ -23,6 +23,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
   const [openState, setOpenState] = useState<Record<number, boolean>>({});
   const [reportImg, setReportImg] = useState<any>(null);
   const [previewUrl, setPreviewUrl] = useState<any>(null);
+  
   useEffect(() => {
     if (parseToNumGroupId && cookies.token) {
       fetchReportList();
@@ -68,7 +69,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         };
         
         const response = await axios.post(
-          `${REPORT_API}}${parseToNumGroupId}`,
+          `${REPORT_API}${parseToNumGroupId}`,
           postReportRequestDto,
           {
             headers: {
@@ -149,7 +150,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
                   alt={
                     data.reportImage ? "신고 이미지 미리보기" : "기본 이미지"
                   }
-                  onError={(e) => (e.currentTarget.src = "")} // 로드 실패 시 기본 이미지
+                  onError={(e) => (e.currentTarget.src = "")} 
                   style={{
                     width: "100px", 
                     height: "100px",

@@ -97,6 +97,7 @@ export const BLACK_LIST_PAGE_IMG_API = `http://localhost:8080/image/`;
 export const GENDER_CHART_GET_API = `http://localhost:8080/api/v1/user-list/gender-chart/`;
 export const USER_CHART_API = `http://localhost:8080/api/v1/user-list/user-chart/`;
 
+
 //GroupUpdate
 export const GROUP_UPDATE_API = `http://localhost:8080/api/v1/meeting-group/`;
 
@@ -114,7 +115,7 @@ export const  REPORT_IMG_API=`http://localhost:8080/image/`;
 export const VOTE_API = `http://localhost:8080/api/v1/votes/`;
 export const VOTE_RESULT_GET_API = `http://localhost:8080/api/v1/vote-results/exist-answer/`;
 export const VOTE_RESULT_POST = `http://localhost:8080/api/v1/vote-results`;
-
+export const VOTE_RESULT_GET = `http://localhost:8080/api/v1/vote-results/`
 //DeleteUserInfo
 export const DELTE_USER_INFO_API = `http://localhost:8080/api/v1/users/user`;
 

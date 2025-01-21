@@ -1,14 +1,25 @@
 
 import { css } from "@emotion/react";
 
-
+export  const box = css`
+display: flex; 
+flex-direction :column ;
+gap: 20px;
+`;
 export const modalContainer = css`
   text-align: center;
   margin-top: 50px;
 `
+export const boxContainer = css`
+position: relative; 
+display: flex; 
+flex-direction: row ;
+align-items: center;
+gap: 10px
+`;
 
 export const openModalButton = css`
-  padding: 0px 0px 0px 0px; 
+  padding: 5px 10px; 
   font-size: 16px;
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
@@ -16,9 +27,7 @@ export const openModalButton = css`
   font-size: 16px;
   font-weight: 500;
   background-color:rgb(237, 152, 52);
-  width: 15%;
-  padding: 8px 10px;
-  margin: 5px;
+  width: 100px;
   border: none;
   border-radius: 7px;
   display: flex;
@@ -87,14 +96,14 @@ export const closeModalButton = css`
   }
 `
 
-export const Botton =css `
+export const delBotton = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
   background-color:rgb(252, 138, 3);
-  width: 15%;
+  width: 100%;
   padding: 8px 10px;
   margin: 5px;
   border: none;
