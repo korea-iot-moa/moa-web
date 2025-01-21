@@ -6,6 +6,7 @@ import { MeetingGroup, UserListDto } from '../../../types';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { USER_LIST_PAGE_GET_API, USER_LIST_PAGE_IMG_API } from '../../../apis';
 
 interface UserListProps {
   groupInfo: any;
@@ -20,7 +21,7 @@ const UserListPage: React.FC<UserListProps> = ({ groupInfo }) => {
   //& 유저 리스트 호출
   useEffect(() => {
     try{
-      axios.get(`http://localhost:8081/api/v1/user-list/${groupInfo.groupId}`, {
+      axios.get(`${USER_LIST_PAGE_GET_API}${groupInfo.groupId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -48,7 +49,7 @@ const UserListPage: React.FC<UserListProps> = ({ groupInfo }) => {
             {!user.profileImage ? (
               <img src={userImg} alt="userImage" css={s.userImg} />
             ) : (
-              <img src={"http://localhost:8081/image/" + user.profileImage} alt="profileImage" css={s.userImg} />
+              <img src={USER_LIST_PAGE_IMG_API + user.profileImage} alt="profileImage" css={s.userImg} />
             )}
             </div>
           </div>

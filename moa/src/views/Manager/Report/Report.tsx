@@ -69,7 +69,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         };
         
         const response = await axios.post(
-          `${REPORT_IMG_API}${parseToNumGroupId}`,
+          `${REPORT_API}${parseToNumGroupId}`,
           postReportRequestDto,
           {
             headers: {
@@ -80,7 +80,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setReportList(responseData);
-       
+      
       } catch (error) {
         console.error(error);
       }
@@ -106,7 +106,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
           reportResult: reportResult,
         };
         const response = await axios.delete(
-          `http://localhost:8080/api/v1/reports/${parseToNumGroupId}`,
+          `${REPORT_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
