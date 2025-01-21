@@ -22,7 +22,7 @@ import {
   modalContent,
   openModalButton,
 } from "../ManagerHome/style";
-import { VOTE_API, VOTE_RESULT_GET, VOTE_RESULT_GET_API } from "../../../apis";
+import { VOTE_API, VOTE_RESULT_GET } from "../../../apis";
 
 interface VoteProps {
   parseToNumGroupId: number;
@@ -43,11 +43,11 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
 
   useEffect(() => {
     fetchVote();
- 
-    if (vote) {
+
+    if (vote && vote.voteId) {
       fetchVoteAnswerChart(vote.voteId);
     }
-  }, [groupId, cookies.token,vote]);
+  }, [groupId, cookies.token, vote?.voteId]);
 
   const handleEditClick = (vote: GetVoteResponseDto) => {
     setIsEditing(true);
@@ -67,18 +67,14 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   const fetchVote = async () => {
     if (cookies.token) {
       try {
-        const response = await axios.get(
-          `${VOTE_API}${parseToNumGroupId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${VOTE_API}${parseToNumGroupId}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          withCredentials: true,
+        });
         const responseData = response.data.data;
         setVote(responseData);
-      
       } catch (error) {
         console.error(error);
       }
@@ -100,7 +96,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       closeDate: new Date(closeDate),
     };
     const url = `http://localhost:8080/api/v1/votes`;
-  
+
     if (cookies.token) {
       try {
         const response = await axios.post(url, postVoteRequestDto, {
@@ -150,16 +146,13 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   const handleDeleteVote = async (voteId: number) => {
     if (cookies.token) {
       try {
-        const response = await axios.delete(
-          `${VOTE_API}${voteId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            data: voteId,
-            withCredentials: true,
-          }
-        );
+        const response = await axios.delete(`${VOTE_API}${voteId}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          data: voteId,
+          withCredentials: true,
+        });
         const responseData = response.data.data;
         setVote(responseData);
       } catch (error) {
@@ -171,15 +164,12 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
   const fetchVoteAnswerChart = async (voteId: number) => {
     if (cookies.token) {
       try {
-        const response = await axios.get(
-          `${VOTE_RESULT_GET}${voteId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${VOTE_RESULT_GET}${voteId}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          withCredentials: true,
+        });
         const responseData = response.data.data;
         setVoteAnswerChart(responseData);
       } catch (error) {
@@ -327,19 +317,28 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
           <h1>투표결과 차트</h1>
           <VoteAnswerChartComponent data={voteAnswerChart} />
           <div css={ReportBox}>
-            {voteAnswerChart.length > 0 && (
+            {voteAnswerChart.length > 0 ? (
               <>
-                <div>
-                  <p>응답: {voteAnswerChart[0].voteAnswer}</p>
-                  <p>투표 수: {voteAnswerChart[0].count}</p>
-                  <p>비율: {voteAnswerChart[0].ratio}%</p>
-                </div>
-                <div>
-                  <p>응답: {voteAnswerChart[1].voteAnswer}</p>
-                  <p>투표 수: {voteAnswerChart[1].count}</p>
-                  <p>비율: {voteAnswerChart[1].ratio}%</p>
-                </div>
+                {voteAnswerChart[0] && (
+                  <div>
+                    <p>응답: {voteAnswerChart[0].voteAnswer}</p>
+                    <p>투표 수: {voteAnswerChart[0].count}</p>
+                    <p>비율: {Number(voteAnswerChart[0].ratio.toFixed(2))}%</p>
+                  </div>
+                )}
+                {voteAnswerChart[1] && (
+                  <div>
+                    <p>응답: {voteAnswerChart[1].voteAnswer}</p>
+                    <p>투표 수: {voteAnswerChart[1].count}</p>
+                    <p>비율: {Number(voteAnswerChart[1].ratio.toFixed(2))}%</p>
+                  </div>
+                )}
+                {!voteAnswerChart[0] && !voteAnswerChart[1] && (
+                  <p>투표 결과가 없습니다.</p>
+                )}
               </>
+            ) : (
+              <p>투표 데이터가 없습니다.</p>
             )}
           </div>
         </div>
