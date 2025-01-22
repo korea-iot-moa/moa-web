@@ -37,7 +37,7 @@ export default function FindPassword() {
     useEffect(() => {
       const handleStorageEvent = (event: StorageEvent) => {
         if (event.key === "PasswordResetTokenDeleted") {
-          navigate("/signIn"); // 원하는 경로로 페이지 전환
+          navigate("/signIn"); 
         }
       };
     
