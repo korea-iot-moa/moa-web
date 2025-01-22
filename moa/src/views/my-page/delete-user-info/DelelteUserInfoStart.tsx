@@ -31,11 +31,11 @@ function DeleteUserInfoStart() {
   };
 
   return (
-    <div className="withdrawal-page">
+    <div className="deletContainer">
       {cookies.token ? (
-        <div className="withdrawal-section">
-          <h4 className="withdrawal-title">회원탈퇴 확인</h4>
-          <ul className="warning-list">
+        <div className="deleteSection">
+          <h4 className="deleteTitle">회원탈퇴 확인</h4>
+          <ul className="deleteList">
             <li>회원 탈퇴 후 계정 및 데이터는 복구가 불가능합니다.</li>
             <li>탈퇴 시 저장된 개인정보와 이용 기록은 모두 삭제됩니다.</li>
             <li>
@@ -52,32 +52,35 @@ function DeleteUserInfoStart() {
               상실됩니다.
             </li>
           </ul>
-          <p className="confirmation-text">탈퇴 시 주의사항 확인 여부</p>
-          <form className="confirmation-form">
+          <p className="deleteConfirmText">탈퇴 시 주의사항 확인 여부</p>
+          <form className="deleteConfirmationForm">
             <input
               type="checkbox"
-              id="confirmation-checkbox"
-              className="confirmation-checkbox"
+              id="deleteConfirmationCheckbox"
+              className="deleteConfirmationCheckbox"
               checked={isChecked}
               onChange={handleCheckChange}
             />
             <label
-              htmlFor="confirmation-checkbox"
-              className="confirmation-label"
+              htmlFor="deleteConfirmationCheckbox"
+              className="deleteConfirmationLabel"
             >
               네, 동의합니다.
             </label>
           </form>
-          <button className="next-btn" onClick={handleNext}>
+          <button className="deleteNextBtn" onClick={handleNext}>
             다음 페이지로 이동
           </button>
         </div>
       ) : (
-        <div className="error-section">
-          <p className="error-message">
+        <div className="deleteErrorSection">
+          <p className="deleteErrorMessage">
             잘못된 접근방법입니다. 회원 탈퇴 확인 페이지로 이동하세요.
           </p>
-          <button className="redirect-btn" onClick={() => navigate("/signIn")}>
+          <button
+            className="deleteRedirectBtn"
+            onClick={() => navigate("/signIn")}
+          >
             로그인 이동
           </button>
         </div>

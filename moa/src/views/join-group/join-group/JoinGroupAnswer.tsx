@@ -45,12 +45,10 @@ const JoinGroupAnswer = () => {
 
   const fetchData = async () => {
     if (!groupData?.groupId) {
-      console.error("groupId가 없습니다. 유효한 값을 확인하세요.");
       return;
     }
 
     if (!groupAnswer.userAnswer.trim()) {
-      console.error("userAnswer가 비어 있습니다.");
       alert("신청사유를 입력해주세요.");
       return;
     }
@@ -80,7 +78,7 @@ const JoinGroupAnswer = () => {
       setGroupAnswer(answer);
       navigate(`/group-join/join-group/${groupId}/group-user-answer/result`);
     } catch (error) {
-      console.error("데이터 로딩 중 오류 발생:", error);
+      console.error(error);
     }
   };
 
