@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as s from "../resultStyle";
-import usePaginationScroll from "../../../components/pagination-scroll/usePaginationScrollhook";
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/pagination-scroll/PaginationScroll";
 import { CATEGORY_GET_API } from "../../../apis";
+import usePaginationScrollSearchhook from "../../../components/pagination-scroll/usePaginationScrollSearchhook";
 
 function CategorySearchList() {
   const { groupCategory, region } = useParams<{
@@ -13,19 +13,23 @@ function CategorySearchList() {
   }>();
   const groupCategoryWord = groupCategory || "";
   const regionWord = region || "";
-  const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: CATEGORY_GET_API,
-    limit: 10,
-    extraParams: { groupCategory: groupCategoryWord, region: regionWord },
-  });
+  const { data, loading, resetAndFetchData, updateParams } =
+    usePaginationScrollSearchhook({
+      apiUrl: CATEGORY_GET_API,
+      limit: 10,
+      extraParams: { groupCategory: groupCategoryWord, region: regionWord },
+    });
 
   const [btnStatus, setBtnStatus] = useState<string>("default");
 
-  // 모임필터 핸들러
   const handleSortChange = (sortBy: string) => {
     setBtnStatus(sortBy);
     resetAndFetchData(sortBy);
   };
+
+  useEffect(() => {
+    updateParams({ groupCategory: groupCategoryWord, region: regionWord });
+  }, [groupCategoryWord, regionWord]);
 
   const btnStyle = (button: string) => ({
     color: btnStatus === button ? "#FF7B54" : "black",

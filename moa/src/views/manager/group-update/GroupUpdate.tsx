@@ -187,8 +187,53 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
   };
 
   return (
-    <div>
-      <strong>
+    <div css={s.totalContainer}>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>제목</h2>
+        </strong>
+        <textarea
+          placeholder="모임 제목 설정"
+          css={s.TitleInput}
+          value={formData.groupTitle}
+          onChange={(e) => handleInputChange("groupTitle", e.target.value)}
+        />
+      </div>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>준비물</h2>
+        </strong>
+        <textarea
+          placeholder="준비물"
+          css={s.TitleInput}
+          value={formData.groupSupplies}
+          onChange={(e) => handleInputChange("groupSupplies", e.target.value)}
+          />
+      </div>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>내용</h2>
+        </strong>
+        <textarea
+          placeholder="모임 내용"
+          css={s.ContentBox}
+          value={formData.groupContent}
+          onChange={(e) => handleInputChange("groupContent", e.target.value)}
+        />
+      </div>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>모임 날짜</h2>
+        </strong>
+        <input
+          type="date"
+          css={s.DateBox}
+          value={formData.groupDate || ""}
+          onChange={(e) => handleInputChange("groupDate", e.target.value)}
+        />
+      </div>
+      <div>
+        <strong>
         <h2 css={s.label}>모임 유형</h2>
       </strong>
       <div css={s.buttonBox}>
@@ -206,6 +251,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
         >
           정기 모임
         </button>
+      </div>
       </div>
       <div css={s.Container}>
         <h2 css={s.label}>모임 카테고리</h2>{" "}
@@ -232,18 +278,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
       </div>
       <div css={s.Container}>
         <strong>
-          <h2 css={s.label}>모임 날짜</h2>
-        </strong>
-        <input
-          type="date"
-          css={s.DateBox}
-          value={formData.groupDate || ""}
-          onChange={(e) => handleInputChange("groupDate", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>모임 장소</h2>
+          <h2 css={s.label}>만남 타입</h2>
         </strong>
         <div css={s.buttonBox}>
           <button
@@ -271,39 +306,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           placeholder="모임 주소"
           value={formData.groupAddress}
           onChange={(e) => handleInputChange("groupAddress", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>제목</h2>
-        </strong>
-        <textarea
-          placeholder="모임 제목 설정"
-          css={s.TitleInput}
-          value={formData.groupTitle}
-          onChange={(e) => handleInputChange("groupTitle", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>내용</h2>
-        </strong>
-        <textarea
-          placeholder="모임 내용"
-          css={s.ContentBox}
-          value={formData.groupContent}
-          onChange={(e) => handleInputChange("groupContent", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>준비물</h2>
-        </strong>
-        <textarea
-          placeholder="준비물"
-          css={s.TitleInput}
-          value={formData.groupSupplies}
-          onChange={(e) => handleInputChange("groupSupplies", e.target.value)}
         />
       </div>
       <div css={s.Container}>

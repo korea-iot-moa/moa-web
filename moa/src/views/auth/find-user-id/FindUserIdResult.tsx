@@ -15,13 +15,15 @@ function FindUserIdResult() {
   // 불일치여부 확인
   const [isdata, setIsData] = useState<boolean>(false);
 
+  const params = new URLSearchParams(location.search);
+  const token = params.get("token");
+  
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const token = params.get("token");
-    console.log(token);
-    if (!token) {
-      console.error("토큰이 없습니다.");
-      alert("유효하지 않는 요청입니다.");
+
+    if (!token || token.trim() === "") {
+      console.error("유효하지 않은 토큰입니다.");
+      alert("유효하지 않은 요청입니다.");
+      return;
     }
 
     fetchData(token);
@@ -30,7 +32,7 @@ function FindUserIdResult() {
   const fetchData = async (token: string | null) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${Find_USERID_GET_API}?token=${token}`);
+      const response = await axios.get(`${Find_USERID_GET_API}`, {params: {token}});
       const userIdData = response.data.data;
       if (userIdData) {
         setResult(userIdData);

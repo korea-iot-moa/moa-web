@@ -4,12 +4,18 @@ import * as s from "./style";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import userAuthStore from "../../stores/auth.store";
 import { MeetingGroup, Recommendation } from "../../types";
 import useGroupStore from "../../stores/group.store";
 import { useNavigate } from "react-router-dom";
-import groupImg  from '../../images/moaLogo.png';
-import { HOME_GROUP_AUTH_GET_API, HOME_GROUP_GET_API, HOME_GROUP_IMG_API, HOME_GROUP_RECOMMENDATION_DELETE_API, HOME_GROUP_RECOMMENDATION_GET_API, HOME_GROUP_RECOMMENDATION_POST_API } from "../../apis";
+import groupImg from "../../images/moaLogo.png";
+import {
+  HOME_GROUP_AUTH_GET_API,
+  HOME_GROUP_GET_API,
+  HOME_GROUP_IMG_API,
+  HOME_GROUP_RECOMMENDATION_DELETE_API,
+  HOME_GROUP_RECOMMENDATION_GET_API,
+  HOME_GROUP_RECOMMENDATION_POST_API,
+} from "../../apis";
 
 function HomeGroup() {
   const [datas, setDatas] = useState<MeetingGroup[]>([]);
@@ -18,24 +24,19 @@ function HomeGroup() {
   const [cookies] = useCookies(["token"]);
   const navigator = useNavigate();
 
-  // 모임상세페이지 이동동
   const handleOpenGroup = (group: MeetingGroup | null) => {
-    useGroupStore.getState().setGroupData(group); 
+    useGroupStore.getState().setGroupData(group);
     navigator(`/meeting-group/${group?.groupId}`);
   };
 
-  // 홈화면 그룹리스트 로그인용/비로그인용용
   const fetchData = async () => {
     setLoading(true);
     try {
       const response = cookies.token
-        ? await axios.get(
-          HOME_GROUP_GET_API,
-            {
-              headers: { Authorization: `Bearer ${cookies.token}` },
-              withCredentials: true,
-            }
-          )
+        ? await axios.get(HOME_GROUP_GET_API, {
+            headers: { Authorization: `Bearer ${cookies.token}` },
+            withCredentials: true,
+          })
         : await axios.get(HOME_GROUP_AUTH_GET_API);
 
       const groupData = response.data.data;
@@ -52,18 +53,14 @@ function HomeGroup() {
     fetchData();
   }, []);
 
-  // 사용자 좋아요 리스트트 조회
   useEffect(() => {
     async function fetchLikes() {
       if (!cookies.token) return;
       try {
-        const response = await axios.get(
-          HOME_GROUP_RECOMMENDATION_GET_API,
-          {
-            headers: { Authorization: `Bearer ${cookies.token}` },
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(HOME_GROUP_RECOMMENDATION_GET_API, {
+          headers: { Authorization: `Bearer ${cookies.token}` },
+          withCredentials: true,
+        });
 
         const likedGroupIDs = response.data.data.map(
           (item: { groupId: number }) => item.groupId
@@ -84,7 +81,6 @@ function HomeGroup() {
     );
   };
 
-  // 좋아요 등록/취소소
   const handleFetchData = async (groupId: number) => {
     if (!cookies.token) {
       alert("로그인 후 사용가능합니다.");
@@ -101,14 +97,11 @@ function HomeGroup() {
           }
         );
       } else {
-        await axios.delete(
-          HOME_GROUP_RECOMMENDATION_DELETE_API,
-          {
-            data: { groupId },
-            headers: { Authorization: `Bearer ${cookies.token}` },
-            withCredentials: true,
-          }
-        );
+        await axios.delete(HOME_GROUP_RECOMMENDATION_DELETE_API, {
+          data: { groupId },
+          headers: { Authorization: `Bearer ${cookies.token}` },
+          withCredentials: true,
+        });
       }
       toggleLike(groupId);
     } catch (error) {
@@ -122,6 +115,13 @@ function HomeGroup() {
     { start: 3, end: 6 },
     { start: 6, end: 10 },
   ];
+
+  const cutText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
+  };
 
   return (
     <div>
@@ -163,7 +163,7 @@ function HomeGroup() {
                       </div>
                       <div css={s.line}></div>
                       <div css={s.listDetail}>
-                        <p>{data.groupTitle}</p>
+                        <p>{cutText(data.groupTitle, 11)}</p>
                         <p>
                           <button
                             css={s.click}
@@ -179,7 +179,7 @@ function HomeGroup() {
                       </div>
                       <div css={s.listDetail}>
                         <p>{data.groupDate}</p>
-                        <p>{data.groupAddress}</p>
+                        <p>{cutText(data.groupAddress, 4)}</p>
                       </div>
                     </li>
                   ))}

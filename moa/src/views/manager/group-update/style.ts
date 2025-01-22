@@ -1,60 +1,69 @@
 import { css } from "@emotion/react";
 
+export const totalContainer = css`
+  width: 70vh;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
+
 export const Container = css`
-margin-top: 10px;
+  margin-top: 10px;
 `;
 
 export const AllBox = css`
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 15px;
 `;
 
 export const buttonBox = css`
   display: flex;
   flex-direction: row;
 `;
-
 export const TitleInput = css`
-  width :70vh;
+  width: 70vh;
   height: 40px;
   font-size: 16px;
   font-weight: 500;
-  padding-left: 15px;
+  padding: 5px 10px;
   border-radius: 7px;
-  text-align: left; 
+  text-align: left;
   resize: none;
   display: block;
-  box-sizing: border-box; 
- `;
+  box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
- export const ContentBox = css`
-  width :70vh;
+export const ContentBox = css`
+  width: 70vh;
   height: 180px;
   font-size: 16px;
   font-weight: 500;
   border-radius: 7px;
-  padding-left: 15px;
-  text-align: left; 
+  padding: 10px;
+  text-align: left;
   resize: none;
   display: block;
-  box-sizing: border-box; 
- `;
+  box-sizing: border-box;
+`;
 
- 
-export const  bottomBox = css`
+export const bottomBox = css`
   display: flex;
-  align-items:end;
-`;
- 
-export const DateContainer = css`
-  display:flex; 
-  justify-content:center;
+  align-items: end;
 `;
 
+export const DateContainer = css`
+  display: flex;
+  justify-content: center;
+`;
 export const DateBox = css`
-  width :30%;
+  width: 30%;
   height: 40px;
-  text-align:center;
+  text-align: center;
   border-radius: 7px;
 `;
 
@@ -62,21 +71,20 @@ export const Tab = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 11px;
   font-weight: 600;
-  background-color:rgb(255, 128, 10);
+  background-color: rgb(255, 128, 10);
   width: 20%;
   padding: 10px 12px;
-  margin: 10px;
   border: none;
   border-radius: 7px;
   display: flex;
   justify-content: space-evenly;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   transition: none;
 
   &:hover {
-    background-color:rgb(245, 190, 140);
+    background-color: rgb(245, 190, 140);
   }
 
   &:focus {
@@ -92,11 +100,12 @@ export const activeTab = css`
   width: 20%;
   border: none;
   border-radius: 7px;
+  font-size: 11px;
   cursor: pointer;
 `;
 
 export const rowFieldBox = css`
-  box-sizing: border-box ;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   width: 47%;
@@ -106,7 +115,7 @@ export const rowFieldBox = css`
 export const labelBox = css`
   display: flex;
   align-items: center;
-  flex-direction:row;
+  flex-direction: row;
   margin-bottom: 5px;
 `;
 
@@ -171,26 +180,26 @@ export const label = css`
 `;
 
 export const MoveButton = css`
-font-family: "IBM Plex Sans", sans-serif;
-color: #000;
-cursor: pointer;
-font-size: 16px;
-font-weight: 600;
-background-color:rgb(255, 132, 25);
-width: 20%;
-padding: 10px 12px;
-margin: 10px;
-border: none;
-border-radius: 7px;
-display: flex;
-justify-content: space-evenly;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #000;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: rgb(255, 132, 25);
+  width: 20%;
+  padding: 10px 12px;
+  margin: 10px;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-evenly;
 
-&:hover {
-  background-color: #fab77d;
-}
+  &:hover {
+    background-color: #fab77d;
+  }
 
-&:focus {
-  color: #fff;
-  outline: 3px solid #DAE2ED;
-}
+  &:focus {
+    color: #fff;
+    outline: 3px solid #dae2ed;
+  }
 `;

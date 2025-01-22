@@ -114,7 +114,7 @@ export default function CreateGroup() {
     <div>
       {page === 0 && (
         <div css={s.CreatorBox}>
-          <div>
+          <div css={s.Container}>
             <h4>모임 유형</h4>
             <div css={s.AllBox}>
               <button
@@ -210,8 +210,8 @@ export default function CreateGroup() {
       )}
 
       {page === 1 && (
-        <div>
-          <div>
+        <div css={s.CreatorBox}>
+          <div css={s.Container}>
             <h4>모임 게시물</h4>
             <input
               type="text"

@@ -11,32 +11,27 @@ const HobbyAndRegionCategory = () => {
   const category = useCategoryBarStore((state) => state.isOpen);
   const setCategory = useCategoryBarStore((state) => state.setIsOpen);
 
-  // 취미카테고리 버튼 이벤트 핸들러
   const handleHobbyFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selectCategory = e.currentTarget.value;
     setGroupCategory(selectCategory);
   };
 
-  // 지역카테고리 버튼 이벤트 핸들러
   const handleResionFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selectCategory = e.currentTarget.value;
     setRegion(selectCategory);
   };
 
-  // 취미버튼 스타일
   const categoryButtonStyle = (button: string) => ({
     backgroundColor:
       groupCategory === button ? "#FF7B54" : "rgb(224, 224, 224)",
     color: groupCategory === button ? "white" : "black",
   });
 
-  // 지역버튼 스타일
   const regionButtonStyle = (button: string) => ({
     backgroundColor: region === button ? "#FF7B54" : "rgb(224, 224, 224)",
     color: region === button ? "white" : "black",
   });
 
-  // 검색버튼 이벤트 핸들러
   const handlefetchCategoryBtn = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {

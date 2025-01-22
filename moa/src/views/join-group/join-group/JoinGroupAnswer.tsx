@@ -18,13 +18,11 @@ const JoinGroupAnswer = () => {
     isApproved: 2,
   });
 
-  // 데이터를 유지 전달
   const [cookies] = useCookies(["token"]);
   const navigate = useNavigate();
   const [groupData, setGroupData] = useState<MeetingGroup | null>(null);
 
   const groupFetchData = async () => {
-    // 토큰 확인
     if (!cookies.token) {
       alert("로그인이 필요합니다.");
       navigate("/signIn");
@@ -45,22 +43,18 @@ const JoinGroupAnswer = () => {
     }
   };
 
-  // 답변 데이터 전송 함수
   const fetchData = async () => {
-    // groupId 확인
     if (!groupData?.groupId) {
       console.error("groupId가 없습니다. 유효한 값을 확인하세요.");
       return;
     }
 
-    // userAnswer 확인
     if (!groupAnswer.userAnswer.trim()) {
       console.error("userAnswer가 비어 있습니다.");
       alert("신청사유를 입력해주세요.");
       return;
     }
 
-    // 토큰 확인
     if (!cookies.token) {
       alert("로그인이 필요합니다.");
       navigate("/signIn");
@@ -97,7 +91,6 @@ const JoinGroupAnswer = () => {
     groupFetchData();
   }, [groupData]);
 
-  // 사용자 답변 변경 핸들러
   const handleUserAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setGroupAnswer((prev) => ({
