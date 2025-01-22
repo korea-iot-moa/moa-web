@@ -42,7 +42,7 @@ function HomeGroup() {
       const groupData = response.data.data;
       setDatas(groupData);
     } catch (error) {
-      console.error("데이터 가져오기 오류: ", error);
+      console.error(error);
       alert("데이터를 가져오는 중 문제가 발생했습니다.");
     } finally {
       setLoading(false);
@@ -105,7 +105,7 @@ function HomeGroup() {
       }
       toggleLike(groupId);
     } catch (error) {
-      console.error("찜 상태 업데이트 오류: ", error);
+      console.error(error);
       alert("찜 상태를 업데이트하는 중 문제가 발생했습니다.");
     }
   };

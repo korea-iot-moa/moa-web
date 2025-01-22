@@ -54,7 +54,7 @@ function DeleteUserInfo() {
           alert("응답 데이터가 올바르지 않습니다.");
         }
       } catch (error) {
-        console.error("데이터 로딩중 오류 발생");
+        console.error(error);
         alert("탈퇴 실패했습니다. 다시 시도해주세요.");
       }
     }

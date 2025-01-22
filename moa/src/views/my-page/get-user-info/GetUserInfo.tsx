@@ -61,7 +61,7 @@ const GetUserInfo = () => {
         profileImage: updateUser.profileImage,
       });
     } catch (error) {
-      console.error("사용자 정보를 가져오는데 실패했습니다:", error);
+      console.error(error);
       navigate("/mypage/userInfo");
     } finally {
       setLoading(false);
@@ -107,7 +107,7 @@ const GetUserInfo = () => {
         alert("수정완료 되었습니다.");
       }
     } catch (error) {
-      console.error("정보 수정 중 오류 발생:", error);
+      console.error(error);
       alert("정보 수정에 실패했습니다. 다시 시도해주세요.");
     }
   };
