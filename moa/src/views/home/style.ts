@@ -42,7 +42,7 @@ export const groupList = css`
 export const groupLi = css`
   display: block;
   float: left;
-  width: 200px;
+  width: 190px;
   box-sizing: border-box;
   padding: 10px;
   margin: 0px;

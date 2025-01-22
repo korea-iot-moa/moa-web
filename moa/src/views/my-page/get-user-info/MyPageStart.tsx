@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import "./style.css";
 import axios from "axios";
+import { POST_MY_PAGE } from "../../../apis";
 
 function MyPageStart() {
   const navigator = useNavigate();
@@ -23,19 +24,19 @@ function MyPageStart() {
     }
     try {
       const response = await axios.post(
-        `http://localhost:8081/api/v1/users/isPassword`,
-        formData,
+        POST_MY_PAGE,
+        { password: formData.password },
         {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
           },
         }
       );
-      const isPasswordValue = response.data.data;
-      setResult(isPasswordValue);
+      const booleanResult = response.data.data;
+      setResult(booleanResult);
 
-      if (isPasswordValue === true) {
-        navigator(`/mypage/userInfo/user/${isPasswordValue}`);
+      if (booleanResult === true) {
+        navigator(`/mypage/userInfo/user/${booleanResult}`);
       } else {
         setErrorMg("비밀번호를 다시 입력해주세요");
         setAppearMg(true);
