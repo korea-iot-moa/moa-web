@@ -24,7 +24,6 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
   }, [parseToNumGroupId, cookies.token]);
  
   const fetchApprove = async () => {
-
     if (cookies.token) {
       try {
         const response = await axios.get(

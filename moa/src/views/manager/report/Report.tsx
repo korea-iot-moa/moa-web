@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import axios from "axios";
 import * as s from "./style";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { GetReportListResponseDto } from "../../../types/dto/response.dto";
-import { LayerBox} from "./style";
+
 
 import {
   DeleteReportResponseDto,
@@ -12,6 +12,7 @@ import {
 } from "../../../types/dto/request.dto";
 import { ReportResult } from "../../../types";
 import { REPORT_API, REPORT_IMG_API } from "../../../apis";
+import { LayerBox } from "./style";
 interface ReportProps {
   parseToNumGroupId: number;
 }
@@ -77,11 +78,12 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
             withCredentials: true,
           }
         );
-        const responseData = response.data.data;
-        setReportList(responseData);
-      
+        setReportList((prevList) =>
+          prevList.filter((item) => item.reportUser !== reportUser)
+        );
       } catch (error) {
         console.error(error);
+        setReportList([]);
       }
     }
   };
@@ -122,13 +124,13 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
 
   return (
     <div>
-      <h3>신고 접수건: {reportList.length} </h3>
+      <h3>신고 접수건: {reportList?.length || 0} </h3>
       <ul>
         {reportList.map((data) => (
           <li key={data.reportId}>
             <strong> 신고한 사람: </strong> {data.userId} ---
             <strong> 신고 받은 사람: </strong> {data.reportUser}
-            <button onClick={() => openHiddenBox(data.reportId)}> 오픈 </button>
+            <button css ={s.Botton}  onClick={() => openHiddenBox(data.reportId)}> 오픈 </button>
             <div
               css={LayerBox}
               style={{
@@ -156,7 +158,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
                 />
               </div>
               <button
-                css={s.Tab}
+                css={s.Botton}
                 onClick={() =>
                   handlePostReport(data.reportUser, "추방" as ReportResult)
                 }
@@ -164,7 +166,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
                 방출
               </button>
               <button
-                css={s.Tab}
+                css={s.Botton}
                 onClick={() =>
                   handleDeleteReport(data.userId, "유지" as ReportResult)
                 }

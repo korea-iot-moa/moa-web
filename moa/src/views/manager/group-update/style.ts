@@ -10,7 +10,7 @@ export const buttonBox = css`
   display: flex;
   flex-direction: row;
 `;
-export const TitleInput = css `
+export const TitleInput = css`
  width :70vh;
  height: 40px;
  font-size: 16px;
@@ -24,7 +24,7 @@ export const TitleInput = css `
 
  `;
 
- export const ContentBox =css `
+ export const ContentBox = css`
   width :70vh;
   height: 180px;
   font-size: 16px;
