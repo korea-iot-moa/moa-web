@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
-interface CategroyBarStore {
+interface CategoryBarStore {
   isOpen: boolean;
 
-  setIsOpne: (isOpen: boolean) => void;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
-const useCategoryBarStore = create<CategroyBarStore>((set) => ({
+const useCategoryBarStore = create<CategoryBarStore>((set) => ({
   isOpen: false,
-  setIsOpne: (isOpen) => set((state) => ({ isOpen: isOpen ?? !state.isOpen })),
+  setIsOpen: (isOpen) => set((state) => ({ isOpen: isOpen ?? !state.isOpen })),
 }));
 
 export default useCategoryBarStore;
