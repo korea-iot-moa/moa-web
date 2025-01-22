@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
-export const Container = css `
-margin-top: 25px;
+export const Container = css`
+  margin-top: 25px;
 `;
 
 export const AllBox = css`
@@ -11,7 +11,6 @@ export const AllBox = css`
   gap: 10px; 
   flex-wrap: wrap; 
   margin-bottom: 15px; 
-  
 `;
 
 export const Tab = css`
@@ -43,8 +42,8 @@ export const Tab = css`
 export const activeTab = css`
   background-color: #f7e2d5;
   color: #000;
-  padding: 10px 12px; /* Tab과 동일하게 설정 */
-  width: 20%; /* Tab과 동일하게 설정 */
+  padding: 10px 12px;
+  width: 20%; 
   border: none;
   outline: none;
   box-sizing: border-box;
@@ -52,54 +51,52 @@ export const activeTab = css`
   transition: none;
 `;
 
-
-
-export const  bottomBox = css `
-display: flex;
-align-items:end;
+export const  bottomBox = css`
+  display: flex;
+  align-items:end;
 `;
  
 export const DateContainer = css`
-display:flex; 
-justify-content:center;
+  display:flex; 
+  justify-content:center;
 `;
-export const DateBox = css `
+export const DateBox = css`
   width :30%;
   height: 40px;
   text-align:center;
   border-radius: 7px;
 `;
 
-export const TitleInput = css `
- width :70vh;
- height: 40px;
- font-size: 16px;
- font-weight: 500;
- border-radius: 7px; 
- padding-left: 15px;
- `;
+export const TitleInput = css`
+  width :70vh;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 7px; 
+  padding-left: 15px;
+`;
 
- export const ContentBox =css `
+ export const ContentBox = css`
   width :70vh;
   height: 180px;
   font-size: 16px;
   font-weight: 500;
   border-radius: 7px;
-   text-align: left; 
-   resize: none;
-   display: block;
+  text-align: left; 
+  resize: none;
+  display: block;
   box-sizing: border-box; 
  padding-left: 15px;
 
  `;
-//  nth-of-type()
-export const CreatorBox = css `
+
+export const CreatorBox = css`
   display : flex;
   flex-direction : column;
   justify-content : center;
 
 `;
-export const CreatorBox_1 = css `
+export const CreatorBox_1 = css`
   display : flex;
   flex-direction : column;
   justify-content : center;
@@ -116,16 +113,15 @@ export const BottomButtonContainer = css`
  margin-top: 10px; 
 `;
 
-export const ImgInput = css `
- width :50vh;
- height: 20px;
- font-size: 16px;
- font-weight: 500;
- border-radius: 7px;
+export const ImgInput = css`
+  width :50vh;
+  height: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 7px;
+`;
 
- `;
-
- export const MoveButton =css `
+ export const MoveButton = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;

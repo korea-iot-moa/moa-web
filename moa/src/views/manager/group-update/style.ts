@@ -10,7 +10,7 @@ export const buttonBox = css`
   display: flex;
   flex-direction: row;
 `;
-export const TitleInput = css `
+export const TitleInput = css`
  width :70vh;
  height: 40px;
  font-size: 16px;
@@ -24,7 +24,7 @@ export const TitleInput = css `
 
  `;
 
- export const ContentBox =css `
+ export const ContentBox = css`
   width :70vh;
   height: 180px;
   font-size: 16px;
@@ -38,7 +38,7 @@ export const TitleInput = css `
  `;
 
  
-export const  bottomBox = css `
+export const  bottomBox = css`
 display: flex;
 align-items:end;
 `;
@@ -47,14 +47,14 @@ export const DateContainer = css`
 display:flex; 
 justify-content:center;
 `;
-export const DateBox = css `
+export const DateBox = css`
   width :30%;
   height: 40px;
   text-align:center;
   border-radius: 7px;
 `;
 
-export const Tab =css `
+export const Tab = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;
@@ -167,7 +167,7 @@ export const label = css`
   margin: 0;
 `;
 
-export const MoveButton =css `
+export const MoveButton = css`
 font-family: "IBM Plex Sans", sans-serif;
 color: #000;
 cursor: pointer;

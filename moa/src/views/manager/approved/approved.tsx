@@ -4,8 +4,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
-import { GetReponseUserAnswer } from "../../../types/dto/response.dto";
-import { PostUserAnswerReqeustDto } from "../../../types/dto/request.dto";
+import { GetResponseUserAnswer } from "../../../types/dto/response.dto";
+import { PostUserAnswerRequestDto } from "../../../types/dto/request.dto";
 import { APPROVED_USER_ANSWERS_DELETE_API, APPROVED_USER_ANSWERS_GET_API, APPROVED_USER_ANSWERS_POST_API } from "../../../apis";
 
 interface ApprovedProps {
@@ -13,18 +13,16 @@ interface ApprovedProps {
 }
 
 const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
-  const [approve, setApprove] = useState<GetReponseUserAnswer[]>([]);
+  const [approve, setApprove] = useState<GetResponseUserAnswer[]>([]);
   const { groupId } = useParams();
   const [cookies] = useCookies(["token"]);
 
   useEffect(() => {
     if (groupId && cookies.token) {
       fetchApprove();
-      console.log("Approve state updated:", approve);
       }
   }, [parseToNumGroupId, cookies.token]);
-
-  //참여 요청 조회 
+ 
   const fetchApprove = async () => {
     if (cookies.token) {
       try {
@@ -37,9 +35,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
             withCredentials: true,
           }
         );
-
         const responseData = response.data?.data;
-
         if (Array.isArray(responseData)) {
           const mappedData = responseData.map((item) => ({
             ...item,
@@ -57,9 +53,8 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  // 유저 승인
   const handleApproveUser = async (userId: string) => {
-    const postReponseUserAnswer: PostUserAnswerReqeustDto = {
+    const postResponseUserAnswer: PostUserAnswerRequestDto = {
       userId: userId,
       isApproved: 1,
     };
@@ -68,7 +63,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
       try {
         await axios.post(
           `${APPROVED_USER_ANSWERS_POST_API}${groupId}`,
-          postReponseUserAnswer,
+          postResponseUserAnswer,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -90,9 +85,8 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  // 승인=0 일때 유저 삭제
   const handlePutApproveUser = async (userId: string) => {
-    const deleteUserAnswerRequestDto: PostUserAnswerReqeustDto = {
+    const deleteUserAnswerRequestDto: PostUserAnswerRequestDto = {
       userId: userId,
       isApproved: 0,
     };

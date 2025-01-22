@@ -30,7 +30,7 @@ export interface PutVoteRequestDto{
 }
 
 //참여 요청 +  참여 거절 
-export interface PostUserAnswerReqeustDto {
+export interface PostUserAnswerRequestDto {
  userId : string ; 
  isApproved : number;
 }

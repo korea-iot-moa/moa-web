@@ -9,7 +9,7 @@ export const fullBox = css`
   position: relative;
 `;
 
-export const Botton =css `
+export const Botton = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;
