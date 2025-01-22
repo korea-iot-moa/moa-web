@@ -6,7 +6,11 @@ import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import { GetResponseUserAnswer } from "../../../types/dto/response.dto";
 import { PostUserAnswerRequestDto } from "../../../types/dto/request.dto";
-import { APPROVED_USER_ANSWERS_DELETE_API, APPROVED_USER_ANSWERS_GET_API, APPROVED_USER_ANSWERS_POST_API } from "../../../apis";
+import {
+  APPROVED_USER_ANSWERS_DELETE_API,
+  APPROVED_USER_ANSWERS_GET_API,
+  APPROVED_USER_ANSWERS_POST_API,
+} from "../../../apis";
 
 interface ApprovedProps {
   parseToNumGroupId: number;
@@ -20,9 +24,9 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
   useEffect(() => {
     if (groupId && cookies.token) {
       fetchApprove();
-      }
+    }
   }, [parseToNumGroupId, cookies.token]);
- 
+
   const fetchApprove = async () => {
     if (cookies.token) {
       try {
@@ -90,11 +94,12 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
       userId: userId,
       isApproved: 0,
     };
-  
+
     if (cookies.token) {
       try {
         const response = await axios.put(
-          `${APPROVED_USER_ANSWERS_DELETE_API}${groupId}`, deleteUserAnswerRequestDto,
+          `${APPROVED_USER_ANSWERS_DELETE_API}${groupId}`,
+          deleteUserAnswerRequestDto,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -102,7 +107,7 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
             withCredentials: true,
           }
         );
-  
+
         if (response.status === 200) {
           setApprove((prevApprove) =>
             Array.isArray(prevApprove)
@@ -126,11 +131,25 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
               <strong>모임 이름: </strong>{" "}
               {data.groupTitle || data.MeetingGroup?.groupTitle || "N/A"}{" "}
               <strong>유저 아이디: </strong> {data.userId}{" "}
-              <strong>승인 결과: </strong> {data.isApproved === 0 ? "거절" : data.isApproved === 1 ? "승인" : "대기중"}
-            
-              <div css ={s.BottonBox}>
-              <button css={s.Botton} onClick={() => handleApproveUser(data.userId)}>승인</button>
-              <button css={s.Botton} onClick={() => handlePutApproveUser(data.userId)}>거절</button>
+              <strong>승인 결과: </strong>{" "}
+              {data.isApproved === 0
+                ? "거절"
+                : data.isApproved === 1
+                ? "승인"
+                : "대기중"}
+              <div css={s.BottonBox}>
+                <button
+                  css={s.Botton}
+                  onClick={() => handleApproveUser(data.userId)}
+                >
+                  승인
+                </button>
+                <button
+                  css={s.Botton}
+                  onClick={() => handlePutApproveUser(data.userId)}
+                >
+                  거절
+                </button>
               </div>
             </li>
           ))

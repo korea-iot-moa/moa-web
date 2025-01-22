@@ -6,10 +6,7 @@ import userImg from "../../../images/userImg.png";
 import { useCookies } from "react-cookie";
 import { BlackListPageResponseDto } from "../../../types/dto/response.dto";
 import ReactModal from "react-modal";
-import {
-  closeModalButton,
-  modalContent
-} from "../manager-home/style";
+import { closeModalButton, modalContent } from "../manager-home/style";
 import { BLACK_LIST_API } from "../../../apis";
 
 interface BlackListProps {
@@ -53,7 +50,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setBlackUserList(responseData);
-        console.log("transformed Data : " + responseData);
+   
       } catch (error) {
         console.error(error);
       }

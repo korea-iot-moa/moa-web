@@ -1,27 +1,30 @@
 import { css } from "@emotion/react";
-export const Container = css `
+
+export const Container = css`
 margin-top: 10px;
 `;
+
 export const AllBox = css`
-display: flex;
-justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 `;
+
 export const buttonBox = css`
   display: flex;
   flex-direction: row;
 `;
+
 export const TitleInput = css`
- width :70vh;
- height: 40px;
- font-size: 16px;
- font-weight: 500;
- padding-left: 15px;
- border-radius: 7px;
- text-align: left; 
-   resize: none;
+  width :70vh;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 15px;
+  border-radius: 7px;
+  text-align: left; 
+  resize: none;
   display: block;
   box-sizing: border-box; 
-
  `;
 
  export const ContentBox = css`
@@ -32,21 +35,22 @@ export const TitleInput = css`
   border-radius: 7px;
   padding-left: 15px;
   text-align: left; 
-   resize: none;
-   display: block;
+  resize: none;
+  display: block;
   box-sizing: border-box; 
  `;
 
  
 export const  bottomBox = css`
-display: flex;
-align-items:end;
+  display: flex;
+  align-items:end;
 `;
  
 export const DateContainer = css`
-display:flex; 
-justify-content:center;
+  display:flex; 
+  justify-content:center;
 `;
+
 export const DateBox = css`
   width :30%;
   height: 40px;
@@ -90,6 +94,7 @@ export const activeTab = css`
   border-radius: 7px;
   cursor: pointer;
 `;
+
 export const rowFieldBox = css`
   box-sizing: border-box ;
   display: flex;
@@ -103,7 +108,6 @@ export const labelBox = css`
   align-items: center;
   flex-direction:row;
   margin-bottom: 5px;
-
 `;
 
 export const genderBox = css`
@@ -150,7 +154,6 @@ export const genderBox = css`
     cursor: pointer;
     flex: 1;
     text-align: center;
-
 
     &:hover {
       border: 1px solid #4d4d4d;

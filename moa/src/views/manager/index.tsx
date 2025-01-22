@@ -17,7 +17,7 @@ import BlackList from "./black-list/BlackList";
 import Chart from "./chart/Chart";
 import Vote from "./vote/Vote";
 import Report from "./report/Report";
-import Approved from "./approved/Approved";
+import Approved from "./approved/approved";
 import GroupUpdate from "./group-update/GroupUpdate";
 
 export default function Index() {
@@ -66,7 +66,7 @@ export default function Index() {
 
 const theme = createTheme({
   palette: {
-    mode: "light", // 또는 'dark'
+    mode: "light", 
     grey: {
       50: "#fff",
       100: "#E5EAF2",

@@ -1,21 +1,22 @@
-
 import { css } from "@emotion/react";
 
-export  const box = css`
+export const box = css`
 display: flex; 
 flex-direction :column ;
 gap: 20px;
 `;
+
 export const modalContainer = css`
   text-align: center;
   margin-top: 50px;
-`
+`;
+
 export const boxContainer = css`
-position: relative; 
-display: flex; 
-flex-direction: row ;
-align-items: center;
-gap: 10px;
+  position: relative; 
+  display: flex; 
+  flex-direction: row ;
+  align-items: center;
+  gap: 10px;
 `;
 
 export const openModalButton = css`
@@ -65,8 +66,8 @@ export const modalContent =css`
   width: 300px;
   height: 300px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  `;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+`;
 
 export const closeModalButton = css`
   margin-top: 20px;
@@ -136,6 +137,7 @@ export const userImgBox = css`
     transform: scale(1.2);
   }
 `;
+
 export const userImg = css`
   width: 100%;
   transition: transform 0.3s ease;

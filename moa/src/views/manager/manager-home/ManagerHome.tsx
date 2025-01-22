@@ -3,7 +3,6 @@ import * as s from "./style";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
 import ReactModal from "react-modal";
 import userImg from "../../../images/userImg.png";
 import {
@@ -27,7 +26,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     "일반회원"
   );
   const [selectedUser, setSelectedUser] =
-    useState<GetUserListResponseDto | null>(null); // 선택된 유저 상태 추가
+    useState<GetUserListResponseDto | null>(null);
 
   useEffect(() => {
     fetchUserList();
@@ -110,7 +109,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
 
   return (
     <div css={s.box}>
-      <h2>총 인원수: {userList?.length  || 0}</h2>
+      <h2>총 인원수: {userList?.length || 0}</h2>
       {userList.map((user) => (
         <div key={user.userId} css={s.boxContainer}>
           <div css={s.userImgBox}>
@@ -125,8 +124,10 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
             />
           </div>
           <p>
-            {user.nickName} 님의 등급: {" "}
-            {typeof user.userLevel === "string" ? user.userLevel : "Unknown Level"}
+            {user.nickName} 님의 등급:{" "}
+            {typeof user.userLevel === "string"
+              ? user.userLevel
+              : "Unknown Level"}
           </p>
           <button onClick={() => openModal(user)} css={s.openModalButton}>
             등급 수정
