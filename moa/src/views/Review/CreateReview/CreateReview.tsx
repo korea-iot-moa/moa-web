@@ -207,7 +207,7 @@ function CreateReview() {
         <button onClick={handlePostReviewData}>등록</button>
       </div>
       {openModal && (
-        <div>
+        <div css={s.modalBox}>
           {modalMessage}
           {postClear ? (
             <button onClick={backPage}>닫기</button>

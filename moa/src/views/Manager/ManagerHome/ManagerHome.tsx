@@ -13,11 +13,8 @@ import ReactModal from "react-modal";
 import userImg from "../../../images/userImg.png";
 import { UserList } from "../../../types";
 import { PostUserLevelRequestDto } from "../../../types/dto/request.dto";
-import {
-  MANGE_HOME_DELTE_API,
-  MANGE_HOME_GET_API,
-  MANGE_HOME_PUT_API,
-} from "../../../apis";
+import { MANGE_HOME_DELTE_API, MANGE_HOME_GET_API, MANGE_HOME_PUT_API, USER_LIST_PAGE_IMG_API } from "../../../apis";
+
 
 interface ManagerHomeProps {
   parseToNumGroupId: number;
@@ -146,7 +143,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
                 <img src={userImg} alt="userImage" css={s.userImg} />
               ) : (
                 <img
-                  src={"http://localhost:8081/image/" + data.profileImage}
+                  src={"http://localhost:8080/image/" + data.profileImage}
                   alt="profileImage"
                   css={s.userImg}
                 />
