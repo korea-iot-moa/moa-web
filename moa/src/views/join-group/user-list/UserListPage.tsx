@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import * as s from "./style";
 import userImg from "../../../images/userImg.png";
-import { MeetingGroup, UserListDto } from "../../../types";
+import { UserListDto } from "../../../types";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
