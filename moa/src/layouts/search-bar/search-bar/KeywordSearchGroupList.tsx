@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
 import * as s from "../resultStyle";
-import usePaginationScroll from "../../../components/pagination-scroll/usePaginationScrollhook";
+import  usePaginationScrollSearchhook from "../../../components/pagination-scroll/usePaginationScrollSearchhook";
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/pagination-scroll/PaginationScroll";
 import { KEYWORD_LIST_API } from "../../../apis";
@@ -9,7 +9,7 @@ import { KEYWORD_LIST_API } from "../../../apis";
 function KeywordSearchGroupList() {
   const { keyword } = useParams<{ keyword: string }>();
   const searchKeyword = keyword || "";
-  const { data, loading, resetAndFetchData } = usePaginationScroll({
+  const { data, loading, resetAndFetchData } = usePaginationScrollSearchhook({
     apiUrl: KEYWORD_LIST_API,
     limit: 10,
     extraParams: { keyword: searchKeyword },

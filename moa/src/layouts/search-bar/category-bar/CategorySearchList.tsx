@@ -1,14 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import * as s from "../resultStyle";
-<<<<<<< HEAD:moa/src/layouts/SearchBar/categotybar/CategorySearchList.tsx
-=======
-import usePaginationScroll from "../../../components/pagination-scroll/usePaginationScrollhook";
->>>>>>> develop:moa/src/layouts/search-bar/category-bar/CategorySearchList.tsx
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/pagination-scroll/PaginationScroll";
 import { CATEGORY_GET_API } from "../../../apis";
-import usePaginationScrollSearchhook from "../../../components/paginationScroll/usePaginationScrollSearchhook";
+import usePaginationScrollSearchhook from "../../../components/pagination-scroll/usePaginationScrollSearchhook";
 
 function CategorySearchList() {
   const { groupCategory, region } = useParams<{
