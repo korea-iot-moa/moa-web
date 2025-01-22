@@ -12,7 +12,7 @@ import {
 import { LuVote, LuDoorOpen, LuCopy } from "react-icons/lu";
 import { AiOutlineHome } from "react-icons/ai";
 import { PiUserList } from "react-icons/pi";
-import VoteComponent from "../../components/VoteComponent/VoteComponent";
+import VoteComponent from "../../components/vote-component/VoteComponent";
 import GroupMainPage from "./join-main/GroupMainPage";
 import UserListPage from "./user-list/UserListPage";
 import {

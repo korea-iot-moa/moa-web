@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import RootLayout from "./layouts/RootLayout/RootLayout";
-import RootContainer from "./layouts/RootContainer/RootContainer";
+import RootLayout from "./layouts/root-layout/RootLayout";
+import RootContainer from "./layouts/root-container/RootContainer";
 import {
   Navigate,
   Route,
@@ -10,36 +10,36 @@ import {
 } from "react-router-dom";
 import * as p from "./constants";
 import Home from "./views/home/index";
-import GroupNaviBar from "./layouts/GroupNaviBar/GroupNaviBar";
-import InformationNaviBar from "./layouts/InformationNaviBar/InformationNaviBar";
-import MainContainer from "./layouts/MainContainer/MainContainer";
-import SignUp from "./views/auth/signup$/SignUp";
-import SignIn from "./views/auth/signin$/SignIn";
+import GroupNaviBar from "./layouts/group-navi-bar/GroupNaviBar";
+import InformationNaviBar from "./layouts/information-navi-bar/InformationNaviBar";
+import MainContainer from "./layouts/main-container/MainContainer";
+import SignUp from "./views/auth/signup/SignUp";
+import SignIn from "./views/auth/signin/SignIn";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
 import GroupHeader from "./views/join-group/GroupHeader";
-import SearchResult from "./layouts/SearchBar";
-import CategorySearchList from "./layouts/SearchBar/categotybar/CategorySearchList";
+import SearchResult from "./layouts/search-bar";
+import CategorySearchList from "./layouts/search-bar/category-bar/CategorySearchList";
 import ShortGroup from "./views/short-regular-group/ShortGroup";
 import RegularGroup from "./views/short-regular-group/RegularGroup";
-import Manager from "./views/Manager";
-import { ThemeProvider, createTheme, Theme } from "@mui/material/styles";
+import Manager from "./views/manager";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ReportPage from "./views/report/ReportPage";
 import CreateReview from "./views/review/create-review/CreateReview";
 import ReviewMain from "./views/review/review-main/ReviewMain";
 import MyPage from "./views/my-page/index";
-import FindPassword from "./views/auth/find-password$/FindPassword";
-import VerificationPassword from "./views/auth/find-password$/VerificationPassword";
+import FindPassword from "./views/auth/find-password/FindPassword";
+import VerificationPassword from "./views/auth/find-password/VerificationPassword";
 import NoticePage from "./views/notice/NoticePage";
 import WebMainPage from "./views/web-main/WebMainPage";
 import CreateGroup from "./views/group-detail/create-group/CreateGroup";
-import FindUserId from "./views/auth/find-user-id$/index";
+import FindUserId from "./views/auth/find-user-id/index";
 import JoinGroup from "./views/join-group/join-group/index";
 import MyPageReview from "./views/my-page/mypage-review/MyPageReview";
 import GroupDetailPage from "./views/group-detail/group-detail-page/GroupDetailPage";
-import AuthRedirectHandler from "./views/auth/signup$/AuthRedirectHandler";
-import SnsSuccess from "./views/auth/signin$/SnsSuccess";
+import AuthRedirectHandler from "./views/auth/signup/AuthRedirectHandler";
+import SnsSuccess from "./views/auth/signin/SnsSuccess";
 import ParticipationStatusPage from "./views/my-page/participation-status-page/ParticipationStatusPage";
 
 function App() {
@@ -89,7 +89,6 @@ function App() {
             <InformationNaviBar />
             <MainContainer>
               <Routes>
-                {/* 메인 영역 라우트 설정 */}
                 <Route path={p.WEB_APP_MAIN} element={<Home />} />
                 <Route path={p.SIGN_UP_PAGE} element={<SignUp />} />
                 <Route path="/auth" element={<AuthRedirectHandler />} />
@@ -137,10 +136,8 @@ function App() {
                   path="/review/*"
                   element={
                     <Routes>
-                      {/* 리뷰 메인 */}
                       <Route path={p.REVIEW_MAIN} element={<ReviewMain />} />
 
-                      {/* 리뷰 생성 페이지 */}
                       <Route
                         path={p.CREATE_REVIEW_PAGE}
                         element={
@@ -152,7 +149,6 @@ function App() {
                         }
                       />
 
-                      {/* 리뷰 마이페이지 */}
                       <Route
                         path={p.MY_PAGE_REVIEW}
                         element={
@@ -166,10 +162,8 @@ function App() {
                     </Routes>
                   }
                 />
-                {/* 공지사항 페이지 */}
                 <Route path={p.NOTICE_PAGE} element={<NoticePage />} />
                 <Route path={p.NOTICE_PAGE} element={<NoticePage />} />
-                {/* 모임참여 신청 */}
                 <Route
                   path={p.GROUP_JOIN_PAGE}
                   element={
@@ -180,7 +174,6 @@ function App() {
                     )
                   }
                 />
-                {/* 마이페이지 내정보 수정 */}
                 <Route
                   path={p.MY_PAGE}
                   element={
@@ -191,7 +184,6 @@ function App() {
                     )
                   }
                 />
-                {/* 그룹 상세 페이지 */}
                 <Route path={p.GROUP_DETAIL} element={<GroupDetailPage />} />
 
                 <Route
