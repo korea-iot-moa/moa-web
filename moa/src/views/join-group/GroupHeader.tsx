@@ -176,7 +176,6 @@ export default function GroupHeader() {
           </div>
         )}
         <div css={s.middleBox}>
-          {/* 채팅, 회원목록, 복사링크 */}
           <div>
             <button css={s.btnSt} onClick={() => setActivePage("home")}>
               <AiOutlineHome />

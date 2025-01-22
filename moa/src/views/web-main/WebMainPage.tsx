@@ -24,7 +24,6 @@ export default function WebMainPage() {
     navigate('/main')
   }
 
-  console.log(videoElement);
   const navigate = useNavigate();
 
   return (

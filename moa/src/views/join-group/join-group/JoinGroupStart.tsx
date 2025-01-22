@@ -20,7 +20,7 @@ function JoinGroupStart() {
         <div css={s.container}>
           <h4>참여시 주의사항</h4>
           <div css={s.listBox}>
-            <ul css={s.liststyle}>
+            <ul css={s.listStyle}>
               <li>채팅 및 게시판에서 타인을 비방하거나 모욕하지 않습니다.</li>
               <li>허위 정보나 거짓된 내용을 올리지 않습니다.</li>
               <li>

@@ -56,7 +56,7 @@ export default function SearchBar() {
     fetchData(keyword);
   }, [keyword]);
 
-  const handleKwordList = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleKeywordList = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
@@ -75,7 +75,7 @@ export default function SearchBar() {
             css={s.searchInput}
             type="search"
             value={keyword}
-            onChange={handleKwordList}
+            onChange={handleKeywordList}
             onKeyDown={handleSearch}
             placeholder="모임 이름을 입력해주세요."
           />

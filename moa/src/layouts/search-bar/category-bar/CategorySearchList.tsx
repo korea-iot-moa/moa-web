@@ -4,7 +4,7 @@ import * as s from "../resultStyle";
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/pagination-scroll/PaginationScroll";
 import { CATEGORY_GET_API } from "../../../apis";
-import usePaginationScrollSearchhook from "../../../components/pagination-scroll/usePaginationScrollSearchhook";
+import usePaginationScrollSearchHook from "../../../components/pagination-scroll/usePaginationScrollSearchHook";
 
 function CategorySearchList() {
   const { groupCategory, region } = useParams<{
@@ -14,7 +14,7 @@ function CategorySearchList() {
   const groupCategoryWord = groupCategory || "";
   const regionWord = region || "";
   const { data, loading, resetAndFetchData, updateParams } =
-    usePaginationScrollSearchhook({
+    usePaginationScrollSearchHook({
       apiUrl: CATEGORY_GET_API,
       limit: 10,
       extraParams: { groupCategory: groupCategoryWord, region: regionWord },
@@ -46,7 +46,7 @@ function CategorySearchList() {
     <div css={s.container}>
       <div css={s.mainBox}>
         <h3>카테고리 검색결과</h3>
-        <ul css={s.selectCategry}>
+        <ul css={s.selectCategory}>
           <li css={s.category}>{groupCategory}</li>
           <li>|</li>
           <li css={s.category}>{region}</li>

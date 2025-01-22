@@ -86,12 +86,12 @@ export const bottomBox = css`
     font-size: 17px;
     border-radius: 5px;
     border: none;
-    background-color: #4b4b4b;
+    background-color: #FF7B54;
     color: #fff;
     cursor: pointer;
 
     &:hover, :active{
-    background-color: #1a1a1a;
+    background-color: #e5673b;
     border: none;
     outline: none;
   }

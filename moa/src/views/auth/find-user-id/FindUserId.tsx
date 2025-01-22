@@ -76,7 +76,7 @@ function FindUserId() {
             onKeyDown={handleSendMail}
           />
           <button css={s.findUserIdBtn} onClick={handleSendMail}>
-            {loading ? <p>전송중...</p>: <p>아이디 찾기기</p> }
+            {loading ? <p>전송중...</p>: <p>아이디 찾기</p> }
           </button>
         </form>
       </div>
@@ -89,7 +89,7 @@ function FindUserId() {
         <h2>알림</h2>
         <div className="findUserIdModal">
         <p>{modalMessage}</p>
-        <button onClick={closeModal} className="closeModalBtn">닫기기</button>
+        <button onClick={closeModal} className="closeModalBtn">닫기</button>
         </div>
       </ReactModal>
     </div>

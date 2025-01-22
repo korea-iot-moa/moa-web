@@ -40,7 +40,6 @@ export interface Notice {
   noticeDate: Date;
 }
 
-// 추천 테이블 복합 키 id
 export interface RecommendationsId {
   groupId: number;
   userId: string;

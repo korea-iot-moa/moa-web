@@ -15,10 +15,6 @@ type PropsType = {
   closeVote: () => void;
 };
 
-type VoteData = {
-
-}
-
 const VoteComponent: React.FC<PropsType> = ({ groupId, groupTitle, closeVote }) => {
   const { userId } = userAuthStore();
   const [cookies] = useCookies(["token"]);
@@ -104,7 +100,6 @@ const VoteComponent: React.FC<PropsType> = ({ groupId, groupTitle, closeVote }) 
             Authorization: `Bearer ${cookies.token}`,
           },
         });
-        console.log("투표 제출 완료");
         closeVote()
       } catch (error) {
         console.error("투표 제출 실패", error);

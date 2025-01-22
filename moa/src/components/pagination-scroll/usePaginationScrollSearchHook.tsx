@@ -9,7 +9,7 @@ interface PaginationScrollProps<T> {
   extraParams?: Record<string, string>;
 }
 
-function usePaginationScrolShortRegularlhook<T>({
+function usePaginationScrollSearchHook<T>({
   apiUrl,
   limit,
   extraParams = {},
@@ -19,13 +19,14 @@ function usePaginationScrolShortRegularlhook<T>({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [sortBy, setSortBy] = useState<string>("default");
+  const [params, setParams] = useState(extraParams);
 
-  const fetchData = async (page: number) => {
+  const fetchData = async (page: number, updatedParams = params) => {
     if (loading) return;
     setLoading(true);
     try {
       const response = await axios.get(apiUrl, {
-        params: { page, limit, sortBy, ...extraParams },
+        params: { page, limit, sortBy, ...updatedParams },
       });
       const newData = response.data.data;
 
@@ -73,6 +74,16 @@ function usePaginationScrolShortRegularlhook<T>({
     fetchData(1);
   }, [sortBy]);
 
+  useEffect(() => {
+    setData([]);
+    setCurrentPage(1);
+    fetchData(1, params);
+  }, [params]);
+
+  const updateParams = (newParams: Record<string, string>) => {
+    setParams((prev) => ({ ...prev, ...newParams }));
+  };
+
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
@@ -89,7 +100,7 @@ function usePaginationScrolShortRegularlhook<T>({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, currentPage, totalPages]);
 
-  return { data, loading, resetAndFetchData: setSortBy, extraParams };
+  return { data, loading, resetAndFetchData: setSortBy, updateParams };
 }
 
-export default usePaginationScrolShortRegularlhook;
+export default usePaginationScrollSearchHook;

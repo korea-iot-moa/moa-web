@@ -119,10 +119,7 @@ function CreateReview() {
       }
     });
 
-    console.log(reviewDataForm);
-
     try {
-      console.log(reviewDataForm);
       const response = await axios.post(
         CREATE_REVIEW_POST_API,
         reviewDataForm,
