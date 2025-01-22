@@ -126,7 +126,8 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
               <strong>모임 이름: </strong>{" "}
               {data.groupTitle || data.MeetingGroup?.groupTitle || "N/A"}{" "}
               <strong>유저 아이디: </strong> {data.userId}{" "}
-              <strong>승인 결과: </strong> {data.isApproved === 0 ? "거절" : 1 ? "승인" : "대기중"}
+              <strong>승인 결과: </strong> {data.isApproved === 0 ? "거절" : data.isApproved === 1 ? "승인" : "대기중"}
+            
               <div css ={s.BottonBox}>
               <button css={s.Botton} onClick={() => handleApproveUser(data.userId)}>승인</button>
               <button css={s.Botton} onClick={() => handlePutApproveUser(data.userId)}>거절</button>
