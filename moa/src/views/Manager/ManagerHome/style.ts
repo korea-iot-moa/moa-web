@@ -15,7 +15,7 @@ position: relative;
 display: flex; 
 flex-direction: row ;
 align-items: center;
-gap: 10px
+gap: 10px;
 `;
 
 export const openModalButton = css`
@@ -41,8 +41,7 @@ export const openModalButton = css`
     color: #000;
     outline: 3px solid #DAE2ED;
   }
-
-`  
+`;  
 
 export const modalOverlay= css`
   position: fixed;
@@ -55,8 +54,7 @@ export const modalOverlay= css`
   align-items: center;
   justify-content: center;
   padding :20px;
-` 
-
+`;
 
 export const modalContent =css`
   position: absolute;
@@ -69,7 +67,6 @@ export const modalContent =css`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   `;
-
 
 export const closeModalButton = css`
   margin-top: 20px;
@@ -94,7 +91,7 @@ export const closeModalButton = css`
     color: #fff;
     outline: 3px solid #DAE2ED;
   }
-`
+`;
 
 export const delBotton = css`
   font-family: "IBM Plex Sans", sans-serif;

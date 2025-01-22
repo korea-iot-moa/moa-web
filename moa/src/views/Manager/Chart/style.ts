@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const AllBox =css`
+export const AllBox = css`
   width: 100%;
   height: 100%;
   display: flex;
@@ -9,7 +9,7 @@ export const AllBox =css`
   flex-wrap: wrap;
 `;
 
-export const GenderChartBox =css`
+export const GenderChartBox = css`
   position: relative;
   width: auto;
   height: auto;

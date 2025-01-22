@@ -3,18 +3,18 @@ import * as s from "./style";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-  GetUserListResponseDto,
-  PostUserLevelResponse,
-  PutUserLevelReponseDto,
+  GetUserListResponseDto
 } from "../../../types/dto/response.dto";
 import ReactModal from "react-modal";
 import userImg from "../../../images/userImg.png";
-import { UserList } from "../../../types";
 import { PostUserLevelRequestDto } from "../../../types/dto/request.dto";
-import { MANGE_HOME_DELTE_API, MANGE_HOME_GET_API, MANGE_HOME_PUT_API, USER_LIST_PAGE_IMG_API } from "../../../apis";
-
+import {
+  MANGE_HOME_DELTE_API,
+  MANGE_HOME_GET_API,
+  MANGE_HOME_PUT_API,
+} from "../../../apis";
 
 interface ManagerHomeProps {
   parseToNumGroupId: number;
@@ -69,7 +69,6 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  //등급 수정
   const handleUserLevel = async (userId: string) => {
     const putUserLevelRequestDto: PostUserLevelRequestDto = {
       userId: userId,
@@ -99,7 +98,6 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  //유저 추방
   const handleDeleteUser = async (userId: string) => {
     if (cookies.userId === userId) {
       alert("관리자는 스스로 방출 안됩니다 ");
@@ -128,15 +126,12 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
   };
 
   return (
-    <div css ={s.box}>
+    <div css={s.box}>
       <div>
         <h2>총 인원수 : {userList.length}</h2>
       </div>
       {userList.map((data) => (
-        <div
-          key={data.nickName}
-          css={s.boxContainer}
-        >
+        <div key={data.nickName} css={s.boxContainer}>
           <div>
             <div css={s.userImgBox}>
               {!data.profileImage ? (

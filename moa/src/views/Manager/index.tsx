@@ -17,7 +17,7 @@ import BlackList from "./BlackList/BlackList";
 import Chart from "./Chart/Chart";
 import Vote from "./Vote/Vote";
 import Report from "./Report/Report";
-import Approved from "./Approved/index";
+import Approved from "./Approved/approved";
 import GroupUpdate from "./GroupUpdate/GroupUpdate";
 
 export default function Index() {
@@ -37,25 +37,31 @@ export default function Index() {
           <Tab value={5}>승인</Tab>
           <Tab value={6}>수정</Tab>
         </TabsList>
+
         <TabPanel value={0}>
-          {/* 각 컴포넌트에 index.tsx 해당 파일에 있는 groupId값을 props로 전달하기 */}
           <ManagerHome parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
+
         <TabPanel value={1}>
           <Chart parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
+
         <TabPanel value={2}>
           <Vote parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
+
         <TabPanel value={3}>
           <BlackList parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
+
         <TabPanel value={4}>
           <Report parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
+
         <TabPanel value={5}>
           <Approved parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
+
         <TabPanel value={6}>
           <GroupUpdate parseToNumGroupId={parseToNumGroupId} />
         </TabPanel>
@@ -66,7 +72,7 @@ export default function Index() {
 
 const theme = createTheme({
   palette: {
-    mode: "light", // 또는 'dark'
+    mode: "light",
     grey: {
       50: "#fff",
       100: "#E5EAF2",

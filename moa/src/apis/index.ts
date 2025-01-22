@@ -38,7 +38,7 @@ export const Find_USERID_POST_API = `http://localhost:8080/api/v1/mails/user-id`
 export const Find_USERID_GET_API = `http://localhost:8080/api/v1/mails/verification/user-id`;
 
 //SignIn
-export const SIGN_IN_API = `http://localhost:8080/api/v1/auth/signIn`;
+export const SIGN_IN_API = `http://localhost:8080/api/v1/auth/signin`;
 export const SIGN_IN_SNS_API = `http://localhost:8080/api/v1/auth/sns-sign-in/`
 
 //SignUp
@@ -112,6 +112,7 @@ export const REPORT_API = `http://localhost:8080/api/v1/reports/`;
 export const  REPORT_IMG_API=`http://localhost:8080/image/`;
 
 //Vote
+export const VOTE_API_POST = `http://localhost:8080/api/v1/votes`;
 export const VOTE_API = `http://localhost:8080/api/v1/votes/`;
 export const VOTE_RESULT_GET_API = `http://localhost:8080/api/v1/vote-results/exist-answer/`;
 export const VOTE_RESULT_POST = `http://localhost:8080/api/v1/vote-results`;

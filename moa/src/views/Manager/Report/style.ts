@@ -38,12 +38,13 @@ export const userImgBox = css`
     transform: scale(1.2);
   }
 `;
+
 export const userImg = css`
   width: 100%;
   transition: transform 0.3s ease;
 `;
 
-export const Tab =css `
+export const Tab = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #fff;
   cursor: pointer;

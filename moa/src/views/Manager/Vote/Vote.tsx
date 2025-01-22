@@ -22,7 +22,7 @@ import {
   modalContent,
   openModalButton,
 } from "../ManagerHome/style";
-import { VOTE_API, VOTE_RESULT_GET } from "../../../apis";
+import { VOTE_API, VOTE_API_POST, VOTE_RESULT_GET } from "../../../apis";
 
 interface VoteProps {
   parseToNumGroupId: number;
@@ -95,7 +95,7 @@ const Vote: React.FC<VoteProps> = ({ parseToNumGroupId }) => {
       createDate: new Date(createDate),
       closeDate: new Date(closeDate),
     };
-    const url = `http://localhost:8080/api/v1/votes`;
+    const url = `${VOTE_API_POST}`;
 
     if (cookies.token) {
       try {

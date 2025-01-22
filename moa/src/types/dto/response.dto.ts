@@ -50,7 +50,7 @@ export type GetVoteResponseDto = {
   closeDate: Date;
 }
 
-export interface GetReponseUserAnswer {
+export interface GetResponseUserAnswer {
   answerId: number;
   MeetingGroup?: {
     groupTitle: string;

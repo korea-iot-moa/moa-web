@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 
-export const Tab =css `
+export const Tab = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #fff;
   cursor: pointer;
@@ -25,12 +25,12 @@ export const Tab =css `
     outline: 3px solid #DAE2ED;
   }
 `;
-export const BottonBox =css`
+export const BottonBox = css`
   display: flex;
   flex-direction: row;
 `;
 
-export const Botton =css `
+export const Botton = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;

@@ -1,15 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style"; 
 import React, { useEffect, useState } from "react";
-import Manager from "../index";
 import axios from "axios";
 import userImg from "../../../images/userImg.png";
-import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { BlackListPageResponseDto } from "../../../types/dto/response.dto";
 import ReactModal from "react-modal";
-import { closeModalButton, modalContent, userImgBox } from "../ManagerHome/style";
-import { input } from "../../Auth/SignUp/style";
+import { closeModalButton, modalContent} from "../ManagerHome/style";
 import { BLACK_LIST_API } from "../../../apis";
 
 interface BlackListProps {
@@ -20,19 +17,16 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
   const [blackUserList, setBlackUserList] = useState<
     BlackListPageResponseDto[]
   >([]);
-  const { groupId } = useParams();
   const [cookies] = useCookies(["token"]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [inputUserId, setInputUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedLevel, setSelectedLevel] = useState<"일반회원" | "우수회원"|"관리자">("관리자");
 
 
   useEffect(() => {
     fetchBlackList();
   }, [parseToNumGroupId, cookies.token]);
 
-  
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -46,7 +40,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
     if (cookies.token) {
       try {
         const response = await axios.get(
-          `${ BLACK_LIST_API}${parseToNumGroupId}`,
+          `${BLACK_LIST_API}${parseToNumGroupId}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.token}`,
@@ -57,7 +51,6 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setBlackUserList(responseData);
-        console.log("transformed Data : " + responseData);
       } catch (error) {
         console.error(error);
       }
@@ -70,8 +63,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
         return;
     }
     setIsLoading(true);
-    const url = `${ BLACK_LIST_API}${parseToNumGroupId}`;
-
+    const url = `${BLACK_LIST_API}${parseToNumGroupId}`;
     if (cookies.token) {
         try {
             const response = await axios.post(url, { userId: inputUserId }, {
@@ -80,7 +72,6 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
                 },
                 withCredentials: true,
             });
-
             if (response.data.status === "SUCCESS") {
                 fetchBlackList(); 
                 alert("등록되었습니다.");
@@ -99,17 +90,14 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
 
 const handleDeleteBlackList = async (groupId : number, userId: string) => {
   const url = `http://localhost:8080/api/v1/black-list?groupId=${groupId}&userId=${userId}`;
-
   if (cookies.token) {
       try {
-          
           const response = await axios.delete(url, {
               headers: {
                   Authorization: `Bearer ${cookies.token}`,
               },
               withCredentials: true,
           });
-
           if (response.status === 200) {
               alert("삭제되었습니다.");
               fetchBlackList(); 

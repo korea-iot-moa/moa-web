@@ -3,9 +3,8 @@ import axios from "axios";
 import * as s from "./style";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
 import { GetReportListResponseDto } from "../../../types/dto/response.dto";
-import { LayerBox, ReportBox } from "./style";
+import { LayerBox } from "./style";
 
 import {
   DeleteReportResponseDto,
@@ -44,7 +43,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setReportList(responseData);
-         // 이미지 URL 설정
+        
       if (responseData.reportImage) {
         const imageUrl = `${REPORT_IMG_API}${responseData.reportImage}`;
         setPreviewUrl(imageUrl);
@@ -87,7 +86,6 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  //버튼 열기
   const openHiddenBox = (reportId: number) => {
     setOpenState((openState) => ({
       ...openState,
@@ -116,7 +114,6 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
           }
         );
         const responseData = response.data.data;
-        console.log(responseData);
       } catch (error) {
         console.error(error);
       }
