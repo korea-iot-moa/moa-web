@@ -10,26 +10,24 @@ import { useCookies } from "react-cookie";
 
 function GroupAnswerResult() {
   const { groupId } = useParams();
-    const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies(["token"]);
   const [groupData, setGroupData] = useState<MeetingGroup | null>(null);
   const navigator = useNavigate();
 
-  const fetchData = async() => {
-    try{ 
-      const responseGroup = await axios.get(`${FIND_GROUP_GET_API}${groupId}`, 
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-          withCredentials: true,
-        } 
-      );
+  const fetchData = async () => {
+    try {
+      const responseGroup = await axios.get(`${FIND_GROUP_GET_API}${groupId}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+        withCredentials: true,
+      });
 
       setGroupData(responseGroup.data.data);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
@@ -39,15 +37,15 @@ function GroupAnswerResult() {
     <div css={s.container}>
       <div css={s.resultContainer}>
         <div css={s.groupImg}>
-        <img
-          src={
-            groupData?.groupImage
-              ? `${JOIN_GROUP_ANSWER_IMG_API}${groupData?.groupImage}`
-              : moaLogo
-          }
-          alt="groupData?.groupImage"
-          css={s.mainImg}
-        />
+          <img
+            src={
+              groupData?.groupImage
+                ? `${JOIN_GROUP_ANSWER_IMG_API}${groupData?.groupImage}`
+                : moaLogo
+            }
+            alt="groupData?.groupImage"
+            css={s.mainImg}
+          />
         </div>
         <div css={s.groupDataDiv}>
           <p>{groupData?.groupTitle}</p>

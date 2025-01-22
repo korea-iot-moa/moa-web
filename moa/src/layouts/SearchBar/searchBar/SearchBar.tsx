@@ -25,22 +25,21 @@ export default function SearchBar() {
     }
   };
 
-  // 관련 검색어
   const fetchData = async (keyword: string) => {
     if (keyword.trim()) {
       try {
-        const response = await axios.get(
-          SEARCHBAR_GET_API,
-          { params: { keyword } }
-        );
+        const response = await axios.get(SEARCHBAR_GET_API, {
+          params: { keyword },
+        });
         const datas: MeetingGroup[] = response.data.data;
 
         const uniqueData = Array.from(
           datas
-            .reduce((map, data) => map.set(data.groupTitle, data), new Map()).values() 
+            .reduce((map, data) => map.set(data.groupTitle, data), new Map())
+            .values()
         );
 
-        const uniqueDatSlice = uniqueData.slice(0,5);
+        const uniqueDatSlice = uniqueData.slice(0, 5);
 
         if (keyword !== "") {
           setResults(uniqueDatSlice);
@@ -69,21 +68,21 @@ export default function SearchBar() {
     <div css={s.container}>
       <div css={s.searchBar}>
         <div css={s.searchBarLine}>
-            <button css={s.searchBtn} value={keyword} onClick={handleSearch}>
-              <IoSearchOutline />
-            </button>
-            <input
-              css={s.searchInput}
-              type="search"
-              value={keyword}
-              onChange={handleKwordList}
-              onKeyDown={handleSearch}
-              placeholder="모임 이름을 입력해주세요."
-            />
+          <button css={s.searchBtn} value={keyword} onClick={handleSearch}>
+            <IoSearchOutline />
+          </button>
+          <input
+            css={s.searchInput}
+            type="search"
+            value={keyword}
+            onChange={handleKwordList}
+            onKeyDown={handleSearch}
+            placeholder="모임 이름을 입력해주세요."
+          />
         </div>
       </div>
       <ul css={s.searchTitleList}>
-        {results.map((result, index) => ( 
+        {results.map((result, index) => (
           <li key={index}>
             <button onClick={handleClickSandValue} value={result.groupTitle}>
               {result.groupTitle}
