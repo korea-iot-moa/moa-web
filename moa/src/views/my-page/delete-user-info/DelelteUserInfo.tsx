@@ -26,11 +26,11 @@ function DeleteUserInfo() {
       | React.KeyboardEvent<HTMLInputElement>
   ) => {
     if ("key" in e && e.key !== "Enter") return;
-    
-    if(passwordValue.password === null) {
+
+    if (passwordValue.password === null) {
       alert("비밀번호를 입력해주세요.");
     }
-    
+
     if (cookies.token) {
       try {
         const comfirmed = window.confirm("탈퇴 하시겠습니까?");
@@ -44,10 +44,9 @@ function DeleteUserInfo() {
           withCredentials: true,
         });
 
-
         if (response.data.data === null) {
           alert("탈퇴가 완료되었습니다.");
-          navigator('/');
+          navigator("/");
           localStorage.removeItem("token");
           sessionStorage.removeItem("token");
           document.cookie = "token=; Max-Age=0; path=/;";
@@ -69,7 +68,7 @@ function DeleteUserInfo() {
           <input
             className="passwordInput"
             type="password"
-            placeholder="비밀번호를 입력하세요."
+            placeholder="비밀번호를 입력해주주세요."
             name="password"
             value={passwordValue.password}
             onChange={handlePasswordChange}

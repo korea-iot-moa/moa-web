@@ -1,15 +1,14 @@
 import { css } from "@emotion/react";
 
-export const AllBox =css`
+export const AllBox = css`
   width: 100%;
   height: 100%;
   display: flex;
-
   flex-direction: row;
   flex-wrap: wrap;
 `;
 
-export const GenderChartBox =css`
+export const GenderChartBox = css`
   position: relative;
   width: auto;
   height: auto;
@@ -30,7 +29,7 @@ export const QuarterBox = css`
  flex-direction: column;
 `;
 
-export const QuartChartName = css `
+export const QuartChartName = css`
   text-align :center;
 `;
 

@@ -23,7 +23,6 @@ const PaginationScroll = ({ datas }: PaginationScrollProps) => {
   const [cookies] = useCookies(["token"]);
   const navigator = useNavigate();
 
-  // 답변 중복확인 함수
   const handleOpenGroup = async (group: MeetingGroup | null) => {
     navigator(`/meeting-group/${group?.groupId}`);
   };
@@ -92,6 +91,13 @@ const PaginationScroll = ({ datas }: PaginationScrollProps) => {
     }
   };
 
+  const cutText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <div>
       {datas.length > 0 ? (
@@ -120,7 +126,7 @@ const PaginationScroll = ({ datas }: PaginationScrollProps) => {
               <div css={s.line} onClick={() => handleOpenGroup(data)}></div>
               <div css={s.listDetail}>
                 <p css={s.content} onClick={() => handleOpenGroup(data)}>
-                  {data.groupTitle}
+                  {cutText(data.groupTitle, 11)}
                 </p>
                 <p css={s.content}>
                   <button
@@ -137,7 +143,7 @@ const PaginationScroll = ({ datas }: PaginationScrollProps) => {
               </div>
               <div css={s.listDetail} onClick={() => handleOpenGroup(data)}>
                 <p>{data.groupDate}</p>
-                <p>{data.groupAddress}</p>
+                <p>{cutText(data.groupAddress, 4)}</p>
               </div>
             </li>
           ))}

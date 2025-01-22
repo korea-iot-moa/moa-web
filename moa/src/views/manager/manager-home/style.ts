@@ -1,21 +1,22 @@
-
 import { css } from "@emotion/react";
 
-export  const box = css`
+export const box = css`
 display: flex; 
 flex-direction :column ;
 gap: 20px;
 `;
+
 export const modalContainer = css`
   text-align: center;
   margin-top: 50px;
-`
+`;
+
 export const boxContainer = css`
-position: relative; 
-display: flex; 
-flex-direction: row ;
-align-items: center;
-gap: 10px
+  position: relative; 
+  display: flex; 
+  flex-direction: row ;
+  align-items: center;
+  gap: 10px;
 `;
 
 export const openModalButton = css`
@@ -41,8 +42,7 @@ export const openModalButton = css`
     color: #000;
     outline: 3px solid #DAE2ED;
   }
-
-`  
+`;  
 
 export const modalOverlay= css`
   position: fixed;
@@ -55,8 +55,7 @@ export const modalOverlay= css`
   align-items: center;
   justify-content: center;
   padding :20px;
-` 
-
+`;
 
 export const modalContent =css`
   position: absolute;
@@ -67,9 +66,8 @@ export const modalContent =css`
   width: 300px;
   height: 300px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  `;
-
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+`;
 
 export const closeModalButton = css`
   margin-top: 20px;
@@ -94,7 +92,7 @@ export const closeModalButton = css`
     color: #fff;
     outline: 3px solid #DAE2ED;
   }
-`
+`;
 
 export const delBotton = css`
   font-family: "IBM Plex Sans", sans-serif;
@@ -139,6 +137,7 @@ export const userImgBox = css`
     transform: scale(1.2);
   }
 `;
+
 export const userImg = css`
   width: 100%;
   transition: transform 0.3s ease;

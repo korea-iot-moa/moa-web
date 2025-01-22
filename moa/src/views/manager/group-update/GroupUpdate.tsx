@@ -3,13 +3,8 @@ import * as s from "./style";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { AllBox, DateBox, Tab } from "../../group-detail/create-group/style";
-import { buttonBox } from "./style";
-import { GroupType } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import groupImage from "../../../images/group.jpg";
-import { group } from "console";
-import { LuImagePlus } from "react-icons/lu";
 import { GROUP_UPDATE_API, MANGE_HOME_IMG_API } from "../../../apis";
 
 interface GroupUpdateProps {
@@ -38,7 +33,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
     fetchGroupData();
   }, [parseToNumGroupId, cookies.token]);
 
-  //메모리 해제
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -66,7 +60,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  //모임 정보 가져오기기
   const fetchGroupData = async () => {
     const url = `${GROUP_UPDATE_API}${parseToNumGroupId}`;
 
@@ -103,7 +96,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
         groupImg: data.groupImage || "",
       });
 
-      // 이미지 URL 설정
       if (data.groupImage) {
         const imageUrl = `${MANGE_HOME_IMG_API}${data.groupImage}`;
         setPreviewUrl(imageUrl);
@@ -195,8 +187,53 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
   };
 
   return (
-    <div>
-      <strong>
+    <div css={s.totalContainer}>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>제목</h2>
+        </strong>
+        <textarea
+          placeholder="모임 제목 설정"
+          css={s.TitleInput}
+          value={formData.groupTitle}
+          onChange={(e) => handleInputChange("groupTitle", e.target.value)}
+        />
+      </div>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>준비물</h2>
+        </strong>
+        <textarea
+          placeholder="준비물"
+          css={s.TitleInput}
+          value={formData.groupSupplies}
+          onChange={(e) => handleInputChange("groupSupplies", e.target.value)}
+          />
+      </div>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>내용</h2>
+        </strong>
+        <textarea
+          placeholder="모임 내용"
+          css={s.ContentBox}
+          value={formData.groupContent}
+          onChange={(e) => handleInputChange("groupContent", e.target.value)}
+        />
+      </div>
+      <div css={s.Container}>
+        <strong>
+          <h2 css={s.label}>모임 날짜</h2>
+        </strong>
+        <input
+          type="date"
+          css={s.DateBox}
+          value={formData.groupDate || ""}
+          onChange={(e) => handleInputChange("groupDate", e.target.value)}
+        />
+      </div>
+      <div>
+        <strong>
         <h2 css={s.label}>모임 유형</h2>
       </strong>
       <div css={s.buttonBox}>
@@ -214,6 +251,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
         >
           정기 모임
         </button>
+      </div>
       </div>
       <div css={s.Container}>
         <h2 css={s.label}>모임 카테고리</h2>{" "}
@@ -240,18 +278,7 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
       </div>
       <div css={s.Container}>
         <strong>
-          <h2 css={s.label}>모임 날짜</h2>
-        </strong>
-        <input
-          type="date"
-          css={s.DateBox}
-          value={formData.groupDate || ""}
-          onChange={(e) => handleInputChange("groupDate", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>모임 장소</h2>
+          <h2 css={s.label}>만남 타입</h2>
         </strong>
         <div css={s.buttonBox}>
           <button
@@ -279,39 +306,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
           placeholder="모임 주소"
           value={formData.groupAddress}
           onChange={(e) => handleInputChange("groupAddress", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>제목</h2>
-        </strong>
-        <textarea
-          placeholder="모임 제목 설정"
-          css={s.TitleInput}
-          value={formData.groupTitle}
-          onChange={(e) => handleInputChange("groupTitle", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>내용</h2>
-        </strong>
-        <textarea
-          placeholder="모임 내용"
-          css={s.ContentBox}
-          value={formData.groupContent}
-          onChange={(e) => handleInputChange("groupContent", e.target.value)}
-        />
-      </div>
-      <div css={s.Container}>
-        <strong>
-          <h2 css={s.label}>준비물</h2>
-        </strong>
-        <textarea
-          placeholder="준비물"
-          css={s.TitleInput}
-          value={formData.groupSupplies}
-          onChange={(e) => handleInputChange("groupSupplies", e.target.value)}
         />
       </div>
       <div css={s.Container}>

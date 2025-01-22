@@ -1,19 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import React, { useEffect, useState } from "react";
-import Manager from "../index";
 import axios from "axios";
 import userImg from "../../../images/userImg.png";
-import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { BlackListPageResponseDto } from "../../../types/dto/response.dto";
 import ReactModal from "react-modal";
-import {
-  closeModalButton,
-  modalContent,
-  userImgBox,
-} from "../manager-home/style";
-import { input } from "../../auth/signup/style";
+import { closeModalButton, modalContent } from "../manager-home/style";
 import { BLACK_LIST_API } from "../../../apis";
 
 interface BlackListProps {
@@ -24,14 +17,10 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
   const [blackUserList, setBlackUserList] = useState<
     BlackListPageResponseDto[]
   >([]);
-  const { groupId } = useParams();
   const [cookies] = useCookies(["token"]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [inputUserId, setInputUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedLevel, setSelectedLevel] = useState<
-    "일반회원" | "우수회원" | "관리자"
-  >("관리자");
 
   useEffect(() => {
     fetchBlackList();
@@ -61,7 +50,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setBlackUserList(responseData);
-        console.log("transformed Data : " + responseData);
+   
       } catch (error) {
         console.error(error);
       }
