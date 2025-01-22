@@ -25,7 +25,6 @@ export const TitleInput = css`
   resize: none;
   display: block;
   box-sizing: border-box; 
-
  `;
 
  export const ContentBox = css`
@@ -43,13 +42,13 @@ export const TitleInput = css`
 
  
 export const  bottomBox = css`
-display: flex;
-align-items:end;
+  display: flex;
+  align-items:end;
 `;
  
 export const DateContainer = css`
-display:flex; 
-justify-content:center;
+  display:flex; 
+  justify-content:center;
 `;
 
 export const DateBox = css`
@@ -95,6 +94,7 @@ export const activeTab = css`
   border-radius: 7px;
   cursor: pointer;
 `;
+
 export const rowFieldBox = css`
   box-sizing: border-box ;
   display: flex;
@@ -154,7 +154,6 @@ export const genderBox = css`
     cursor: pointer;
     flex: 1;
     text-align: center;
-
 
     &:hover {
       border: 1px solid #4d4d4d;

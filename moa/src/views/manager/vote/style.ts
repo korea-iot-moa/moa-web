@@ -22,7 +22,7 @@ export const ReportBox = css`
 export const BottonBox = css`
   display: flex;
   justify-content:flex-start;
- `;
+`;
 
 export const Botton =css`
   font-family: "IBM Plex Sans", sans-serif;

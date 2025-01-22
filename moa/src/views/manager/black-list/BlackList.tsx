@@ -50,7 +50,7 @@ const BlackList: React.FC<BlackListProps> = ({ parseToNumGroupId }) => {
         );
         const responseData = response.data.data;
         setBlackUserList(responseData);
-        console.log("transformed Data : " + responseData);
+   
       } catch (error) {
         console.error(error);
       }

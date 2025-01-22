@@ -3,13 +3,8 @@ import * as s from "./style";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { AllBox, DateBox, Tab } from "../../group-detail/create-group/style";
-import { buttonBox } from "./style";
-import { GroupType } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import groupImage from "../../../images/group.jpg";
-import { group } from "console";
-import { LuImagePlus } from "react-icons/lu";
 import { GROUP_UPDATE_API, MANGE_HOME_IMG_API } from "../../../apis";
 
 interface GroupUpdateProps {
