@@ -25,6 +25,7 @@ export const Tab = css`
     outline: 3px solid #DAE2ED;
   }
 `;
+
 export const BottonBox = css`
   display: flex;
   flex-direction: row;

@@ -52,6 +52,7 @@ export const userImgBox = css`
     transform: scale(1.2);
   }
 `;
+
 export const userImg = css`
   width: 100%;
   transition: transform 0.3s ease;

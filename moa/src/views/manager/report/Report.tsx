@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { GetReportListResponseDto } from "../../../types/dto/response.dto";
 
-
 import {
   DeleteReportResponseDto,
   PostReportRequestDto,
@@ -23,7 +22,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
   const [openState, setOpenState] = useState<Record<number, boolean>>({});
   const [reportImg, setReportImg] = useState<any>(null);
   const [previewUrl, setPreviewUrl] = useState<any>(null);
-  
+
   useEffect(() => {
     if (parseToNumGroupId && cookies.token) {
       fetchReportList();
@@ -33,24 +32,21 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
   const fetchReportList = async () => {
     if (cookies.token) {
       try {
-        const response = await axios.get(
-          `${REPORT_API}${parseToNumGroupId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.token}`,
-            },
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${REPORT_API}${parseToNumGroupId}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+          withCredentials: true,
+        });
         const responseData = response.data.data;
         setReportList(responseData);
-        
-      if (responseData.reportImage) {
-        const imageUrl = `${REPORT_IMG_API}${responseData.reportImage}`;
-        setPreviewUrl(imageUrl);
-      } else {
-        setPreviewUrl(reportImg);
-      }
+
+        if (responseData.reportImage) {
+          const imageUrl = `${REPORT_IMG_API}${responseData.reportImage}`;
+          setPreviewUrl(imageUrl);
+        } else {
+          setPreviewUrl(reportImg);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -67,7 +63,7 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
           reportUser: reportUser,
           reportResult,
         };
-        
+
         const response = await axios.post(
           `${REPORT_API}${parseToNumGroupId}`,
           postReportRequestDto,
@@ -130,7 +126,10 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
           <li key={data.reportId}>
             <strong> 신고한 사람: </strong> {data.userId} ---
             <strong> 신고 받은 사람: </strong> {data.reportUser}
-            <button css ={s.Botton}  onClick={() => openHiddenBox(data.reportId)}> 오픈 </button>
+            <button css={s.Botton} onClick={() => openHiddenBox(data.reportId)}>
+              {" "}
+              오픈{" "}
+            </button>
             <div
               css={LayerBox}
               style={{
@@ -149,11 +148,11 @@ const Report: React.FC<ReportProps> = ({ parseToNumGroupId }) => {
                   alt={
                     data.reportImage ? "신고 이미지 미리보기" : "기본 이미지"
                   }
-                  onError={(e) => (e.currentTarget.src = "")} 
+                  onError={(e) => (e.currentTarget.src = "")}
                   style={{
-                    width: "100px", 
+                    width: "100px",
                     height: "100px",
-                    objectFit: "cover", 
+                    objectFit: "cover",
                   }}
                 />
               </div>

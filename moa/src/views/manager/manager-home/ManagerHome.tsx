@@ -3,7 +3,6 @@ import * as s from "./style";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
 import ReactModal from "react-modal";
 import userImg from "../../../images/userImg.png";
 import {
@@ -27,7 +26,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
     "일반회원"
   );
   const [selectedUser, setSelectedUser] =
-    useState<GetUserListResponseDto | null>(null); // 선택된 유저 상태 추가
+    useState<GetUserListResponseDto | null>(null);
 
   useEffect(() => {
     fetchUserList();

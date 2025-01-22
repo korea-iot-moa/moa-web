@@ -17,7 +17,7 @@ import BlackList from "./black-list/BlackList";
 import Chart from "./chart/Chart";
 import Vote from "./vote/Vote";
 import Report from "./report/Report";
-import Approved from "./approved/Approved";
+import Approved from "./approved/approved";
 import GroupUpdate from "./group-update/GroupUpdate";
 
 export default function Index() {
