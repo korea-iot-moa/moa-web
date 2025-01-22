@@ -68,7 +68,7 @@ function DeleteUserInfo() {
           <input
             className="passwordInput"
             type="password"
-            placeholder="비밀번호를 입력하세요."
+            placeholder="비밀번호를 입력해주주세요."
             name="password"
             value={passwordValue.password}
             onChange={handlePasswordChange}
