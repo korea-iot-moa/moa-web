@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { User } from "../../../types";
@@ -21,9 +21,7 @@ const GetUserInfo = () => {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [userProfileImg, setUserProfileImg] = useState<any>(null);
-
   const [isChanged, setIsChanged] = useState(false);
-
   const [initialNickName, setInitialNickName] = useState<string | null>(null);
 
   const [duplicatoinNickName, setDuplicationNickName] =
@@ -89,7 +87,7 @@ const GetUserInfo = () => {
         if (key === "profileImage" && !(value instanceof File)) {
           return;
         }
-        formData.append(key, value || ""); // 빈 값 처리
+        formData.append(key, value || ""); 
       });
 
       const response = await axios.put(PUT_USER_INFO_API, formData, {
@@ -220,7 +218,7 @@ const GetUserInfo = () => {
                     type="text"
                     name="userName"
                     value={userInfo.userName}
-                    placeholder={userInfo.userName}
+                    placeholder="한글,영문 이름 입력 "
                     onChange={handleChangeInfo}
                   />
                 </div>
@@ -276,7 +274,7 @@ const GetUserInfo = () => {
                       type="text"
                       name="nickName"
                       value={userInfo.nickName}
-                      placeholder={userInfo.nickName}
+                      placeholder={"1~10자 한글, 영어, 숫자 입력"}
                       onChange={handleChangeInfo}
                     />
                     <button
@@ -298,7 +296,7 @@ const GetUserInfo = () => {
                   type="text"
                   name="phoneNumber"
                   value={userInfo.phoneNumber}
-                  placeholder={userInfo.phoneNumber}
+                  placeholder={"(-)을 제외한 휴대폰번호 입력"}
                   onChange={handleChangeInfo}
                 />
               </li>
@@ -309,7 +307,7 @@ const GetUserInfo = () => {
                   type="text"
                   name="email"
                   value={userInfo.email}
-                  placeholder={userInfo.email}
+                  placeholder={"이메일 입력"}
                   onChange={handleChangeInfo}
                 />
               </li>

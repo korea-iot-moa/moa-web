@@ -9,7 +9,6 @@ function MyPageStart() {
   const navigator = useNavigate();
   const [cookies] = useCookies(["token"]);
   const [formData, setFormData] = useState({ password: "" });
-  const [result, setResult] = useState<boolean>();
   const [errorMg, setErrorMg] = useState<String>("");
   const [appearMg, setAppearMg] = useState<boolean>(false);
 
@@ -20,7 +19,7 @@ function MyPageStart() {
 
   const fetchData = async () => {
     if (!cookies.token) {
-      navigator("/main/signIn");
+      navigator("/signIn");
     }
     try {
       const response = await axios.post(
@@ -33,7 +32,6 @@ function MyPageStart() {
         }
       );
       const booleanResult = response.data.data;
-      setResult(booleanResult);
 
       if (booleanResult === true) {
         navigator(`/mypage/userInfo/user/${booleanResult}`);

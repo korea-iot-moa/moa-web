@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../types";
 import "./style.css";
 import { DELETE_USER_INFO_API } from "../../../apis";
 

@@ -1,4 +1,4 @@
-.withdrawal-page {
+.deletContainer {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
   margin-top: 100px;
 }
 
-.withdrawal-section {
+.deleteSection {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
@@ -15,7 +15,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.withdrawal-title {
+.deleteTitle {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -23,44 +23,44 @@
   text-align: center;
 }
 
-.warning-list {
+.deleteList {
   list-style-type: disc;
   padding-left: 20px;
   margin-bottom: 20px;
   color: #555;
 }
 
-.warning-list li {
+.deleteList > li {
   margin-bottom: 10px;
   font-size: 14px;
   line-height: 1.6;
 }
 
-.confirmation-text {
+.deleteConfirmText {
   font-size: 16px;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-.confirmation-form {
+.deleteConfirmationForm {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.confirmation-checkbox {
+.deleteConfirmationCheckbox {
   margin-right: 10px;
   width: 18px;
   height: 18px;
 }
 
-.confirmation-label {
+.deleteConfirmationLabel {
   font-size: 14px;
   color: #555;
 }
 
-.next-btn,
-.redirect-btn {
+.deleteNextBtn,
+.deleteRedirectBtn {
   background-color: #FF7B54;
   color: #fff;
   border: none;
@@ -76,12 +76,12 @@
   margin: 0 auto;
 }
 
-.next-btn:hover,
-.redirect-btn:hover {
+.deletnextBtn:hover,
+.deleteRedirectBtn:hover {
   background-color: #e6691e;
 }
 
-.error-section {
+.deleteErrorSection {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
@@ -91,7 +91,7 @@
   text-align: center;
 }
 
-.error-message {
+.deleteErrorMessage {
   color: #ff0000;
   font-size: 16px;
   margin-bottom: 20px;
