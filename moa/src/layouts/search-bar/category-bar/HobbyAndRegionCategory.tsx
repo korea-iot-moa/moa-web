@@ -16,7 +16,7 @@ const HobbyAndRegionCategory = () => {
     setGroupCategory(selectCategory);
   };
 
-  const handleResionFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleRegionFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selectCategory = e.currentTarget.value;
     setRegion(selectCategory);
   };
@@ -46,8 +46,8 @@ const HobbyAndRegionCategory = () => {
   return (
     <div css={s.mainContainer}>
       {category ? (
-        <div css={s.categorybox}>
-          <div css={s.cateogyTitle}>
+        <div css={s.categoryBox}>
+          <div css={s.categoryTitle}>
             <p>카테고리</p>
             <ul css={s.ulStyle}>
               {[
@@ -73,7 +73,7 @@ const HobbyAndRegionCategory = () => {
               ))}
             </ul>
           </div>
-          <div css={s.cateogyTitle}>
+          <div css={s.categoryTitle}>
             <p>지역</p>
             <ul css={s.ulStyle}>
               {[
@@ -99,7 +99,7 @@ const HobbyAndRegionCategory = () => {
                   <button
                     css={s.buttonStyle}
                     style={regionButtonStyle(region)}
-                    onClick={handleResionFilterClick}
+                    onClick={handleRegionFilterClick}
                     value={region}
                   >
                     {region}

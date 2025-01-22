@@ -82,7 +82,7 @@ export const mainContainer = css`
   box-sizing: border-box;
 `;
 
-export const categorybox = css`
+export const categoryBox = css`
   position: absolute;
   z-index: 2;
   background-color: #fff;
@@ -116,7 +116,7 @@ export const buttonStyle = css`
   margin: 5px;
   padding: 5px;
 `;
-export const cateogyTitle = css`
+export const categoryTitle = css`
   width: 300px;
   display: flex;
   flex-direction: column;
