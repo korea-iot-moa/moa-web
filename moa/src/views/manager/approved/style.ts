@@ -26,12 +26,12 @@ export const Tab = css`
   }
 `;
 
-export const BottonBox = css`
+export const ButtonBox = css`
   display: flex;
   flex-direction: row;
 `;
 
-export const Botton = css`
+export const Button = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;

@@ -104,7 +104,6 @@ export default function SignIn() {
   };
 
   const onSnsButtonClickHandler = (sns: "kakao" | "naver") => {
-    console.log(sns);
     window.location.href = `${SIGN_IN_SNS_API}${sns}`;
   };
 

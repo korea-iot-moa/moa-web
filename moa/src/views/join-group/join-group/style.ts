@@ -40,7 +40,7 @@ export const listBox = css`
   padding: 20px;
   margin: 0;
 `;
-export const liststyle = css`
+export const listStyle = css`
   list-style: circle;
   font-size: 10px;
   li {

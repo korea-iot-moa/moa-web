@@ -32,7 +32,7 @@ const HobbyAndRegionCategory = () => {
     color: region === button ? "white" : "black",
   });
 
-  const handlefetchCategoryBtn = async (
+  const handleFetchCategoryBtn = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     if (!groupCategory || !region) {
@@ -112,7 +112,7 @@ const HobbyAndRegionCategory = () => {
             <div css={s.buttonDiv}>
               <button
                 css={s.categorySearchBtn}
-                onClick={handlefetchCategoryBtn}
+                onClick={handleFetchCategoryBtn}
               >
                 검색
               </button>

@@ -85,9 +85,6 @@ const JoinGroupAnswer = () => {
   };
 
   useEffect(() => {
-    if (!groupData) {
-      console.log("로컬 스토리지에서 상태를 복원 중...");
-    }
     groupFetchData();
   }, [groupData]);
 

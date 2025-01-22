@@ -5,9 +5,7 @@ import logoImg from "../../../images/moaLogo.png";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useLocation } from "react-router-dom";
-import { truncate } from "fs/promises";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import { RESET_PASSWORD_PUT_API } from "../../../apis";
 
 type ResetPassword = {

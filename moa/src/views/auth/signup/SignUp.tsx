@@ -248,7 +248,6 @@ export default function SignUp() {
       setClearModal(true);
       setModalMessage("정보입력 or 중복검사를 진행해주세요!!");
     }
-    console.log(signUpData);
   };
 
   const handlePreviousPage = () => setPage((prev) => prev - 1);
@@ -275,7 +274,7 @@ export default function SignUp() {
         setDuplicateId(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -303,7 +302,7 @@ export default function SignUp() {
         setDuplicateNickName(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -333,13 +332,11 @@ export default function SignUp() {
 
     if (valid) {
       try {
-        console.log(signUpData);
         const response = await axios.post(SIGN_UP_POST_API, signUpForm, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(response.data.data);
         setClearModal(true);
         setModalMessage("회원가입이 완료되었습니다!");
         setSignUpClear(true);

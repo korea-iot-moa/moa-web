@@ -12,8 +12,7 @@ function FindUserIdResult() {
   const [result, setResult] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // 불일치여부 확인
-  const [isdata, setIsData] = useState<boolean>(false);
+  const [isData, setIsData] = useState<boolean>(false);
 
   const params = new URLSearchParams(location.search);
   const token = params.get("token");
@@ -53,7 +52,7 @@ function FindUserIdResult() {
       <div css={s.findUserIdResultBox}>
         {loading ? (
           <p>로딩중....</p>
-        ) : isdata ? (
+        ) : isData ? (
           <>
             <ul css={s.findUserIdResultUl}>
               <li>{result?.userName} 님의 아이디는</li>
