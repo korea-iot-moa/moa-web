@@ -28,7 +28,6 @@ export default function MyPageReview() {
         })
         .then((response) => {
           setReviewData(response.data.data);
-          console.log(reviewData);
         });
     } catch (error) {
       console.error(error);

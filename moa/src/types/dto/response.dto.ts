@@ -1,7 +1,6 @@
 
-//! === 모임 관리자 페이지 응답 객체 정리 === //
 
-import { Gender, GroupCategory, GroupType, MeetingGroup, MeetingType, ReportResult, ReportType, User, UserList } from "..";
+import { GroupCategory, GroupType, MeetingType, ReportResult, ReportType, UserList } from "..";
 
 export interface BlackListPageResponseDto {
   userId: string;
@@ -68,26 +67,26 @@ export interface PostUserLevelResponse {
 
 }
 
-export interface PutUserLevelReponseDto {
+export interface PutUserLevelResponseDto {
   userId: string;
   nickName : string 
   UserLevel : UserList
 }
 
 // 모임 등록 응답 객체 정리
-export interface PostGroupResonseDto{
+export interface PostGroupResponseDto{
   groupId: number;
-    creatorId: string;
-    groupTitle: string;
-    groupContent: string;
-    groupAddress: string;
-    groupImage: string;
-    groupSupplies: string;
-    groupDate: string;
-    groupQuestion: string;
-    groupCategory: GroupCategory;
-    groupType: GroupType;
-    meetingType: MeetingType;
+  creatorId: string;
+  groupTitle: string;
+  groupContent: string;
+  groupAddress: string;
+  groupImage: string;
+  groupSupplies: string;
+  groupDate: string;
+  groupQuestion: string;
+  groupCategory: GroupCategory;
+  groupType: GroupType;
+  meetingType: MeetingType;
 }
 
 // 모임 수정 응답 객체 정리

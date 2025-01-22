@@ -21,7 +21,7 @@ export const mainBox = css`
   align-items: flex-start;
 `;
 
-export const selectCategry = css`
+export const selectCategory = css`
   display: flex;
   flex-direction: row;
   list-style: none;

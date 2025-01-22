@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
 import * as s from "../resultStyle";
-import  usePaginationScrollSearchhook from "../../../components/pagination-scroll/usePaginationScrollSearchhook";
+import  usePaginationScrollSearchHook from "../../../components/pagination-scroll/usePaginationScrollSearchHook";
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/pagination-scroll/PaginationScroll";
 import { KEYWORD_LIST_API } from "../../../apis";
@@ -9,7 +9,7 @@ import { KEYWORD_LIST_API } from "../../../apis";
 function KeywordSearchGroupList() {
   const { keyword } = useParams<{ keyword: string }>();
   const searchKeyword = keyword || "";
-  const { data, loading, resetAndFetchData } = usePaginationScrollSearchhook({
+  const { data, loading, resetAndFetchData } = usePaginationScrollSearchHook({
     apiUrl: KEYWORD_LIST_API,
     limit: 10,
     extraParams: { keyword: searchKeyword },
@@ -17,7 +17,6 @@ function KeywordSearchGroupList() {
 
   const [btnStatus, setBtnStatus] = useState<string>("default");
 
-  // 모임필터 핸들러
   const handleSortChange = (sortBy: string) => {
     setBtnStatus(sortBy);
     resetAndFetchData(sortBy);

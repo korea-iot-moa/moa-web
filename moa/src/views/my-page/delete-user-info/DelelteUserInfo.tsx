@@ -4,10 +4,9 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../types";
 import "./style.css";
-import { DELTE_USER_INFO_API } from "../../../apis";
+import { DELETE_USER_INFO_API } from "../../../apis";
 
 function DeleteUserInfo() {
-  const [userInfo, setUserInfo] = useState<User | null>(null);
   const [passwordValue, setPasswordValue] = useState({ password: "" });
   const [cookies] = useCookies(["token", "password", "isChecked"]);
   const navigator = useNavigate();
@@ -36,7 +35,7 @@ function DeleteUserInfo() {
         const comfirmed = window.confirm("탈퇴 하시겠습니까?");
         if (!comfirmed) return;
 
-        const response = await axios.delete(DELTE_USER_INFO_API, {
+        const response = await axios.delete(DELETE_USER_INFO_API, {
           data: { password: passwordValue.password },
           headers: {
             Authorization: `Bearer ${cookies.token}`,

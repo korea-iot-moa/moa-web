@@ -36,7 +36,6 @@ const NaverMapComponent: React.FC<Address> = ({ address }) => {
       { query: `${address}` },
       function(status, response) {
         if (status !== window.naver.maps.Service.Status.OK) {
-          console.log(status);
           setAddressMessage("주소 변환 실패");
           return;
         }

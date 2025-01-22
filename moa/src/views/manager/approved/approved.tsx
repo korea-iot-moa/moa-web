@@ -137,15 +137,15 @@ const Approved: React.FC<ApprovedProps> = ({ parseToNumGroupId }) => {
                 : data.isApproved === 1
                 ? "승인"
                 : "대기중"}
-              <div css={s.BottonBox}>
+              <div css={s.ButtonBox}>
                 <button
-                  css={s.Botton}
+                  css={s.Button}
                   onClick={() => handleApproveUser(data.userId)}
                 >
                   승인
                 </button>
                 <button
-                  css={s.Botton}
+                  css={s.Button}
                   onClick={() => handlePutApproveUser(data.userId)}
                 >
                   거절

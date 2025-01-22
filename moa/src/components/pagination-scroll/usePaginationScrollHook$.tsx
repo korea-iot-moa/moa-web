@@ -4,8 +4,8 @@ import { MeetingGroup } from '../../types';
 import axios from 'axios';
 
 interface PaginationScrollProps<T> {
-  apiUrl: string; // 기본 API URL
-  limit: number; // 한 페이지의 데이터 수
+  apiUrl: string; 
+  limit: number; 
   extraParams?: Record<string, string>;
 }
 
@@ -31,24 +31,27 @@ function usePaginationScroll<T> ({
 
         const sortedData = [...newData].sort((a, b) => {
           if (sortBy === "recent") {
-            // 최신순
+
             const dateA = new Date(a.groupDate).getTime();
             const dateB = new Date(b.groupDate).getTime();
             return dateB - dateA;
+
           } else if (sortBy === "recommendation") {
-            // 추천순
+
             return b.recommendationCount - a.recommendationCount;
+
           }else if (sortBy === "past"){
+
             const dateA = new Date(a.groupDate).getTime();
             const dateB = new Date(b.groupDate).getTime();
             return dateA - dateB;
+
           } else {
-            // 기본순(groupId순)
+
             return a.groupId - b.groupId
           }
         });
 
-        // 중복출력 방지
         setData((prev) => {
           const combinedData = [...prev, ...sortedData];
           const uniqueData = combinedData.filter(
@@ -64,13 +67,11 @@ function usePaginationScroll<T> ({
     }
   };
 
-  // 페이지 스크롤을 통해 새로운 데이터 로드/정격 기준 변경
   useEffect(() => {
     setData([]);
     fetchData(currentPage);
   }, [currentPage, sortBy]);
   
-  // 정렬기준 변경시 페이지 번호를 1로 초기화
   useEffect(() => {
       setData([]);
       setCurrentPage(1);
@@ -88,7 +89,6 @@ function usePaginationScroll<T> ({
     }
   };  
 
-  // 스크롤 이벤트를 감지
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
