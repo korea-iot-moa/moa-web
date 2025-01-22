@@ -3,13 +3,13 @@ import * as s from "./style";
 import React, { useState } from "react";
 import PaginationScroll from "../../components/pagination-scroll/PaginationScroll";
 import { GROUP_TYPE_API } from "../../apis";
-import usePaginationScrolShortRegularlhook from "../../components/pagination-scroll/usePaginationScrolShortRegularlhook";
+import usePaginationScroll from "../../components/pagination-scroll/usePaginationScrollhook";
 
 function RegularGroup() {
-  const { data, loading, resetAndFetchData } = usePaginationScrolShortRegularlhook({
+  const { data, loading, resetAndFetchData } = usePaginationScroll({
     apiUrl: GROUP_TYPE_API,
     limit: 10,
-    extraParams: { groupType: "정기모임" },
+    extraParams: { groupType: "단기모임" },
   });
 
   const [btnStatus, setBtnStatus] = useState<string>("default");
@@ -32,7 +32,7 @@ function RegularGroup() {
 
   return (
     <div css={s.container}>
-      <h3>정기모임</h3>
+      <h3>단기모임</h3>
       <div css={s.buttonDiv}>
         {buttons.map((button, index) => (
           <div key={index}>

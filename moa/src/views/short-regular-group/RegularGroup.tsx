@@ -6,11 +6,12 @@ import { GROUP_TYPE_API } from "../../apis";
 import usePaginationScrolShortRegularlhook from "../../components/pagination-scroll/usePaginationScrolShortRegularlhook";
 
 function RegularGroup() {
-  const { data, loading, resetAndFetchData } = usePaginationScrolShortRegularlhook({
-    apiUrl: GROUP_TYPE_API,
-    limit: 10,
-    extraParams: { groupType: "정기모임" },
-  });
+  const { data, loading, resetAndFetchData } =
+    usePaginationScrolShortRegularlhook({
+      apiUrl: GROUP_TYPE_API,
+      limit: 10,
+      extraParams: { groupType: "정기모임" },
+    });
 
   const [btnStatus, setBtnStatus] = useState<string>("default");
 

@@ -9,7 +9,7 @@ export default function index() {
     <div>
       <Routes>
         <Route path="/" element={<MyPageStart />} />
-        <Route path="/user/:result" element={<GetUserInfo />} />
+        <Route path="/user/:booleanData" element={<GetUserInfo />} />
         <Route
           path="/MembershipWithdrawal"
           element={<DelelteUserInfoStart />}

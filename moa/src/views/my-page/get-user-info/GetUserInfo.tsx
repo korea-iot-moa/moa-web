@@ -6,10 +6,10 @@ import { User } from "../../../types";
 import userImg from "../../../images/userImg.png";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import {
-  POST_USER_INFO_API,
   GET_USER_INFO_IMG_API,
   PUT_USER_INFO_API,
   GET_DUPLICATION_NICK_NAME_API,
+  GET_USER_INFO_API,
 } from "../../../apis";
 import { IoCall } from "react-icons/io5";
 import "./style.css";
@@ -18,7 +18,6 @@ import userAuthStore from "../../../stores/auth.store";
 const GetUserInfo = () => {
   const navigate = useNavigate();
   const [cookies] = useCookies(["token"]);
-  const { result } = useParams();
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [userProfileImg, setUserProfileImg] = useState<any>(null);
@@ -43,12 +42,8 @@ const GetUserInfo = () => {
       return;
     }
     setLoading(true);
-
-    if (result !== "true") {
-      navigate("/mypage/userInfo");
-    }
     try {
-      const response = await axios.get(POST_USER_INFO_API, {
+      const response = await axios.get(GET_USER_INFO_API, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -94,7 +89,7 @@ const GetUserInfo = () => {
         if (key === "profileImage" && !(value instanceof File)) {
           return;
         }
-        formData.append(key, value || "");
+        formData.append(key, value || ""); // 빈 값 처리
       });
 
       const response = await axios.put(PUT_USER_INFO_API, formData, {
@@ -113,7 +108,7 @@ const GetUserInfo = () => {
       }
     } catch (error) {
       console.error("정보 수정 중 오류 발생:", error);
-      alert("정보 수정 실패. 정보를를 확인해주세요.");
+      alert("정보 수정에 실패했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -225,7 +220,7 @@ const GetUserInfo = () => {
                     type="text"
                     name="userName"
                     value={userInfo.userName}
-                    placeholder="한글 또는 영문 이름 입력"
+                    placeholder={userInfo.userName}
                     onChange={handleChangeInfo}
                   />
                 </div>
@@ -281,7 +276,7 @@ const GetUserInfo = () => {
                       type="text"
                       name="nickName"
                       value={userInfo.nickName}
-                      placeholder="1~10자 한글, 숫자, 특수문자포함"
+                      placeholder={userInfo.nickName}
                       onChange={handleChangeInfo}
                     />
                     <button
@@ -303,7 +298,7 @@ const GetUserInfo = () => {
                   type="text"
                   name="phoneNumber"
                   value={userInfo.phoneNumber}
-                  placeholder="'-'을 제외한 번호 입력"
+                  placeholder={userInfo.phoneNumber}
                   onChange={handleChangeInfo}
                 />
               </li>
@@ -314,7 +309,7 @@ const GetUserInfo = () => {
                   type="text"
                   name="email"
                   value={userInfo.email}
-                  placeholder="이메일 입력"
+                  placeholder={userInfo.email}
                   onChange={handleChangeInfo}
                 />
               </li>

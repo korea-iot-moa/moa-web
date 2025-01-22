@@ -19,7 +19,7 @@ export const GROUP_NAV_IMG = `http://localhost:8081/image/`;
 export const INFORMATION_IMG = `http://localhost:8081/image/`;
 
 //CategorySearchList
-export const CATEGORY_GET_API = `http://localhost:8081/api/v1/auth/meeting-group/groupCategory`;
+export const CATEGORY_GET_API = `http://localhost:8081/api/v1/auth/meeting-group/group-category`;
 
 //SearchBar
 export const SEARCHBAR_GET_API = `http://localhost:8081/api/v1/auth/meeting-group`;
@@ -38,7 +38,7 @@ export const Find_USERID_POST_API = `http://localhost:8081/api/v1/mails/user-id`
 export const Find_USERID_GET_API = `http://localhost:8081/api/v1/mails/verification/user-id`;
 
 //SignIn
-export const SIGN_IN_API = `http://localhost:8081/api/v1/auth/signIn`;
+export const SIGN_IN_API = `http://localhost:8081/api/v1/auth/signin`;
 export const SIGN_IN_SNS_API = `http://localhost:8081/api/v1/auth/sns-sign-in/`
 
 //SignUp
@@ -112,21 +112,21 @@ export const REPORT_API = `http://localhost:8081/api/v1/reports/`;
 export const  REPORT_IMG_API=`http://localhost:8081/image/`;
 
 //Vote
-export const VOTE_API_POST = `http://localhost:8080/api/v1/votes`;
-export const VOTE_API = `http://localhost:8080/api/v1/votes/`;
-export const VOTE_RESULT_GET_API = `http://localhost:8080/api/v1/vote-results/exist-answer/`;
-export const VOTE_RESULT_POST = `http://localhost:8080/api/v1/vote-results`;
-export const VOTE_RESULT_GET = `http://localhost:8080/api/v1/vote-results/`;
+export const VOTE_API_POST = `http://localhost:8081/api/v1/votes`;
+export const VOTE_API = `http://localhost:8081/api/v1/votes/`;
+export const VOTE_RESULT_GET_API = `http://localhost:8081/api/v1/vote-results/exist-answer/`;
+export const VOTE_RESULT_POST = `http://localhost:8081/api/v1/vote-results`;
+export const VOTE_RESULT_GET = `http://localhost:8081/api/v1/vote-results/`;
 
 //DeleteUserInfo
 export const DELTE_USER_INFO_API = `http://localhost:8081/api/v1/users/user`;
 
 //GetUserInfo
-export const POST_USER_INFO_API = `http://localhost:8081/api/v1/users/user-id`;
+export const GET_USER_INFO_API = `http://localhost:8081/api/v1/users/user-id`;
 export const PUT_USER_INFO_API = `http://localhost:8081/api/v1/users/user-info`;
 export const GET_DUPLICATION_NICK_NAME_API = `http://localhost:8081/api/v1/users/duplication/`;
 export const GET_USER_INFO_IMG_API = `http://localhost:8081/image/`;
-export const POST_MY_PAGE = `http://localhost:8081/api/v1/users/isPassword`;
+export const POST_MY_PAGE = `http://localhost:8081/api/v1/users/password`;
 
 //MypageReview
 export const REVIEW_GET_API = `http://localhost:8081/api/v1/reviews/my-review`;
@@ -147,7 +147,7 @@ export const CREATE_REVIEW_GET_API = `http://localhost:8081/api/v1/reviews/auth`
 export const CREATE_REVIEW_IMG_API = `http://localhost:8081/image/`;
 
 //RegularGroup & ShortGroup
-export const GROUP_TYPE_API = `http://localhost:8081/api/v1/auth/meeting-group/groupType`;
+export const GROUP_TYPE_API = `http://localhost:8081/api/v1/auth/meeting-group/group-type`;
 
 // 참여 요청 내역 확인
 export const GROUP_PARTICIPATION_STATUS = 'http://localhost:8081/api/v1/user-answers/participation-status';
