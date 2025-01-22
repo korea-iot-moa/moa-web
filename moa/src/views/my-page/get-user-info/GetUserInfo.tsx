@@ -135,7 +135,7 @@ const GetUserInfo = () => {
         setDuplicationNickNameMs("✅ 닉네임을 사용할 수 있습니다.");
       }
     } catch (error) {
-      console.error("닉네임 중복 확인 중 오류 발생:", error);
+      console.error(error);
       setDuplicationNickNameMs("오류가 발생했습니다. 다시 시도해주세요.");
     }
   };

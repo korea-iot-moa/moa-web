@@ -45,7 +45,7 @@ export default function SearchBar() {
           setResults(uniqueDatSlice);
         }
       } catch (error) {
-        console.error("로딩중 에러 발생");
+        console.error(error);
       }
     } else {
       setResults([]);

@@ -67,7 +67,7 @@ function HomeGroup() {
         );
         setLikedGroups(likedGroupIDs);
       } catch (error) {
-        console.error("찜 상태 가져오기 오류: ", error);
+        console.error(error);
       }
     }
     fetchLikes();

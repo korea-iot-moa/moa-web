@@ -42,7 +42,7 @@ const PaginationScroll = ({ datas }: PaginationScrollProps) => {
 
           setLikedGroups(likedGroupIDs);
         } catch (error) {
-          console.error("찜 상태를 가져오는 중 오류 발생: ", error);
+          console.error(error);
         }
       }
     }
