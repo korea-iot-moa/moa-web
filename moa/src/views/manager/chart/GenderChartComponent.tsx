@@ -13,9 +13,7 @@ interface GetGenderChartProps {
 const COLORS = ["#0088FE", "#c400007f"];
 
 const GenderChartComponent: React.FC<GetGenderChartProps> = ({ data }) => {
-  const onPieEnter: CategoricalChartFunc = (nextState, event) => {
-   
-  };
+  const onPieEnter: CategoricalChartFunc = (nextState, event) => {};
 
   return (
     <PieChart width={400} height={200} onMouseEnter={onPieEnter}>

@@ -60,6 +60,7 @@ export const DateContainer = css`
   display:flex; 
   justify-content:center;
 `;
+
 export const DateBox = css`
   width :30%;
   height: 40px;
@@ -86,16 +87,15 @@ export const TitleInput = css`
   resize: none;
   display: block;
   box-sizing: border-box; 
- padding-left: 15px;
-
+  padding-left: 15px;
  `;
 
 export const CreatorBox = css`
   display : flex;
   flex-direction : column;
   justify-content : center;
-
 `;
+
 export const CreatorBox_1 = css`
   display : flex;
   flex-direction : column;
@@ -104,6 +104,7 @@ export const CreatorBox_1 = css`
     margin : 25px;
   }
 `;
+
 export const BottomButtonContainer = css`
  display: flex;
  margin-left: 25px;

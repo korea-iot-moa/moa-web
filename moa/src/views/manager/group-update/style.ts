@@ -1,24 +1,28 @@
 import { css } from "@emotion/react";
-export const Container = css `
+
+export const Container = css`
 margin-top: 10px;
 `;
+
 export const AllBox = css`
-display: flex;
-justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 `;
+
 export const buttonBox = css`
   display: flex;
   flex-direction: row;
 `;
+
 export const TitleInput = css`
- width :70vh;
- height: 40px;
- font-size: 16px;
- font-weight: 500;
- padding-left: 15px;
- border-radius: 7px;
- text-align: left; 
-   resize: none;
+  width :70vh;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 15px;
+  border-radius: 7px;
+  text-align: left; 
+  resize: none;
   display: block;
   box-sizing: border-box; 
 
@@ -32,8 +36,8 @@ export const TitleInput = css`
   border-radius: 7px;
   padding-left: 15px;
   text-align: left; 
-   resize: none;
-   display: block;
+  resize: none;
+  display: block;
   box-sizing: border-box; 
  `;
 
@@ -47,6 +51,7 @@ export const DateContainer = css`
 display:flex; 
 justify-content:center;
 `;
+
 export const DateBox = css`
   width :30%;
   height: 40px;
@@ -103,7 +108,6 @@ export const labelBox = css`
   align-items: center;
   flex-direction:row;
   margin-bottom: 5px;
-
 `;
 
 export const genderBox = css`
