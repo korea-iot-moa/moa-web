@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Gender, Hobby, Region, User } from "../../../types";
 import logo from "../../../images/moaLo.png";
 import naverLogo from "../../../images/naverLogo.png";
-import kakoLogo from "../../../images/kakaoLogo.png";
+import kakaoLogo from "../../../images/kakaoLogo.png";
 import { LuImagePlus } from "react-icons/lu";
 import {
   Box,
@@ -333,6 +333,7 @@ export default function SignUp() {
 
     if (valid) {
       try {
+        console.log(signUpData);
         const response = await axios.post(SIGN_UP_POST_API, signUpForm, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -409,7 +410,7 @@ export default function SignUp() {
                   onClick={() => onSnsButtonClickHandler("kakao")}
                 >
                   <div css={s.anotherLogoBox}>
-                    <img src={kakoLogo} alt="카카오로고" className="kakao" />
+                    <img src={kakaoLogo} alt="카카오로고" className="kakao" />
                   </div>
                   <div>
                     <p>Kakao 계정으로 회원가입</p>

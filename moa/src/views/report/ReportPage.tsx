@@ -94,13 +94,15 @@ export default function ReportPage() {
 
     Object.entries(reportData).forEach(([key, value]) => {
       if (value !== null && value !== undefined) {
-        if (key === "reviewImage" && value instanceof File) {
+        if (key === "reportImage" && value instanceof File) {
           reportDataForm.append(key, value);
-        } else {
+        }  else {
           reportDataForm.append(key, String(value));
         }
       }
     });
+
+    
 
     try {
       const response = await axios.post(REPORT_POST_API, reportDataForm, {
