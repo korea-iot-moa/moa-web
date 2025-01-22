@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  width: 80%;
+  width: 85%;
   margin: 0px auto;
   margin-top: 50px;
   max-width: 700px;
@@ -9,6 +9,7 @@ export const container = css`
 `;
 
 export const mainBox = css`
+  width: 100%;
   margin: 0px;
   display: flex;
   flex-direction: column;
@@ -32,7 +33,7 @@ export const groupList = css`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 50px;
   list-style: none;
   padding: 0px;
   margin: 20px;

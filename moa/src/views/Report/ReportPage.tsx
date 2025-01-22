@@ -93,7 +93,7 @@ export default function ReportPage() {
   
   Object.entries(reportData).forEach(([key, value]) => {
     if (value !== null && value !== undefined) {
-      if (key === "reviewImage" && value instanceof File) {
+      if (key === "reportImage" && value instanceof File) {
         reportDataForm.append(key, value);
       } else {
         reportDataForm.append(key, String(value));

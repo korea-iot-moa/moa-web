@@ -9,7 +9,7 @@ interface PaginationScrollProps<T> {
   extraParams?: Record<string, string>;
 }
 
-function usePaginationScroll<T>({
+function usePaginationScrolShortRegularlhook<T>({
   apiUrl,
   limit,
   extraParams = {},
@@ -19,28 +19,27 @@ function usePaginationScroll<T>({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [sortBy, setSortBy] = useState<string>("default");
-  const [params, setParams] = useState(extraParams); // extraParams를 상태로 관리
 
-  const fetchData = async (page: number, updatedParams = params) => {
+  const fetchData = async (page: number) => {
     if (loading) return;
     setLoading(true);
     try {
       const response = await axios.get(apiUrl, {
-        params: { page, limit, sortBy, ...updatedParams },
+        params: { page, limit, sortBy, ...extraParams },
       });
       const newData = response.data.data;
 
       const sortedData = [...newData].sort((a, b) => {
         if (sortBy === "recent") {
-          return (
-            new Date(b.groupDate).getTime() - new Date(a.groupDate).getTime()
-          );
+          const dateA = new Date(a.groupDate).getTime();
+          const dateB = new Date(b.groupDate).getTime();
+          return dateB - dateA;
         } else if (sortBy === "recommendation") {
           return b.recommendationCount - a.recommendationCount;
         } else if (sortBy === "past") {
-          return (
-            new Date(a.groupDate).getTime() - new Date(b.groupDate).getTime()
-          );
+          const dateA = new Date(a.groupDate).getTime();
+          const dateB = new Date(b.groupDate).getTime();
+          return dateA - dateB;
         } else {
           return a.groupId - b.groupId;
         }
@@ -48,10 +47,11 @@ function usePaginationScroll<T>({
 
       setData((prev) => {
         const combinedData = [...prev, ...sortedData];
-        return combinedData.filter(
+        const uniqueData = combinedData.filter(
           (item, index, self) =>
             self.findIndex((i) => i.groupId === item.groupId) === index
         );
+        return uniqueData;
       });
 
       setTotalPages(response.data.totalPages || 1);
@@ -64,14 +64,14 @@ function usePaginationScroll<T>({
 
   useEffect(() => {
     setData([]);
-    fetchData(1);
-  }, [sortBy]);
+    fetchData(currentPage);
+  }, [currentPage, sortBy]);
 
   useEffect(() => {
     setData([]);
     setCurrentPage(1);
-    fetchData(1, params);
-  }, [params]);
+    fetchData(1);
+  }, [sortBy]);
 
   const handleScroll = () => {
     if (
@@ -89,11 +89,7 @@ function usePaginationScroll<T>({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, currentPage, totalPages]);
 
-  const updateParams = (newParams: Record<string, string>) => {
-    setParams((prev) => ({ ...prev, ...newParams }));
-  };
-
-  return { data, loading, resetAndFetchData: setSortBy, updateParams };
+  return { data, loading, resetAndFetchData: setSortBy, extraParams };
 }
 
-export default usePaginationScroll;
+export default usePaginationScrolShortRegularlhook;

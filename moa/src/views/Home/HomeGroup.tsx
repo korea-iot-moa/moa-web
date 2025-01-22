@@ -41,7 +41,6 @@ function HomeGroup() {
 
       const groupData = response.data.data;
       setDatas(groupData);
-      console.log(datas);
     } catch (error) {
       console.error("데이터 가져오기 오류: ", error);
       alert("데이터를 가져오는 중 문제가 발생했습니다.");
@@ -117,6 +116,13 @@ function HomeGroup() {
     { start: 6, end: 10 },
   ];
 
+  const cutText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <div>
       <div css={s.container}>
@@ -157,7 +163,7 @@ function HomeGroup() {
                       </div>
                       <div css={s.line}></div>
                       <div css={s.listDetail}>
-                        <p>{data.groupTitle}</p>
+                        <p>{cutText(data.groupTitle, 11)}</p>
                         <p>
                           <button
                             css={s.click}
@@ -173,7 +179,7 @@ function HomeGroup() {
                       </div>
                       <div css={s.listDetail}>
                         <p>{data.groupDate}</p>
-                        <p>{data.groupAddress}</p>
+                        <p>{cutText(data.groupAddress, 4)}</p>
                       </div>
                     </li>
                   ))}

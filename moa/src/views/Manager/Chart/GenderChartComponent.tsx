@@ -3,21 +3,20 @@ import { PieChart, Pie, Cell } from "recharts";
 import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 
 interface GetGenderChartProps {
-  data : {
-    userGender : string ; 
-    count : number; 
-    ratio : number;
-  }[]
+  data: {
+    userGender: string;
+    count: number;
+    ratio: number;
+  }[];
 }
 
 const COLORS = ["#0088FE", "#c400007f"];
 
-const GenderChartComponent: React.FC<GetGenderChartProps> = ({data}) => {
+const GenderChartComponent: React.FC<GetGenderChartProps> = ({ data }) => {
   const onPieEnter: CategoricalChartFunc = (nextState, event) => {
-    console.log("Next state:", nextState); 
-    console.log("Event:", event); 
-  };
   
+  };
+
   return (
     <PieChart width={400} height={200} onMouseEnter={onPieEnter}>
       <Pie

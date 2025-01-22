@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import * as s from "../resultStyle";
-import usePaginationScroll from "../../../components/paginationScroll/usePaginationScrollhook";
 import { useParams } from "react-router-dom";
 import PaginationScroll from "../../../components/paginationScroll/PaginationScroll";
 import { CATEGORY_GET_API } from "../../../apis";
+import usePaginationScrollSearchhook from "../../../components/paginationScroll/usePaginationScrollSearchhook";
 
 function CategorySearchList() {
   const { groupCategory, region } = useParams<{
@@ -13,11 +13,12 @@ function CategorySearchList() {
   }>();
   const groupCategoryWord = groupCategory || "";
   const regionWord = region || "";
-  const { data, loading, resetAndFetchData, updateParams } = usePaginationScroll({
-    apiUrl: CATEGORY_GET_API,
-    limit: 10,
-    extraParams: { groupCategory: groupCategoryWord, region: regionWord },
-  });
+  const { data, loading, resetAndFetchData, updateParams } =
+    usePaginationScrollSearchhook({
+      apiUrl: CATEGORY_GET_API,
+      limit: 10,
+      extraParams: { groupCategory: groupCategoryWord, region: regionWord },
+    });
 
   const [btnStatus, setBtnStatus] = useState<string>("default");
 
@@ -26,7 +27,7 @@ function CategorySearchList() {
     resetAndFetchData(sortBy);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     updateParams({ groupCategory: groupCategoryWord, region: regionWord });
   }, [groupCategoryWord, regionWord]);
 

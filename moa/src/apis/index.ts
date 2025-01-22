@@ -38,7 +38,7 @@ export const Find_USERID_POST_API = `http://localhost:8081/api/v1/mails/user-id`
 export const Find_USERID_GET_API = `http://localhost:8081/api/v1/mails/verification/user-id`;
 
 //SignIn
-export const SIGN_IN_API = `http://localhost:8081/api/v1/auth/signin`;
+export const SIGN_IN_API = `http://localhost:8081/api/v1/auth/signIn`;
 export const SIGN_IN_SNS_API = `http://localhost:8081/api/v1/auth/sns-sign-in/`
 
 //SignUp
@@ -146,7 +146,7 @@ export const CREATE_REVIEW_GET_API = `http://localhost:8081/api/v1/reviews/auth`
 export const CREATE_REVIEW_IMG_API = `http://localhost:8081/image/`;
 
 //RegularGroup & ShortGroup
-export const GROUP_TYPE_API = `http://localhost:8081/api/v1/auth/meeting-group/group-type`;
+export const GROUP_TYPE_API = `http://localhost:8081/api/v1/auth/meeting-group/groupType`;
 
 // 참여 요청 내역 확인
 export const GROUP_PARTICIPATION_STATUS = 'http://localhost:8081/api/v1/user-answers/participation-status';

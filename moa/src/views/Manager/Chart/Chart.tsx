@@ -13,10 +13,10 @@ import QuarterChartComponent from "./QuarterChartComponent";
 import { GENDER_CHART_GET_API, USER_CHART_API } from "../../../apis";
 
 interface ChartProps {
-  parseToNumGroupId : number;
+  parseToNumGroupId: number;
 }
 
-const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
+const Chart: React.FC<ChartProps> = ({ parseToNumGroupId }) => {
   const [genderChart, setGenderChart] = useState<GetGenderChartResponseDto[]>(
     []
   );
@@ -45,7 +45,6 @@ const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
         );
         const responseData = response.data.data;
         setGenderChart(responseData);
-        console.log(responseData);
       } catch (error) {
         console.error(error);
       }
@@ -66,12 +65,12 @@ const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
         );
         const responseData = response.data.data;
         setQuarterChart(responseData);
-        console.log(responseData);
       } catch (error) {
         console.error(error);
       }
     }
   };
+
   return (
     <div css={AllBox}>
       <div css={GenderChartBox}>
@@ -82,12 +81,11 @@ const Chart :React.FC<ChartProps> = ({parseToNumGroupId})  => {
           <div>여성 : 🍎 </div>
         </div>
       </div>
-
       <div css={QuarterBox}>
         <h1 css={QuartChartName}>분기별 유입율 </h1>
         <QuarterChartComponent data={quarterChart} />
       </div>
     </div>
   );
-}
+};
 export default Chart;

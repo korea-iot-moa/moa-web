@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import PaginationScroll from "../../components/paginationScroll/PaginationScroll";
-import usePaginationScroll from "../../components/paginationScroll/usePaginationScrollhook";
-import { useState } from "react";
+import React, { useState } from "react";
+import PaginationScroll from '../../components/paginationScroll/PaginationScroll';
 import { GROUP_TYPE_API } from "../../apis";
+import usePaginationScrolShortRegularlhook from "../../components/paginationScroll/usePaginationScrolShortRegularlhook";
 
 function ShortGroup() {
-  const { data, loading, resetAndFetchData } = usePaginationScroll({
+  const { data, loading, resetAndFetchData } = usePaginationScrolShortRegularlhook({
     apiUrl: GROUP_TYPE_API,
     limit: 10,
     extraParams: { groupType: "단기모임" },
