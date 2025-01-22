@@ -11,11 +11,13 @@ export const totalContainer = css`
 export const Container = css`
   margin-top: 10px;
 `;
+
 export const AllBox = css`
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 `;
+
 export const buttonBox = css`
   display: flex;
   flex-direction: row;
@@ -101,6 +103,7 @@ export const activeTab = css`
   font-size: 11px;
   cursor: pointer;
 `;
+
 export const rowFieldBox = css`
   box-sizing: border-box;
   display: flex;

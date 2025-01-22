@@ -5,16 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { CREATE_GROUP_API } from "../../../apis";
-import { LuImagePlus } from "react-icons/lu";
 import groupImage from "../../../images/group.jpg";
 
 export default function CreateGroup() {
   const navigate = useNavigate();
   const [cookies] = useCookies(["token", "userId"]);
-
-  const [groupImg, setGroupImg] = useState<any>(null); // 이미지 상태 관리
-  const [previewUrl, setPreviewUrl] = useState<any>(null); // 이미지 미리보기 URL
-  const [page, setPage] = useState(0); // 페이지 상태
+  const [groupImg, setGroupImg] = useState<any>(null);
+  const [previewUrl, setPreviewUrl] = useState<any>(null);
+  const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     groupType: "",
     groupCategory: "",
@@ -26,9 +24,8 @@ export default function CreateGroup() {
     groupSupplies: "",
     groupQuestion: "",
   });
-  const [errors, setErrors] = useState<{ [key: string]: string }>({}); // 에러 메시지 상태
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  // 유효성 검사 및 상태 업데이트
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -40,7 +37,6 @@ export default function CreateGroup() {
     }));
   };
 
-  // 이미지 파일 변경 처리
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -54,19 +50,16 @@ export default function CreateGroup() {
     }
   };
 
-  // 이미지 미리보기 URL 생성 및 메모리 관리
   useEffect(() => {
     if (groupImg) {
       const objectUrl = URL.createObjectURL(groupImg);
       setPreviewUrl(objectUrl);
 
-      // 메모리 해제
       return () => URL.revokeObjectURL(objectUrl);
     }
     setPreviewUrl(null);
   }, [groupImg]);
 
-  // 다음 페이지로 이동
   const handleNextPage = () => {
     if (!formData.groupType) {
       alert("모임 유형을 선택해주세요.");
@@ -88,10 +81,8 @@ export default function CreateGroup() {
     setPage((prev) => prev + 1);
   };
 
-  // 이전 페이지로 이동
   const handlePrevPage = () => setPage((prev) => prev - 1);
 
-  // 모임 등록
   const handlePostGroup = async () => {
     const postGroupRequestDto = new FormData();
     Object.keys(formData).forEach((key) => {
@@ -101,7 +92,6 @@ export default function CreateGroup() {
     if (groupImg) {
       postGroupRequestDto.append("groupImage", groupImg);
     }
-
     try {
       const response = await axios.post(CREATE_GROUP_API, postGroupRequestDto, {
         headers: {
@@ -109,7 +99,6 @@ export default function CreateGroup() {
           "Content-Type": "multipart/form-data",
         },
       });
-
       if (response.status === 200) {
         alert("모임이 성공적으로 등록되었습니다!");
         navigate("/main");
@@ -143,7 +132,6 @@ export default function CreateGroup() {
             </div>
           </div>
 
-          {/* 모임 카테고리 */}
           <div css={s.Container}>
             <h4>모임 카테고리</h4>
             <div css={s.AllBox}>
@@ -170,7 +158,6 @@ export default function CreateGroup() {
             </div>
           </div>
 
-          {/* 모임 날짜 */}
           <div css={s.Container}>
             <h4>모임 날짜</h4>
             <input
@@ -181,7 +168,6 @@ export default function CreateGroup() {
             />
           </div>
 
-          {/* 모임 장소 */}
           <div css={s.Container}>
             <h4>모임 장소</h4>
             <div css={s.AllBox}>
@@ -200,7 +186,6 @@ export default function CreateGroup() {
             </div>
           </div>
 
-          {/* 모임 주소 */}
           <div css={s.Container}>
             <h4>모임 주소</h4>
             <input
@@ -213,7 +198,6 @@ export default function CreateGroup() {
             />
           </div>
 
-          {/* 페이지 이동 버튼 */}
           <div css={s.BottomButtonContainer}>
             <button css={s.MoveButton} onClick={handlePrevPage}>
               이전
@@ -238,7 +222,7 @@ export default function CreateGroup() {
             />
           </div>
           <div css={s.Container}>
-            <h4 >내용</h4>
+            <h4>내용</h4>
             <textarea
               css={s.ContentBox}
               placeholder="모임에 대한 소개말"
@@ -272,7 +256,7 @@ export default function CreateGroup() {
               }
             />
           </div>
-          {/* 이미지 미리보기 */}
+
           <div css={s.Container}>
             <img
               src={previewUrl || groupImage}
@@ -284,7 +268,6 @@ export default function CreateGroup() {
             <input type="file" id="groupImg" onChange={handleFileChange} />
           </div>
 
-          {/* 완료 버튼 */}
           <div css={s.BottomButtonContainer}>
             <button css={s.MoveButton} onClick={handlePrevPage}>
               이전

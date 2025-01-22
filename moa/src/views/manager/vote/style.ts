@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const LayerBox = css `
+export const LayerBox = css`
   width: 100%;
   height: auto;
   border: 1px solid gray; 
@@ -12,16 +12,19 @@ export const LayerBox = css `
 	opacity: 1;
 	visibility: visible;
 `;
-export const ReportBox = css `
-display: flex;
-flex-direction: row;
-gap: 15px;
+
+export const ReportBox = css`
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 `;
-export const BottonBox = css `
- display: flex;
- justify-content:flex-start;
- `;
-export const Botton =css `
+
+export const BottonBox = css`
+  display: flex;
+  justify-content:flex-start;
+`;
+
+export const Botton =css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #fff;
   cursor: pointer;
@@ -42,8 +45,9 @@ export const Botton =css `
     outline: 3px solid #DAE2ED;
   }
 `;
-export const ContentBox = css `
- text-align: start;
+
+export const ContentBox = css`
+  text-align: start;
   width : 60%;
   height: 20px;
   text-align:center;
@@ -53,7 +57,8 @@ export const ContentBox = css `
    resize: none; 
   box-sizing: border-box; 
 `;
-export const DateBox = css `
+
+export const DateBox = css`
   width : 60%;
   height: 20px;
   text-align:center;

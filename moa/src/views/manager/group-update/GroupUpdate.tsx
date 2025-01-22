@@ -3,13 +3,8 @@ import * as s from "./style";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { AllBox, DateBox, Tab } from "../../group-detail/create-group/style";
-import { buttonBox } from "./style";
-import { GroupType } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import groupImage from "../../../images/group.jpg";
-import { group } from "console";
-import { LuImagePlus } from "react-icons/lu";
 import { GROUP_UPDATE_API, MANGE_HOME_IMG_API } from "../../../apis";
 
 interface GroupUpdateProps {
@@ -38,7 +33,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
     fetchGroupData();
   }, [parseToNumGroupId, cookies.token]);
 
-  //메모리 해제
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -66,7 +60,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
     }
   };
 
-  //모임 정보 가져오기기
   const fetchGroupData = async () => {
     const url = `${GROUP_UPDATE_API}${parseToNumGroupId}`;
 
@@ -103,7 +96,6 @@ const GroupUpdate: React.FC<GroupUpdateProps> = ({ parseToNumGroupId }) => {
         groupImg: data.groupImage || "",
       });
 
-      // 이미지 URL 설정
       if (data.groupImage) {
         const imageUrl = `${MANGE_HOME_IMG_API}${data.groupImage}`;
         setPreviewUrl(imageUrl);

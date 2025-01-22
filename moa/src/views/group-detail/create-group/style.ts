@@ -7,11 +7,11 @@ export const Container = css`
 
 export const AllBox = css`
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
+  justify-content: flex-start; 
+  align-items: center; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+  margin-bottom: 15px; 
 `;
 
 export const Tab = css`
@@ -108,6 +108,7 @@ export const CreatorBox_1 = css`
     margin: 25px;
   }
 `;
+
 export const BottomButtonContainer = css`
   display: flex;
   margin-left: 25px;

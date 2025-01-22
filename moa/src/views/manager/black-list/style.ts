@@ -9,7 +9,7 @@ export const fullBox = css`
   position: relative;
 `;
 
-export const Botton =css `
+export const Botton = css`
   font-family: "IBM Plex Sans", sans-serif;
   color: #000;
   cursor: pointer;
@@ -52,6 +52,7 @@ export const userImgBox = css`
     transform: scale(1.2);
   }
 `;
+
 export const userImg = css`
   width: 100%;
   transition: transform 0.3s ease;
