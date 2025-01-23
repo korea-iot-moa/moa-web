@@ -124,7 +124,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
             />
           </div>
           <p>
-            {user.nickName} 님의 등급:{" "}
+            {user.userId} 님의 등급:{" "}
             {typeof user.userLevel === "string"
               ? user.userLevel
               : "Unknown Level"}
@@ -148,7 +148,7 @@ const ManagerHome: React.FC<ManagerHomeProps> = ({ parseToNumGroupId }) => {
           overlayClassName="modalOverlay"
           css={s.modalContent}
         >
-          <h2>등급 수정: {selectedUser.nickName}</h2>
+          <h2>등급 수정: {selectedUser.userId}</h2>
           <label>
             <input
               type="radio"
