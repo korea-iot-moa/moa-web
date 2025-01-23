@@ -13,9 +13,12 @@ function JoinGroupStart() {
     navigate(`/group-join/join-group/${groupId}/group-user-answer`);
   };
 
+  const navigator = () => {
+    navigate("/main/signIn");
+  }
+
   return (
     <div>
-      <div>
         <h4 css={s.title}>모임 참여 신청</h4>
         {cookies.token && (
           <div css={s.container}>
@@ -30,9 +33,7 @@ function JoinGroupStart() {
                 </li>
                 <li>모임 취소 시 정해진 규정을 준수합니다.</li>
                 <li>개인정보를 허락 없이 공유하지 않습니다.</li>
-                <li>
-                  욕설, 음란성 표현, 정치·종교적 갈등을 조장하지 않습니다.
-                </li>
+                <li>욕설, 음란성 표현, 정치·종교적 갈등을 조장하지 않습니다.</li>
                 <li>모임 규칙과 운영 방침을 확인하고 준수합니다.</li>
                 <li>무단 불참이나 허위 신청으로 피해를 주지 않습니다.</li>
                 <li>
@@ -40,8 +41,7 @@ function JoinGroupStart() {
                   공유하지 않습니다.
                 </li>
                 <li>
-                  모임 진행에 방해되는 행동(과도한 음주, 소란 등)을 하지
-                  않습니다.
+                  모임 진행에 방해되는 행동(과도한 음주, 소란 등)을 하지 않습니다.
                 </li>
               </ul>
             </div>
@@ -53,7 +53,6 @@ function JoinGroupStart() {
           </div>
         )}
       </div>
-    </div>
   );
 }
 
