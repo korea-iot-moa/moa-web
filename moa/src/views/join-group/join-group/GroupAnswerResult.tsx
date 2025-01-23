@@ -12,9 +12,14 @@ function GroupAnswerResult() {
   const { groupId } = useParams();
   const [cookies] = useCookies(["token"]);
   const [groupData, setGroupData] = useState<MeetingGroup | null>(null);
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
+    if (!cookies.token) {
+      alert("로그인이 필요합니다.");
+      navigate("/signIn");
+      return;
+    }
     try {
       const responseGroup = await axios.get(`${FIND_GROUP_GET_API}${groupId}`, {
         headers: {
@@ -57,7 +62,7 @@ function GroupAnswerResult() {
       </div>
       <div css={s.line3}></div>
       <p css={s.p}>모임 참여 신청이 완료됐습니다.</p>
-      <button onClick={() => navigator(-3)} css={s.joinButton}>
+      <button onClick={() => navigate(-3)} css={s.joinButton}>
         확인완료
       </button>
     </div>
