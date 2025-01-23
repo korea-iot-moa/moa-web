@@ -29,7 +29,7 @@ const GetUserInfo = () => {
     useState<boolean>(false);
   const [duplicatoinNickNameMs, setDuplicationNickNameMs] =
     useState<string>("");
-
+  
   useEffect(() => {
     fetchUserInfo();
   }, [navigate]);
