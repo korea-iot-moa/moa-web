@@ -3,14 +3,15 @@ import * as s from "./style";
 import React, { useState } from "react";
 import PaginationScroll from "../../components/pagination-scroll/PaginationScroll";
 import { GROUP_TYPE_API } from "../../apis";
-import usePaginationScroll from "../../components/pagination-scroll/usePaginationScrollHook";
+import usePaginationScrolShortRegularlhook from "../../components/pagination-scroll/usePaginationScrollShortRegularHook";
 
 function RegularGroup() {
-  const { data, loading, resetAndFetchData } = usePaginationScroll({
-    apiUrl: GROUP_TYPE_API,
-    limit: 10,
-    extraParams: { groupType: "단기모임" },
-  });
+  const { data, loading, resetAndFetchData } =
+    usePaginationScrolShortRegularlhook({
+      apiUrl: GROUP_TYPE_API,
+      limit: 10,
+      extraParams: { groupType: "단기모임" },
+    });
 
   const [btnStatus, setBtnStatus] = useState<string>("default");
 

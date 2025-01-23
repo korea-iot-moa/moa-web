@@ -199,9 +199,6 @@ export default function CreateGroup() {
           </div>
 
           <div css={s.BottomButtonContainer}>
-            <button css={s.MoveButton} onClick={handlePrevPage}>
-              이전
-            </button>
             <button css={s.MoveButton} onClick={handleNextPage}>
               다음
             </button>

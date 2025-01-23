@@ -52,7 +52,7 @@ export const SIGN_UP_SNS_API = `http://localhost:8080/api/v1/auth/sns-sign-in/`;
 export const CREATE_GROUP_API = `http://localhost:8080/api/v1/meeting-group`;
 
 //GroupDetail
-export const GROUP_DETAIL_MEETING_API = `http://localhost:8080/api/v1/auth/meeting-group/`;
+export const GROUP_DETAIL_MEETING_API = `http://localhost:8088/api/v1/auth/meeting-group/`;
 export const GROUP_DETAIL_USER_LIST_API = `http://localhost:8080/api/v1/user-list/user-list-in/`;
 export const GROUP_DETAIL_IMG_API = `http://localhost:8080/image/`;
 export const GROUP_DETAIL_DUPLICATION_ANSWER = `http://localhost:8080/api/v1/user-answers/duplication/`

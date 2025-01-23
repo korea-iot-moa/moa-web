@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../types";
 import "./style.css";
 import { DELETE_USER_INFO_API } from "../../../apis";
 
@@ -53,7 +52,7 @@ function DeleteUserInfo() {
           alert("응답 데이터가 올바르지 않습니다.");
         }
       } catch (error) {
-        console.error("데이터 로딩중 오류 발생");
+        console.error(error);
         alert("탈퇴 실패했습니다. 다시 시도해주세요.");
       }
     }

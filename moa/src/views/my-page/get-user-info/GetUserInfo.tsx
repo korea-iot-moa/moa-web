@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { User } from "../../../types";
@@ -21,9 +21,7 @@ const GetUserInfo = () => {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [userProfileImg, setUserProfileImg] = useState<any>(null);
-
   const [isChanged, setIsChanged] = useState(false);
-
   const [initialNickName, setInitialNickName] = useState<string | null>(null);
 
   const [duplicatoinNickName, setDuplicationNickName] =
@@ -61,7 +59,7 @@ const GetUserInfo = () => {
         profileImage: updateUser.profileImage,
       });
     } catch (error) {
-      console.error("사용자 정보를 가져오는데 실패했습니다:", error);
+      console.error(error);
       navigate("/mypage/userInfo");
     } finally {
       setLoading(false);
@@ -89,7 +87,7 @@ const GetUserInfo = () => {
         if (key === "profileImage" && !(value instanceof File)) {
           return;
         }
-        formData.append(key, value || ""); // 빈 값 처리
+        formData.append(key, value || ""); 
       });
 
       const response = await axios.put(PUT_USER_INFO_API, formData, {
@@ -107,7 +105,7 @@ const GetUserInfo = () => {
         alert("수정완료 되었습니다.");
       }
     } catch (error) {
-      console.error("정보 수정 중 오류 발생:", error);
+      console.error(error);
       alert("정보 수정에 실패했습니다. 다시 시도해주세요.");
     }
   };
@@ -137,7 +135,7 @@ const GetUserInfo = () => {
         setDuplicationNickNameMs("✅ 닉네임을 사용할 수 있습니다.");
       }
     } catch (error) {
-      console.error("닉네임 중복 확인 중 오류 발생:", error);
+      console.error(error);
       setDuplicationNickNameMs("오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
@@ -220,7 +218,7 @@ const GetUserInfo = () => {
                     type="text"
                     name="userName"
                     value={userInfo.userName}
-                    placeholder={userInfo.userName}
+                    placeholder="한글,영문 이름 입력 "
                     onChange={handleChangeInfo}
                   />
                 </div>
@@ -276,7 +274,7 @@ const GetUserInfo = () => {
                       type="text"
                       name="nickName"
                       value={userInfo.nickName}
-                      placeholder={userInfo.nickName}
+                      placeholder={"1~10자 한글, 영어, 숫자 입력"}
                       onChange={handleChangeInfo}
                     />
                     <button
@@ -298,7 +296,7 @@ const GetUserInfo = () => {
                   type="text"
                   name="phoneNumber"
                   value={userInfo.phoneNumber}
-                  placeholder={userInfo.phoneNumber}
+                  placeholder={"(-)을 제외한 휴대폰번호 입력"}
                   onChange={handleChangeInfo}
                 />
               </li>
@@ -309,7 +307,7 @@ const GetUserInfo = () => {
                   type="text"
                   name="email"
                   value={userInfo.email}
-                  placeholder={userInfo.email}
+                  placeholder={"이메일 입력"}
                   onChange={handleChangeInfo}
                 />
               </li>

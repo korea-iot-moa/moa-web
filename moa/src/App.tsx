@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import RootLayout from "./layouts/root-layout/RootLayout";
 import RootContainer from "./layouts/root-container/RootContainer";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import * as p from "./constants";
 import Home from "./views/home/index";
 import GroupNaviBar from "./layouts/group-navi-bar/GroupNaviBar";
@@ -19,10 +13,6 @@ import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import userAuthStore from "./stores/auth.store";
 import GroupHeader from "./views/join-group/GroupHeader";
-import SearchResult from "./layouts/search-bar";
-import CategorySearchList from "./layouts/search-bar/category-bar/CategorySearchList";
-import ShortGroup from "./views/short-regular-group/ShortGroup";
-import RegularGroup from "./views/short-regular-group/RegularGroup";
 import Manager from "./views/manager";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ReportPage from "./views/report/ReportPage";
@@ -41,6 +31,7 @@ import GroupDetailPage from "./views/group-detail/group-detail-page/GroupDetailP
 import AuthRedirectHandler from "./views/auth/signup/AuthRedirectHandler";
 import SnsSuccess from "./views/auth/signin/SnsSuccess";
 import ParticipationStatusPage from "./views/my-page/participation-status-page/ParticipationStatusPage";
+import SearchBar from "./layouts/search-bar/index";
 
 function App() {
   const theme = createTheme({
@@ -91,9 +82,9 @@ function App() {
               <Routes>
                 <Route path={p.WEB_APP_MAIN} element={<Home />} />
                 <Route path={p.SIGN_UP_PAGE} element={<SignUp />} />
-                <Route path="/auth" element={<AuthRedirectHandler />} />
+                <Route path={p.AUTH_PAGE} element={<AuthRedirectHandler />} />
                 <Route path={p.SIGN_IN_PAGE} element={<SignIn />} />
-                <Route path="/sns-success" element={<SnsSuccess />} />
+                <Route path={p.SNS_SUCCESS_PAGE} element={<SnsSuccess />} />
                 <Route path={p.FIND_PASSWORD_PAGE} element={<FindPassword />} />
                 <Route path={p.FIND_USERID_PAGE} element={<FindUserId />} />
                 <Route
@@ -102,30 +93,10 @@ function App() {
                 />
                 <Route path={p.JOIN_GROUP_PAGE} element={<GroupHeader />} />
                 <Route path={p.REPORT_POST_PAGE} element={<ReportPage />} />
+                <Route path={p.SEARCH_PAGE} element={<SearchBar />} />
+                <Route path={p.CREATE_GROUP} element={<CreateGroup />} />
                 <Route
-                  path="/search/*"
-                  element={
-                    <Routes>
-                      <Route path="/" element={<SearchResult />} />
-                      <Route
-                        path="/categoryresult"
-                        element={<CategorySearchList />}
-                      />
-                      <Route
-                        path="/grouptype/shorttype"
-                        element={<ShortGroup />}
-                      />
-                      <Route
-                        path="/grouptype/regulartype"
-                        element={<RegularGroup />}
-                      />
-                    </Routes>
-                  }
-                />
-
-                <Route path="/main/create-group" element={<CreateGroup />} />
-                <Route
-                  path="/main/manager/user-list/:groupId"
+                  path={p.USER_LIST_PAGE}
                   element={
                     <ThemeProvider theme={theme}>
                       <Manager />
@@ -133,7 +104,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/review/*"
+                  path={p.REVIEW_PAGE}
                   element={
                     <Routes>
                       <Route path={p.REVIEW_MAIN} element={<ReviewMain />} />
@@ -148,7 +119,6 @@ function App() {
                           )
                         }
                       />
-
                       <Route
                         path={p.MY_PAGE_REVIEW}
                         element={
@@ -185,7 +155,6 @@ function App() {
                   }
                 />
                 <Route path={p.GROUP_DETAIL} element={<GroupDetailPage />} />
-
                 <Route
                   path={p.PARTICIPATION_STATUS_PAGE}
                   element={

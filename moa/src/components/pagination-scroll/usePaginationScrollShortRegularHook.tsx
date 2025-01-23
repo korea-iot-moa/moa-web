@@ -56,7 +56,7 @@ function usePaginationScrollShortRegularHook<T>({
 
       setTotalPages(response.data.totalPages || 1);
     } catch (error) {
-      console.error("데이터 요청 중 오류:", error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
