@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { User } from "../../../types";
@@ -17,6 +17,7 @@ import userAuthStore from "../../../stores/auth.store";
 
 const GetUserInfo = () => {
   const navigate = useNavigate();
+  const {booleanResult} = useParams(); 
   const [cookies] = useCookies(["token"]);
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,6 +38,10 @@ const GetUserInfo = () => {
     if (!cookies.token) {
       alert("로그인이 필요합니다.");
       navigate("/signIn");
+      return;
+    }
+    if (booleanResult !== "true") {
+      navigate("/mypage/userInfo");
       return;
     }
     setLoading(true);
